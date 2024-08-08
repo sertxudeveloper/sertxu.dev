@@ -2,21 +2,18 @@
 
 namespace App\Filament\Resources\ExperienceResource\Widgets;
 
-use App\Models\Experience;
+use App\Models\Education;
 use Filament\Tables;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\Summarizers\Count;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
-use Illuminate\Database\Query\Builder;
 
-class LatestExperiences extends BaseWidget
+class LatestEducation extends BaseWidget
 {
     public function table(Table $table): Table
     {
         return $table
-            ->query(Experience::query()->orderByDesc('id')->take(4))
+            ->query(Education::query()->orderByDesc('id')->take(4))
             ->columns([
                 TextColumn::make('title'),
             ])

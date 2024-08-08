@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\StudiesResource\Pages;
+namespace App\Filament\Resources\ProjectResource\Pages;
 
-use App\Filament\Resources\StudiesResource;
+use App\Filament\Resources\ProjectResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
 
-class ManageStudies extends ManageRecords
+class ManageProjects extends ManageRecords
 {
-    protected static string $resource = StudiesResource::class;
+    protected static string $resource = ProjectResource::class;
 
     protected function getHeaderActions(): array
     {

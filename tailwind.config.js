@@ -12,6 +12,11 @@ export default {
             colors: {
                 ocean: "#0035ff",
                 coral: "#ff3047",
+                dark: {
+                    100: '#242424',
+                    200: '#1e1e1e',
+                    300: '#171717',
+                },
             },
         }
     },
