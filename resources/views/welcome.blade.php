@@ -27,7 +27,7 @@
         @vite('resources/css/app.css')
     </head>
     <body class="font-sans antialiased bg-zinc-100 bg-fixed bg-[center_top_3rem] bg-repeat lg:bg-[length:auto_95%] bg-[length:auto_600px]" style="background-image: url('{{ asset('/doodles4.png') }}')">
-    <nav class="py-2.5 top-0 sticky bg-white shadow-sm lg:px-0 px-6">
+    <nav class="py-2.5 top-0 sticky bg-white shadow-sm xl:px-0 px-6">
         <div class="flex justify-between max-w-screen-lg mx-auto items-center">
             <div>
                 <img src="{{ asset('favicon.svg') }}" alt="Sertxu Dev" class="h-10">
@@ -42,10 +42,10 @@
         </div>
     </nav>
 
-    <section class="max-w-screen-lg mx-6 lg:mx-auto md:mt-32 mt-8 mb-24">
+    <section class="max-w-screen-lg px-6 mx-auto md:mt-32 mt-8 mb-24">
         <div class="md:grid md:grid-cols-4 space-y-6 bg-white p-12 rounded-2xl border border-gray-200 shadow-sm">
-            <div class="overflow-hidden rounded-2xl md:w-60 w-48 mx-auto">
-                <img src="https://gravatar.com/avatar/{{ md5('sergioperis2@gmail.com') }}?s=400&d=blank" alt="Sergio Peris">
+            <div class="overflow-hidden rounded-2xl md:w-60 w-48 md:h-60 h-48 mx-auto">
+                <img src="https://gravatar.com/avatar/{{ md5('sergioperis2@gmail.com') }}?s=240&d=blank" alt="Sergio Peris">
             </div>
 
             <div class="md:col-span-3 text-center flex flex-col justify-between space-y-6 h-full">
@@ -78,15 +78,19 @@
         </div>
     </section>
 
-    <section class="max-w-screen-lg mx-6 lg:mx-auto mb-24 bg-white rounded-2xl border border-gray-200 shadow-sm p-12">
-        <h2 class="text-4xl font-bold mb-8">About me</h2>
-        <p class="text-xl">My name is Sergio Peris, however I'm also known as Sertxu.
-        <p class="text-xl mt-4">I'm a full-stack developer based in Spain, I love building web apps and making people's life easier.</p>
-        <p class="text-xl mt-4">I have experience working with a variety of technologies, including Laravel, Node.js and C#. I'm also an open-source maintainer and content creator, and I love sharing my knowledge with others.</p>
-        <p class="text-xl mt-4">I'm always looking for new challenges to try and learn new technologies to grow as a developer.</p>
+    <section class="max-w-screen-lg px-6 mx-auto mb-24">
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-12">
+            <h2 class="text-2xl font-bold mb-8">About me</h2>
+            <div class="text-lg space-y-4">
+                <p>My name is Sergio Peris, however I'm also known as Sertxu.
+                <p>I'm a full-stack developer based in Spain, I love building web apps and making people's life easier.</p>
+                <p>I have experience working with a variety of technologies, including Laravel, Node.js and C#. I'm also an open-source maintainer and content creator, and I love sharing my knowledge with others.</p>
+                <p>I'm always looking for new challenges to try and learn new technologies to grow as a developer.</p>
+            </div>
+        </div>
     </section>
 
-    <main class="grid md:grid-cols-2 gap-12 max-w-screen-lg mx-6 lg:mx-auto">
+    <main class="grid md:grid-cols-2 gap-12 max-w-screen-lg px-6 mx-auto">
         <div class="space-y-24">
             <section class="bg-white rounded-2xl border border-gray-200 shadow-sm px-12 pt-12 pb-6">
                 <h2 class="text-2xl font-bold">Education</h2>
