@@ -83,8 +83,8 @@
             <h2 class="text-2xl font-bold mb-8">About me</h2>
             <div class="text-lg space-y-4">
                 <p>My name is Sergio Peris, however I'm also known as Sertxu.
-                <p>I'm a full-stack developer based in Spain, I love building web apps and making people's life easier.</p>
-                <p>I have experience working with a variety of technologies, including Laravel, Node.js and C#. I'm also an open-source maintainer and content creator, and I love sharing my knowledge with others.</p>
+                <p>I'm a full&#8209;stack developer based in Spain, I love building web apps and making people's life easier.</p>
+                <p>I have experience working with a variety of technologies, including Laravel, Node.js and C#. I'm also an open&#8209;source maintainer and content creator, and I love sharing my knowledge with others.</p>
                 <p>I'm always looking for new challenges to try and learn new technologies to grow as a developer.</p>
             </div>
         </div>
@@ -171,52 +171,18 @@
             <section class="bg-white rounded-2xl border border-gray-200 shadow-sm p-12 pb-6">
                 <h2 class="text-2xl font-bold">Experience</h2>
                 <ul class="divide-y *:py-6 *:space-y-2">
-                    <li>
-                        <div class="flex items-center justify-between">
-                            <p class="text-lg">Transpack Group</p>
-                            <p class="text-gray-600 text-sm">2022 - Present</p>
-                        </div>
-                        <div class="text-sm [&_ul]:list-inside [&_ul]:list-disc [&_ul]:ml-4">
-                            <p>I'm responsible of multiple tasks:</p>
-                            <ul>
-                                <li>Provide L1, L2 and L3 support for third party apps</li>
-                                <li>Make custom developments at Sage ERP</li>
-                                <li>Develop and maintain in-house web applications</li>
-                                <li>Buy, install and configure new hardware devices</li>
-                            </ul>
-                        </div>
-                        <p class="text-gray-600 text-sm">Xàtiva, Spain</p>
-                    </li>
-
-                    <li>
-                        <div class="flex items-center justify-between">
-                            <p class="text-lg">Unelink</p>
-                            <p class="text-gray-600 text-sm">2020 - 2021</p>
-                        </div>
-                        <div class="text-sm [&_ul]:list-inside [&_ul]:list-disc [&_ul]:ml-4">
-                            <p>I was responsible of multiple tasks:</p>
-                            <ul class="list-inside list-disc ml-4">
-                                <li>Provide L1 and L2 support for our products</li>
-                                <li>Write documentation about solved issues</li>
-                                <li>Develop and maintain in-house web applications</li>
-                                <li>Try new technologies to offer new products</li>
-                            </ul>
-                        </div>
-                        <p class="text-gray-600 text-sm">Valencia, Spain</p>
-                    </li>
-
-                    <li>
-                        <div class="flex items-center justify-between mb-2">
-                            <p class="text-lg">IMASD</p>
-                            <p class="text-gray-600 text-sm">2018 - 2018</p>
-                        </div>
-                        <p class="text-gray-800">I was an intern during the summer doing:</p>
-                        <ul class="list-inside list-disc ml-4 text-sm">
-                            <li>Write documentation about our products</li>
-                            <li>Develop new solutions based on client requirements</li>
-                        </ul>
-                        <p class="text-gray-600 text-sm mt-2">Ontinyent, Spain</p>
-                    </li>
+                    @foreach (App\Models\Experience::query()->orderByDesc('started_at')->take(3)->get() as $experience)
+                        <li>
+                            <div class="flex items-center justify-between">
+                                <p class="text-lg">{{ $experience->title }}</p>
+                                <p class="text-gray-600 text-sm">{{ $experience->started_at->format('Y') }} - {{ $experience->ended_at?->format('Y') ?? 'Present' }}</p>
+                            </div>
+                            <div class="text-sm [&_ul]:list-inside [&_ul]:list-disc [&_ul]:ml-4">
+                                {!! Str::of($experience->description)->markdown(); !!}
+                            </div>
+                            <p class="text-gray-600 text-sm">{{ $experience->location }}</p>
+                        </li>
+                    @endforeach
                 </ul>
             </section>
 
