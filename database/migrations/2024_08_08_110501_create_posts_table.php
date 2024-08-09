@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug', 50)->unique();
             $table->text('excerpt')->nullable();
             $table->mediumText('content');
-            $table->string('image')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->boolean('is_draft')->default(true);
             $table->dateTime('published_at')->nullable();
             $table->unsignedBigInteger('views')->default(0);

@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug', 50)->unique();
-            $table->text('description');
-            $table->string('repository')->nullable();
-            $table->string('thumbnail');
+            $table->text('excerpt');
+            $table->mediumText('content');
+            $table->string('website')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->boolean('is_draft')->default(true);
+            $table->dateTime('published_at')->nullable();
             $table->datetimes();
             $table->softDeletes();
         });

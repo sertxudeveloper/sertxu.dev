@@ -8,4 +8,11 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        hmr: {
+            protocol: 'wss',
+            host: '5173--main--sertxudev--sertxudev.coder.sertxu.dev',
+            clientPort: 443
+        }
+    }
 });

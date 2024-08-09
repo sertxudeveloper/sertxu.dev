@@ -2,22 +2,26 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProjectResource\Pages;
-use App\Filament\Resources\ProjectResource\RelationManagers;
-use App\Models\Project;
+use App\Filament\Resources\PostResource\Pages;
+use App\Filament\Resources\PostResource\RelationManagers;
+use App\Jobs\GeneratePostThumbnail;
+use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-class ProjectResource extends Resource
+class PostResource extends Resource
 {
-    protected static ?string $model = Project::class;
+    protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -38,20 +42,22 @@ class ProjectResource extends Resource
 
                 Forms\Components\TextInput::make('slug')
                     ->required()
-                    ->prefix('/projects/')
+                    ->prefix('/blog/')
                     ->readOnlyOn('edit'),
 
-                Forms\Components\TextInput::make('repository'),
+                Forms\Components\Toggle::make('is_draft')
+                    ->inline(false),
 
-                Forms\Components\MarkdownEditor::make('description')
-                    ->required()
-                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('excerpt')
+                    ->columnSpan('full')
+                    ->required(),
+
+                Forms\Components\MarkdownEditor::make('content')
+                    ->columnSpan('full')
+                    ->required(),
 
                 Forms\Components\FileUpload::make('thumbnail')
-                    ->required()
-                    ->openable()
-                    ->columnSpan('full')
-                    ->directory('projects'),
+                    ->columnSpan('full'),
             ]);
     }
 
@@ -62,11 +68,14 @@ class ProjectResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
 
+                Tables\Columns\TextColumn::make('views'),
+
                 Tables\Columns\ImageColumn::make('thumbnail')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('published_at')
                     ->date('j M Y')
+                    ->placeholder('Unpublished')
                     ->sortable(),
             ])
             ->filters([
@@ -84,13 +93,16 @@ class ProjectResource extends Resource
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
+                BulkAction::make('generateThumbnail')
+                    ->requiresConfirmation()
+                    ->action(fn (Collection $records) => $records->each(fn(Post $post) => GeneratePostThumbnail::dispatch($post))),
             ]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageProjects::route('/'),
+            'index' => Pages\ManagePosts::route('/'),
         ];
     }
 
