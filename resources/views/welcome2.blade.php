@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="max-w-screen-lg px-6 mx-auto md:mt-32 mt-8 mb-24">
-        <div class="md:grid md:grid-cols-4 space-y-6 bg-white p-12 rounded-2xl border border-gray-200 shadow-sm">
+        <div class="md:grid md:grid-cols-4 space-y-6 bg-white p-12 rounded-2xl border border-neutral-200 shadow-sm">
             <div class="overflow-hidden rounded-2xl md:w-60 w-48 md:h-60 h-48 mx-auto">
                 <img src="https://gravatar.com/avatar/{{ md5('sergioperis2@gmail.com') }}?s=240&d=blank" alt="Sergio Peris">
             </div>
@@ -38,7 +38,7 @@
     </section>
 
     <section class="max-w-screen-lg px-6 mx-auto mb-24">
-        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-12">
+        <div class="bg-white rounded-2xl border border-neutral-200 shadow-sm p-12">
             <h2 class="text-2xl font-bold mb-8">About me</h2>
             <div class="text-lg space-y-4">
                 <p>My name is Sergio Peris, however I'm also known as Sertxu.
@@ -51,48 +51,48 @@
 
     <main class="grid md:grid-cols-2 gap-12 max-w-screen-lg px-6 mx-auto">
         <div class="space-y-24">
-            <section class="bg-white rounded-2xl border border-gray-200 shadow-sm px-12 pt-12 pb-6">
+            <section class="bg-white rounded-2xl border border-neutral-200 shadow-sm px-12 pt-12 pb-6">
                 <h2 class="text-2xl font-bold">Education</h2>
                 <ul class="divide-y *:py-6 *:space-y-1">
                     @foreach($education as $el)
                         <li>
                             <div class="flex items-center justify-between">
                                 <p class="text-lg">{{ $el->title }}</p>
-                                <p class="text-gray-600 text-sm">{{ $el->started_at->format('Y') }} - {{ $el->ended_at?->format('Y') ?? 'Present' }}</p>
+                                <p class="text-neutral-600 text-sm">{{ $el->started_at->format('Y') }} - {{ $el->ended_at?->format('Y') ?? 'Present' }}</p>
                             </div>
-                            <div class="text-gray-800 [&_ul]:list-inside [&_ul]:list-disc [&_ul]:ml-4">
+                            <div class="text-neutral-800 [&_ul]:list-inside [&_ul]:list-disc [&_ul]:ml-4">
                                 {!! Str::of($el->description)->markdown(); !!}
                             </div>
-                            <p class="text-gray-600 text-sm">{{ $el->location }}</p>
+                            <p class="text-neutral-600 text-sm">{{ $el->location }}</p>
                         </li>
                     @endforeach
                 </ul>
             </section>
 
-            <section class="bg-white rounded-2xl border border-gray-200 shadow-sm px-12 pt-12 pb-0">
+            <section class="bg-white rounded-2xl border border-neutral-200 shadow-sm px-12 pt-12 pb-0">
                 <h2 class="text-2xl font-bold">Latest Articles</h2>
                 <ul class="divide-y *:py-6">
                     <li>
                         <a href="#" class="group focus-visible:outline-none">
-                            <p class="text-gray-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">How to build a blog with Laravel</p>
-                            <p class="text-gray-600 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet urna nec nunc ultricies ultricies.</p>
-                            <p class="text-gray-600 text-sm">Published at January 1, 2022</p>
+                            <p class="text-neutral-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">How to build a blog with Laravel</p>
+                            <p class="text-neutral-600 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet urna nec nunc ultricies ultricies.</p>
+                            <p class="text-neutral-600 text-sm">Published at January 1, 2022</p>
                         </a>
                     </li>
 
                     <li>
                         <a href="#" class="group focus-visible:outline-none">
-                            <p class="text-gray-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">How to build a blog with Laravel</p>
-                            <p class="text-gray-600 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet urna nec nunc ultricies ultricies.</p>
-                            <p class="text-gray-600 text-sm">Published at January 1, 2022</p>
+                            <p class="text-neutral-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">How to build a blog with Laravel</p>
+                            <p class="text-neutral-600 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet urna nec nunc ultricies ultricies.</p>
+                            <p class="text-neutral-600 text-sm">Published at January 1, 2022</p>
                         </a>
                     </li>
 
                     <li>
                         <a href="#" class="group focus-visible:outline-none">
-                            <p class="text-gray-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">How to build a blog with Laravel</p>
-                            <p class="text-gray-600 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet urna nec nunc ultricies ultricies.</p>
-                            <p class="text-gray-600 text-sm">Published at January 1, 2022</p>
+                            <p class="text-neutral-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">How to build a blog with Laravel</p>
+                            <p class="text-neutral-600 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet urna nec nunc ultricies ultricies.</p>
+                            <p class="text-neutral-600 text-sm">Published at January 1, 2022</p>
                         </a>
                     </li>
 
@@ -104,32 +104,32 @@
         </div>
 
         <div class="space-y-24">
-            <section class="bg-white rounded-2xl border border-gray-200 shadow-sm p-12 pb-6">
+            <section class="bg-white rounded-2xl border border-neutral-200 shadow-sm p-12 pb-6">
                 <h2 class="text-2xl font-bold">Experience</h2>
                 <ul class="divide-y *:py-6">
                     @foreach ($experiences as $experience)
                         <li>
                             <div class="flex items-center justify-between">
                                 <p class="text-lg">{{ $experience->title }}</p>
-                                <p class="text-gray-600 text-sm">{{ $experience->started_at->format('Y') }} - {{ $experience->ended_at?->format('Y') ?? 'Present' }}</p>
+                                <p class="text-neutral-600 text-sm">{{ $experience->started_at->format('Y') }} - {{ $experience->ended_at?->format('Y') ?? 'Present' }}</p>
                             </div>
                             <div class="text-sm [&_ul]:list-inside [&_ul]:list-disc [&_ul]:ml-4">
                                 {!! Str::of($experience->description)->markdown(); !!}
                             </div>
-                            <p class="text-gray-600 text-sm">{{ $experience->location }}</p>
+                            <p class="text-neutral-600 text-sm">{{ $experience->location }}</p>
                         </li>
                     @endforeach
                 </ul>
             </section>
 
-            <section class="bg-white rounded-2xl border border-gray-200 shadow-sm p-12 pb-0">
+            <section class="bg-white rounded-2xl border border-neutral-200 shadow-sm p-12 pb-0">
                 <h2 class="text-2xl font-bold">Latest Projects</h2>
                 <ul class="divide-y *:py-6">
                     @foreach($projects as $project)
                         <li>
                             <a href="{{ $project->website }}" class="group focus-visible:outline-none">
-                                <p class="text-gray-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">{{ $project->title }}</p>
-                                <p class="text-gray-600 mb-2">{{ $project->excerpt }}</p>
+                                <p class="text-neutral-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">{{ $project->title }}</p>
+                                <p class="text-neutral-600 mb-2">{{ $project->excerpt }}</p>
                             </a>
                         </li>
                     @endforeach

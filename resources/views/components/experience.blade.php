@@ -9,7 +9,7 @@
         {!! Str::of($experience->description)->markdown(); !!}
     </div>
     <div class="flex items-center mt-2 space-x-1">
-        <x-heroicon-o-map-pin class="w-4 h-4 inline-block text-gray-300" />
+        <x-heroicon-o-map-pin class="w-4 h-4 inline-block text-neutral-300" />
         <span class="text-neutral-400 text-sm">{{ $experience->location }}</span>
     </div>
 </li>
