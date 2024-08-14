@@ -70,13 +70,13 @@ class PostResource extends Resource
 
                 Tables\Columns\TextColumn::make('views'),
 
-                Tables\Columns\ImageColumn::make('thumbnail')
-                    ->searchable(),
-
                 Tables\Columns\TextColumn::make('published_at')
                     ->date('j M Y')
                     ->placeholder('Unpublished')
                     ->sortable(),
+
+                Tables\Columns\ImageColumn::make('thumbnail')
+                    ->searchable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

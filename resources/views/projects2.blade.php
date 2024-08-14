@@ -8,11 +8,11 @@
             <ul class="mx-auto max-w-screen-lg grid xl:grid-cols-2 grid-cols-1 gap-24">
                 @foreach($projects as $project)
                     <li class="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:-translate-y-4 hover:scale-105 hover:z-10 transition transform">
-                        <a class="block" href="{{ $project->repository }}">
+                        <a class="block" href="{{ $project->website }}">
                             <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($project->thumbnail) }}" alt="{{ $project->title }}" class="w-full h-64 object-cover block">
                             <div class="p-6">
                                 <h3 class="text-2xl font-medium mb-2">{{ $project->title }}</h3>
-                                <p class="text-gray-600">{{ $project->description }}</p>
+                                <p class="text-gray-600">{{ $project->excerpt }}</p>
                             </div>
                         </a>
                     </li>

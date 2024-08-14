@@ -10,10 +10,12 @@
         </div>
 
         <div class="space-x-6 hidden md:block text-gray-300">
-            <a href="/" @class([$defaultClass, $activeClass => request()->routeIs('home')])>About</a>
-            <a href="/articles" @class([$defaultClass, $activeClass => request()->routeIs('blog.*')])>Articles</a>
-            <a href="/projects" @class([$defaultClass, $activeClass => request()->routeIs('projects.*')])>Projects</a>
+            <a href="{{ route('home') }}" @class([$defaultClass, $activeClass => request()->routeIs('home')])>Home</a>
+            <a href="{{ route('blog.index') }}" @class([$defaultClass, $activeClass => request()->routeIs('blog.*')])>Blog</a>
+            <a href="{{ route('projects.index') }}" @class([$defaultClass, $activeClass => request()->routeIs('projects.*')])>Projects</a>
             <a href="/uses" @class([$defaultClass, $activeClass => request()->routeIs('uses')])>Uses</a>
+            <a href="{{ route('education.index') }}" @class([$defaultClass, $activeClass => request()->routeIs('education.*')])>Education</a>
+            <a href="{{ route('experience.index') }}" @class([$defaultClass, $activeClass => request()->routeIs('experience.*')])>Experience</a>
         </div>
     </div>
 </nav>

@@ -127,9 +127,9 @@
                 <ul class="divide-y *:py-6">
                     @foreach($projects as $project)
                         <li>
-                            <a href="{{ $project->repository }}" class="group focus-visible:outline-none">
+                            <a href="{{ $project->website }}" class="group focus-visible:outline-none">
                                 <p class="text-gray-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">{{ $project->title }}</p>
-                                <p class="text-gray-600 mb-2">{{ $project->description }}</p>
+                                <p class="text-gray-600 mb-2">{{ $project->excerpt }}</p>
                             </a>
                         </li>
                     @endforeach

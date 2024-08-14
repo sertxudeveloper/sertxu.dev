@@ -11,6 +11,7 @@ export default {
         extend: {
             colors: {
                 ocean: "#0035ff",
+                "ocean-dark": "#092ebc",
                 coral: "#ff3047",
                 dark: {
                     100: '#242424',
@@ -18,6 +19,9 @@ export default {
                     300: '#171717',
                 },
             },
+            fontFamily: {
+                heading: ["Arya", ...defaultTheme.fontFamily.sans],
+            }
         }
     },
     plugins: [],

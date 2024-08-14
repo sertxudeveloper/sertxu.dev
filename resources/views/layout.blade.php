@@ -24,6 +24,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
 
     <!-- Styles -->
+    @livewireStyles
     @vite('resources/css/app.css')
 </head>
 <body class="font-sans antialiased bg-dark-100">
@@ -33,5 +34,7 @@
 @yield('content')
 
 <x-footer />
+@livewireScriptConfig
+@vite('resources/js/app.js')
 </body>
 </html>

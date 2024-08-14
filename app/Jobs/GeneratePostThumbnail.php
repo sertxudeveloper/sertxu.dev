@@ -3,16 +3,14 @@
 namespace App\Jobs;
 
 use App\Models\Post;
+use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\Browsershot\Browsershot;
 
-class GeneratePostThumbnail implements ShouldQueue
+class GeneratePostThumbnail implements ShouldQueue, ShouldBeUniqueUntilProcessing
 {
     use Queueable;
 
@@ -21,7 +19,17 @@ class GeneratePostThumbnail implements ShouldQueue
      */
     public function __construct(
         public Post $post,
-    ) {}
+    )
+    {
+    }
+
+    /**
+     * Get the unique ID for the job.
+     */
+    public function uniqueId(): string
+    {
+        return $this->post->id;
+    }
 
     /**
      * Execute the job.
@@ -34,10 +42,13 @@ class GeneratePostThumbnail implements ShouldQueue
         }
 
         // Generate the html thumbnail
-        $html = view('post-thumbnail', ['post' => $this->post])->render();
+        $html = view('blog.thumbnail', ['post' => $this->post])->render();
 
         // Generate the file path
         $path = 'blog/' . Str::random(40) . '.webp';
+
+        // Create the directory if it doesn't exist
+        Storage::disk('public')->makeDirectory('blog');
 
         // Generate the thumbnail
         Browsershot::html($html)

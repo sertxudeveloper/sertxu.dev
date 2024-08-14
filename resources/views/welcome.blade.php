@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="bg-dark-200 flex space-x-24 items-center justify-center py-32">
-        <img class="rounded-2xl w-72 block" src="https://gravatar.com/avatar/{{ md5('sergioperis2@gmail.com') }}?s=240&d=blank" alt="Sergio Peris">
+        <img class="rounded-2xl w-72 block" src="{{ asset('dp.webp') }}" alt="Sergio Peris">
 
         <div class="text-center space-y-6">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-200">Hi, I'm Sertxu</h1>
@@ -35,7 +35,7 @@
 
     <section class="bg-dark-100 py-24">
         <div class="max-w-screen-lg mx-auto">
-            <h2 class="text-2xl text-gray-200 text-center font-medium">About me</h2>
+            <h2 class="text-3xl text-gray-200 text-center font-medium uppercase font-heading">About me</h2>
             <div class="border-b-2 border-ocean w-32 mx-auto mt-2 mb-10"></div>
             <div class="text-lg space-y-4 text-gray-300 mx-auto max-w-screen-md">
                 <p>My name is Sergio Peris, however I'm also known as Sertxu.
@@ -69,80 +69,39 @@
 
     <section class="bg-dark-200 py-24">
         <div class="max-w-screen-xl mx-auto">
-            <h2 class="text-2xl text-gray-200 text-center font-medium">Latest Projects</h2>
+            <h2 class="text-3xl text-gray-200 text-center font-medium uppercase font-heading">My latest posts</h2>
             <div class="border-b-2 border-ocean w-32 mx-auto mt-2 mb-10"></div>
             <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                @foreach($projects as $project)
-                    <li class="m-2 bg-dark-100 rounded-b-md hover:scale-105 transform transition hover:z-10">
-                        <a href="#">
-                            <div class="h-36 flex items-center overflow-hidden rounded-t-md">
-                                <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($project->thumbnail) }}" alt="{{ $project->title }}" class="">
-                            </div>
-                            <div class="p-5 text-gray-300">
-                                <h3 class="mb-1 text-lg font-medium truncate">{{ $project->title }}</h3>
-                                <p class="text-sm line-clamp-2">{{ $project->description }}</p>
-                            </div>
-                        </a>
-                    </li>
+                @foreach($posts as $post)
+                    <x-post :post="$post" />
                 @endforeach
             </ul>
+
+            <div class="text-center mt-10">
+                <a href="{{ route('blog.index') }}"
+                   class="py-3 px-10 leading-tight text-sm font-medium border border-coral text-coral rounded-full hover:bg-coral hover:text-white uppercase transition ease-in-out duration-200">See More</a>
+            </div>
         </div>
     </section>
 
-    <main class="grid md:grid-cols-2 gap-12 max-w-screen-lg px-6 mx-auto">
-        <div class="space-y-24">
-            <section class="bg-white rounded-2xl border border-gray-200 shadow-sm px-12 pt-12 pb-6">
-                <h2 class="text-2xl font-bold">Education</h2>
-                <ul class="divide-y *:py-6 *:space-y-1">
-                    @foreach($education as $el)
-                        <li>
-                            <div class="flex items-center justify-between">
-                                <p class="text-lg">{{ $el->title }}</p>
-                                <p class="text-gray-600 text-sm">{{ $el->started_at->format('Y') }} - {{ $el->ended_at?->format('Y') ?? 'Present' }}</p>
-                            </div>
-                            <div class="text-gray-800 [&_ul]:list-inside [&_ul]:list-disc [&_ul]:ml-4">
-                                {!! Str::of($el->description)->markdown(); !!}
-                            </div>
-                            <p class="text-gray-600 text-sm">{{ $el->location }}</p>
-                        </li>
-                    @endforeach
-                </ul>
-            </section>
+    <section class="bg-dark-100 py-24">
+        <div class="max-w-screen-xl mx-auto">
+            <h2 class="text-3xl text-gray-200 text-center font-medium uppercase font-heading">My latest projects</h2>
+            <div class="border-b-2 border-ocean w-32 mx-auto mt-2 mb-10"></div>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                @foreach($projects as $project)
+                    <x-project :project="$project" />
+                @endforeach
+            </ul>
 
-            <section class="bg-white rounded-2xl border border-gray-200 shadow-sm px-12 pt-12 pb-0">
-                <h2 class="text-2xl font-bold">Latest Articles</h2>
-                <ul class="divide-y *:py-6">
-                    <li>
-                        <a href="#" class="group focus-visible:outline-none">
-                            <p class="text-gray-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">How to build a blog with Laravel</p>
-                            <p class="text-gray-600 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet urna nec nunc ultricies ultricies.</p>
-                            <p class="text-gray-600 text-sm">Published at January 1, 2022</p>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" class="group focus-visible:outline-none">
-                            <p class="text-gray-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">How to build a blog with Laravel</p>
-                            <p class="text-gray-600 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet urna nec nunc ultricies ultricies.</p>
-                            <p class="text-gray-600 text-sm">Published at January 1, 2022</p>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" class="group focus-visible:outline-none">
-                            <p class="text-gray-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">How to build a blog with Laravel</p>
-                            <p class="text-gray-600 mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet urna nec nunc ultricies ultricies.</p>
-                            <p class="text-gray-600 text-sm">Published at January 1, 2022</p>
-                        </a>
-                    </li>
-
-                    <li class="text-center pt-4">
-                        <a href="#" class="text-coral hover:underline focus-visible:outline-none focus-visible:underline">View more</a>
-                    </li>
-                </ul>
-            </section>
+            <div class="text-center mt-10">
+                <a href="{{ route('projects.index') }}"
+                   class="py-3 px-10 leading-tight text-sm font-medium border border-coral text-coral rounded-full hover:bg-coral hover:text-white uppercase transition ease-in-out duration-200">See More</a>
+            </div>
         </div>
+    </section>
 
+    {{--<main class="grid md:grid-cols-2 gap-12 max-w-screen-lg px-6 mx-auto">
         <div class="space-y-24">
             <section class="bg-white rounded-2xl border border-gray-200 shadow-sm p-12 pb-6">
                 <h2 class="text-2xl font-bold">Experience</h2>
@@ -167,9 +126,9 @@
                 <ul class="divide-y *:py-6">
                     @foreach($projects as $project)
                         <li>
-                            <a href="{{ $project->repository }}" class="group focus-visible:outline-none">
+                            <a href="{{ $project->website }}" class="group focus-visible:outline-none">
                                 <p class="text-gray-800 font-medium group-hover:underline mb-2 group-focus-visible:underline">{{ $project->title }}</p>
-                                <p class="text-gray-600 mb-2">{{ $project->description }}</p>
+                                <p class="text-gray-600 mb-2">{{ $project->excerpt }}</p>
                             </a>
                         </li>
                     @endforeach
@@ -180,5 +139,5 @@
                 </ul>
             </section>
         </div>
-    </main>
+    </main>--}}
 @endsection

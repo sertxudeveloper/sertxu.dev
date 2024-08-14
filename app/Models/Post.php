@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Jobs\GeneratePostThumbnail;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +15,7 @@ class Post extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'title', 'slug', 'is_draft', 'excerpt', 'content', 'thumbnail',
+        'title', 'slug', 'excerpt', 'content', 'thumbnail', 'published_at',
     ];
 
     /**
@@ -24,8 +26,42 @@ class Post extends Model
     protected function casts(): array
     {
         return [
-            'is_draft' => 'boolean',
+            'published_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Scope a query to order projects by default.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeDefaultOrder(Builder $query): Builder
+    {
+        return $query->orderByDesc('published_at');
+    }
+
+    /**
+     * Get the thumbnail URL attribute.
+     *
+     * @return Attribute
+     */
+    public function thumbnailUrl(): Attribute
+    {
+        return new Attribute(
+            get: fn() => Storage::disk('public')->url($this->thumbnail)
+        );
+    }
+
+    /**
+     * Scope a query to only include active projects.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('published_at', '<=', now());
     }
 
     /**
@@ -42,7 +78,7 @@ class Post extends Model
 
         static::created(function (Post $post) {
             // If the post is a draft, don't generate a thumbnail.
-            // Also if the post already has a thumbnail, don't generate a new one.
+            // Also, if the post already has a thumbnail, don't generate a new one.
             if (! $post->is_draft && ! $post->thumbnail) {
                 GeneratePostThumbnail::dispatch($post);
             }
@@ -51,7 +87,7 @@ class Post extends Model
         static::updating(function (Post $post) {
             // If the post is not a draft, set the published_at attribute to the current date and time.
             if (! $post->is_draft) {
-                $post->published_at = now();
+                if (! $post->published_at) $post->published_at = now();
             } else {
                 // If the post is a draft, set the published_at attribute to null.
                 $post->published_at = null;

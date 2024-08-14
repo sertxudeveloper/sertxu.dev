@@ -7,12 +7,5 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
         }),
-    ],
-    server: {
-        hmr: {
-            protocol: 'wss',
-            host: '5173--main--sertxudev--sertxudev.coder.sertxu.dev',
-            clientPort: 443
-        }
-    }
+    ]
 });

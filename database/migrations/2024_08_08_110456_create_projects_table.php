@@ -19,8 +19,8 @@ return new class extends Migration
             $table->mediumText('content');
             $table->string('website')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->boolean('is_draft')->default(true);
             $table->dateTime('published_at')->nullable();
+            $table->boolean('is_featured')->default(false);
             $table->datetimes();
             $table->softDeletes();
         });

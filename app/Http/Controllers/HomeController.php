@@ -11,14 +11,10 @@ class HomeController extends Controller
 {
     public function __invoke()
     {
-        $experiences = Experience::query()->orderByDesc('started_at')->take(4)->get();
-        $education = Education::query()->orderByDesc('started_at')->take(4)->get();
-        $posts = Post::query()->orderByDesc('published_at')->take(4)->get();
-        $projects = Project::query()->orderByDesc('started_at')->take(4)->get();
+        $posts = Post::query()->active()->defaultOrder()->take(4)->get();
+        $projects = Project::query()->active()->defaultOrder()->take(8)->get();
 
         return view('welcome', [
-            'experiences' => $experiences,
-            'education' => $education,
             'posts' => $posts,
             'projects' => $projects,
         ]);

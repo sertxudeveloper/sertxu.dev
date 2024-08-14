@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('blog', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug', 50)->unique();
             $table->text('excerpt')->nullable();
             $table->mediumText('content');
             $table->string('thumbnail')->nullable();
-            $table->boolean('is_draft')->default(true);
             $table->dateTime('published_at')->nullable();
             $table->unsignedBigInteger('views')->default(0);
             $table->datetimes();
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('blog');
     }
 };

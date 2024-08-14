@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -41,9 +42,14 @@ class ProjectResource extends Resource
                     ->prefix('/projects/')
                     ->readOnlyOn('edit'),
 
-                Forms\Components\TextInput::make('repository'),
+                Forms\Components\TextInput::make('website'),
 
-                Forms\Components\MarkdownEditor::make('description')
+                Forms\Components\Textarea::make('excerpt')
+                    ->rows(2)
+                    ->required()
+                    ->columnSpanFull(),
+
+                Forms\Components\MarkdownEditor::make('content')
                     ->required()
                     ->columnSpanFull(),
 
@@ -62,12 +68,18 @@ class ProjectResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
 
+                Tables\Columns\IconColumn::make('is_featured')
+                    ->label('Featured')
+                    ->boolean()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('published_at')
+                    ->date('j M Y')
+                    ->placeholder('Unpublished')
+                    ->sortable(),
+
                 Tables\Columns\ImageColumn::make('thumbnail')
                     ->searchable(),
-
-                Tables\Columns\TextColumn::make('created_at')
-                    ->date('j M Y')
-                    ->sortable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
