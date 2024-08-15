@@ -1,8 +1,8 @@
 @props(['education'])
 
 <li>
-    <div class="flex items-center justify-between">
-        <p class="text-lg text-neutral-200">{{ $education->title }}</p>
+    <div class="flex items-center justify-between mb-1">
+        <p class="text-xl text-neutral-200">{{ $education->title }}</p>
         <p class="text-neutral-400 text-sm">{{ $education->started_at->format('Y') }} - {{ $education->ended_at?->format('Y') ?? 'Present' }}</p>
     </div>
     <div class="text-neutral-300 [&_ul]:list-inside [&_ul]:list-disc [&_ul]:ml-4">

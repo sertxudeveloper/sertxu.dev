@@ -25,10 +25,11 @@ class ProjectResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(6)
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->columnSpan('full')
+                    ->columnSpan(4)
                     ->live(onBlur: true)
                     ->afterStateUpdated(function (Set $set, $state) use ($form) {
                         // If operating on an existing record, don't update the slug.
@@ -37,12 +38,18 @@ class ProjectResource extends Resource
                         }
                     }),
 
+                Forms\Components\DateTimePicker::make('published_at')
+                    ->columnSpan(2)
+                    ->nullable(),
+
                 Forms\Components\TextInput::make('slug')
+                    ->columnSpan(3)
                     ->required()
                     ->prefix('/projects/')
                     ->readOnlyOn('edit'),
 
-                Forms\Components\TextInput::make('website'),
+                Forms\Components\TextInput::make('website')
+                    ->columnSpan(3),
 
                 Forms\Components\Textarea::make('excerpt')
                     ->rows(2)
