@@ -18,7 +18,7 @@ class Posts extends Component
     #[NoReturn]
     public function loadMore(): void
     {
-        $paginator = $this->posts();
+        $paginator = $this->query();
         $this->nextCursor = $paginator->nextCursor()?->encode() ?? '';
         $this->hasMore = $paginator->hasMorePages();
         $this->items->push(...$paginator->items());
@@ -26,7 +26,7 @@ class Posts extends Component
 
     public function mount(): void
     {
-        $paginator = $this->posts();
+        $paginator = $this->query();
         $this->nextCursor = $paginator->nextCursor()?->encode() ?? '';
         $this->hasMore = $paginator->hasMorePages();
         $this->items = collect($paginator->items());
@@ -34,13 +34,15 @@ class Posts extends Component
 
     public function render(): View
     {
-        return view('livewire.posts', [
-            'posts' => $this->items,
-        ]);
+        return view('livewire.posts');
     }
 
-    protected function posts(): CursorPaginator
+    protected function query(): CursorPaginator
     {
-        return Post::query()->active()->defaultOrder()->cursorPaginate(perPage: 8, cursor: $this->nextCursor);
+        return Post::query()
+            ->active()
+            ->defaultOrder()
+            ->orderBy('id') // This is important to make sure the cursor is unique
+            ->cursorPaginate(perPage: 8, cursor: $this->nextCursor);
     }
 }

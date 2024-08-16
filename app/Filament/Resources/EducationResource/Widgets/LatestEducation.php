@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\ExperienceResource\Widgets;
+namespace App\Filament\Resources\EducationResource\Widgets;
 
 use App\Models\Education;
 use Filament\Tables;

@@ -2,8 +2,8 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Resources\ExperienceResource\Widgets\LatestEducation;
-use App\Filament\Resources\ExperienceResource\Widgets\LatestExperiences;
+use App\Filament\Resources\EducationResource;
+use App\Filament\Resources\ExperienceResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -41,8 +41,8 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
-                LatestExperiences::class,
-                LatestEducation::class,
+                ExperienceResource\Widgets\LatestExperiences::class,
+                EducationResource\Widgets\LatestEducation::class,
             ])
             ->middleware([
                 EncryptCookies::class,

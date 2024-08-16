@@ -1,6 +1,6 @@
 <div>
     <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        @foreach($posts as $post)
+        @foreach($this->items as $post)
             <x-post :post="$post" />
         @endforeach
     </ul>

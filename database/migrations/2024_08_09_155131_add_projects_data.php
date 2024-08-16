@@ -15,9 +15,8 @@ return new class extends Migration {
             'content' => '',
             'website' => 'https://github.com/sertxudeveloper/laravel-media-model',
             'thumbnail' => 'projects/01J4SMJ6090ABAJMAKVZSJFB6D.png',
-            'is_draft' => false,
             'published_at' => now(),
-            'featured' => false,
+            'is_featured' => false,
         ]);
 
         Project::create([
@@ -27,9 +26,8 @@ return new class extends Migration {
             'content' => '',
             'website' => 'https://github.com/sertxudeveloper/livewire-combobox',
             'thumbnail' => 'projects/01J4SMMC57D1Z55G05DVDZ43ZT.png',
-            'is_draft' => false,
             'published_at' => now(),
-            'featured' => false,
+            'is_featured' => false,
         ]);
 
         Project::create([
@@ -39,9 +37,8 @@ return new class extends Migration {
             'content' => '',
             'website' => 'https://github.com/sertxudeveloper/laravel-counters',
             'thumbnail' => 'projects/01J4SMNFPXA9G7PH5Y6WFRB4CQ.png',
-            'is_draft' => false,
             'published_at' => now(),
-            'featured' => false,
+            'is_featured' => false,
         ]);
 
         Project::create([
@@ -51,9 +48,8 @@ return new class extends Migration {
             'content' => '',
             'website' => 'https://cuelist.app',
             'thumbnail' => 'projects/01J4SMSWZ89XBVAG6KFQFP4DAY.png',
-            'is_draft' => false,
             'published_at' => now(),
-            'featured' => true,
+            'is_featured' => true,
         ]);
     }
 
