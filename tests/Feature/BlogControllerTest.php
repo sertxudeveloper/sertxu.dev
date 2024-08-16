@@ -15,6 +15,8 @@ it('can visit a blog post', function () {
     $response = $this->get(route('blog.show', $post));
 
     $response->assertOk();
+    $response->assertSee($post->title);
+    $response->assertSee($post->content);
 });
 
 it('can load more posts at index', function () {
