@@ -45,9 +45,6 @@ class PostResource extends Resource
                     ->prefix('/blog/')
                     ->readOnlyOn('edit'),
 
-                Forms\Components\Toggle::make('is_draft')
-                    ->inline(false),
-
                 Forms\Components\Textarea::make('excerpt')
                     ->columnSpan('full')
                     ->required(),

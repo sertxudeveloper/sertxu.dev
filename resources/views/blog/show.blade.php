@@ -18,13 +18,14 @@
             </aside>
         </div>
         <div class="col-span-3">
-            <h2 class="text-4xl font-medium text-neutral-200">{{ $post->title }}</h2>
+            <h1 class="text-4xl font-medium text-neutral-200">{{ $post->title }}</h1>
             <div>
                 <p class="text-lg text-neutral-300 mt-2">{{ $post->created_at->format('d M Y') }}</p>
             </div>
 
-            <div class="whitespace-pre-wrap overflow-hidden mt-4 text-neutral-100 text-lg"
-                >{{ $post->content }}</div>
+            <section class="markup">
+                @markdown($post->content)
+            </section>
         </div>
     </div>
 @endsection

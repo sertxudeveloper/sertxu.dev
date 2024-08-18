@@ -3,3 +3,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.markup {
+    @apply overflow-hidden mt-4 text-neutral-100;
+}
+
+.markup > p {
+    @apply whitespace-pre-wrap mb-4;
+}
+
+.markup h1 {
+    @apply text-3xl font-medium mt-4 mb-2;
+}
+
+.markup h2 {
+    @apply text-2xl font-medium mt-4 mb-2;
+}
+
+.markup h3 {
+    @apply text-xl font-medium mt-4 mb-2;
+}
+
+.markup h4 {
+    @apply text-lg font-medium mt-4 mb-2;
+}
+
+.markup > pre {
+    @apply p-6 my-4;
+}
+
+.markup > pre > code > span {
+    @apply inline-block w-full;
+}
+
+.markup *:not(pre) > code {
+    @apply px-2 py-0.5 rounded-md text-coral bg-neutral-50;
+}
+
+.markup p a {
+    @apply text-coral hover:underline;
+}
+
+.shiki .highlight {
+    background-color: #bb800926;
+}
+
+.shiki .add {
+    background-color: #2ea04326;
+}
+
+.shiki .del {
+    background-color: #f8514926;
+}
+
+.shiki.focus .line:not(.focus) {
+    transition: all 250ms;
+    filter: blur(2px);
+}
+
+.shiki.focus:hover .line {
+    transition: all 250ms;
+    filter: blur(0);
+}
