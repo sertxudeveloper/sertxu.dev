@@ -1,10 +1,10 @@
 @extends('layout')
 
 @section('content')
-    <section class="bg-dark-200 flex space-x-24 items-center justify-center py-32">
-        <img class="rounded-2xl w-72 block" src="{{ asset('dp.webp') }}" alt="Sergio Peris">
+    <section class="bg-dark-200 lg:flex lg:space-x-24 space-y-12 items-center justify-center lg:py-32 py-16">
+        <img class="rounded-2xl w-72 block mx-auto" src="{{ asset('dp.webp') }}" alt="Sergio Peris">
 
-        <div class="text-center space-y-6">
+        <div class="text-center space-y-6 px-20 lg:px-0">
             <h1 class="text-4xl md:text-5xl font-bold text-neutral-200">Hi, I'm Sertxu</h1>
             <p class="text-xl md:text-2xl sm:text-3xl text-neutral-300">Full&#8209;stack developer, open&#8209;source maintainer,<br>and content creator.</p>
 
@@ -34,7 +34,7 @@
     </section>
 
     <section class="bg-dark-100 py-24">
-        <div class="max-w-screen-lg mx-auto">
+        <div class="max-w-screen-lg mx-auto px-6">
             <h2 class="text-3xl text-neutral-200 text-center font-medium uppercase font-heading">About me</h2>
             <div class="border-b-2 border-ocean w-32 mx-auto mt-2 mb-10"></div>
             <div class="text-lg space-y-4 text-neutral-300 mx-auto max-w-screen-md">
@@ -68,7 +68,7 @@
     </section>--}}
 
     <section class="bg-dark-200 py-24">
-        <div class="max-w-screen-xl mx-auto">
+        <div class="max-w-screen-xl mx-auto px-6">
             <h2 class="text-3xl text-neutral-200 text-center font-medium uppercase font-heading">My latest posts</h2>
             <div class="border-b-2 border-ocean w-32 mx-auto mt-2 mb-10"></div>
             <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
