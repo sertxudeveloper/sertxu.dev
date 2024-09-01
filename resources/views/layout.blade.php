@@ -26,6 +26,12 @@
     <!-- Styles -->
     @livewireStyles
     @vite('resources/css/app.css')
+    <style>
+        .bg-doodles {
+            background-image: url("{{ asset('doodles.png') }}");
+            background-size: cover;
+        }
+    </style>
 </head>
 <body class="font-sans antialiased bg-dark-100">
 

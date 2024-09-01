@@ -8,23 +8,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Tags\HasSlug;
+use Spatie\Tags\HasTags;
 
-class Project extends Model
+class Project extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, InteractsWithMedia, HasTags;
 
     protected $fillable = [
-        'title', 'slug', 'excerpt', 'website', 'content', 'thumbnail', 'published_at', 'is_featured',
+        'title', 'slug', 'excerpt', 'website', 'text', 'is_published', 'is_featured',
     ];
 
-    /**
-     * The "booted" method of the model.
-     */
-    protected static function booted(): void
+    public function registerMediaCollections(): void
     {
-        static::deleting(function ($project) {
-            Storage::disk('public')->delete($project->thumbnail);
-        });
+        $this
+            ->addMediaCollection('thumbnail')
+            ->useDisk('public')
+            ->withResponsiveImages()
+            ->singleFile();
     }
 
     /**
@@ -52,18 +55,6 @@ class Project extends Model
     }
 
     /**
-     * Get the thumbnail URL attribute.
-     *
-     * @return Attribute
-     */
-    public function thumbnailUrl(): Attribute
-    {
-        return new Attribute(
-            get: fn() => Storage::disk('public')->url($this->thumbnail)
-        );
-    }
-
-    /**
      * Get the attributes that should be cast.
      *
      * @return array
@@ -75,5 +66,12 @@ class Project extends Model
             'published_at' => 'datetime',
             'is_featured' => 'boolean',
         ];
+    }
+
+    public function scopePublished(Builder $query): void
+    {
+        $query
+            ->where('is_published', true)
+            ->orderBy('id', 'desc');
     }
 }

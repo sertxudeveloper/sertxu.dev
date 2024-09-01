@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 class PostFactory extends Factory
 {
@@ -17,8 +16,7 @@ class PostFactory extends Factory
             'slug' => $this->faker->slug(),
             'excerpt' => $this->faker->paragraph(),
             'content' => $this->faker->paragraphs(asText: true),
-            'thumbnail' => $this->faker->word(),
-            'published_at' => null,
+            'is_published' => false,
             'views' => $this->faker->randomNumber(),
         ];
     }
@@ -26,7 +24,7 @@ class PostFactory extends Factory
     public function published(): PostFactory
     {
         return $this->state(fn() => [
-            'published_at' => Carbon::now(),
+            'is_published' => true,
         ]);
     }
 }

@@ -39,10 +39,7 @@ class Posts extends Component
 
     protected function query(): CursorPaginator
     {
-        return Post::query()
-            ->active()
-            ->defaultOrder()
-            ->orderBy('id') // This is important to make sure the cursor is unique
+        return Post::published()
             ->cursorPaginate(perPage: 8, cursor: $this->nextCursor);
     }
 }

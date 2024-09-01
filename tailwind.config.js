@@ -21,6 +21,27 @@ export default {
             },
             fontFamily: {
                 heading: ["Arya", ...defaultTheme.fontFamily.sans],
+            },
+            height: {
+                screen: "calc(100vh - 3.75rem)",
+            },
+            minHeight: {
+                screen: "calc(100vh - 3.75rem)",
+            },
+            animation: {
+                "slide-fade-in": "slide-fade-in 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards",
+            },
+            keyframes: {
+                "slide-fade-in": {
+                    "0%": {
+                        opacity: 0,
+                        transform: "translateY(32px)",
+                    },
+                    "100%": {
+                        opacity: 1,
+                        transform: "translateY(0)",
+                    },
+                },
             }
         }
     },

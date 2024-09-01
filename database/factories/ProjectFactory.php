@@ -18,7 +18,6 @@ class ProjectFactory extends Factory
             'excerpt' => $this->faker->word(),
             'content' => $this->faker->word(),
             'website' => $this->faker->word(),
-            'thumbnail' => $this->faker->word(),
             'published_at' => null,
             'is_featured' => $this->faker->boolean(),
         ];

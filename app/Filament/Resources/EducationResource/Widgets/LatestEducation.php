@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\EducationResource\Widgets;
 
+use App\Filament\Resources\EducationResource;
 use App\Models\Education;
+use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -18,11 +20,9 @@ class LatestEducation extends BaseWidget
                 TextColumn::make('title'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ForceDeleteAction::make(),
-                Tables\Actions\RestoreAction::make(),
-            ])
-            ->paginated(false);
+                Tables\Actions\Action::make('edit')
+                    ->icon(FilamentIcon::resolve('actions::edit-action') ?? 'heroicon-m-pencil-square')
+                    ->action(fn(Education $record) => redirect()->to(EducationResource::getUrl('edit', ['record' => $record]))),
+            ]);
     }
 }

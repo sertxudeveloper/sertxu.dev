@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Education;
-use App\Models\Experience;
 use App\Models\Post;
 use App\Models\Project;
+use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
 {
-    public function __invoke()
+    public function __invoke(): View
     {
-        $posts = Post::query()->active()->defaultOrder()->take(4)->get();
-        $projects = Project::query()->active()->defaultOrder()->take(8)->get();
+        $posts = Post::published()->take(4)->get();
+        $projects = Project::published()->take(8)->get();
 
-        return view('welcome', [
+        return view('home', [
             'posts' => $posts,
             'projects' => $projects,
         ]);

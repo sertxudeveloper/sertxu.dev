@@ -1,19 +1,21 @@
 <?php
 
-use App\Http\Controllers\EducationController;
-use App\Http\Controllers\ExperienceController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProjectController;
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', HomeController::class)->name('home');
+Route::get('/', Controllers\HomeController::class)->name('home');
 
-Route::get('/education', [EducationController::class, 'index'])->name('education.index');
-Route::get('/experience', [ExperienceController::class, 'index'])->name('experience.index');
+Route::get('/education', [Controllers\EducationController::class, 'index'])->name('education.index');
+Route::get('/experience', [Controllers\ExperienceController::class, 'index'])->name('experience.index');
 
 Route::view('/projects', 'projects.index')->name('projects.index');
-Route::get('/projects/{project:slug}', [ProjectController::class, 'show'])->name('projects.show');
+Route::get('/projects/{project:slug}', [Controllers\ProjectController::class, 'show'])->name('projects.show');
 
-Route::view('/blog', 'blog.index')->name('blog.index');
-Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('blog.show');
+Route::view('/blog', 'posts.index')->name('posts.index');
+Route::get('/blog/{post:slug}', [Controllers\PostController::class, 'show'])->name('posts.show');
+
+Route::view('/uses', 'uses')->name('uses');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/blog/{post:slug}/preview', Controllers\PostPreviewController::class)->name('posts.preview');
+});

@@ -4,7 +4,7 @@ use App\Livewire\Posts;
 use App\Models\Post;
 
 it('can visit the blog page', function () {
-    $response = $this->get(route('blog.index'));
+    $response = $this->get(route('posts.index'));
 
     $response->assertOk();
 });
@@ -12,7 +12,7 @@ it('can visit the blog page', function () {
 it('can visit a blog post', function () {
     $post = Post::factory()->create();
 
-    $response = $this->get(route('blog.show', $post));
+    $response = $this->get(route('posts.show', $post));
 
     $response->assertOk();
     $response->assertSee($post->title);

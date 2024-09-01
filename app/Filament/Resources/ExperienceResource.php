@@ -3,63 +3,60 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ExperienceResource\Pages;
-use App\Filament\Resources\ExperienceResource\RelationManagers;
 use App\Models\Experience;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ExperienceResource extends Resource
 {
     protected static ?string $model = Experience::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Content';
 
-    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
 
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['title', 'description', 'location'];
-    }
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->columnSpan('full')
-                    ->maxLength(255),
+                Forms\Components\Section::make('Experience')
+                ->schema([
+                    Forms\Components\TextInput::make('title')
+                        ->required()
+                        ->columnSpanFull()
+                        ->maxLength(255),
 
-                Forms\Components\MarkdownEditor::make('description')
-                    ->required()
-                    ->toolbarButtons([
-                        'bold',
-                        'bulletList',
-                        'italic',
-                        'strike',
-                        'link',
-                        'redo',
-                        'undo',
-                    ])
-                    ->maxLength(255)
-                    ->columnSpan('full'),
+                    Forms\Components\MarkdownEditor::make('description')
+                        ->required()
+                        ->toolbarButtons([
+                            'bold',
+                            'bulletList',
+                            'italic',
+                            'strike',
+                            'link',
+                            'redo',
+                            'undo',
+                        ])
+                        ->maxLength(255)
+                        ->columnSpanFull(),
 
-                Forms\Components\Grid::make(3)
-                    ->schema([
-                        Forms\Components\DatePicker::make('started_at')
-                            ->required(),
+                    Forms\Components\Grid::make(3)
+                        ->schema([
+                            Forms\Components\DatePicker::make('started_at')
+                                ->required(),
 
-                        Forms\Components\DatePicker::make('ended_at'),
+                            Forms\Components\DatePicker::make('ended_at'),
 
-                        Forms\Components\TextInput::make('location')
-                            ->required()
-                            ->maxLength(50),
-                    ]),
+                            Forms\Components\TextInput::make('location')
+                                ->required()
+                                ->maxLength(50),
+                        ]),
+                ])
             ]);
     }
 
@@ -76,6 +73,7 @@ class ExperienceResource extends Resource
 
                 Tables\Columns\TextColumn::make('ended_at')
                     ->date('M Y')
+                    ->placeholder('Present')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('location')
@@ -91,26 +89,25 @@ class ExperienceResource extends Resource
                 Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make()->outlined(),
+                Tables\Actions\ForceDeleteBulkAction::make()->outlined(),
+                Tables\Actions\RestoreBulkAction::make()->outlined(),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageExperiences::route('/'),
+            'index' => Pages\ListExperiences::route('/'),
+            'create' => Pages\CreateExperience::route('/create'),
+            'edit' => Pages\EditExperience::route('/{record}/edit'),
         ];
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
     }
 }

@@ -2,14 +2,13 @@
 
 namespace App\Filament\Resources\ExperienceResource\Widgets;
 
+use App\Filament\Resources\ExperienceResource;
 use App\Models\Experience;
+use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\Summarizers\Count;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
-use Illuminate\Database\Query\Builder;
 
 class LatestExperiences extends BaseWidget
 {
@@ -21,11 +20,9 @@ class LatestExperiences extends BaseWidget
                 TextColumn::make('title'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ForceDeleteAction::make(),
-                Tables\Actions\RestoreAction::make(),
-            ])
-            ->paginated(false);
+                Tables\Actions\Action::make('edit')
+                    ->icon(FilamentIcon::resolve('actions::edit-action') ?? 'heroicon-m-pencil-square')
+                    ->action(fn(Experience $record) => redirect()->to(ExperienceResource::getUrl('edit', ['record' => $record]))),
+            ]);
     }
 }

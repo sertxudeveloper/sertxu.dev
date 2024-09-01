@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
+use Spatie\Tags\Tag;
 
 class Projects extends Component
 {
@@ -36,11 +37,14 @@ class Projects extends Component
     {
         return view('livewire.projects', [
             'projects' => $this->items,
+            'tag' => request()->has('tag') ? Tag::findFromString(request('tag')) : null,
         ]);
     }
 
     protected function projects(): CursorPaginator
     {
-        return Project::query()->active()->defaultOrder()->cursorPaginate(perPage: 8, cursor: $this->nextCursor);
+        return Project::published()
+            ->when(request()->has('tag'), fn($query) => $query->withAnyTags(request('tag')))
+            ->cursorPaginate(perPage: 8, cursor: $this->nextCursor);
     }
 }

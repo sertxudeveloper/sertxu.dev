@@ -2,57 +2,78 @@
 
 namespace App\Filament\Resources;
 
-use App\Models\Education;
 use App\Filament\Resources\EducationResource\Pages;
+use App\Models\Education;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;use function Symfony\Component\String\u;
 
 class EducationResource extends Resource
 {
     protected static ?string $model = Education::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Content';
+
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255)
-                    ->columnSpan('full'),
-
-                Forms\Components\MarkdownEditor::make('description')
-                    ->required()
-                    ->toolbarButtons([
-                        'bold',
-                        'bulletList',
-                        'italic',
-                        'strike',
-                        'link',
-                        'redo',
-                        'undo',
-                    ])
-                    ->maxLength(255)
-                    ->columnSpan('full'),
-
-                Forms\Components\Grid::make(3)
+                Forms\Components\Section::make('Education Information')
                     ->schema([
-                        Forms\Components\DatePicker::make('started_at')
-                            ->required(),
-
-                        Forms\Components\DatePicker::make('ended_at'),
-
-                        Forms\Components\TextInput::make('location')
+                        Forms\Components\TextInput::make('title')
                             ->required()
-                            ->maxLength(50),
-                    ]),
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+
+                        Forms\Components\MarkdownEditor::make('description')
+                            ->required()
+                            ->toolbarButtons([
+                                'bold',
+                                'bulletList',
+                                'italic',
+                                'strike',
+                                'link',
+                                'redo',
+                                'undo',
+                            ])
+                            ->maxLength(255)
+                            ->columnSpanFull(),
+
+                        Forms\Components\Grid::make(3)
+                            ->schema([
+                                Forms\Components\DatePicker::make('started_at')
+                                    ->required(),
+
+                                Forms\Components\DatePicker::make('ended_at'),
+
+                                Forms\Components\TextInput::make('location')
+                                    ->required()
+                                    ->maxLength(50),
+                            ]),
+                    ])
             ]);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListEducation::route('/'),
+            'create' => Pages\CreateEducation::route('/create'),
+            'edit' => Pages\EditEducation::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
     }
 
     public static function table(Table $table): Table
@@ -68,6 +89,7 @@ class EducationResource extends Resource
 
                 Tables\Columns\TextColumn::make('ended_at')
                     ->date('M Y')
+                    ->placeholder('Present')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('location')
@@ -83,26 +105,9 @@ class EducationResource extends Resource
                 Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
-                ]),
-            ]);
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ManageEducation::route('/'),
-        ];
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
+                Tables\Actions\DeleteBulkAction::make()->outlined(),
+                Tables\Actions\ForceDeleteBulkAction::make()->outlined(),
+                Tables\Actions\RestoreBulkAction::make()->outlined(),
             ]);
     }
 }
