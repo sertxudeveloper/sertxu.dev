@@ -15,10 +15,10 @@ class ProjectFactory extends Factory
         return [
             'title' => $this->faker->word(),
             'slug' => $this->faker->slug(),
-            'excerpt' => $this->faker->word(),
-            'content' => $this->faker->word(),
+            'excerpt' => $this->faker->sentence(),
+            'text' => $this->faker->paragraphs(asText: true),
             'website' => $this->faker->word(),
-            'published_at' => null,
+            'is_published' => false,
             'is_featured' => $this->faker->boolean(),
         ];
     }
@@ -26,7 +26,7 @@ class ProjectFactory extends Factory
     public function published(): ProjectFactory
     {
         return $this->state(fn() => [
-            'published_at' => Carbon::now(),
+            'is_published' => true,
         ]);
     }
 }

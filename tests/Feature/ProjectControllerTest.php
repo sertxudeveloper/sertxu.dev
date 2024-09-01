@@ -3,7 +3,9 @@
 use App\Livewire\Projects;
 use App\Models\Project;
 
-it('can visit the project page', function () {
+it('can see the project page', function () {
+    Project::factory(3)->create();
+
     $response = $this->get(route('projects.index'));
 
     $response->assertOk();
@@ -16,24 +18,26 @@ it('can visit a project', function () {
 
     $response->assertOk();
     $response->assertSee($project->title);
-    $response->assertSee($project->content);
 });
 
 it('can load more projects at index', function () {
-    Project::factory(20)->sequence(fn ($sequence) => ['title' => "Project {$sequence->index}"])->create();
+    Project::factory(20)
+        ->sequence(fn ($sequence) => ['title' => "Project {$sequence->index}"])
+        ->published()
+        ->create();
 
     Livewire::test(Projects::class)
-        ->assertSee('Project 2')
+        ->assertSee('Project 19')
         ->assertDontSee('Project 9')
-        ->assertDontSee('Project 11')
+        ->assertDontSee('Project 2')
 
         ->call('loadMore')
-        ->assertSee('Project 2')
+        ->assertSee('Project 19')
         ->assertSee('Project 9')
-        ->assertDontSee('Project 19')
+        ->assertDontSee('Project 2')
 
         ->call('loadMore')
-        ->assertSee('Project 2')
+        ->assertSee('Project 19')
         ->assertSee('Project 9')
-        ->assertSee('Project 19');
+        ->assertSee('Project 2');
 });

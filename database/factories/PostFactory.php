@@ -14,10 +14,9 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'slug' => $this->faker->slug(),
-            'excerpt' => $this->faker->paragraph(),
-            'content' => $this->faker->paragraphs(asText: true),
+            'text' => $this->faker->paragraphs(asText: true),
             'is_published' => false,
-            'views' => $this->faker->randomNumber(),
+            'published_at' => null
         ];
     }
 
@@ -25,6 +24,7 @@ class PostFactory extends Factory
     {
         return $this->state(fn() => [
             'is_published' => true,
+            'published_at' => now()
         ]);
     }
 }
