@@ -13,6 +13,7 @@ jobs:
     uses: sertxudeveloper/sertxu.dev/.github/workflows/tests.yml@main
 
   deploy:
+    needs: tests
     runs-on: ubuntu-latest
 
     steps:
@@ -23,6 +24,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd sertxu.dev
-            ./update.sh
+          script: "cd sertxu.dev && ./update.sh"
