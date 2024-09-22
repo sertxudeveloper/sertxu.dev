@@ -1,0 +1,28 @@
+name: Deploy
+
+concurrency: 
+  group: production
+  cancel-in-progress: false
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  tests:
+    uses: sertxudeveloper/sertxu.dev/.github/workflows/tests.yml@main
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd sertxu.dev
+            ./update.sh
