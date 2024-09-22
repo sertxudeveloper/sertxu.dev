@@ -9,11 +9,11 @@ on:
     branches: [ "main" ]
 
 jobs:
-#  tests:
-#    uses: sertxudeveloper/sertxu.dev/.github/workflows/tests.yml@main
+  tests:
+    uses: sertxudeveloper/sertxu.dev/.github/workflows/tests.yml@main
 
   deploy:
-#    needs: tests
+    needs: tests
     runs-on: ubuntu-latest
 
     steps:
@@ -24,6 +24,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
+          script_stop: true
           script: |
             cd sertxu.dev
-            ./update.sh & disown
+            ./update.sh
