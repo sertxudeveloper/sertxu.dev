@@ -103,7 +103,9 @@ class ProjectResource extends Resource
                     ->boolean()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('is_published')
+                Tables\Columns\IconColumn::make('is_published')
+                    ->label('Published')
+                    ->boolean()
                     ->sortable(),
             ])
             ->filters([
