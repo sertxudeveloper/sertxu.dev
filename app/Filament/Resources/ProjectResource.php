@@ -103,9 +103,7 @@ class ProjectResource extends Resource
                     ->boolean()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('published_at')
-                    ->date('j M Y')
-                    ->placeholder('Unpublished')
+                Tables\Columns\TextColumn::make('is_published')
                     ->sortable(),
             ])
             ->filters([
