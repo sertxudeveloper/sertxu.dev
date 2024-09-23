@@ -1,4 +1,4 @@
-# What technologies I use?
+# What technologies I know?
 
 I mainly develop web applications with the TALL stack, witch consists of Tailwind, Alpine.js, Laravel and Livewire. This website is built with the TALL stack!
 

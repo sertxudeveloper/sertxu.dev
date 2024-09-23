@@ -85,6 +85,11 @@ class Post extends Model implements HasMedia
         return route('posts.preview', $this);
     }
 
+    public function isPublished(): bool
+    {
+        return $this->is_published && $this->published_at <= now();
+    }
+
     protected function casts(): array
     {
         return [
