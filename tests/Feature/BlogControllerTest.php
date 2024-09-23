@@ -13,15 +13,25 @@ it('can visit the blog page', function () {
     });
 });
 
-it('can visit a blog post', function () {
+it('can visit a posted blog post', function () {
     Post::withoutEvents(function () {
-        $post = Post::factory()->create();
+        $post = Post::factory()->published()->create();
 
         $response = $this->get(route('posts.show', $post));
 
         $response->assertOk();
         $response->assertSee($post->title);
         $response->assertSee($post->content);
+    });
+});
+
+it('cannot visit a non posted blog post', function () {
+    Post::withoutEvents(function () {
+        $post = Post::factory()->create();
+
+        $response = $this->get(route('posts.show', $post));
+
+        $response->assertNotFound();
     });
 });
 
