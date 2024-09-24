@@ -19,7 +19,7 @@ class PublishPostAction
             $post->published_at = now();
         }
 
-        $post->save();
+        $post->saveQuietly();
 
         Bus::chain([
             new CreateOgImageJob($post),

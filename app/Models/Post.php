@@ -25,17 +25,6 @@ class Post extends Model implements HasMedia
         'posted_on_dev',
     ];
 
-    public static function booted(): void
-    {
-        static::saved(function (Post $post) {
-            if ($post->is_published) {
-                static::withoutEvents(function () use ($post) {
-                    (new PublishPostAction())->execute($post);
-                });
-            }
-        });
-    }
-
     public static function nextFreePublishDate(): Carbon
     {
         $publishDate = now()->hour(14);

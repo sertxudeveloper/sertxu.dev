@@ -28,10 +28,8 @@ class CreateOgImageJob implements ShouldQueue
             $html = view('posts.thumbnail', ['post' => $this->post])->render();
 
             $base64Image = Browsershot::html($html)
-                ->setChromePath('/usr/bin/chromium')
-                ->addChromiumArguments([
-                    'no-sandbox', 'disable-setuid-sandbox',
-                ])
+                ->addChromiumArguments(['disable-gpu'])
+                ->noSandbox()
                 ->waitUntilNetworkIdle()
                 ->setScreenshotType('webp', 100)
                 ->windowSize(640, 360)
