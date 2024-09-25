@@ -23,7 +23,7 @@ class SqliteWalEnableCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Enables WAL journal on SQLite databases as performance optimization.';
+    protected $description = 'Enables WAL journal on SQLite databases as performance optimization';
 
     /**
      * Execute the console command.

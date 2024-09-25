@@ -8,10 +8,26 @@ use Illuminate\Console\Command;
 
 class PublishScheduledPostsCommand extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'blog:publish-scheduled-posts';
 
-    protected $description = 'Publish scheduled posts.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Publish scheduled posts';
 
+    /**
+     * Execute the console command.
+     *
+     * @param PublishPostAction $publishPostAction
+     * @return void
+     */
     public function handle(PublishPostAction $publishPostAction): void
     {
         Post::scheduled()->get()
