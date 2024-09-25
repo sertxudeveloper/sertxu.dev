@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="py-12 gap-6 mx-auto max-w-screen-lg">
+        <div class="mb-4">
+            {{ $post->getFirstMedia('thumbnail') }}
+        </div>
         <h1 class="text-4xl font-medium text-neutral-200 leading-snug">{{ $post->title }}</h1>
         <div class="mb-4 mt-3 space-x-3 flex items-center">
             @if($post->is_published)
