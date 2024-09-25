@@ -17,6 +17,7 @@
         "spatie/commonmark-highlighter": "^3.0",
         "spatie/laravel-markdown": "^2.5",
         "spatie/laravel-medialibrary": "^11.9",
+        "spatie/laravel-sitemap": "^7.2",
         "spatie/laravel-tags": "^4.6",
         "tempest/highlight": "^2.10"
     },

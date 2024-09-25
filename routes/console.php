@@ -9,3 +9,6 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 Schedule::command(Commands\PublishScheduledPostsCommand::class)->everyMinute();
+Schedule::command(Commands\SitemapGenerateCommand::class)->daily();
+Schedule::command(Commands\DatabaseBackupCommand::class)->daily();
+Schedule::command(Commands\SqliteCompactDatabaseCommand::class, ['--connection' => 'sqlite'])->monthly();

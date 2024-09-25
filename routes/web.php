@@ -20,4 +20,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/blog/{post:slug}/preview', Controllers\PostPreviewController::class)->name('posts.preview');
 });
 
-Route::get('post-thumbnail', fn() => view('posts.thumbnail', ['post' => \App\Models\Post::first()]));
+Route::get('/sitemap.xml', fn() => response(file_get_contents(storage_path('sitemap.xml')), 200, ['Content-Type' => 'application/xml']));
