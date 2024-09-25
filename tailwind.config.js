@@ -20,7 +20,8 @@ export default {
                 },
             },
             fontFamily: {
-                heading: ["Arya", ...defaultTheme.fontFamily.sans],
+                heading: ["Arya", "Inter", ...defaultTheme.fontFamily.sans],
+                sans: ["Inter", ...defaultTheme.fontFamily.sans],
             },
             height: {
                 screen: "calc(100vh - 3.75rem)",
