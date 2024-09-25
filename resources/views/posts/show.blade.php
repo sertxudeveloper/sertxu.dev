@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="fixed bg-dark-200 bg-doodles h-full w-full -z-10"></div>
-    <div class="bg-dark-100 max-w-screen-lg mt mx-auto px-10 py-12 my-64">
+    <div class="bg-dark-100 max-w-screen-lg mt mx-auto px-10 py-12 my-48">
         <h1 class="text-4xl font-medium text-neutral-200 leading-snug">{{ $post->title }}</h1>
         <div class="flex items-center mb-4 mt-3 space-x-3">
             @if($post->is_published)
