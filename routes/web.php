@@ -19,3 +19,5 @@ Route::view('/uses', 'uses')->name('uses');
 Route::middleware('auth')->group(function () {
     Route::get('/blog/{post:slug}/preview', Controllers\PostPreviewController::class)->name('posts.preview');
 });
+
+Route::get('post-thumbnail', fn() => view('posts.thumbnail', ['post' => Post::first()]));
