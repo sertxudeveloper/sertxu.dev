@@ -4,17 +4,17 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class DatabaseBackupCommand extends Command
+class SqliteBackup extends Command
 {
-    protected $signature = 'database:backup';
+    protected $signature = 'sqlite:backup';
 
-    protected $description = 'Backup the database';
+    protected $description = 'Backup the SQLite database.';
 
     public function handle(): void
     {
         $this->info('Backing up database...');
 
-        $filename = 'backup-' . date('Y-m-d-H-i-s') . '.sqlite';
+        $filename = 'backup-' . date('Y_m_d_His') . '.sqlite';
         copy(database_path('database.sqlite'), storage_path('app/backups/' . $filename));
 
         // Keep only the 5 most recent backups

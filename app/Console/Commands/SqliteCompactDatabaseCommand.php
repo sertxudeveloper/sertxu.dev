@@ -23,7 +23,7 @@ class SqliteCompactDatabaseCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Compact the SQLite database';
+    protected $description = 'Compact the SQLite database.';
 
     /**
      * Execute the console command.

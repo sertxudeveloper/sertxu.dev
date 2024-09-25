@@ -10,7 +10,7 @@ class PublishScheduledPostsCommand extends Command
 {
     protected $signature = 'blog:publish-scheduled-posts';
 
-    protected $description = 'Publish scheduled posts';
+    protected $description = 'Publish scheduled posts.';
 
     public function handle(PublishPostAction $publishPostAction): void
     {

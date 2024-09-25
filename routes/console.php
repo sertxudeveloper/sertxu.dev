@@ -10,5 +10,5 @@ Artisan::command('inspire', function () {
 
 Schedule::command(Commands\PublishScheduledPostsCommand::class)->everyMinute();
 Schedule::command(Commands\SitemapGenerateCommand::class)->daily();
-Schedule::command(Commands\DatabaseBackupCommand::class)->daily();
+Schedule::command(Commands\SqliteBackup::class)->daily();
 Schedule::command(Commands\SqliteCompactDatabaseCommand::class, ['--connection' => 'sqlite'])->monthly();
