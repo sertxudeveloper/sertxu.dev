@@ -1,12 +1,10 @@
 @extends('layout')
 
 @section('content')
-    <div class="py-12 gap-6 mx-auto max-w-screen-lg">
-        <div class="mb-4">
-            {{ $post->getFirstMedia('thumbnail') }}
-        </div>
+    <div class="fixed bg-dark-200 bg-doodles h-full w-full -z-10"></div>
+    <div class="bg-dark-100 max-w-screen-lg mt mx-auto px-10 py-12 my-64">
         <h1 class="text-4xl font-medium text-neutral-200 leading-snug">{{ $post->title }}</h1>
-        <div class="mb-4 mt-3 space-x-3 flex items-center">
+        <div class="flex items-center mb-4 mt-3 space-x-3">
             @if($post->is_published)
                 <span class="text-sm text-neutral-300">Published at {{ $post->published_at->format('d M Y') }}</span>
             @else
@@ -22,7 +20,7 @@
             </ul>
         </div>
 
-        <section class="markup border-t border-neutral-700 pt-4">
+        <section class="markup border-neutral-700 border-t pt-8">
             @markdown($post->text ?? '')
         </section>
     </div>
