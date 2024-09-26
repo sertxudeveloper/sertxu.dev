@@ -22,7 +22,7 @@ class DevTo
                     'main_image' => $imageUrl,
                     'canonical_url' => $canonicalUrl,
                     'description' => $description,
-                    'tags' => collect($tags)->join(', '),
+                    'tags' => $tags,
                 ],
             ]);
     }
