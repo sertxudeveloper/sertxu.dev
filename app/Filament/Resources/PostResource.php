@@ -44,8 +44,7 @@ class PostResource extends Resource
                                 Forms\Components\TextInput::make('slug')
                                     ->required()
                                     ->columnSpan(2)
-                                    ->prefix('/blog/')
-                                    ->readOnlyOn('edit'),
+                                    ->prefix('/blog/'),
 
                                 Forms\Components\DateTimePicker::make('published_at')
                                     ->nullable(),
