@@ -30,7 +30,7 @@ class SqliteBackup extends Command
         $this->info('Backing up database...');
 
         $filename = 'backup-' . date('Y_m_d_His') . '.sqlite';
-        copy(database_path('database.sqlite'), storage_path('app/backups/' . $filename));
+        copy(database_path('sqlite/database.sqlite'), storage_path('app/backups/' . $filename));
 
         // Keep only the 5 most recent backups
         $backups = collect(scandir(storage_path('app/backups')))
