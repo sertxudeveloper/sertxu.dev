@@ -3,15 +3,39 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+
+    <meta name="author" content="sertxu.dev"/>
+    <meta name="robots" content="index, follow"/>
+
+    <meta name="applicable-device" content="pc, mobile"/>
+    <meta name="canonical" content="{{ url()->current() }}"/>
+
+    <meta name="keywords" content="sertxu.dev, sertxudev, sertxudeveloper, Sergio Peris, tutorial, personal, portfolio, social, cv"/>
+
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="sertxu.dev" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+    <link rel="manifest" href="/manifest.json"/>
+    <meta name="theme-color" content="#171717"/>
+
+    <meta content="sertxu.dev" property="og:site_name"/>
+    <meta property="og:url" content="{{ url()->current() }}"/>
 
     <title>{{ config('app.name') }}</title>
-    <meta name="description" content="Laravel - The PHP Framework For Web Artisans">
+    <meta name="description" content="Hi, I'm Sertxu - Full-stack developer, open-source maintainer, and content creator.">
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Hi, I'm Sertxu - Full-stack developer, open-source maintainer, and content creator."/>
+    <meta property="og:description" content="Hi, I'm Sertxu - Full-stack developer, open-source maintainer, and content creator."/>
+    <meta property="og:image" content="{{ asset('social.png') }}"/>
 
     <!-- Favicons -->
     <link rel="icon" sizes="192x192" href="{{ asset('icon@192.png') }}">
     <link rel="icon" sizes="128x128" href="{{ asset('icon@128.png') }}">
 
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
+    <link rel="shortcut icon"  type="image/x-icon" href="{{ asset('favicon.svg') }}"/>
     <link rel="icon" sizes="any" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 
     <link rel="apple-touch-icon" sizes="76x76"   href="{{ asset('icon@76.png') }}">

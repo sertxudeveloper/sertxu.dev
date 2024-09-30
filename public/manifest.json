@@ -1,0 +1,27 @@
+{
+    "id": "https://sertxu.dev",
+    "background_color": "#171717",
+    "description": "Hi, I'm Sertxu - Full-stack developer, open-source maintainer, and content creator.",
+    "dir": "ltr",
+    "display": "standalone",
+    "name": "sertxu.dev",
+    "orientation": "portrait",
+    "scope": "/",
+    "short_name": "sertxu.dev",
+    "start_url": "/",
+    "theme_color": "#171717",
+    "icons": [
+      {
+        "src": "https://sertxu.dev/favicon.svg",
+        "type": "image/x-icon"
+      },
+      {
+        "src": "https://sertxu.dev/icon@192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    ],
+    "categories": [
+      "blog"
+    ]
+  }
