@@ -1,0 +1,54 @@
+{
+    "id": "/",
+    "background_color": "#171717",
+    "description": "Hi, I'm Sertxu - Full-stack developer, open-source maintainer, and content creator.",
+    "dir": "ltr",
+    "display": "standalone",
+    "name": "sertxu.dev",
+    "orientation": "portrait",
+    "scope": "/",
+    "short_name": "sertxu.dev",
+    "start_url": "/",
+    "theme_color": "#171717",
+    "icons": [
+      {
+        "src": "/favicon.svg",
+        "type": "image/x-icon",
+        "sizes": "280x280"
+      },
+      {
+        "src": "/icon@256.png",
+        "type": "image/png",
+        "sizes": "256x256"
+      }
+    ],
+  "screenshots": [
+    {
+      "src": "/screenshots/v1.png",
+      "type": "image/png",
+      "sizes": "852x1528"
+    },
+    {
+      "src": "/screenshots/v2.png",
+      "type": "image/png",
+      "sizes": "852x1528"
+    },
+    {
+      "src": "/screenshots/v3.png",
+      "type": "image/png",
+      "sizes": "852x1528"
+    },
+    {
+      "src": "/screenshots/w1.png",
+      "type": "image/png",
+      "sizes": "1920x1037",
+      "form_factor": "wide",
+      "label": "Desktop"
+    }
+  ],
+    "categories": [
+      "blog",
+      "portfolio",
+      "personal"
+    ]
+  }
