@@ -1,7 +1,7 @@
 @props(['project'])
 
 <li class="h-32 sm:h-56 lg:h-48 m-2 relative group overflow-hidden rounded-md">
-    <div class="h-full transform transition duration-500 ease-in-out group-hover:scale-110 *:object-cover *:h-full *:w-auto">
+    <div class="h-full transform transition duration-500 ease-in-out group-hover:scale-110 *:object-cover *:h-full *:w-full">
         {{ $project->getFirstMedia('thumbnail') }}
     </div>
     <a href="{{ route('projects.show', [$project->slug]) }}"
