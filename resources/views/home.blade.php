@@ -1,12 +1,12 @@
 @extends('layout')
 
 @section('content')
-    <section class="bg-dark-200 flex space-x-24 items-center justify-center py-32 min-h-screen bg-doodles">
+    <section class="bg-dark-200 flex md:space-x-24 items-center justify-center py-32 min-h-screen bg-doodles flex-col md:flex-row space-y-12">
         <img class="rounded-2xl w-72 block opacity-0 animate-slide-fade-in ![animation-delay:100ms]" src="{{ asset('dp.webp') }}" alt="Sergio Peris">
 
-        <div class="text-center space-y-6">
+        <div class="text-center space-y-6 px-4 md:px-12">
             <h1 class="text-4xl md:text-5xl font-bold text-neutral-200 opacity-0 animate-slide-fade-in ![animation-delay:100ms]">Hi, I'm Sertxu</h1>
-            <p class="text-xl md:text-2xl sm:text-3xl text-neutral-300 opacity-0 animate-slide-fade-in ![animation-delay:200ms]">Full&#8209;stack developer, open&#8209;source maintainer,<br>and content creator.</p>
+            <p class="text-xl md:text-2xl sm:text-3xl text-neutral-300 opacity-0 animate-slide-fade-in ![animation-delay:200ms]">Full&#8209;stack&nbsp;developer, open&#8209;source&nbsp;maintainer,<br>and content&nbsp;creator.</p>
 
             <div class="flex space-x-4 justify-center pt-4 opacity-0 animate-slide-fade-in ![animation-delay:300ms]">
                 <a href="https://x.com/sertxudev" class="hover:bg-ocean hover:text-white border shadow-xs border-neutral-300 bg-white/5 text-neutral-300 flex h-12 items-center justify-center rounded-lg w-12 p-2.5">
@@ -37,7 +37,7 @@
         <div class="max-w-screen-lg mx-auto">
             <h2 class="text-3xl text-neutral-200 text-center font-medium uppercase font-heading">About me</h2>
             <div class="border-b-2 border-ocean w-32 mx-auto mt-2 mb-10"></div>
-            <div class="text-lg space-y-4 text-neutral-300 mx-auto max-w-screen-md">
+            <div class="text-lg space-y-4 text-neutral-300 mx-auto max-w-screen-md px-10 lg:px-0">
                 <p>My name is Sergio Peris, however I'm also known as Sertxu.
                 <p>I'm a full&#8209;stack developer based in Spain, I love building web apps and making people's life easier.</p>
                 <p>I have experience working with a variety of technologies, including Laravel, Node.js and C#. I'm also an open&#8209;source maintainer and content creator, and I love sharing my knowledge with others.</p>
