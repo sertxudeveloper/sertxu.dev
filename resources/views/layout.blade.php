@@ -25,7 +25,7 @@
     
     <!-- Open Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
+    <meta property="og:title" content="Sergio Peris' blog and projects. Let's learn new things!"/>
     <meta property="og:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
     <meta property="og:image" content="{{ asset('social.png') }}"/>
     <meta property="og:url" content="{{ url()->current() }}"/>
