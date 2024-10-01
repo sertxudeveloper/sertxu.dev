@@ -17,4 +17,4 @@ arch('requests')
     ->expect('App\Http\Requests')
     ->toExtend('Illuminate\Foundation\Http\FormRequest')
     ->toHaveMethod('rules');
-    //->toBeUsedIn('App\Http\Controllers');
+//->toBeUsedIn('App\Http\Controllers');
