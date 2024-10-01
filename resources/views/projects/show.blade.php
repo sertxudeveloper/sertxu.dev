@@ -1,6 +1,4 @@
-@extends('layout')
-
-@section('content')
+<x-app-layout>
     <div class="py-12 gap-6 mx-auto max-w-screen-lg">
         <div class="mb-4">
             {{ $project->getFirstMedia('thumbnail') }}
@@ -28,4 +26,4 @@
             @markdown($project->text ?? '')
         </section>
     </div>
-@endsection
+</x-app-layout>

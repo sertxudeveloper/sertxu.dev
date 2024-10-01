@@ -1,6 +1,4 @@
-@extends('layout')
-
-@section('content')
+<x-app-layout>
     <div class="fixed bg-dark-200 bg-doodles h-full w-full -z-10"></div>
     <div class="bg-dark-100 max-w-screen-lg mt mx-auto px-10 py-12 my-48">
         <h1 class="text-4xl font-medium text-neutral-200 leading-snug">{{ $post->title }}</h1>
@@ -24,4 +22,4 @@
             @markdown($post->text ?? '')
         </section>
     </div>
-@endsection
+</x-app-layout>
