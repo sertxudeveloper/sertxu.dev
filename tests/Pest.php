@@ -1,5 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Storage;
+use Tests\TestCase;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -11,10 +16,8 @@
 |
 */
 
-uses(
-    Tests\TestCase::class,
-    // Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->in('Feature');
+pest()->extend(TestCase::class, Tests\Constrains\RefreshDatabaseWithTenant::class)
+    ->beforeEach(fn () => Storage::fake('public'));
 
 /*
 |--------------------------------------------------------------------------

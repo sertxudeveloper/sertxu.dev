@@ -1,6 +1,4 @@
-@extends('layout')
-
-@section('content')
+<x-app-layout>
     <section class="bg-dark-200 py-24 min-h-screen bg-doodles">
         <div class="max-w-screen-xl mx-auto">
             <h2 class="text-3xl text-neutral-200 text-center font-medium uppercase font-heading">My Experience</h2>
@@ -12,4 +10,4 @@
             </ul>
         </div>
     </section>
-@endsection
+</x-app-layout>

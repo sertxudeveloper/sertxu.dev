@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
-use LogicException;
 use Illuminate\Console\Command;
+use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\SQLiteConnection;
-use Illuminate\Database\ConnectionInterface;
+use LogicException;
 
-class SqliteWalEnableCommand extends Command
+final class SqliteWalEnableCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -27,9 +29,6 @@ class SqliteWalEnableCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @param  DatabaseManager $manager
-     * @return void
      */
     public function handle(DatabaseManager $manager): void
     {
@@ -41,6 +40,7 @@ class SqliteWalEnableCommand extends Command
 
         if ($journal !== 'wal') {
             $this->error("The '$connection' could not be set as WAL, returned [$journal] as journal mode.");
+
             return;
         }
 
@@ -49,17 +49,13 @@ class SqliteWalEnableCommand extends Command
 
     /**
      * Returns the Database Connection
-     *
-     * @param  DatabaseManager $manager
-     * @param  string $connection
-     * @return ConnectionInterface
      */
-    protected function getDatabase(DatabaseManager $manager, string $connection): ConnectionInterface
+    private function getDatabase(DatabaseManager $manager, string $connection): ConnectionInterface
     {
         $db = $manager->connection($connection);
 
         // We will throw an exception if the database is not SQLite
-        if(!$db instanceof SQLiteConnection) {
+        if (! $db instanceof SQLiteConnection) {
             throw new LogicException("The '$connection' connection must be sqlite, [{$db->getDriverName()}] given.");
         }
 
@@ -68,22 +64,16 @@ class SqliteWalEnableCommand extends Command
 
     /**
      * Sets the Journal Mode to WAL
-     *
-     * @param ConnectionInterface $connection
-     * @return bool
      */
-    protected function setWalJournalMode(ConnectionInterface $connection): bool
+    private function setWalJournalMode(ConnectionInterface $connection): bool
     {
         return $connection->statement('PRAGMA journal_mode=WAL;');
     }
 
     /**
      * Returns the current Journal Mode of the Database Connection
-     *
-     * @param ConnectionInterface $connection
-     * @return string
      */
-    protected function getJournalMode(ConnectionInterface $connection): string
+    private function getJournalMode(ConnectionInterface $connection): string
     {
         return data_get($connection->select('PRAGMA journal_mode'), '0.journal_mode');
     }

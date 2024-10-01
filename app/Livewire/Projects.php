@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
 use App\Models\Project;
@@ -10,10 +12,12 @@ use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
 use Spatie\Tags\Tag;
 
-class Projects extends Component
+final class Projects extends Component
 {
     public Collection $items;
+
     public string $nextCursor = '';
+
     public bool $hasMore = false;
 
     #[NoReturn]
@@ -41,10 +45,10 @@ class Projects extends Component
         ]);
     }
 
-    protected function projects(): CursorPaginator
+    private function projects(): CursorPaginator
     {
         return Project::published()
-            ->when(request()->has('tag'), fn($query) => $query->withAnyTags(request('tag')))
+            ->when(request()->has('tag'), fn ($query) => $query->withAnyTags(request('tag')))
             ->cursorPaginate(perPage: 8, cursor: $this->nextCursor);
     }
 }

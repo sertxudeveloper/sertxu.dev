@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EducationResource\Pages;
@@ -10,7 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class EducationResource extends Resource
+final class EducationResource extends Resource
 {
     protected static ?string $model = Education::class;
 
@@ -56,7 +58,7 @@ class EducationResource extends Resource
                                     ->required()
                                     ->maxLength(50),
                             ]),
-                    ])
+                    ]),
             ]);
     }
 

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Spatie\Sitemap\SitemapGenerator;
 
-class SitemapGenerateCommand extends Command
+final class SitemapGenerateCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -23,8 +25,6 @@ class SitemapGenerateCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
     public function handle(): void
     {

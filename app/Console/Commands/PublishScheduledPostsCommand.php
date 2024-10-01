@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Actions\PublishPostAction;
 use App\Models\Post;
 use Illuminate\Console\Command;
 
-class PublishScheduledPostsCommand extends Command
+final class PublishScheduledPostsCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -24,9 +26,6 @@ class PublishScheduledPostsCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @param PublishPostAction $publishPostAction
-     * @return void
      */
     public function handle(PublishPostAction $publishPostAction): void
     {

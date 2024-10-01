@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Medium;
 
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
-class Medium
+final readonly class Medium
 {
     private string $userId;
 

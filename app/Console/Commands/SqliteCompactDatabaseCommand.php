@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -8,7 +10,7 @@ use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\SQLiteConnection;
 use LogicException;
 
-class SqliteCompactDatabaseCommand extends Command
+final class SqliteCompactDatabaseCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -27,9 +29,6 @@ class SqliteCompactDatabaseCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @param  DatabaseManager $manager
-     * @return void
      */
     public function handle(DatabaseManager $manager): void
     {
@@ -42,17 +41,13 @@ class SqliteCompactDatabaseCommand extends Command
 
     /**
      * Returns the Database Connection
-     *
-     * @param  DatabaseManager $manager
-     * @param  string $connection
-     * @return ConnectionInterface
      */
-    protected function getDatabase(DatabaseManager $manager, string $connection): ConnectionInterface
+    private function getDatabase(DatabaseManager $manager, string $connection): ConnectionInterface
     {
         $db = $manager->connection($connection);
 
         // We will throw an exception if the database is not SQLite
-        if(!$db instanceof SQLiteConnection) {
+        if (! $db instanceof SQLiteConnection) {
             throw new LogicException("The '$connection' connection must be sqlite, [{$db->getDriverName()}] given.");
         }
 
@@ -61,11 +56,8 @@ class SqliteCompactDatabaseCommand extends Command
 
     /**
      * Compacts the SQLite database
-     *
-     * @param ConnectionInterface $connection
-     * @return bool
      */
-    protected function compact(ConnectionInterface $connection): bool
+    private function compact(ConnectionInterface $connection): bool
     {
         return $connection->statement('VACUUM;');
     }

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PostFactory extends Factory
+final class PostFactory extends Factory
 {
     protected $model = Post::class;
 
@@ -16,15 +18,15 @@ class PostFactory extends Factory
             'slug' => $this->faker->slug(),
             'text' => $this->faker->paragraphs(asText: true),
             'is_published' => false,
-            'published_at' => null
+            'published_at' => null,
         ];
     }
 
-    public function published(): PostFactory
+    public function published(): self
     {
-        return $this->state(fn() => [
+        return $this->state(fn (): array => [
             'is_published' => true,
-            'published_at' => now()
+            'published_at' => now(),
         ]);
     }
 }

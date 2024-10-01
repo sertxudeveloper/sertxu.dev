@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Experience;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
         Experience::create([
@@ -11,7 +14,7 @@ return new class extends Migration {
             'description' => 'I was an intern at an Erasmus+ program developing several websites for different organizations',
             'started_at' => '2018-05-01',
             'ended_at' => '2018-06-10',
-            'location' => 'Bologna, Italy'
+            'location' => 'Bologna, Italy',
         ]);
 
         Experience::create([

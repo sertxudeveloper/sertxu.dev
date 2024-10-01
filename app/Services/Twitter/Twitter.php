@@ -1,23 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Twitter;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
-class Twitter
+final readonly class Twitter
 {
-    protected TwitterOAuth $twitter;
-
-    public function __construct(TwitterOAuth $twitter)
-    {
-        $this->twitter = $twitter;
-    }
+    public function __construct(private TwitterOAuth $twitter) {}
 
     /**
      * Post a tweet with the given text.
-     *
-     * @param string $text
-     * @return array|null
      */
     public function tweet(string $text): ?array
     {

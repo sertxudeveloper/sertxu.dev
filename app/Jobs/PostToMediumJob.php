@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Models\Post;
@@ -12,13 +14,11 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\NoReturn;
 
-class PostToMediumJob implements ShouldQueue
+final class PostToMediumJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(private readonly Post $post)
-    {
-    }
+    public function __construct(private readonly Post $post) {}
 
     #[NoReturn]
     public function handle(Medium $medium): void
@@ -27,10 +27,10 @@ class PostToMediumJob implements ShouldQueue
             return;
         }
 
-        $markdown = '![](' . $this->post->getFirstMediaUrl('thumbnail') . ')'
-            . PHP_EOL . '# ' . $this->post->title
-            . PHP_EOL . '## ' . Str::limit(Str::before($this->post->text, PHP_EOL).'...')
-            . PHP_EOL . $this->post->text;
+        $markdown = '![]('.$this->post->getFirstMediaUrl('thumbnail').')'
+            .PHP_EOL.'# '.$this->post->title
+            .PHP_EOL.'## '.Str::limit(Str::before($this->post->text, PHP_EOL).'...')
+            .PHP_EOL.$this->post->text;
 
         $medium->writePost(
             title: $this->post->title,

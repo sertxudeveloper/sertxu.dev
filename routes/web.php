@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +22,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/blog/{post:slug}/preview', Controllers\PostPreviewController::class)->name('posts.preview');
 });
 
-Route::get('/sitemap.xml', fn() => response(file_get_contents(storage_path('sitemap.xml')), 200, ['Content-Type' => 'application/xml']));
+Route::get('/sitemap.xml', fn () => response(file_get_contents(storage_path('sitemap.xml')), 200, ['Content-Type' => 'application/xml']));

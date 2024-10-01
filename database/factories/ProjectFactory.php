@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
-class ProjectFactory extends Factory
+final class ProjectFactory extends Factory
 {
     protected $model = Project::class;
 
@@ -23,9 +24,9 @@ class ProjectFactory extends Factory
         ];
     }
 
-    public function published(): ProjectFactory
+    public function published(): self
     {
-        return $this->state(fn() => [
+        return $this->state(fn (): array => [
             'is_published' => true,
         ]);
     }

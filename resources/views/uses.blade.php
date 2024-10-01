@@ -1,6 +1,4 @@
-@extends('layout')
-
-@section('content')
+<x-app-layout>
     <section class="bg-dark-200 py-24 min-h-screen relative">
         <div class="top-0 left-0 absolute h-full w-full z-0 pointer-events-none bg-doodles"></div>
 
@@ -10,4 +8,4 @@
             <section class="markup !-mt-6">@markdown(File::get(resource_path('markdown/uses.md')))</section>
         </div>
     </section>
-@endsection
+</x-app-layout>

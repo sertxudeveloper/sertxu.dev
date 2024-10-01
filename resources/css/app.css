@@ -88,3 +88,7 @@
 .shiki .highlight {
     @apply inline-block w-full;
 }
+
+.bg-doodles {
+    @apply bg-cover;
+}

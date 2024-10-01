@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
 use App\Models\Post;
@@ -9,10 +11,12 @@ use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
 
-class Posts extends Component
+final class Posts extends Component
 {
     public Collection $items;
+
     public string $nextCursor = '';
+
     public bool $hasMore = false;
 
     #[NoReturn]
@@ -37,7 +41,7 @@ class Posts extends Component
         return view('livewire.posts');
     }
 
-    protected function query(): CursorPaginator
+    private function query(): CursorPaginator
     {
         return Post::published()
             ->cursorPaginate(perPage: 8, cursor: $this->nextCursor);

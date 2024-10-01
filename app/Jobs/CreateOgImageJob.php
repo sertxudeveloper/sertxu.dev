@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Models\Post;
@@ -11,7 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\Browsershot\Browsershot;
 
-class CreateOgImageJob implements ShouldQueue
+final class CreateOgImageJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -37,7 +39,7 @@ class CreateOgImageJob implements ShouldQueue
 
             $this->post
                 ->addMediaFromBase64($base64Image)
-                ->usingFileName($this->post->slug . '.jpg')
+                ->usingFileName($this->post->slug.'.jpg')
                 ->toMediaCollection('thumbnail');
         } catch (Exception $exception) {
             report($exception);

@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Concerns;
 
 use Spatie\Tags\Tag;
 
 trait Tweetable
 {
+    abstract public function tweetUrl(): string;
+
     public function toTweet(): string
     {
         $tags = $this->tags
@@ -17,6 +21,4 @@ trait Tweetable
             .PHP_EOL.$this->tweetUrl()
             .PHP_EOL.$tags;
     }
-
-    abstract public function tweetUrl(): string;
 }

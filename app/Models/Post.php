@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use App\Actions\PublishPostAction;
 use App\Models\Concerns\Threadable;
 use App\Models\Concerns\Tweetable;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,9 +15,9 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\HasTags;
 
-class Post extends Model implements HasMedia
+final class Post extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, HasTags, InteractsWithMedia, Tweetable, Threadable;
+    use HasFactory, HasTags, InteractsWithMedia, SoftDeletes, Threadable, Tweetable;
 
     public $with = ['tags'];
 
@@ -30,7 +31,7 @@ class Post extends Model implements HasMedia
         $publishDate = now()->hour(14);
 
         // If the date falls on a weekend or a post already exists on this date, increment the date
-        while ($publishDate->isWeekend() || Post::whereDate('published_at', $publishDate)->exists()) {
+        while ($publishDate->isWeekend() || self::whereDate('published_at', $publishDate)->exists()) {
             $publishDate->addDay();
         }
 
@@ -79,6 +80,11 @@ class Post extends Model implements HasMedia
         return $this->is_published && $this->published_at <= now();
     }
 
+    public function threadsUrl(): string
+    {
+        return route('posts.show', [$this, 'utm_source' => 'threads', 'utm_medium' => 'post']);
+    }
+
     protected function casts(): array
     {
         return [
@@ -88,10 +94,5 @@ class Post extends Model implements HasMedia
             'posted_on_medium' => 'boolean',
             'posted_on_dev' => 'boolean',
         ];
-    }
-
-    public function threadsUrl(): string
-    {
-        return route('posts.show', [$this, 'utm_source' => 'threads', 'utm_medium' => 'post']);
     }
 }

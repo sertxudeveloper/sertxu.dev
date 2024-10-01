@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\DevTo;
 
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
-class DevTo
+final class DevTo
 {
     public function writePost(string $title, string $markdown, string $imageUrl, string $canonicalUrl, string $description, array $tags): Response
     {

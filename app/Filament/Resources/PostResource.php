@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
@@ -14,11 +16,14 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class PostResource extends Resource
+final class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
+
     protected static ?string $navigationGroup = 'Content';
+
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
+
     protected static ?int $navigationSort = 0;
 
     public static function form(Form $form): Form
@@ -32,9 +37,9 @@ class PostResource extends Resource
                             ->columnSpanFull()
                             ->required()
                             ->live(onBlur: true)
-                            ->afterStateUpdated(function (Set $set, $state) use ($form) {
+                            ->afterStateUpdated(function (Set $set, $state) use ($form): void {
                                 // If operating on an existing record, don't update the slug.
-                                if ($form->getOperation() == 'create') {
+                                if ($form->getOperation() === 'create') {
                                     $set('slug', Str::slug($state));
                                 }
                             }),
@@ -109,7 +114,7 @@ class PostResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('preview')
                     ->icon('heroicon-o-eye')
-                    ->url(fn (Post $record) => $record->url(), shouldOpenInNewTab: true),
+                    ->url(fn (Post $record): string => $record->url(), shouldOpenInNewTab: true),
 
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
@@ -118,30 +123,32 @@ class PostResource extends Resource
 
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('schedule')
-                        ->action(function (Post $post) {
-                            if ($post->published_at) return;
+                        ->action(function (Post $post): void {
+                            if ($post->published_at) {
+                                return;
+                            }
 
                             $post->update(['published_at' => Post::nextFreePublishDate()]);
                         })
-                        ->hidden(fn (Post $post) => $post->published_at || $post->is_published),
+                        ->hidden(fn (Post $post): bool => $post->published_at || $post->is_published),
 
                     Tables\Actions\Action::make('unschedule')
-                        ->action(function (Post $post) {
+                        ->action(function (Post $post): void {
                             $post->update(['published_at' => null]);
                         })
-                        ->hidden(fn (Post $post) => !$post->published_at || $post->is_published),
+                        ->hidden(fn (Post $post): bool => ! $post->published_at || $post->is_published),
 
                     Tables\Actions\Action::make('publish now')
-                        ->action(function (Post $post) {
+                        ->action(function (Post $post): void {
                             $post->update(['is_published' => true, 'published_at' => now()]);
                         })
                         ->hidden(fn (Post $post) => $post->is_published),
 
                     Tables\Actions\Action::make('unpublish')
-                        ->action(function (Post $post) {
+                        ->action(function (Post $post): void {
                             $post->update(['is_published' => false, 'published_at' => null]);
                         })
-                        ->hidden(fn (Post $post) => !$post->is_published),
+                        ->hidden(fn (Post $post): bool => ! $post->is_published),
 
                     Tables\Actions\Action::make('generate thumbnail')
                         ->action(fn (Post $post) => CreateOgImageJob::dispatch($post)),

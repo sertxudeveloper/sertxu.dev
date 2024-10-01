@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ExperienceResource\Pages;
@@ -10,7 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class ExperienceResource extends Resource
+final class ExperienceResource extends Resource
 {
     protected static ?string $model = Experience::class;
 
@@ -25,38 +27,38 @@ class ExperienceResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Experience')
-                ->schema([
-                    Forms\Components\TextInput::make('title')
-                        ->required()
-                        ->columnSpanFull()
-                        ->maxLength(255),
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->columnSpanFull()
+                            ->maxLength(255),
 
-                    Forms\Components\MarkdownEditor::make('description')
-                        ->required()
-                        ->toolbarButtons([
-                            'bold',
-                            'bulletList',
-                            'italic',
-                            'strike',
-                            'link',
-                            'redo',
-                            'undo',
-                        ])
-                        ->maxLength(255)
-                        ->columnSpanFull(),
+                        Forms\Components\MarkdownEditor::make('description')
+                            ->required()
+                            ->toolbarButtons([
+                                'bold',
+                                'bulletList',
+                                'italic',
+                                'strike',
+                                'link',
+                                'redo',
+                                'undo',
+                            ])
+                            ->maxLength(255)
+                            ->columnSpanFull(),
 
-                    Forms\Components\Grid::make(3)
-                        ->schema([
-                            Forms\Components\DatePicker::make('started_at')
-                                ->required(),
+                        Forms\Components\Grid::make(3)
+                            ->schema([
+                                Forms\Components\DatePicker::make('started_at')
+                                    ->required(),
 
-                            Forms\Components\DatePicker::make('ended_at'),
+                                Forms\Components\DatePicker::make('ended_at'),
 
-                            Forms\Components\TextInput::make('location')
-                                ->required()
-                                ->maxLength(50),
-                        ]),
-                ])
+                                Forms\Components\TextInput::make('location')
+                                    ->required()
+                                    ->maxLength(50),
+                            ]),
+                    ]),
             ]);
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages;
@@ -12,7 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
-class ProjectResource extends Resource
+final class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
 
@@ -33,9 +35,9 @@ class ProjectResource extends Resource
                             ->required()
                             ->columnSpanFull()
                             ->live(onBlur: true)
-                            ->afterStateUpdated(function (Set $set, $state) use ($form) {
+                            ->afterStateUpdated(function (Set $set, $state) use ($form): void {
                                 // If operating on an existing record, don't update the slug.
-                                if ($form->getOperation() == 'create') {
+                                if ($form->getOperation() === 'create') {
                                     $set('slug', Str::slug($state));
                                 }
                             }),
@@ -70,7 +72,7 @@ class ProjectResource extends Resource
 
                         Forms\Components\SpatieMediaLibraryFileUpload::make('thumbnail')
                             ->collection('thumbnail')
-                            ->responsiveImages()
+                            ->responsiveImages(),
                     ]),
             ]);
     }
@@ -114,7 +116,7 @@ class ProjectResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('preview')
                     ->icon('heroicon-o-eye')
-                    ->url(fn(Project $record) => route('projects.show', $record), shouldOpenInNewTab: true),
+                    ->url(fn (Project $record) => route('projects.show', $record), shouldOpenInNewTab: true),
 
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Experience;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
-class ExperienceFactory extends Factory
+final class ExperienceFactory extends Factory
 {
     protected $model = Experience::class;
 
@@ -21,9 +23,9 @@ class ExperienceFactory extends Factory
         ];
     }
 
-    public function current(): ExperienceFactory
+    public function current(): self
     {
-        return $this->state(fn() => [
+        return $this->state(fn (): array => [
             'ended_at' => null,
         ]);
     }

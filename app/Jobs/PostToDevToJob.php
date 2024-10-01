@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Models\Post;
@@ -12,13 +14,11 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\NoReturn;
 
-class PostToDevToJob implements ShouldQueue
+final class PostToDevToJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(private readonly Post $post)
-    {
-    }
+    public function __construct(private readonly Post $post) {}
 
     #[NoReturn]
     public function handle(DevTo $devTo): void

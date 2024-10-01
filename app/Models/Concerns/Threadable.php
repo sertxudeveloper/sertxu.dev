@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\Concerns;
 
 use Spatie\Tags\Tag;
 
 trait Threadable
 {
+    abstract public function threadsUrl(): string;
 
     public function toThreads(): string
     {
@@ -18,6 +21,4 @@ trait Threadable
             .PHP_EOL.$this->threadsUrl()
             .PHP_EOL.$tags;
     }
-
-    abstract public function threadsUrl(): string;
 }

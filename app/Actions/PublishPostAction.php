@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions;
 
 use App\Jobs\CreateOgImageJob;
@@ -9,7 +11,7 @@ use App\Jobs\PostToTweetJob;
 use App\Models\Post;
 use Illuminate\Support\Facades\Bus;
 
-class PublishPostAction
+final class PublishPostAction
 {
     public function execute(Post $post): void
     {
