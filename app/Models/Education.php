@@ -30,6 +30,8 @@ final class Education extends Model
         return [
             'started_at' => 'date:Y-m-d',
             'ended_at' => 'date:Y-m-d',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
         ];
     }
 }

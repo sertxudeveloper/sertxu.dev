@@ -25,16 +25,13 @@ final class Experience extends Model
         return $query->orderByDesc('started_at');
     }
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
-            'started_at' => 'datetime:Y-m-d',
-            'ended_at' => 'datetime:Y-m-d',
+            'started_at' => 'date:Y-m-d',
+            'ended_at' => 'date:Y-m-d',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
         ];
     }
 }

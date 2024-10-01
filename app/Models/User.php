@@ -41,16 +41,13 @@ final class User extends Authenticatable implements FilamentUser
         return $this->email === 'dev.sertxu@gmail.com';
     }
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
         ];
     }
 }

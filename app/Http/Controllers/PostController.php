@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Contracts\View\View;
 
-final class PostController extends Controller
+final class PostController
 {
     /**
      * Get the show page.

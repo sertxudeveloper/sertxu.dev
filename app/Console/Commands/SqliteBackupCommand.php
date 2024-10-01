@@ -6,7 +6,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-final class SqliteBackup extends Command
+final class SqliteBackupCommand extends Command
 {
     /**
      * The name and signature of the console command.

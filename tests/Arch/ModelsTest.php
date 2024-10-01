@@ -40,7 +40,7 @@ arch('ensure factories', function () {
     }
 });
 
-arch('ensure datetime casts', function () {
+arch('ensure date columns casts', function () {
     $models = getModels();
 
     foreach ($models as $model) {
@@ -51,7 +51,8 @@ arch('ensure datetime casts', function () {
             ->filter(fn ($_, $key) => str_ends_with($key, '_at'));
 
         foreach ($dates as $key => $value) {
-            expect($instance->getCasts())->toHaveKey($key, 'datetime');
+            preg_match('/datetime|date|date:[\w-]+/', $instance->getCasts()[$key], $matches);
+            expect($matches)->not->toBeEmpty();
         }
     }
 });

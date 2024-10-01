@@ -54,14 +54,13 @@ final class Project extends Model implements HasMedia
             ->orderBy('id', 'desc');
     }
 
-    /**
-     * Get the attributes that should be cast.
-     */
     protected function casts(): array
     {
         return [
             'published_at' => 'datetime',
             'is_featured' => 'boolean',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
         ];
     }
 }

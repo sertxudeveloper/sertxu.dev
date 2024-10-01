@@ -85,6 +85,11 @@ final class Post extends Model implements HasMedia
         return route('posts.show', [$this, 'utm_source' => 'threads', 'utm_medium' => 'post']);
     }
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -93,6 +98,8 @@ final class Post extends Model implements HasMedia
             'posted_on_twitter' => 'boolean',
             'posted_on_medium' => 'boolean',
             'posted_on_dev' => 'boolean',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
         ];
     }
 }
