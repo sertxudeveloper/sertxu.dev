@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Experience;
 use Illuminate\Contracts\View\View;
 
-final class ExperienceController
+final readonly class ExperienceController
 {
     /**
      * Get the index page.

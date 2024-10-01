@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Twitter;
+namespace App\Providers;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use App\Services\Twitter\Twitter;
 use Illuminate\Support\ServiceProvider;
 
 final class TwitterServiceProvider extends ServiceProvider

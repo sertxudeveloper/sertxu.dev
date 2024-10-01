@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Education;
 use Illuminate\Contracts\View\View;
 
-final class EducationController
+final readonly class EducationController
 {
     /**
      * Get the index page.

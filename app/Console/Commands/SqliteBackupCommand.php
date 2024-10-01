@@ -32,12 +32,11 @@ final class SqliteBackupCommand extends Command
         $filename = 'backup-'.date('Y_m_d_His').'.sqlite';
         copy(database_path('sqlite/database.sqlite'), storage_path('app/backups/'.$filename));
 
-        // Keep only the 5 most recent backups
+        // Get all except the last 5 files
         $backups = collect(scandir(storage_path('app/backups')))
             ->filter(fn ($file): bool => pathinfo($file, PATHINFO_EXTENSION) === 'sqlite')
-            ->sortByDesc(fn ($file): int|false => filemtime(storage_path('app/backups/'.$file)))
-            ->values()
-            ->slice(5);
+            ->sortBy(fn ($file): int => filectime(storage_path('app/backups/'.$file)))
+            ->slice(0, -5);
 
         $backups->each(fn ($file): bool => unlink(storage_path('app/backups/'.$file)));
 

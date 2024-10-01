@@ -11,7 +11,7 @@ use App\Jobs\PostToTweetJob;
 use App\Models\Post;
 use Illuminate\Support\Facades\Bus;
 
-final class PublishPostAction
+final readonly class PublishPostAction
 {
     public function execute(Post $post): void
     {

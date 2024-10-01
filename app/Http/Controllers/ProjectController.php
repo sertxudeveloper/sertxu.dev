@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Contracts\View\View;
 
-final class ProjectController
+final readonly class ProjectController
 {
     /**
      * Get the show page.

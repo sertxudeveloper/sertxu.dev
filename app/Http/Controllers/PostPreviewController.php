@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Contracts\View\View;
 
-final class PostPreviewController
+final readonly class PostPreviewController
 {
     public function __invoke(Post $post): View
     {

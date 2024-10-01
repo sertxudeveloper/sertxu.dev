@@ -8,7 +8,7 @@ use App\Models\Post;
 use App\Models\Project;
 use Illuminate\Contracts\View\View;
 
-final class HomeController
+final readonly class HomeController
 {
     public function __invoke(): View
     {

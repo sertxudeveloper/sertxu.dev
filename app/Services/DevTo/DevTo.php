@@ -7,7 +7,7 @@ namespace App\Services\DevTo;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
-final class DevTo
+final readonly class DevTo
 {
     public function writePost(string $title, string $markdown, string $imageUrl, string $canonicalUrl, string $description, array $tags): Response
     {
