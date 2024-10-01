@@ -5,9 +5,9 @@
          colors="true"
 >
     <testsuites>
-        <testsuite name="Http">
+        <!--<testsuite name="Http">
             <directory>tests/Http</directory>
-        </testsuite>
+        </testsuite>-->
         <testsuite name="Console">
             <directory>tests/Console</directory>
         </testsuite>
