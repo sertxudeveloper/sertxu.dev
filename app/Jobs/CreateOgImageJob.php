@@ -33,7 +33,7 @@ final class CreateOgImageJob implements ShouldQueue
                 ->addChromiumArguments(['disable-gpu'])
                 ->noSandbox()
                 ->waitUntilNetworkIdle()
-                ->setScreenshotType('jpg')
+                ->setScreenshotType('jpeg', 100)
                 ->windowSize(640, 360)
                 ->base64Screenshot();
 
