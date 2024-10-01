@@ -20,15 +20,30 @@
     <link rel="manifest" href="/manifest.json"/>
     <meta name="theme-color" content="#171717"/>
 
-    <meta content="sertxu.dev" property="og:site_name"/>
-    <meta property="og:url" content="{{ url()->current() }}"/>
-
     <title>{{ config('app.name') }}</title>
-    <meta name="description" content="Hi, I'm Sertxu - Full-stack developer, open-source maintainer, and content creator.">
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="Hi, I'm Sertxu - Full-stack developer, open-source maintainer, and content creator."/>
-    <meta property="og:description" content="Hi, I'm Sertxu - Full-stack developer, open-source maintainer, and content creator."/>
+    <meta name="description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
+    
+    <!-- Open Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
+    <meta property="og:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
     <meta property="og:image" content="{{ asset('social.png') }}"/>
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta property="og:site_name" content="sertxu.dev"/>
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Sergio Peris' blog and projects. Let's learn new things!">
+    <meta property="og:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator.">
+    <meta property="og:image" content="{{ asset('social.png') }}">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="sertxu.dev">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="Sergio Peris' blog and projects. Let's learn new things!">
+    <meta name="twitter:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator.">
+    <meta name="twitter:image" content="{{ asset('social.png') }}">
 
     <!-- Favicons -->
     <link rel="icon" sizes="192x192" href="{{ asset('icon@192.png') }}">

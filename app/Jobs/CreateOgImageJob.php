@@ -31,13 +31,13 @@ class CreateOgImageJob implements ShouldQueue
                 ->addChromiumArguments(['disable-gpu'])
                 ->noSandbox()
                 ->waitUntilNetworkIdle()
-                ->setScreenshotType('webp', 100)
+                ->setScreenshotType('jpg', 100)
                 ->windowSize(640, 360)
                 ->base64Screenshot();
 
             $this->post
                 ->addMediaFromBase64($base64Image)
-                ->usingFileName($this->post->slug . '.webp')
+                ->usingFileName($this->post->slug . '.jpg')
                 ->toMediaCollection('thumbnail');
         } catch (Exception $exception) {
             report($exception);
