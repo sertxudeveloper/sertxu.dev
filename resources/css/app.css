@@ -29,7 +29,7 @@
 }
 
 .markup > pre {
-    @apply p-6 my-4;
+    @apply p-6 my-4 overflow-x-auto;
 }
 
 .markup > pre > code {
