@@ -12,7 +12,7 @@
         </div>
 
         <!-- Mobile menu opener -->
-        <div class="flex inset-y-0 items-center right-0 md:hidden absolute">
+        <div class="flex inset-y-0 items-center md:hidden">
             <button
                 class="border border-neutral-800 p-2 rounded-md text-gray-500"
                 aria-label="Main menu" aria-expanded="false" @click="open = !open">
@@ -38,7 +38,7 @@
 
     <!-- Mobile menu -->
     <div x-show="open"
-        class="absolute bg-dark-300 md:hidden transform w-full z-10 top-0 left-0 mt-[60px] border-t border-neutral-800"
+        class="absolute bg-dark-300 md:hidden transform w-full z-20 top-0 left-0 mt-[60px] border-t border-neutral-800"
         x-transition:enter="transition ease-out duration-500"
         x-transition:enter-start="transform opacity-0 -translate-y-1/2"
         x-transition:enter-end="transform opacity-100 translate-y-0"
