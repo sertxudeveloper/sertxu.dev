@@ -59,6 +59,17 @@
     unicode-bidi: isolate;
 }
 
+.markup li {
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 40px;
+    unicode-bidi: isolate;
+}
+
 .markup blockquote {
     @apply border-l-4 border-ocean bg-ocean/15 p-4 my-4;
 }
