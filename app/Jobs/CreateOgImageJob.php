@@ -12,6 +12,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\Browsershot\Browsershot;
+use Spatie\Image\Image;
 
 final class CreateOgImageJob implements ShouldQueue
 {
@@ -41,12 +42,17 @@ final class CreateOgImageJob implements ShouldQueue
                 ->addMediaFromBase64($base64Image)
                 ->usingFileName($this->post->slug.'.webp')
                 ->toMediaCollection('thumbnail');
-            
+
+            // Get the just created image and convert it to jpg
+            $base64Image = Image::load($this->post->getFirstMedia('thumbnail')->getPath())
+                ->format('jpg')
+                ->optimize()
+                ->base64();
+
             $this->post
                 ->addMediaFromBase64($base64Image)
-                ->format('jpg')
                 ->usingFileName($this->post->slug.'.jpg')
-                ->toMediaCollection('thumbnail-jpeg');
+                ->toMediaCollection('thumbnail-jpg');
         } catch (Exception $exception) {
             report($exception);
         }
