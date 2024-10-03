@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-12 gap-6 mx-auto max-w-screen-lg">
+    <div class="py-12 px-4 gap-6 mx-auto max-w-screen-lg">
         <div class="mb-4">
             {{ $project->getFirstMedia('thumbnail') }}
         </div>

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section class="bg-dark-200 py-24 min-h-screen relative">
+    <section class="bg-dark-200 py-24 px-4 min-h-screen relative">
         <div class="top-0 left-0 absolute h-full w-full z-0 pointer-events-none bg-doodles"></div>
 
         <div class="max-w-screen-md mx-auto">
