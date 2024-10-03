@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="top-0 sticky">
+<nav x-data="{ open: false }" class="top-0 sticky z-30">
     <div class="flex justify-between max-w-screen-lg mx-auto items-center relative py-2.5 px-6 bg-dark-300 shadow-sm xl:px-0 z-30">
         <a href="{{ route('home') }}" class="outline-none" wire:navigate>
             @persist('logo')
@@ -38,7 +38,7 @@
 
     <!-- Mobile menu -->
     <div x-show="open"
-        class="absolute bg-dark-300 md:hidden transform w-full z-20 top-0 left-0 mt-[60px] border-t border-neutral-800"
+        class="absolute bg-dark-300 md:hidden transform w-full top-0 left-0 mt-[60px] border-t border-neutral-800"
         x-transition:enter="transition ease-out duration-500"
         x-transition:enter-start="transform opacity-0 -translate-y-1/2"
         x-transition:enter-end="transform opacity-100 translate-y-0"
