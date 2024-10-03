@@ -59,7 +59,7 @@
     unicode-bidi: isolate;
 }
 
-.markup li {
+.markup ol {
     display: block;
     list-style-type: decimal;
     margin-block-start: 1em;
