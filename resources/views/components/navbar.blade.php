@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="top-0 sticky z-30">
+<nav x-data="{ open: false }" class="top-0 sticky bg-dark-300 z-30">
     <div class="flex justify-between max-w-screen-lg mx-auto items-center relative py-2.5 px-6 bg-dark-300 shadow-sm xl:px-0 z-30">
         <a href="{{ route('home') }}" class="outline-none" wire:navigate>
             @persist('logo')
