@@ -15,7 +15,6 @@ jobs:
 
   deploy:
     needs: tests
-    runs-on: self-hosted
     environment: production
 
     steps:
