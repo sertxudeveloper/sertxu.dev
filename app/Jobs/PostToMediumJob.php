@@ -27,7 +27,7 @@ final class PostToMediumJob implements ShouldQueue
             return;
         }
 
-        $markdown = '![]('.$this->post->getFirstMediaUrl('thumbnail').')'
+        $markdown = '![]('.$this->post->getFirstMediaUrl('thumbnail-jpeg').')'
             .PHP_EOL.'# '.$this->post->title
             .PHP_EOL.'## '.Str::limit(Str::before($this->post->text, PHP_EOL).'...')
             .PHP_EOL.$this->post->text;
@@ -40,5 +40,8 @@ final class PostToMediumJob implements ShouldQueue
         );
 
         $this->post->updateQuietly(['posted_on_medium' => true]);
+        
+        // Remove the jpeg thumbnail, once it's posted to Medium it's no longer required. (Medium doesn't support .webp)
+        $this->post->clearMediaCollection('thumbnail-jpeg');
     }
 }
