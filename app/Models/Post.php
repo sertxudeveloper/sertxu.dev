@@ -44,6 +44,11 @@ final class Post extends Model implements HasMedia
             ->addMediaCollection('thumbnail')
             ->useDisk('public')
             ->singleFile();
+            
+        $this
+            ->addMediaCollection('thumbnail-jpg')
+            ->useDisk('public')
+            ->singleFile();
     }
 
     public function scopePublished(Builder $query): void

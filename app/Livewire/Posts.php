@@ -9,6 +9,7 @@ use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\NoReturn;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 final class Posts extends Component
@@ -18,6 +19,9 @@ final class Posts extends Component
     public string $nextCursor = '';
 
     public bool $hasMore = false;
+    
+    #[Url]
+    public string $tag = '';
 
     #[NoReturn]
     public function loadMore(): void
@@ -30,20 +34,27 @@ final class Posts extends Component
 
     public function mount(): void
     {
-        $paginator = $this->query();
-        $this->nextCursor = $paginator->nextCursor()?->encode() ?? '';
-        $this->hasMore = $paginator->hasMorePages();
-        $this->items = collect($paginator->items());
+        $this->items = collect();
+        $this->loadMore();
     }
 
     public function render(): View
     {
         return view('livewire.posts');
     }
+    
+    public function clearSelectedTag(): void
+    {
+        $this->tag = '';
+        
+        $this->items = collect();
+        $this->loadMore();
+    }
 
     private function query(): CursorPaginator
     {
         return Post::published()
+            ->when(!empty($this->tag), fn ($query) => $query->withAllTags($this->tag))
             ->cursorPaginate(perPage: 8, cursor: $this->nextCursor);
     }
 }
