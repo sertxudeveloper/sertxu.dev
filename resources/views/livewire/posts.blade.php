@@ -1,8 +1,8 @@
 <div>
-    @if($tag)
+    @if($selectedTag)
         <div class="justify-center items-center mb-10 space-x-2 flex">
-            <span class="text-neutral-300 text-sm">Showing post with tag:</span>
-            <span wire:click="clearSelectedTag" class="text-neutral-100 border border-ocean bg-ocean/20 px-3 py-1 rounded-full text-sm leading-tight flex items-center">{{ $tag }}<x-icons.times class="h-3 pl-2"/></span>
+            <span class="text-neutral-300 text-sm">Showing posts with tag:</span>
+            <span wire:click="clearSelectedTag" class="text-neutral-100 border border-ocean bg-ocean/20 px-3 py-1 rounded-full text-sm leading-tight flex items-center">{{ $selectedTag->name }}<x-icons.times class="h-3 pl-2"/></span>
         </div>
     @endif
   

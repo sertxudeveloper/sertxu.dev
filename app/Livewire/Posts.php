@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\NoReturn;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Spatie\Tags\Tag;
 
 final class Posts extends Component
 {
@@ -40,7 +41,9 @@ final class Posts extends Component
 
     public function render(): View
     {
-        return view('livewire.posts');
+        return view('livewire.posts', [
+            'selectedTag' => Tag::findFromString($this->tag) ?? null,
+        ]);
     }
     
     public function clearSelectedTag(): void

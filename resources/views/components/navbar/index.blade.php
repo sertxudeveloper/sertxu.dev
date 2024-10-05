@@ -37,7 +37,7 @@
     </div>
 
     <!-- Mobile menu -->
-    <div x-show="open"
+    <div x-show="open" x-cloak
         class="absolute bg-dark-300 md:hidden transform w-full top-0 left-0 mt-[60px] border-t border-neutral-800"
         x-transition:enter="transition ease-out duration-500"
         x-transition:enter-start="transform opacity-0 -translate-y-1/2"
