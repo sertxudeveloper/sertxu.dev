@@ -23,3 +23,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/sitemap.xml', fn () => response(file_get_contents(storage_path('sitemap.xml')), 200, ['Content-Type' => 'application/xml']));
+
+Route::fallback(fn () => redirect()->route('home'));
