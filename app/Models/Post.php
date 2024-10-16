@@ -7,10 +7,12 @@ namespace App\Models;
 use App\Models\Concerns\Threadable;
 use App\Models\Concerns\Tweetable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\HasTags;
@@ -44,7 +46,7 @@ final class Post extends Model implements HasMedia
             ->addMediaCollection('thumbnail')
             ->useDisk('public')
             ->singleFile();
-            
+
         $this
             ->addMediaCollection('thumbnail-jpg')
             ->useDisk('public')
@@ -88,6 +90,18 @@ final class Post extends Model implements HasMedia
     public function threadsUrl(): string
     {
         return route('posts.show', [$this, 'utm_source' => 'threads', 'utm_medium' => 'post']);
+    }
+
+    /**
+     * Get the excerpt attribute.
+     *
+     * @return Attribute<string>
+     */
+    public function excerpt(): Attribute
+    {
+        return new Attribute(
+            get: fn () => Str::limit(Str::before($this->text, PHP_EOL)),
+        );
     }
 
     /**

@@ -29,7 +29,7 @@ final class PostToMediumJob implements ShouldQueue
 
         $markdown = '![]('.$this->post->getFirstMediaUrl('thumbnail-jpg').')'
             .PHP_EOL.'# '.$this->post->title
-            .PHP_EOL.'## '.Str::limit(Str::before($this->post->text, PHP_EOL).'...')
+            .PHP_EOL.'## '.$this->post->excerpt
             .PHP_EOL.$this->post->text;
 
         $medium->writePost(

@@ -32,7 +32,7 @@ final class PostToDevToJob implements ShouldQueue
             markdown: $this->post->text,
             imageUrl: $this->post->getFirstMediaUrl('thumbnail'),
             canonicalUrl: $this->post->url(),
-            description: Str::limit($this->post->text, 250),
+            description: $this->post->excerpt,
             tags: $this->post->tags->pluck('name')->toArray(),
         );
 
