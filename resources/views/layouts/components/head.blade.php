@@ -6,7 +6,7 @@
 <meta name="robots" content="index, follow"/>
 
 <meta name="applicable-device" content="pc, mobile"/>
-<meta name="canonical" content="{{ url()->current() }}"/>
+<link rel="canonical" content="{{ url()->current() }}"/>
 
 <meta name="keywords" content="sertxu.dev, sertxudev, sertxudeveloper, Sergio Peris, tutorial, personal, portfolio, social, cv"/>
 
