@@ -41,7 +41,7 @@
 
     <!-- Open Meta Tags -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="{{ $post->title }}"/>
+    <meta property="og:title" content="{{ $post->title }} | {{ config('app.name') }}"/>
     <meta property="og:description" content="{{ $post->excerpt }}"/>
     <meta property="og:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}"/>
     <meta property="og:url" content="{{ url()->current() }}"/>
@@ -49,7 +49,7 @@
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="{{ $post->title }}">
+    <meta property="og:title" content="{{ $post->title }} | {{ config('app.name') }}">
     <meta property="og:description" content="{{ $post->excerpt }}">
     <meta property="og:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}">
 
@@ -57,26 +57,38 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="sertxu.dev">
     <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title" content="{{ $post->title }} | sertxu.dev">
+    <meta name="twitter:title" content="{{ $post->title }} | {{ config('app.name') }}">
     <meta name="twitter:description" content="{{ $post->excerpt }}">
     <meta name="twitter:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}">
 
 @elseif(request()->routeIs('projects.show'))
+    @php
+        $project = request()->route('project');
+    @endphp
+
     <title>{{ $project->title }} | {{ config('app.name') }}</title>
     <meta name="description" content="{{ $project->description }}"/>
 
     <!-- Open Meta Tags -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="{{ $project->title }}"/>
+    <meta property="og:title" content="{{ $project->title }} | {{ config('app.name') }}"/>
     <meta property="og:description" content="{{ $project->description }}"/>
     <meta property="og:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}"/>
     <meta property="og:url" content="{{ url()->current() }}"/>
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="{{ $project->title }} | sertxu.dev">
+    <meta property="og:title" content="{{ $project->title }} | {{ config('app.name') }}">
     <meta property="og:description" content="{{ $project->description }}">
     <meta property="og:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="sertxu.dev">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="{{ $project->title }} | {{ config('app.name') }}">
+    <meta name="twitter:description" content="{{ $project->description }}">
+    <meta name="twitter:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}">
 
 @else
     <title>{{ config('app.name') }}</title>
