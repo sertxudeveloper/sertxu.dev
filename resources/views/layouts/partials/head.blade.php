@@ -38,23 +38,24 @@
 
     <title>{{ $post->title }} | {{ config('app.name') }}</title>
     <meta name="description" content="{{ $post->excerpt }}"/>
+    <meta name="image" content="{{ $post->getFirstMediaUrl('thumbnail') }}"/>
 
     <!-- Open Meta Tags -->
-    <meta name="og:type" content="article">
-    <meta name="og:title" content="{{ $post->title }} | {{ config('app.name') }}"/>
-    <meta name="og:description" content="{{ $post->excerpt }}"/>
-    <meta name="og:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}"/>
-    <meta name="og:url" content="{{ url()->current() }}"/>
-    <meta name="og:site_name" content="sertxu.dev"/>
-    <meta name="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}" />
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ $post->title }} | {{ config('app.name') }}"/>
+    <meta property="og:description" content="{{ $post->excerpt }}"/>
+    <meta property="og:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}"/>
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta property="og:site_name" content="sertxu.dev"/>
+    <meta property="og:locale" content="{{ app()->getLocale() }}" />
 
     <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:domain" content="sertxu.dev">
-    <meta name="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title" content="{{ $post->title }} | {{ config('app.name') }}">
-    <meta name="twitter:description" content="{{ $post->excerpt }}">
-    <meta name="twitter:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="sertxu.dev">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="{{ $post->title }} | {{ config('app.name') }}">
+    <meta property="twitter:description" content="{{ $post->excerpt }}">
+    <meta property="twitter:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}">
 
 @elseif(request()->routeIs('projects.show'))
     @php
@@ -63,43 +64,45 @@
 
     <title>{{ $project->title }} | {{ config('app.name') }}</title>
     <meta name="description" content="{{ $project->description }}"/>
+    <meta name="image" content="{{ $project->getFirstMediaUrl('thumbnail') }}"/>
 
     <!-- Open Meta Tags -->
-    <meta name="og:type" content="article">
-    <meta name="og:title" content="{{ $project->title }} | {{ config('app.name') }}"/>
-    <meta name="og:description" content="{{ $project->excerpt }}"/>
-    <meta name="og:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}"/>
-    <meta name="og:url" content="{{ url()->current() }}"/>
-    <meta name="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}" />
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ $project->title }} | {{ config('app.name') }}"/>
+    <meta property="og:description" content="{{ $project->excerpt }}"/>
+    <meta property="og:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}"/>
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta property="og:locale" content="{{ app()->getLocale() }}" />
 
     <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="sertxu.dev">
     <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title" content="{{ $project->title }} | {{ config('app.name') }}">
-    <meta name="twitter:description" content="{{ $project->excerpt }}">
-    <meta name="twitter:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}">
+    <meta property="twitter:title" content="{{ $project->title }} | {{ config('app.name') }}">
+    <meta property="twitter:description" content="{{ $project->excerpt }}">
+    <meta property="twitter:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}">
 
 @else
     <title>{{ config('app.name') }}</title>
     <meta name="description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
+    <meta name="image" content="{{ asset('social.png') }}"/>
 
     <!-- Open Meta Tags -->
-    <meta name="og:type" content="website">
-    <meta name="og:title" content="Sergio Peris' blog and projects. Let's learn new things!"/>
-    <meta name="og:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
-    <meta name="og:image" content="{{ asset('social.png') }}"/>
-    <meta name="og:url" content="{{ url()->current() }}"/>
-    <meta name="og:site_name" content="sertxu.dev"/>
-    <meta name="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sergio Peris' blog and projects. Let's learn new things!"/>
+    <meta property="og:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
+    <meta property="og:image" content="{{ asset('social.png') }}"/>
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta property="og:site_name" content="sertxu.dev"/>
+    <meta property="og:locale" content="{{ app()->getLocale() }}" />
 
     <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:domain" content="sertxu.dev">
-    <meta name="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title" content="Sergio Peris' blog and projects. Let's learn new things!">
-    <meta name="twitter:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator.">
-    <meta name="twitter:image" content="{{ asset('social.png') }}">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="sertxu.dev">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="Sergio Peris' blog and projects. Let's learn new things!">
+    <meta property="twitter:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator.">
+    <meta property="twitter:image" content="{{ asset('social.png') }}">
 @endif
 
 <!-- Fonts -->
