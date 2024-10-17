@@ -57,7 +57,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="sertxu.dev">
     <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title" content="{{ $post->title }}">
+    <meta name="twitter:title" content="{{ $post->title }} | sertxu.dev">
     <meta name="twitter:description" content="{{ $post->excerpt }}">
     <meta name="twitter:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}">
 
@@ -74,7 +74,7 @@
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="{{ $project->title }}">
+    <meta property="og:title" content="{{ $project->title }} | sertxu.dev">
     <meta property="og:description" content="{{ $project->description }}">
     <meta property="og:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}">
 
