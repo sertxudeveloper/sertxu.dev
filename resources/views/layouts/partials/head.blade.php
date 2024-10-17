@@ -40,23 +40,18 @@
     <meta name="description" content="{{ $post->excerpt }}"/>
 
     <!-- Open Meta Tags -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="{{ $post->title }} | {{ config('app.name') }}"/>
-    <meta property="og:description" content="{{ $post->excerpt }}"/>
-    <meta property="og:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}"/>
-    <meta property="og:url" content="{{ url()->current() }}"/>
-    <meta property="og:site_name" content="sertxu.dev"/>
-
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="{{ $post->title }} | {{ config('app.name') }}">
-    <meta property="og:description" content="{{ $post->excerpt }}">
-    <meta property="og:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}">
+    <meta name="og:type" content="article">
+    <meta name="og:title" content="{{ $post->title }} | {{ config('app.name') }}"/>
+    <meta name="og:description" content="{{ $post->excerpt }}"/>
+    <meta name="og:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}"/>
+    <meta name="og:url" content="{{ url()->current() }}"/>
+    <meta name="og:site_name" content="sertxu.dev"/>
+    <meta name="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}" />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="sertxu.dev">
-    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:domain" content="sertxu.dev">
+    <meta name="twitter:url" content="{{ url()->current() }}">
     <meta name="twitter:title" content="{{ $post->title }} | {{ config('app.name') }}">
     <meta name="twitter:description" content="{{ $post->excerpt }}">
     <meta name="twitter:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}">
@@ -70,24 +65,19 @@
     <meta name="description" content="{{ $project->description }}"/>
 
     <!-- Open Meta Tags -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="{{ $project->title }} | {{ config('app.name') }}"/>
-    <meta property="og:description" content="{{ $project->description }}"/>
-    <meta property="og:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}"/>
-    <meta property="og:url" content="{{ url()->current() }}"/>
-
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="{{ $project->title }} | {{ config('app.name') }}">
-    <meta property="og:description" content="{{ $project->description }}">
-    <meta property="og:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}">
+    <meta name="og:type" content="article">
+    <meta name="og:title" content="{{ $project->title }} | {{ config('app.name') }}"/>
+    <meta name="og:description" content="{{ $project->excerpt }}"/>
+    <meta name="og:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}"/>
+    <meta name="og:url" content="{{ url()->current() }}"/>
+    <meta name="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}" />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="sertxu.dev">
     <meta property="twitter:url" content="{{ url()->current() }}">
     <meta name="twitter:title" content="{{ $project->title }} | {{ config('app.name') }}">
-    <meta name="twitter:description" content="{{ $project->description }}">
+    <meta name="twitter:description" content="{{ $project->excerpt }}">
     <meta name="twitter:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}">
 
 @else
@@ -95,23 +85,18 @@
     <meta name="description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
 
     <!-- Open Meta Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Sergio Peris' blog and projects. Let's learn new things!"/>
-    <meta property="og:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
-    <meta property="og:image" content="{{ asset('social.png') }}"/>
-    <meta property="og:url" content="{{ url()->current() }}"/>
-    <meta property="og:site_name" content="sertxu.dev"/>
-
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="Sergio Peris' blog and projects. Let's learn new things!">
-    <meta property="og:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator.">
-    <meta property="og:image" content="{{ asset('social.png') }}">
+    <meta name="og:type" content="website">
+    <meta name="og:title" content="Sergio Peris' blog and projects. Let's learn new things!"/>
+    <meta name="og:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
+    <meta name="og:image" content="{{ asset('social.png') }}"/>
+    <meta name="og:url" content="{{ url()->current() }}"/>
+    <meta name="og:site_name" content="sertxu.dev"/>
+    <meta name="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}" />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="sertxu.dev">
-    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:domain" content="sertxu.dev">
+    <meta name="twitter:url" content="{{ url()->current() }}">
     <meta name="twitter:title" content="Sergio Peris' blog and projects. Let's learn new things!">
     <meta name="twitter:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator.">
     <meta name="twitter:image" content="{{ asset('social.png') }}">
