@@ -1,64 +1,58 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Welcome to Sergio Peris (Sertxu) Portfolio! 🌟
 
-<p align="center">
-<a href="https://github.com/sertxudeveloper/sertxu.dev/actions"><img src="https://github.com/sertxudeveloper/sertxu.dev/actions/workflows/tests.yml/badge.svg?branch=main" alt="Build Status"></a>
-<a href="https://github.com/sertxudeveloper/sertxu.dev/actions"><img src="https://github.com/sertxudeveloper/sertxu.dev/actions/workflows/deploy.yml/badge.svg?branch=main" alt="Deployment Status"></a>
-</p>
+## 👋 About Me
+Hello! I’m **Sergio Peris**, also known as **Sertxu**, a **Full-Stack Developer** based in Spain. I am passionate about building software that makes an impact. My expertise revolves around **web development** using tools like **Laravel**, **Node.js**, and **C#**. I maintain several open-source projects and love diving into new challenges, continuously pushing the boundaries of my skills.
 
-## About Laravel
+I aim to craft elegant, maintainable, and efficient code. When I’m not coding, you can find me creating content to share my knowledge and help others on their coding journeys.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🔥 My Expertise
+I specialize in:
+- **Web Applications**: From backend logic to frontend interactivity, I build responsive, scalable, and dynamic web apps.
+- **Open-Source**: I contribute to the community with packages, tools, and blog posts to help developers create more.
+- **Frameworks & Tools**: Deep knowledge in frameworks like **Laravel**, **Livewire**, **Alpine.js**, and **Vue.js**.
+- **Backend**: Expertise in **Node.js**, **PHP**, **C#**, and database management with **MariaDB** and **MySQL**.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 💼 Projects
+### Cuelist
+A system designed to **coordinate teams** during live events and shows, streamlining operations and communications.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Laravel Counters Package
+A handy package to manage **incremental counters** with automatic year series and seamless integration with Laravel projects.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Livewire Combobox
+A **custom searchable combobox** built for **Livewire forms** to improve form interactivity and user experience.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Laravel Media Model Package
+An elegant package to **attach media files** (images, videos, documents) directly to Laravel models.
 
-## Laravel Sponsors
+These projects highlight my dedication to providing useful solutions to common challenges in development, ensuring quality and performance are at the forefront.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 📝 Blog and Tutorials
+Sharing knowledge is a cornerstone of my work. I maintain an active blog, providing in-depth tutorials and quick tips for developers of all levels. Some featured articles include:
+- **How to Import CSV to MariaDB**
+- **Clearing the Screen in MariaDB CLI**
+- **Managing Filament Resources Effectively**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+I aim to make complex topics approachable, ensuring developers can follow along and implement solutions in their own projects. Whether it's optimizing database imports or fine-tuning Laravel packages, my tutorials cover practical use cases.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🎯 Vision and Goals
+- **Empowering Developers**: Through my blog, open-source contributions, and tutorials, I strive to empower developers around the world.
+- **Continuous Learning**: In the ever-evolving tech landscape, I’m committed to expanding my expertise and embracing new technologies and frameworks.
+- **Building for Impact**: I focus on building tools and applications that have a tangible impact on productivity, creativity, and user experience.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 📞 Get In Touch
+Want to collaborate or have a project in mind? Feel free to [reach out](https://sertxu.dev). You can also follow my updates on GitHub and connect with me on social platforms for more insights.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Thank you for stopping by my portfolio! I look forward to working together on exciting projects 🚀.
