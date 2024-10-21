@@ -60,9 +60,10 @@ final class PostResource extends Resource
                             Forms\Components\Actions\Action::make('preview')
                                 ->icon('heroicon-o-eye')
                                 ->outlined()
-                                ->url(fn (Post $record): string => $record->url(), shouldOpenInNewTab: true)
-                                ->hiddenOn('create'),
-                        ])->fullWidth(),
+                                ->url(fn (Post $record): string => $record->url(), shouldOpenInNewTab: true),
+                        ])
+                            ->hiddenOn('create')
+                            ->fullWidth(),
 
                         Forms\Components\DateTimePicker::make('published_at')
                             ->nullable(),
