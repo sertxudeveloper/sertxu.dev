@@ -61,7 +61,7 @@ final class PostResource extends Resource
                                 ->icon('heroicon-o-eye')
                                 ->outlined()
                                 ->url(fn (Post $record): string => $record->url(), shouldOpenInNewTab: true)
-                                ->hidden(fn (ListRecords $livewire) => $livewire->mountedTableAction === 'create'),
+                                ->hiddenOn('create'),
                         ])->fullWidth(),
 
                         Forms\Components\DateTimePicker::make('published_at')
