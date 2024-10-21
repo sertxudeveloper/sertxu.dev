@@ -30,11 +30,9 @@ final class PostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Post')
-                    ->columns()
-                    ->schema([
+                Forms\Components\Split::make([
+                    Forms\Components\Section::make([
                         Forms\Components\TextInput::make('title')
-                            ->columnSpanFull()
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(function (Set $set, $state) use ($form): void {
@@ -44,43 +42,46 @@ final class PostResource extends Resource
                                 }
                             }),
 
-                        Forms\Components\Grid::make(4)
-                            ->schema([
-                                Forms\Components\TextInput::make('slug')
-                                    ->required()
-                                    ->columnSpan(2)
-                                    ->prefix('/blog/'),
+                        Forms\Components\TextInput::make('slug')
+                            ->required()
+                            ->prefix('/blog/'),
 
-                                Forms\Components\DateTimePicker::make('published_at')
-                                    ->nullable(),
-
-                                Forms\Components\Toggle::make('is_published')->inline(false),
-                            ]),
-
-                        Forms\Components\Grid::make(3)
-                            ->schema([
-                                Forms\Components\Toggle::make('posted_on_twitter')
-                                    ->inline(false)
-                                    ->helperText('If enabled won\'t post.'),
-
-                                Forms\Components\Toggle::make('posted_on_medium')
-                                    ->inline(false)
-                                    ->helperText('If enabled won\'t post.'),
-
-                                Forms\Components\Toggle::make('posted_on_dev')
-                                    ->inline(false)
-                                    ->helperText('If enabled won\'t post.'),
-                            ]),
-
-                        Forms\Components\SpatieTagsInput::make('tags')
-                            ->columnSpanFull(),
+                        Forms\Components\SpatieTagsInput::make('tags'),
 
                         Forms\Components\MarkdownEditor::make('text')
-                            ->columnSpanFull()
                             ->fileAttachmentsDisk('public')
                             ->fileAttachmentsDirectory('posts')
                             ->required(),
                     ]),
+
+                    Forms\Components\Section::make([
+
+                        Forms\Components\Actions::make([
+                            Forms\Components\Actions\Action::make('preview')
+                                ->icon('heroicon-o-eye')
+                                ->outlined()
+                                ->url(fn (Post $record): string => $record->url(), shouldOpenInNewTab: true),
+                        ])->fullWidth(),
+
+                        Forms\Components\DateTimePicker::make('published_at')
+                            ->nullable(),
+
+                        Forms\Components\Toggle::make('is_published')
+                            ->inline(false),
+
+                        Forms\Components\Toggle::make('posted_on_twitter')
+                            ->inline(false)
+                            ->helperText('If enabled won\'t post.'),
+
+                        Forms\Components\Toggle::make('posted_on_medium')
+                            ->inline(false)
+                            ->helperText('If enabled won\'t post.'),
+
+                        Forms\Components\Toggle::make('posted_on_dev')
+                            ->inline(false)
+                            ->helperText('If enabled won\'t post.'),
+                    ])->grow(false),
+                ])->from('xl')->columnSpan('full'),
             ]);
     }
 
