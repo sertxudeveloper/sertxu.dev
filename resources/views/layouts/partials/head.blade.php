@@ -48,6 +48,7 @@
     <meta property="og:url" content="{{ url()->current() }}"/>
     <meta property="og:site_name" content="sertxu.dev"/>
     <meta property="og:locale" content="{{ app()->getLocale() }}" />
+    <meta property="article:author" content="Sergio Peris">
 
     <!-- Twitter Meta Tags -->
     <meta property="twitter:card" content="summary_large_image">
@@ -56,6 +57,7 @@
     <meta property="twitter:title" content="{{ $post->title }} | {{ config('app.name') }}">
     <meta property="twitter:description" content="{{ $post->excerpt }}">
     <meta property="twitter:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}">
+    <meta property="twitter:creator" content="sertxudev">
 
 @elseif(request()->routeIs('projects.show'))
     @php
@@ -73,6 +75,7 @@
     <meta property="og:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}"/>
     <meta property="og:url" content="{{ url()->current() }}"/>
     <meta property="og:locale" content="{{ app()->getLocale() }}" />
+    <meta property="article:author" content="Sergio Peris">
 
     <!-- Twitter Meta Tags -->
     <meta property="twitter:card" content="summary_large_image">
@@ -81,6 +84,7 @@
     <meta property="twitter:title" content="{{ $project->title }} | {{ config('app.name') }}">
     <meta property="twitter:description" content="{{ $project->excerpt }}">
     <meta property="twitter:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}">
+    <meta property="twitter:creator" content="sertxudev">
 
 @else
     <title>{{ config('app.name') }}</title>
@@ -88,13 +92,16 @@
     <meta name="image" content="{{ asset('social.png') }}"/>
 
     <!-- Open Meta Tags -->
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="profile">
     <meta property="og:title" content="Sergio Peris' blog and projects. Let's learn new things!"/>
     <meta property="og:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
     <meta property="og:image" content="{{ asset('social.png') }}"/>
     <meta property="og:url" content="{{ url()->current() }}"/>
     <meta property="og:site_name" content="sertxu.dev"/>
     <meta property="og:locale" content="{{ app()->getLocale() }}" />
+    <meta property="profile:first_name" content="Sergio">
+    <meta property="profile:last_name" content="Peris">
+    <meta property="profile:username" content="sertxudev">
 
     <!-- Twitter Meta Tags -->
     <meta property="twitter:card" content="summary_large_image">
@@ -103,6 +110,7 @@
     <meta property="twitter:title" content="Sergio Peris' blog and projects. Let's learn new things!">
     <meta property="twitter:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator.">
     <meta property="twitter:image" content="{{ asset('social.png') }}">
+    <meta property="twitter:creator" content="@sertxudev">
 @endif
 
 <!-- Fonts -->
