@@ -74,6 +74,10 @@
     @apply border-l-4 border-ocean bg-ocean/15 p-4 my-4;
 }
 
+.markup b, .markup strong {
+    @apply text-coral;
+}
+
 .shiki .highlight {
     background-color: #bb800926;
 }
