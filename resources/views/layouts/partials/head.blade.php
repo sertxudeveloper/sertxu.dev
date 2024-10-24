@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
-<meta name="author" content="sertxu.dev"/>
+<meta name="author" content="Sergio Peris"/>
 <meta name="robots" content="index, follow"/>
 
 <meta name="applicable-device" content="pc, mobile"/>
