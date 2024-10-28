@@ -1484,16 +1484,16 @@
         },
         {
             "name": "filament/spatie-laravel-media-library-plugin",
-            "version": "v3.2.115",
+            "version": "v3.2.121",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/spatie-laravel-media-library-plugin.git",
-                "reference": "ee19b53a92b37fa28c8745cbc4f18f38d5cdeabb"
+                "reference": "35004964449944b98c15a698a1be842f23f6f7e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/spatie-laravel-media-library-plugin/zipball/ee19b53a92b37fa28c8745cbc4f18f38d5cdeabb",
-                "reference": "ee19b53a92b37fa28c8745cbc4f18f38d5cdeabb",
+                "url": "https://api.github.com/repos/filamentphp/spatie-laravel-media-library-plugin/zipball/35004964449944b98c15a698a1be842f23f6f7e6",
+                "reference": "35004964449944b98c15a698a1be842f23f6f7e6",
                 "shasum": ""
             },
             "require": {
@@ -1517,7 +1517,7 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2024-07-24T12:10:24+00:00"
+            "time": "2024-10-23T07:36:33+00:00"
         },
         {
             "name": "filament/spatie-laravel-tags-plugin",
