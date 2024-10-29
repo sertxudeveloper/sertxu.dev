@@ -6,7 +6,12 @@ permissions:
   contents: write
 
 jobs:
+  tests:
+    uses: sertxudeveloper/sertxu.dev/.github/workflows/tests.yml@main
+
   dependabot:
+    needs: tests
+    
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' }}
     
