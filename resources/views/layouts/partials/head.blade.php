@@ -125,4 +125,6 @@
     }
 </style>
 
+<script defer data-domain="sertxu.dev" src="https://plausible.binarycomet.net/js/script.js"></script>
+
 @yield('head')
