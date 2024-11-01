@@ -19,7 +19,7 @@
         </div>
 
         <section class="markup border-neutral-700 border-t pt-8">
-            {!! str($post->text)->markdown()->sanitizeHtml() !!}
+            @markdown($post->text ?? '')
         </section>
     </div>
 </x-app-layout>
