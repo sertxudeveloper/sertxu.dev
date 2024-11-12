@@ -8803,16 +8803,16 @@
         },
         {
             "name": "tempest/highlight",
-            "version": "2.10.6",
+            "version": "2.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/highlight.git",
-                "reference": "00ef935cc68b1b1ba68ffb09e91a810e42ca4e9d"
+                "reference": "099967df0cd3ae50edaeff56ac657a2ed1d77210"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/00ef935cc68b1b1ba68ffb09e91a810e42ca4e9d",
-                "reference": "00ef935cc68b1b1ba68ffb09e91a810e42ca4e9d",
+                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/099967df0cd3ae50edaeff56ac657a2ed1d77210",
+                "reference": "099967df0cd3ae50edaeff56ac657a2ed1d77210",
                 "shasum": ""
             },
             "require": {
@@ -8849,7 +8849,7 @@
             "description": "Fast, extensible, server-side code highlighting",
             "support": {
                 "issues": "https://github.com/tempestphp/highlight/issues",
-                "source": "https://github.com/tempestphp/highlight/tree/2.10.6"
+                "source": "https://github.com/tempestphp/highlight/tree/2.11.0"
             },
             "funding": [
                 {
@@ -8857,7 +8857,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-24T06:44:39+00:00"
+            "time": "2024-11-09T06:41:32+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
