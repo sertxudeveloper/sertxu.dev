@@ -106,4 +106,5 @@
 
 .bg-doodles {
     @apply bg-cover;
+    @apply bg-repeat-y;
 }
