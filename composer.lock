@@ -2320,16 +2320,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.31.0",
+            "version": "v11.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "365090ed2c68244e3141cdb5e247cdf3dfba2c40"
+                "reference": "bc2aad63f83ee5089be7b21cf29d645ccf31e927"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/365090ed2c68244e3141cdb5e247cdf3dfba2c40",
-                "reference": "365090ed2c68244e3141cdb5e247cdf3dfba2c40",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/bc2aad63f83ee5089be7b21cf29d645ccf31e927",
+                "reference": "bc2aad63f83ee5089be7b21cf29d645ccf31e927",
                 "shasum": ""
             },
             "require": {
@@ -2525,7 +2525,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-11-12T15:36:15+00:00"
+            "time": "2024-11-15T17:04:33+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -5398,23 +5398,23 @@
         },
         {
             "name": "spatie/commonmark-shiki-highlighter",
-            "version": "2.4.0",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/commonmark-shiki-highlighter.git",
-                "reference": "3dd337649d87a9b264838320a07a89d22e75d41b"
+                "reference": "0e3304989ad79ae7987f0d3a9308f40772513904"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/commonmark-shiki-highlighter/zipball/3dd337649d87a9b264838320a07a89d22e75d41b",
-                "reference": "3dd337649d87a9b264838320a07a89d22e75d41b",
+                "url": "https://api.github.com/repos/spatie/commonmark-shiki-highlighter/zipball/0e3304989ad79ae7987f0d3a9308f40772513904",
+                "reference": "0e3304989ad79ae7987f0d3a9308f40772513904",
                 "shasum": ""
             },
             "require": {
                 "league/commonmark": "^2.4.2",
                 "php": "^8.0",
-                "spatie/shiki-php": "^2.0",
-                "symfony/process": "^6.0|^7.0"
+                "spatie/shiki-php": "^2.2.2",
+                "symfony/process": "^5.4|^6.4|^7.1"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.19|^v3.49.0",
@@ -5446,7 +5446,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/commonmark-shiki-highlighter/tree/2.4.0"
+                "source": "https://github.com/spatie/commonmark-shiki-highlighter/tree/2.5.0"
             },
             "funding": [
                 {
@@ -5454,7 +5454,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-11T12:12:10+00:00"
+            "time": "2024-11-12T09:36:42+00:00"
         },
         {
             "name": "spatie/crawler",
@@ -5787,16 +5787,16 @@
         },
         {
             "name": "spatie/laravel-markdown",
-            "version": "2.5.2",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-markdown.git",
-                "reference": "66660b21cbc8e50c6129cfe9fac4d96beac8f8e5"
+                "reference": "ffd613b80ad4907d8d5d16d596a082ea785ab100"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-markdown/zipball/66660b21cbc8e50c6129cfe9fac4d96beac8f8e5",
-                "reference": "66660b21cbc8e50c6129cfe9fac4d96beac8f8e5",
+                "url": "https://api.github.com/repos/spatie/laravel-markdown/zipball/ffd613b80ad4907d8d5d16d596a082ea785ab100",
+                "reference": "ffd613b80ad4907d8d5d16d596a082ea785ab100",
                 "shasum": ""
             },
             "require": {
@@ -5806,7 +5806,7 @@
                 "illuminate/view": "^9.0|^10.0|^11.0",
                 "league/commonmark": "^2.4.2",
                 "php": "^8.1",
-                "spatie/commonmark-shiki-highlighter": "^2.3",
+                "spatie/commonmark-shiki-highlighter": "^2.5",
                 "spatie/laravel-package-tools": "^1.4.3"
             },
             "require-dev": {
@@ -5851,7 +5851,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-markdown/tree/2.5.2"
+                "source": "https://github.com/spatie/laravel-markdown/tree/2.6.0"
             },
             "funding": [
                 {
@@ -5859,7 +5859,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-22T14:16:23+00:00"
+            "time": "2024-11-12T13:16:43+00:00"
         },
         {
             "name": "spatie/laravel-medialibrary",
@@ -5972,16 +5972,16 @@
         },
         {
             "name": "spatie/laravel-package-tools",
-            "version": "1.16.5",
+            "version": "1.16.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-package-tools.git",
-                "reference": "c7413972cf22ffdff97b68499c22baa04eddb6a2"
+                "reference": "1f26942dc1e5c49eacfced34fdbc29ed234bd7b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/c7413972cf22ffdff97b68499c22baa04eddb6a2",
-                "reference": "c7413972cf22ffdff97b68499c22baa04eddb6a2",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/1f26942dc1e5c49eacfced34fdbc29ed234bd7b3",
+                "reference": "1f26942dc1e5c49eacfced34fdbc29ed234bd7b3",
                 "shasum": ""
             },
             "require": {
@@ -6020,7 +6020,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-package-tools/issues",
-                "source": "https://github.com/spatie/laravel-package-tools/tree/1.16.5"
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.16.6"
             },
             "funding": [
                 {
@@ -6028,7 +6028,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-08-27T18:56:10+00:00"
+            "time": "2024-11-18T15:02:02+00:00"
         },
         {
             "name": "spatie/laravel-sitemap",
@@ -6317,16 +6317,16 @@
         },
         {
             "name": "spatie/shiki-php",
-            "version": "2.1.0",
+            "version": "2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/shiki-php.git",
-                "reference": "dc2305e2f96420219b741c70df86d6f452f15688"
+                "reference": "05cbdd79180fdc71488047c27cfaf73be2b6c5fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/shiki-php/zipball/dc2305e2f96420219b741c70df86d6f452f15688",
-                "reference": "dc2305e2f96420219b741c70df86d6f452f15688",
+                "url": "https://api.github.com/repos/spatie/shiki-php/zipball/05cbdd79180fdc71488047c27cfaf73be2b6c5fc",
+                "reference": "05cbdd79180fdc71488047c27cfaf73be2b6c5fc",
                 "shasum": ""
             },
             "require": {
@@ -6370,7 +6370,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/shiki-php/tree/2.1.0"
+                "source": "https://github.com/spatie/shiki-php/tree/2.2.2"
             },
             "funding": [
                 {
@@ -6378,7 +6378,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-29T17:24:24+00:00"
+            "time": "2024-11-06T09:52:06+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -6517,16 +6517,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v7.1.7",
+            "version": "v7.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "3284aafcac338b6e86fd955ee4d794cbe434151a"
+                "reference": "ff04e5b5ba043d2badfb308197b9e6b42883fcd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/3284aafcac338b6e86fd955ee4d794cbe434151a",
-                "reference": "3284aafcac338b6e86fd955ee4d794cbe434151a",
+                "url": "https://api.github.com/repos/symfony/console/zipball/ff04e5b5ba043d2badfb308197b9e6b42883fcd5",
+                "reference": "ff04e5b5ba043d2badfb308197b9e6b42883fcd5",
                 "shasum": ""
             },
             "require": {
@@ -6590,7 +6590,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v7.1.7"
+                "source": "https://github.com/symfony/console/tree/v7.1.8"
             },
             "funding": [
                 {
@@ -6606,7 +6606,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-05T15:34:55+00:00"
+            "time": "2024-11-06T14:23:19+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -7173,16 +7173,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v7.1.7",
+            "version": "v7.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "5183b61657807099d98f3367bcccb850238b17a9"
+                "reference": "f4419ec69ccfc3f725a4de7c20e4e57626d10112"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/5183b61657807099d98f3367bcccb850238b17a9",
-                "reference": "5183b61657807099d98f3367bcccb850238b17a9",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/f4419ec69ccfc3f725a4de7c20e4e57626d10112",
+                "reference": "f4419ec69ccfc3f725a4de7c20e4e57626d10112",
                 "shasum": ""
             },
             "require": {
@@ -7192,12 +7192,12 @@
             },
             "conflict": {
                 "doctrine/dbal": "<3.6",
-                "symfony/cache": "<6.4"
+                "symfony/cache": "<6.4.12|>=7.0,<7.1.5"
             },
             "require-dev": {
                 "doctrine/dbal": "^3.6|^4",
                 "predis/predis": "^1.1|^2.0",
-                "symfony/cache": "^6.4|^7.0",
+                "symfony/cache": "^6.4.12|^7.1.5",
                 "symfony/dependency-injection": "^6.4|^7.0",
                 "symfony/expression-language": "^6.4|^7.0",
                 "symfony/http-kernel": "^6.4|^7.0",
@@ -7230,7 +7230,7 @@
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v7.1.7"
+                "source": "https://github.com/symfony/http-foundation/tree/v7.1.8"
             },
             "funding": [
                 {
@@ -7246,20 +7246,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-06T09:02:46+00:00"
+            "time": "2024-11-09T09:16:45+00:00"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v7.1.7",
+            "version": "v7.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "7f137cda31fd41e422edcdc01915f2c095b84399"
+                "reference": "33fef24e3dc79d6d30bf4936531f2f4bd2ca189e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/7f137cda31fd41e422edcdc01915f2c095b84399",
-                "reference": "7f137cda31fd41e422edcdc01915f2c095b84399",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/33fef24e3dc79d6d30bf4936531f2f4bd2ca189e",
+                "reference": "33fef24e3dc79d6d30bf4936531f2f4bd2ca189e",
                 "shasum": ""
             },
             "require": {
@@ -7344,7 +7344,7 @@
             "description": "Provides a structured process for converting a Request into a Response",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-kernel/tree/v7.1.7"
+                "source": "https://github.com/symfony/http-kernel/tree/v7.1.8"
             },
             "funding": [
                 {
@@ -7360,7 +7360,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-06T09:54:34+00:00"
+            "time": "2024-11-13T14:25:32+00:00"
         },
         {
             "name": "symfony/mailer",
@@ -8164,16 +8164,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v7.1.7",
+            "version": "v7.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "9b8a40b7289767aa7117e957573c2a535efe6585"
+                "reference": "42783370fda6e538771f7c7a36e9fa2ee3a84892"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/9b8a40b7289767aa7117e957573c2a535efe6585",
-                "reference": "9b8a40b7289767aa7117e957573c2a535efe6585",
+                "url": "https://api.github.com/repos/symfony/process/zipball/42783370fda6e538771f7c7a36e9fa2ee3a84892",
+                "reference": "42783370fda6e538771f7c7a36e9fa2ee3a84892",
                 "shasum": ""
             },
             "require": {
@@ -8205,7 +8205,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v7.1.7"
+                "source": "https://github.com/symfony/process/tree/v7.1.8"
             },
             "funding": [
                 {
@@ -8221,7 +8221,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-06T09:25:12+00:00"
+            "time": "2024-11-06T14:23:19+00:00"
         },
         {
             "name": "symfony/routing",
@@ -8389,16 +8389,16 @@
         },
         {
             "name": "symfony/string",
-            "version": "v7.1.6",
+            "version": "v7.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "61b72d66bf96c360a727ae6232df5ac83c71f626"
+                "reference": "591ebd41565f356fcd8b090fe64dbb5878f50281"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/61b72d66bf96c360a727ae6232df5ac83c71f626",
-                "reference": "61b72d66bf96c360a727ae6232df5ac83c71f626",
+                "url": "https://api.github.com/repos/symfony/string/zipball/591ebd41565f356fcd8b090fe64dbb5878f50281",
+                "reference": "591ebd41565f356fcd8b090fe64dbb5878f50281",
                 "shasum": ""
             },
             "require": {
@@ -8456,7 +8456,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v7.1.6"
+                "source": "https://github.com/symfony/string/tree/v7.1.8"
             },
             "funding": [
                 {
@@ -8472,7 +8472,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-25T14:20:29+00:00"
+            "time": "2024-11-13T13:31:21+00:00"
         },
         {
             "name": "symfony/translation",
@@ -8722,16 +8722,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v7.1.7",
+            "version": "v7.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "f6ea51f669760cacd7464bf7eaa0be87b8072db1"
+                "reference": "7bb01a47b1b00428d32b5e7b4d3b2d1aa58d3db8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/f6ea51f669760cacd7464bf7eaa0be87b8072db1",
-                "reference": "f6ea51f669760cacd7464bf7eaa0be87b8072db1",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/7bb01a47b1b00428d32b5e7b4d3b2d1aa58d3db8",
+                "reference": "7bb01a47b1b00428d32b5e7b4d3b2d1aa58d3db8",
                 "shasum": ""
             },
             "require": {
@@ -8785,7 +8785,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v7.1.7"
+                "source": "https://github.com/symfony/var-dumper/tree/v7.1.8"
             },
             "funding": [
                 {
@@ -8801,7 +8801,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-05T15:34:55+00:00"
+            "time": "2024-11-08T15:46:42+00:00"
         },
         {
             "name": "tempest/highlight",
