@@ -105,5 +105,5 @@
 }
 
 .bg-doodles {
-    @apply bg-cover;
+    @apply bg-contain;
 }
