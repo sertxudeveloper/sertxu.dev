@@ -15,7 +15,7 @@
         "vite": "^6.0"
     },
     "dependencies": {
-        "puppeteer": "^23.9.0",
+        "puppeteer": "^23.10.2",
         "shiki": "^1.24.1"
     }
 }
