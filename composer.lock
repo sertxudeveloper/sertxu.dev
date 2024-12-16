@@ -5792,16 +5792,16 @@
         },
         {
             "name": "spatie/laravel-markdown",
-            "version": "2.6.0",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-markdown.git",
-                "reference": "ffd613b80ad4907d8d5d16d596a082ea785ab100"
+                "reference": "4ca6107d095c2f857c860462cfbe401e0c15fe0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-markdown/zipball/ffd613b80ad4907d8d5d16d596a082ea785ab100",
-                "reference": "ffd613b80ad4907d8d5d16d596a082ea785ab100",
+                "url": "https://api.github.com/repos/spatie/laravel-markdown/zipball/4ca6107d095c2f857c860462cfbe401e0c15fe0f",
+                "reference": "4ca6107d095c2f857c860462cfbe401e0c15fe0f",
                 "shasum": ""
             },
             "require": {
@@ -5809,7 +5809,7 @@
                 "illuminate/contracts": "^9.0|^10.0|^11.0",
                 "illuminate/support": "^9.0|^10.0|^11.0",
                 "illuminate/view": "^9.0|^10.0|^11.0",
-                "league/commonmark": "^2.4.2",
+                "league/commonmark": "^2.6.0",
                 "php": "^8.1",
                 "spatie/commonmark-shiki-highlighter": "^2.5",
                 "spatie/laravel-package-tools": "^1.4.3"
@@ -5856,7 +5856,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-markdown/tree/2.6.0"
+                "source": "https://github.com/spatie/laravel-markdown/tree/2.7.0"
             },
             "funding": [
                 {
@@ -5864,7 +5864,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-12T13:16:43+00:00"
+            "time": "2024-12-10T15:11:24+00:00"
         },
         {
             "name": "spatie/laravel-medialibrary",
