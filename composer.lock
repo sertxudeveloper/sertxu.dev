@@ -1519,7 +1519,7 @@
         },
         {
             "name": "filament/spatie-laravel-tags-plugin",
-            "version": "v3.2.128",
+            "version": "v3.2.130",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/spatie-laravel-tags-plugin.git",
@@ -6180,16 +6180,16 @@
         },
         {
             "name": "spatie/laravel-translatable",
-            "version": "6.9.0",
+            "version": "6.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-translatable.git",
-                "reference": "e9cd8ee246d52b778f0b74059fd1d88e7c1c9ca2"
+                "reference": "5f0712701a71054ba9bd6693808c4748f1f4ebda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/e9cd8ee246d52b778f0b74059fd1d88e7c1c9ca2",
-                "reference": "e9cd8ee246d52b778f0b74059fd1d88e7c1c9ca2",
+                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/5f0712701a71054ba9bd6693808c4748f1f4ebda",
+                "reference": "5f0712701a71054ba9bd6693808c4748f1f4ebda",
                 "shasum": ""
             },
             "require": {
@@ -6251,7 +6251,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-translatable/issues",
-                "source": "https://github.com/spatie/laravel-translatable/tree/6.9.0"
+                "source": "https://github.com/spatie/laravel-translatable/tree/6.9.3"
             },
             "funding": [
                 {
@@ -6259,7 +6259,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-09T16:27:44+00:00"
+            "time": "2024-12-16T12:58:20+00:00"
         },
         {
             "name": "spatie/robots-txt",
