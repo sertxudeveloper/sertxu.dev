@@ -8,7 +8,7 @@
 <meta name="applicable-device" content="pc, mobile"/>
 <link rel="canonical" content="{{ url()->current() }}"/>
 
-<meta name="keywords" content="sertxu.dev, sertxudev, sertxudeveloper, Sergio Peris, tutorial, personal, portfolio, social, cv"/>
+<meta name="keywords" content="sertxu.dev, sertxudev, sertxudeveloper, Sergio Peris, tutorial, personal, portfolio, social, cv, laravel, website, tailwind, alpinejs, livewire, filament, ubuntu, windows, blog, projects"/>
 
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="sertxu.dev" />
@@ -87,14 +87,14 @@
     <meta property="twitter:creator" content="sertxudev">
 
 @else
-    <title>{{ config('app.name') }}</title>
-    <meta name="description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
+    <title>Sergio Peris - {{ config('app.name') }}</title>
+    <meta name="description" content="Hi, I'm Sergio Peris, aka Sertxu, a full-stack developer, open-source maintainer, and content creator."/>
     <meta name="image" content="{{ asset('social.png') }}"/>
 
     <!-- Open Meta Tags -->
     <meta property="og:type" content="profile">
     <meta property="og:title" content="Sergio Peris' blog and projects. Let's learn new things!"/>
-    <meta property="og:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator."/>
+    <meta property="og:description" content="Hi, I'm Sergio Peris, aka Sertxu, a full-stack developer, open-source maintainer, and content creator."/>
     <meta property="og:image" content="{{ asset('social.png') }}"/>
     <meta property="og:url" content="{{ url()->current() }}"/>
     <meta property="og:site_name" content="sertxu.dev"/>
@@ -108,7 +108,7 @@
     <meta property="twitter:domain" content="sertxu.dev">
     <meta property="twitter:url" content="{{ url()->current() }}">
     <meta property="twitter:title" content="Sergio Peris' blog and projects. Let's learn new things!">
-    <meta property="twitter:description" content="Hi, I'm Sertxu a full-stack developer, open-source maintainer, and content creator.">
+    <meta property="twitter:description" content="Hi, I'm Sergio Peris, aka Sertxu, a full-stack developer, open-source maintainer, and content creator.">
     <meta property="twitter:image" content="{{ asset('social.png') }}">
     <meta property="twitter:creator" content="@sertxudev">
 @endif
