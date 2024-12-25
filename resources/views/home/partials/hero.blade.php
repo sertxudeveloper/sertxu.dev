@@ -1,4 +1,5 @@
-<section class="bg-dark-200 flex md:space-x-24 items-center justify-center py-32 min-h-screen bg-doodles flex-col md:flex-row space-y-12">
+<section class="bg-dark-200 flex md:space-x-24 items-center justify-center py-32 min-h-screen flex-col md:flex-row space-y-12 relative">
+    <div class="top-0 left-0 absolute h-full w-full z-0 pointer-events-none bg-doodles"></div>
     <img class="rounded-2xl w-48 md:w-72 block opacity-0 animate-slide-fade-in ![animation-delay:100ms]" src="{{ asset('dp.webp') }}" alt="Sergio Peris">
 
     <div class="text-center space-y-6 px-4 md:px-12">
