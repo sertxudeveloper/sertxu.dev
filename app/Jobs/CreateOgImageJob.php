@@ -40,6 +40,7 @@ final class CreateOgImageJob implements ShouldQueue
 
             $this->post
                 ->addMediaFromBase64($base64Image)
+                ->usingName($this->post->title)
                 ->usingFileName($this->post->slug.'.webp')
                 ->toMediaCollection('thumbnail');
 
@@ -51,6 +52,7 @@ final class CreateOgImageJob implements ShouldQueue
 
             $this->post
                 ->addMediaFromBase64($base64Image)
+                ->usingName($this->post->title)
                 ->usingFileName($this->post->slug.'.jpg')
                 ->toMediaCollection('thumbnail-jpg');
         } catch (Exception $exception) {
