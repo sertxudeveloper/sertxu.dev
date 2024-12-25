@@ -38,6 +38,8 @@ final class CreateOgImageJob implements ShouldQueue
                 ->windowSize(640, 360)
                 ->base64Screenshot();
 
+            $this->post->getFirstMedia('thumbnail')->delete();
+
             $this->post
                 ->addMediaFromBase64($base64Image)
                 ->usingName($this->post->title)
@@ -49,6 +51,8 @@ final class CreateOgImageJob implements ShouldQueue
                 ->format('jpg')
                 ->optimize()
                 ->base64();
+
+            $this->post->getFirstMedia('thumbnail-jpg')->delete();
 
             $this->post
                 ->addMediaFromBase64($base64Image)
