@@ -23,3 +23,16 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/sitemap.xml', fn () => response(file_get_contents(storage_path('sitemap.xml')), 200, ['Content-Type' => 'application/xml']));
+
+/**
+ * Error pages
+ */
+Route::view('/401', 'errors.401')->name('401');
+Route::view('/402', 'errors.402')->name('402');
+Route::view('/403', 'errors.403')->name('403');
+Route::view('/404', 'errors.404')->name('404');
+Route::view('/418', 'errors.418')->name('418');
+Route::view('/419', 'errors.419')->name('419');
+Route::view('/429', 'errors.429')->name('429');
+Route::view('/500', 'errors.500')->name('500');
+Route::view('/503', 'errors.503')->name('503');
