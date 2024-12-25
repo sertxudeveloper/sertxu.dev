@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 final class PostResource extends Resource
@@ -161,6 +162,8 @@ final class PostResource extends Resource
                 Tables\Actions\DeleteBulkAction::make()->outlined(),
                 Tables\Actions\ForceDeleteBulkAction::make()->outlined(),
                 Tables\Actions\RestoreBulkAction::make()->outlined(),
+                Tables\Actions\BulkAction::make('generate thumbnails')
+                    ->action(fn (Collection $records) => $records->each(fn (Post $post) => CreateOgImageJob::dispatch($post))),
             ]);
     }
 
