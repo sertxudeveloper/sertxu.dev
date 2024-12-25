@@ -6,7 +6,7 @@
 
 <li class="h-48 m-2 relative group overflow-hidden rounded-md">
     <div class="h-full transform transition duration-500 ease-in-out group-hover:scale-110 *:object-cover *:h-full *:w-full">
-        <img src="{{ $media->getUrl('thumbnail') }}" alt="{{ $project->title }}">
+        @if($media) <img src="{{ $media->getUrl('thumbnail') }}" alt="{{ $project->title }}">@endif
     </div>
     <a href="{{ route('projects.show', [$project->slug]) }}" wire:navigate
        class="absolute h-full left-0 text-white top-0 w-full bg-black/85 hover:no-underline opacity-0 group-hover:opacity-100 transform transition ease-in-out duration-200">
