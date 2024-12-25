@@ -7,7 +7,7 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ZipArchive;
 
-class StorageBackupCommand extends Command
+final class StorageBackupCommand extends Command
 {
     /**
      * The name and signature of the console command.
