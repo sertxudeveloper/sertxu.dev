@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -42,13 +44,13 @@ final class StorageBackupCommand extends Command
             foreach ($files as $file) {
                 $file = str_replace('\\', '/', $file);
 
-                if (in_array(substr($file, strrpos($file, '/') + 1), ['.', '..'])) {
+                if (in_array(mb_substr($file, mb_strrpos($file, '/') + 1), ['.', '..'])) {
                     continue;
                 }
 
-                if (is_dir($file) === true) {
+                if (is_dir($file)) {
                     $zip->addEmptyDir(str_replace(storage_path('app/public').'/', '', $file));
-                } elseif (is_file($file) === true) {
+                } elseif (is_file($file)) {
                     $zip->addFromString(str_replace(storage_path('app/public').'/', '', $file), file_get_contents($file));
                 }
             }

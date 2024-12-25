@@ -60,7 +60,7 @@ arch('ensure date columns casts', function () {
 /**
  * Get all models in the app/Models directory.
  *
- * @return array<int, class-string<\Illuminate\Database\Eloquent\Model>>
+ * @return array<int, class-string<Illuminate\Database\Eloquent\Model>>
  */
 function getModels(): array
 {

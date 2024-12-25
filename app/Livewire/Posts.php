@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace App\Livewire;
 
 use App\Models\Post;
-use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\NoReturn;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -47,7 +44,7 @@ final class Posts extends Component
     private function posts(): LengthAwarePaginator
     {
         return Post::published()
-            ->when(!empty($this->tag), fn ($query) => $query->withAllTags($this->tag))
+            ->when($this->tag !== '' && $this->tag !== '0', fn ($query) => $query->withAllTags($this->tag))
             ->orderByDesc('published_at')
             ->paginate(perPage: 16);
     }
