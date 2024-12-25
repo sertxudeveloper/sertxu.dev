@@ -7,19 +7,19 @@
         <p class="text-xl md:text-2xl sm:text-3xl text-neutral-300 opacity-0 animate-slide-fade-in ![animation-delay:200ms]">Full&#8209;stack&nbsp;developer, open&#8209;source&nbsp;maintainer,<br>and content&nbsp;creator.</p>
 
         <div class="flex space-x-4 justify-center pt-4 opacity-0 animate-slide-fade-in ![animation-delay:300ms]">
-            <x-social-button href="https://x.com/sertxudev">
+            <x-social-button href="https://x.com/sertxudev" alt="X (Twitter)">
                 <x-icons.twitter />
             </x-social-button>
 
-            <x-social-button href="https://github.com/sertxudev">
+            <x-social-button href="https://github.com/sertxudev" alt="GitHub">
                 <x-icons.github />
             </x-social-button>
 
-            <x-social-button href="https://linkedin.com/in/sertxudev">
+            <x-social-button href="https://linkedin.com/in/sertxudev" alt="LinkedIn">
                 <x-icons.linkedin />
             </x-social-button>
 
-            <x-social-button href="mailto:hello@sertxu.dev">
+            <x-social-button href="mailto:hello@sertxu.dev" alt="Mail address">
                 <x-icons.email />
             </x-social-button>
         </div>
