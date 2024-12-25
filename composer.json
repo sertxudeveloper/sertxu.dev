@@ -19,7 +19,8 @@
         "spatie/laravel-medialibrary": "^11.9",
         "spatie/laravel-sitemap": "^7.2",
         "spatie/laravel-tags": "^4.6",
-        "tempest/highlight": "^2.10"
+        "tempest/highlight": "^2.10",
+        "ext-zip": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

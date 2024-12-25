@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\Conversions\Manipulations;
 
 final class ProjectResource extends Resource
 {
@@ -71,8 +72,7 @@ final class ProjectResource extends Resource
                             ->columnSpanFull(),
 
                         Forms\Components\SpatieMediaLibraryFileUpload::make('thumbnail')
-                            ->collection('thumbnail')
-                            ->responsiveImages(),
+                            ->collection('thumbnail'),
                     ]),
             ]);
     }

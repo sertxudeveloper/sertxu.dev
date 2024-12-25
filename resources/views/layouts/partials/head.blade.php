@@ -65,7 +65,7 @@
     @endphp
 
     <title>{{ $project->title }} | {{ config('app.name') }}</title>
-    <meta name="description" content="{{ $project->description }}"/>
+    <meta name="description" content="{{ $project->excerpt }}"/>
     <meta name="image" content="{{ $project->getFirstMediaUrl('thumbnail') }}"/>
 
     <!-- Open Meta Tags -->
@@ -115,13 +115,15 @@
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.bunny.net">
+<link rel="preload" href="https://fonts.bunny.net/css?family=arya:400,700|inter:300,400,500,600,700" as="style" type="text/css">
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=arya:400,700|inter:300,400,500,600,700">
 
 <!-- Styles -->
 @livewireStyles
 @vite('resources/css/app.css')
 <style>
     .bg-doodles {
-        background-image: url("{{ asset('doodles.png') }}");
+        background-image: url("{{ asset('doodles.webp') }}");
     }
 </style>
 

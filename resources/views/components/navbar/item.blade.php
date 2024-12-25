@@ -1,7 +1,7 @@
 @props([
     'href' => null,
     'isActive' => false,
-    'activeClass' => 'font-bold !text-coral',
+    'activeClass' => '!text-coral underline underline-offset-8',
     'defaultClass' => 'px-3 py-3 hover:text-white outline-none focus:underline',
 ])
 

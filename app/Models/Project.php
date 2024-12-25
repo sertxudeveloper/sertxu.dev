@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\Conversions\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Tags\HasTags;
 
 final class Project extends Model implements HasMedia
@@ -20,13 +23,34 @@ final class Project extends Model implements HasMedia
         'title', 'slug', 'excerpt', 'website', 'text', 'is_published', 'is_featured',
     ];
 
+    /**
+     * Register the media collections.
+     *
+     * @return void
+     */
     public function registerMediaCollections(): void
     {
         $this
             ->addMediaCollection('thumbnail')
             ->useDisk('public')
-            ->withResponsiveImages()
+//            ->withResponsiveImages()
             ->singleFile();
+    }
+
+    /**
+     * Register the media conversions.
+     */
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('thumbnail')
+            ->fit(Fit::Crop, 720, 405)
+            ->format('webp')
+            ->performOnCollections('thumbnail');
+
+        $this->addMediaConversion('poster')
+            ->fit(Fit::Crop, 1920, 1080)
+            ->format('webp')
+            ->performOnCollections('thumbnail');
     }
 
     /**

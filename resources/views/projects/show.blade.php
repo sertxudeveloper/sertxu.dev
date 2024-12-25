@@ -1,8 +1,14 @@
+@php
+    $media = $project->getFirstMedia('thumbnail');
+@endphp
+
 <x-app-layout>
-    <div class="py-12 px-4 gap-6 mx-auto max-w-screen-lg">
+    <div class="fixed bg-dark-200 bg-doodles h-full w-full -z-10"></div>
+    <div class="bg-dark-100 max-w-screen-lg mt mx-auto px-4 lg:px-12 py-12 lg:my-48">
         <div class="mb-4">
-            {{ $project->getFirstMedia('thumbnail') }}
+            <img src="{{ $media->getUrl('poster') }}" alt="{{ $project->title }}" class="max-w-screen-md w-full mx-auto">
         </div>
+
         <h1 class="text-4xl font-medium text-neutral-200 leading-snug">{{ $project->title }}</h1>
 
         @if($project->website)
@@ -12,7 +18,7 @@
             </div>
         @endif
 
-        <div class="mb-4 mt-3 space-x-3 flex items-center">
+        <div class="mb-8 mt-3 space-x-3 flex items-center">
             <ul class="space-x-1">
                 @foreach($project->tags as $tag)
                     <li class="inline-block">
@@ -22,7 +28,7 @@
             </ul>
         </div>
 
-        <section class="markup border-t border-neutral-700 pt-4">
+        <section class="markup border-t border-neutral-700 pt-8">
             @markdown($project->text ?? '')
         </section>
     </div>
