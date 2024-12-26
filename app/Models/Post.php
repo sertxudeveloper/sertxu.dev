@@ -45,7 +45,8 @@ final class Post extends Model implements HasMedia
      */
     public static function nextFreePublishDate(): Carbon
     {
-        $publishDate = now()->hour(14);
+        // Set the publishing date to 12:00 PM tomorrow
+        $publishDate = now()->hour(12)->addDay();
 
         // If the date falls on a weekend or a post already exists on this date, increment the date
         while ($publishDate->isWeekend() || self::whereDate('published_at', $publishDate)->exists()) {
