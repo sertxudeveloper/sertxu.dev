@@ -1,8 +1,8 @@
 <div>
-    <form class="mx-auto w-1/2 mb-4" wire:submit="search">
+    <div class="mx-auto w-1/2 mb-4">
         <input type="text" wire:model.live.debounce="query"
                class="bg-dark-100 border border-zinc-700 w-full px-4 py-2.5 text-sm rounded-lg text-zinc-300 outline-none focus:border-ocean" placeholder="Search posts by title or content...">
-    </form>
+    </div>
 
     @if($selectedTag)
         <div class="justify-center items-center mb-10 space-x-2 flex">
