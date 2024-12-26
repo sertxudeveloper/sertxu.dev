@@ -6,6 +6,7 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -15,6 +16,9 @@ use Spatie\Tags\Tag;
 final class Posts extends Component
 {
     use WithPagination;
+
+    #[Url]
+    public string $query = '';
 
     #[Url]
     public string $tag = '';
@@ -44,7 +48,11 @@ final class Posts extends Component
     private function posts(): LengthAwarePaginator
     {
         return Post::published()
-            ->when($this->tag, fn ($query) => $query->withAnyTags($this->tag))
+            ->when($this->tag, fn (Builder $query) => $query->withAnyTags($this->tag))
+            ->when($this->query, fn (Builder $query) => $query->where(function (Builder $query) {
+                $query->where('title', 'like', "%{$this->query}%")
+                    ->orWhere('text', 'like', "%{$this->query}%");
+            }))
             ->orderByDesc('published_at')
             ->paginate(perPage: 16);
     }
