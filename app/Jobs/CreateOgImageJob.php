@@ -18,49 +18,38 @@ final class CreateOgImageJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * The number of times the job may be attempted.
+     */
     public int $tries = 2;
 
+    /**
+     * Create a new job instance.
+     */
     public function __construct(
         public Post $post
     ) {}
 
+    /**
+     * Execute the job.
+     */
     public function handle(): void
     {
-        try {
-            // Generate the html thumbnail
-            $html = view('posts.thumbnail', ['post' => $this->post])->render();
+        // Generate the html thumbnail
+        $html = view('posts.thumbnail', ['post' => $this->post])->render();
 
-            $base64Image = Browsershot::html($html)
-                ->addChromiumArguments(['disable-gpu'])
-                ->noSandbox()
-                ->waitUntilNetworkIdle()
-                ->setScreenshotType('webp', 100)
-                ->windowSize(640, 360)
-                ->base64Screenshot();
+        $base64Image = Browsershot::html($html)
+            ->addChromiumArguments(['disable-gpu'])
+            ->noSandbox()
+            ->waitUntilNetworkIdle()
+            ->setScreenshotType('webp', 100)
+            ->windowSize(640, 360)
+            ->base64Screenshot();
 
-            $this->post->getFirstMedia('thumbnail')->delete();
-
-            $this->post
-                ->addMediaFromBase64($base64Image)
-                ->usingName($this->post->title)
-                ->usingFileName($this->post->slug.'.webp')
-                ->toMediaCollection('thumbnail');
-
-            // Get the just created image and convert it to jpg
-            $base64Image = Image::load($this->post->getFirstMedia('thumbnail')->getPath())
-                ->format('jpg')
-                ->optimize()
-                ->base64();
-
-            $this->post->getFirstMedia('thumbnail-jpg')->delete();
-
-            $this->post
-                ->addMediaFromBase64($base64Image)
-                ->usingName($this->post->title)
-                ->usingFileName($this->post->slug.'.jpg')
-                ->toMediaCollection('thumbnail-jpg');
-        } catch (Exception $exception) {
-            report($exception);
-        }
+        $this->post
+            ->addMediaFromBase64($base64Image)
+            ->usingName($this->post->title)
+            ->usingFileName("{$this->post->slug}.webp")
+            ->toMediaCollection('thumbnail');
     }
 }

@@ -405,7 +405,7 @@
 </svg>
 
 <div class="absolute top-0 left-0 flex justify-center items-center h-full w-full">
-    <h1 class="text-zinc-200 text-[2.5rem] font-medium text-center leading-tight line-clamp-5 -mt-4 px-4">{{ $post->title }}</h1>
+    <h1 class="text-zinc-200 text-[2.5rem] font-medium text-center leading-tight line-clamp-5 -mt-4 px-6">{{ $post->title }}</h1>
 </div>
 
 </body>
