@@ -1,4 +1,6 @@
-<x-app-layout>
+@extends('errors.minimal')
+
+@section('content')
     <section class="bg-dark-200 py-24 px-4 relative grid items-center min-h-[calc(100vh-180px)]">
         <div class="top-0 left-0 absolute h-full w-full z-0 pointer-events-none bg-doodles"></div>
 
@@ -14,4 +16,4 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </section>
-</x-app-layout>
+@endsection
