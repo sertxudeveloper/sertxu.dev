@@ -44,8 +44,16 @@ final class Posts extends Component
     private function posts(): LengthAwarePaginator
     {
         return Post::published()
-            ->when($this->tag !== '' && $this->tag !== '0', fn ($query) => $query->withAllTags($this->tag))
+            ->when($this->tag, fn ($query) => $query->withAnyTags($this->tag))
             ->orderByDesc('published_at')
             ->paginate(perPage: 16);
+    }
+
+    /**
+     * Get the pagination view.
+     */
+    public function paginationView(): string
+    {
+        return 'livewire::simple-pages';
     }
 }

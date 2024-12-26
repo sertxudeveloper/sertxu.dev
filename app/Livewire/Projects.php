@@ -7,48 +7,56 @@ namespace App\Livewire;
 use App\Models\Project;
 use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Contracts\View\View;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\NoReturn;
+use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Spatie\Tags\Tag;
 
 final class Projects extends Component
 {
-    public Collection $items;
+    use WithPagination;
 
-    public string $nextCursor = '';
+    #[Url]
+    public string $tag = '';
 
-    public bool $hasMore = false;
-
-    #[NoReturn]
-    public function loadMore(): void
-    {
-        $paginator = $this->projects();
-        $this->nextCursor = $paginator->nextCursor()?->encode() ?? '';
-        $this->hasMore = $paginator->hasMorePages();
-        $this->items->push(...$paginator->items());
-    }
-
-    public function mount(): void
-    {
-        $paginator = $this->projects();
-        $this->nextCursor = $paginator->nextCursor()?->encode() ?? '';
-        $this->hasMore = $paginator->hasMorePages();
-        $this->items = collect($paginator->items());
-    }
-
+    /**
+     * Render the component.
+     */
     public function render(): View
     {
         return view('livewire.projects', [
-            'projects' => $this->items,
-            'tag' => request()->has('tag') ? Tag::findFromString(request('tag')) : null,
+            'projects' => $this->projects(),
+            'selectedTag' => Tag::findFromString($this->tag) ?? null,
         ]);
     }
 
-    private function projects(): CursorPaginator
+    /**
+     * Clear the selected tag.
+     */
+    public function clearSelectedTag(): void
+    {
+        $this->tag = '';
+    }
+
+    /**
+     * Get the projects.
+     */
+    private function projects(): LengthAwarePaginator
     {
         return Project::published()
-            ->when(request()->has('tag'), fn ($query) => $query->withAnyTags(request('tag')))
-            ->cursorPaginate(perPage: 8, cursor: $this->nextCursor);
+            ->when($this->tag, fn ($query) => $query->withAnyTags($this->tag))
+            ->latest()
+            ->paginate(perPage: 12);
+    }
+
+    /**
+     * Get the pagination view.
+     */
+    public function paginationView(): string
+    {
+        return 'livewire::simple-pages';
     }
 }
