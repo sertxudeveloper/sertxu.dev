@@ -15,6 +15,12 @@ final readonly class PostThumbnailController
     {
         abort_unless($post->is_published, 404);
 
-        return response()->file($post->getFirstMediaPath('thumbnail', 'thumbnail-jpg'));
+        return response()->file(
+            file: $post->getFirstMediaPath('thumbnail', 'thumbnail-jpg'),
+            headers: [
+                'Content-Type' => 'image/jpeg',
+                'Content-Disposition' => 'inline; filename="'.$post->slug.'.jpg"',
+            ],
+        );
     }
 }
