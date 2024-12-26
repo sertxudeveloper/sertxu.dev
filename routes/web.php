@@ -15,6 +15,7 @@ Route::get('/projects/{project:slug}', [Controllers\ProjectController::class, 's
 
 Route::view('/blog', 'posts.index')->name('posts.index');
 Route::get('/blog/{post:slug}', [Controllers\PostController::class, 'show'])->name('posts.show');
+Route::get('/blog/{post:slug}/thumbnail', Controllers\PostThumbnailController::class)->name('posts.thumbnail');
 
 Route::view('/uses', 'uses')->name('uses');
 

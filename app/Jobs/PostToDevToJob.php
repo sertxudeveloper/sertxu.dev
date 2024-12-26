@@ -42,7 +42,7 @@ final class PostToDevToJob implements ShouldQueue
         $devTo->writePost(
             title: $this->post->title,
             markdown: $this->post->text,
-            imageUrl: $this->post->getFirstMediaUrl('thumbnail', 'thumbnail-jpg'),
+            imageUrl: route('posts.thumbnail', $this->post),
             canonicalUrl: $this->post->url(),
             description: $this->post->excerpt,
             tags: $this->post->tags->pluck('name')->toArray(),

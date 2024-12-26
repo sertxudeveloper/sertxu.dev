@@ -39,7 +39,7 @@ final class PostToMediumJob implements ShouldQueue
     #[NoReturn]
     public function handle(Medium $medium): void
     {
-        $markdown = '![]('.$this->post->getFirstMediaUrl('thumbnail', 'thumbnail-jpg').')'
+        $markdown = '![]('.route('posts.thumbnail', $this->post).')'
             .PHP_EOL.'# '.$this->post->title
             .PHP_EOL.'## '.$this->post->excerpt
             .PHP_EOL.$this->post->text;
