@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Actions\PublishPostAction;
 use App\Filament\Resources\PostResource\Pages;
 use App\Jobs\CreateOgImageJob;
 use App\Models\Post;
@@ -83,6 +84,10 @@ final class PostResource extends Resource
                         Forms\Components\Toggle::make('posted_on_dev')
                             ->inline(false)
                             ->helperText('If enabled won\'t post.'),
+
+                        Forms\Components\Toggle::make('posted_on_threads')
+                            ->inline(false)
+                            ->helperText('If enabled won\'t post.'),
                     ])->grow(false),
                 ])->from('xl')->columnSpan('full'),
             ]);
@@ -143,8 +148,8 @@ final class PostResource extends Resource
                         ->hidden(fn (Post $post): bool => ! $post->published_at || $post->is_published),
 
                     Tables\Actions\Action::make('publish now')
-                        ->action(function (Post $post): void {
-                            $post->update(['is_published' => true, 'published_at' => now()]);
+                        ->action(function (Post $post, PublishPostAction $publishPostAction): void {
+                            $publishPostAction->execute($post);
                         })
                         ->hidden(fn (Post $post) => $post->is_published),
 

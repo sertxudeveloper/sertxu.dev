@@ -18,6 +18,7 @@ trait Tweetable
             ->implode(' ');
 
         return '🔗 '.$this->title
+            .PHP_EOL."\n"
             .PHP_EOL.$this->tweetUrl()
             .PHP_EOL.$tags;
     }

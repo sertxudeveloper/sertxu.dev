@@ -7,6 +7,7 @@ namespace App\Actions;
 use App\Jobs\CreateOgImageJob;
 use App\Jobs\PostToDevToJob;
 use App\Jobs\PostToMediumJob;
+use App\Jobs\PostToThreadsJob;
 use App\Jobs\PostToTweetJob;
 use App\Models\Post;
 use Illuminate\Support\Facades\Bus;
@@ -28,6 +29,7 @@ final readonly class PublishPostAction
             (new PostToTweetJob($post))->delay(now()->addSeconds(20)),
             new PostToMediumJob($post),
             new PostToDevToJob($post),
+            new PostToThreadsJob($post),
         ])->dispatch();
     }
 }

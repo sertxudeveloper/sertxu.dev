@@ -21,9 +21,18 @@ Route::view('/uses', 'uses')->name('uses');
 
 Route::middleware('auth')->group(function () {
     Route::get('/blog/{post:slug}/preview', Controllers\PostPreviewController::class)->name('posts.preview');
+
+    Route::get('/threads/auth', [Controllers\ThreadsAuthController::class, 'index'])->name('threads.auth');
+    Route::get('/threads/callback', [Controllers\ThreadsAuthController::class, 'store'])->name('threads.auth-callback');
+});
+
+Route::get('/test', function () {
+    dispatch(new \App\Jobs\PostToThreadsJob(\App\Models\Post::find(24)))->onConnection('sync');
 });
 
 Route::get('/sitemap.xml', fn () => response(file_get_contents(storage_path('sitemap.xml')), 200, ['Content-Type' => 'application/xml']));
+
+Route::redirect('/login', '/admin/login')->name('login');
 
 /**
  * Error pages

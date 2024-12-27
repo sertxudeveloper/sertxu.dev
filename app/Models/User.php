@@ -24,6 +24,9 @@ final class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'threads_user_id',
+        'threads_access_token',
+        'threads_access_token_expires_at',
     ];
 
     /**

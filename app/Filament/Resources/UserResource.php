@@ -31,6 +31,12 @@ final class UserResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('email')->email()->required(),
+
+                Forms\Components\Section::make('Threads')->schema([
+                    Forms\Components\TextInput::make('threads_user_id'),
+                    Forms\Components\TextInput::make('threads_access_token')->columnSpan(3),
+                    Forms\Components\DateTimePicker::make('threads_access_token_expires_at')->columnSpan(2),
+                ])->columns(6),
             ]);
     }
 

@@ -18,6 +18,7 @@ trait Threadable
             ->implode(' ');
 
         return '🔗 '.$this->title
+            .PHP_EOL."\n"
             .PHP_EOL.$this->threadsUrl()
             .PHP_EOL.$tags;
     }
