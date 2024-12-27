@@ -169,7 +169,8 @@ final class PostResource extends Resource
                 Tables\Actions\RestoreBulkAction::make()->outlined(),
                 Tables\Actions\BulkAction::make('generate thumbnails')
                     ->action(fn (Collection $records) => $records->each(fn (Post $post) => CreateOgImageJob::dispatch($post))),
-            ]);
+            ])
+            ->defaultSort(fn ($query) => $query->orderBy('is_published', 'asc')->orderBy('published_at', 'desc'));
     }
 
     public static function getGlobalSearchResultTitle(Model $record): string
