@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Services\Threads\Threads;
 use Illuminate\Http\Request;
 
-final class ThreadsAuthController
+final readonly class ThreadsAuthController
 {
     /**
      * Redirect the user to the Threads authentication page.
