@@ -7,6 +7,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use SplFileInfo;
 use ZipArchive;
 
 final class StorageBackupCommand extends Command
@@ -36,13 +37,14 @@ final class StorageBackupCommand extends Command
 
         $zip = new ZipArchive();
         if ($zip->open(storage_path('app/backups/'.$filename), ZipArchive::CREATE) === true) {
+            /** @var list<SplFileInfo> $files */
             $files = new RecursiveIteratorIterator(
                 new RecursiveDirectoryIterator(storage_path('app/public')),
                 RecursiveIteratorIterator::SELF_FIRST
             );
 
             foreach ($files as $file) {
-                $file = str_replace('\\', '/', $file);
+                $file = str_replace('\\', '/', $file->getPathname());
 
                 if (in_array(mb_substr($file, mb_strrpos($file, '/') + 1), ['.', '..'])) {
                     continue;
