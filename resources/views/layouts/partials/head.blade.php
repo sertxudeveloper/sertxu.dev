@@ -59,6 +59,22 @@
     <meta property="twitter:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}">
     <meta property="twitter:creator" content="sertxudev">
 
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": {{ json_encode($post->title) }},
+            "image": {{ json_encode($post->getFirstMediaUrl('thumbnail')) }},
+            "datePublished": {{ json_encode($post->published_at->toIso8601String()) }},
+            "dateModified": {{ json_encode($post->updated_at->toIso8601String()) }},
+            "author": [{
+                "@type": "Person",
+                "name": "Sergio Peris",
+                "url": "https://sertxu.dev"
+            }]
+        }
+    </script>
+
 @elseif(request()->routeIs('projects.show'))
     @php
         $project = request()->route('project');
@@ -86,6 +102,23 @@
     <meta property="twitter:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}">
     <meta property="twitter:creator" content="sertxudev">
 
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": {{ json_encode($project->title) }},
+            "description": {{ json_encode($project->excerpt) }},
+            "image": {{ json_encode($project->getFirstMediaUrl('thumbnail')) }},
+            "applicationCategory": "https://schema.org/WebApplication",
+            "operatingSystem": "All",
+            "url": {{ json_encode(url()->current()) }},
+            "author": {
+                "@type": "Person",
+                "name": "Sergio Peris",
+                "url": "https://sertxu.dev"
+            }
+        }
+    </script>
 @else
     <title>Sergio Peris - {{ config('app.name') }}</title>
     <meta name="description" content="Hi, I'm Sergio Peris, aka Sertxu, a full-stack developer, open-source maintainer, and content creator."/>
@@ -111,6 +144,23 @@
     <meta property="twitter:description" content="Hi, I'm Sergio Peris, aka Sertxu, a full-stack developer, open-source maintainer, and content creator.">
     <meta property="twitter:image" content="{{ asset('social.png') }}">
     <meta property="twitter:creator" content="@sertxudev">
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Sergio Peris",
+            "url": "https://sertxu.dev",
+            "image": "{{ asset('dp.webp') }}",
+            "jobTitle": "Full-Stack Developer",
+            "sameAs": [
+                "https://twitter.com/sertxudev",
+                "https://github.com/sertxudev",
+                "https://www.linkedin.com/in/sertxudev",
+                "https://instagram.com/sertxudev"
+            ]
+        }
+    </script>
 @endif
 
 <!-- Fonts -->
