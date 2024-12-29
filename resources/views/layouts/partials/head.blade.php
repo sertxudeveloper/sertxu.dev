@@ -63,10 +63,10 @@
         {
             "@context": "https://schema.org",
             "@type": "BlogPosting",
-            "headline": {{ json_encode($post->title) }},
-            "image": {{ json_encode($post->getFirstMediaUrl('thumbnail')) }},
-            "datePublished": {{ json_encode($post->published_at->toIso8601String()) }},
-            "dateModified": {{ json_encode($post->updated_at->toIso8601String()) }},
+            "headline": @json($post->title),
+            "image": "{{ $post->getFirstMediaUrl('thumbnail') }}",
+            "datePublished": @json($post->created_at->toIso8601String()),
+            "dateModified": @json($post->updated_at->toIso8601String()),
             "author": [{
                 "@type": "Person",
                 "name": "Sergio Peris",
@@ -106,12 +106,12 @@
         {
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            "name": {{ json_encode($project->title) }},
-            "description": {{ json_encode($project->excerpt) }},
-            "image": {{ json_encode($project->getFirstMediaUrl('thumbnail')) }},
+            "name": @json($project->title),
+            "description": @json($project->excerpt),
+            "image": "{{ $project->getFirstMediaUrl('thumbnail') }}",
             "applicationCategory": "https://schema.org/WebApplication",
             "operatingSystem": "All",
-            "url": {{ json_encode(url()->current()) }},
+            "url": "{{ url()->current() }}",
             "author": {
                 "@type": "Person",
                 "name": "Sergio Peris",
@@ -151,7 +151,7 @@
             "@type": "Person",
             "name": "Sergio Peris",
             "url": "https://sertxu.dev",
-            "image": "{{ asset('dp.webp') }}",
+            "image": {!! json_encode(asset('dp.webp')) !!},
             "jobTitle": "Full-Stack Developer",
             "sameAs": [
                 "https://twitter.com/sertxudev",
