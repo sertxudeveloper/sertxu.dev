@@ -16,6 +16,6 @@
     },
     "dependencies": {
         "puppeteer": "^24.1.0",
-        "shiki": "^1.26.2"
+        "shiki": "^2.0.3"
     }
 }
