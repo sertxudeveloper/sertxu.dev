@@ -18,7 +18,7 @@
             </ul>
         </div>
 
-        <section class="markup border-neutral-700 border-t pt-8">
+        <section class="markup images-centered border-neutral-700 border-t pt-8">
             @markdown($post->text ?? '')
         </section>
     </div>

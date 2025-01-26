@@ -73,6 +73,10 @@
 }
 
 .markup p img {
+    @apply inline-block;
+}
+
+.markup.images-centered p img {
     @apply block mx-auto;
 }
 
