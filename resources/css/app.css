@@ -76,6 +76,10 @@
     @apply text-coral;
 }
 
+.markup img {
+    @apply block mx-auto;
+}
+
 .shiki .highlight {
     background-color: #bb800926;
 }
