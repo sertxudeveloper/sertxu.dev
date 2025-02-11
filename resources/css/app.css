@@ -1,6 +1,59 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@source '../views';
+
+@theme {
+  --color-ocean: #0035ff;
+  --color-ocean-dark: #092ebc;
+  --color-coral: #ff3047;
+
+  --color-dark-100: #242424;
+  --color-dark-200: #1e1e1e;
+  --color-dark-300: #171717;
+
+  --font-heading:
+    Arya, Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --height-screen: calc(100vh - 3.75rem);
+
+  --min-height-screen: calc(100vh - 3.75rem);
+
+  --animate-slide-fade-in: slide-fade-in 1.5s cubic-bezier(0.25, 1, 0.5, 1)
+    forwards;
+
+  @keyframes slide-fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 .markup {
     @apply overflow-hidden mt-4 text-neutral-300;
@@ -39,7 +92,7 @@
 }
 
 .markup p a {
-    @apply text-coral hover:underline outline-none focus:underline;
+    @apply text-coral hover:underline outline-hidden focus:underline;
 }
 
 .markup ul {

@@ -1,7 +1,7 @@
 <div>
     <div class="mx-auto w-1/2 mb-4">
         <input type="text" wire:model.live.debounce="query"
-               class="bg-dark-100 border border-zinc-700 w-full px-4 py-2.5 text-sm rounded-lg text-zinc-300 outline-none focus:border-ocean" placeholder="Search posts by title or content...">
+               class="bg-dark-100 border border-zinc-700 w-full px-4 py-2.5 text-sm rounded-lg text-zinc-300 outline-hidden focus:border-ocean" placeholder="Search posts by title or content...">
     </div>
 
     @if($selectedTag)

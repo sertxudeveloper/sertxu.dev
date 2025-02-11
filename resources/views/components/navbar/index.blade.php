@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="top-0 sticky bg-dark-300 z-30">
-    <div class="flex justify-between max-w-screen-lg mx-auto items-center relative py-2.5 px-6 bg-dark-300 shadow-sm xl:px-0 z-30">
-        <a href="{{ route('home') }}" class="outline-none" wire:navigate>
+    <div class="flex justify-between max-w-(--breakpoint-lg) mx-auto items-center relative py-2.5 px-6 bg-dark-300 shadow-xs xl:px-0 z-30">
+        <a href="{{ route('home') }}" class="outline-hidden" wire:navigate>
             @persist('logo')
                 <img src="{{ asset('favicon.svg') }}" alt="Sertxu Dev" class="h-10">
             @endpersist

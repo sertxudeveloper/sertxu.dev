@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="fixed bg-dark-200 bg-doodles h-full w-full -z-10"></div>
-    <div class="bg-dark-100 max-w-screen-lg mt mx-auto px-4 lg:px-12 py-12 lg:my-48">
+    <div class="bg-dark-100 max-w-(--breakpoint-lg) mt mx-auto px-4 lg:px-12 py-12 lg:my-48">
         <h1 class="text-4xl font-medium text-neutral-200 leading-snug">{{ $post->title }}</h1>
         <div class="flex flex-col md:flex-row md:items-center mb-4 mt-3 md:space-x-3 space-y-2 md:space-y-0">
             @if($post->is_published)

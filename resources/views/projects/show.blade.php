@@ -4,9 +4,9 @@
 
 <x-app-layout>
     <div class="fixed bg-dark-200 bg-doodles h-full w-full -z-10"></div>
-    <div class="bg-dark-100 max-w-screen-lg mt mx-auto px-4 lg:px-12 py-12 lg:my-48">
+    <div class="bg-dark-100 max-w-(--breakpoint-lg) mt mx-auto px-4 lg:px-12 py-12 lg:my-48">
         <div class="mb-4">
-            @isset($media) <img src="{{ $media->getUrl('poster') }}" alt="{{ $project->title }}" class="max-w-screen-md w-full mx-auto">@endif
+            @isset($media) <img src="{{ $media->getUrl('poster') }}" alt="{{ $project->title }}" class="max-w-(--breakpoint-md) w-full mx-auto">@endif
         </div>
 
         <h1 class="text-4xl font-medium text-neutral-200 leading-snug">{{ $project->title }}</h1>
