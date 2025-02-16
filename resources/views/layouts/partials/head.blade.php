@@ -6,7 +6,7 @@
 <meta name="robots" content="index, follow"/>
 
 <meta name="applicable-device" content="pc, mobile"/>
-<link rel="canonical" href="{{ url()->current() }}"/>
+<link rel="canonical" href="{!! request()->fullUrlWithQuery() !!}"/>
 
 <meta name="keywords" content="sertxu.dev, sertxudev, sertxudeveloper, Sergio Peris, tutorial, personal, portfolio, social, cv, laravel, website, tailwind, alpinejs, livewire, filament, ubuntu, windows, blog, projects"/>
 
