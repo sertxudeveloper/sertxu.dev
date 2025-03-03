@@ -177,6 +177,6 @@
     }
 </style>
 
-<script defer data-domain="sertxu.dev" src="https://plausible.binarycomet.net/js/script.hash.outbound-links.js"></script>
+<script defer data-domain="sertxu.dev" src="https://adash.binarycomet.net/js/script.hash.outbound-links.js"></script>
 
 @yield('head')
