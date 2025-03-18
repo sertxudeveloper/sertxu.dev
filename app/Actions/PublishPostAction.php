@@ -27,7 +27,7 @@ final readonly class PublishPostAction
         Bus::chain([
             new CreateOgImageJob($post),
             (new PostToTweetJob($post))->delay(now()->addSeconds(20)),
-            new PostToMediumJob($post),
+            // new PostToMediumJob($post), // Disabled as Medium has removed it's API
             new PostToDevToJob($post),
             new PostToThreadsJob($post),
         ])->dispatch();
