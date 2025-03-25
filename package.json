@@ -7,8 +7,8 @@
     },
     "devDependencies": {
         "@alpinejs/intersect": "^3.14.9",
-        "@tailwindcss/vite": "^4.0.14",
-        "axios": "^1.8.3",
+        "@tailwindcss/vite": "^4.0.15",
+        "axios": "^1.8.4",
         "laravel-vite-plugin": "^1.2",
         "tailwindcss": "^4.0.6",
         "vite": "^6.2"
