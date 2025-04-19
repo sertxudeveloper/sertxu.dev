@@ -48,11 +48,6 @@ return [
         'api_key' => env('DEVTO_API_KEY'),
     ],
 
-    'medium' => [
-        'api_key' => env('MEDIUM_API_KEY'),
-        'user_id' => env('MEDIUM_USER_ID'),
-    ],
-
     'threads' => [
         'app_id' => env('THREADS_APP_ID'),
         'app_secret' => env('THREADS_APP_SECRET'),

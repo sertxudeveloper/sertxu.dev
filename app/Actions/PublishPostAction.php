@@ -6,7 +6,6 @@ namespace App\Actions;
 
 use App\Jobs\CreateOgImageJob;
 use App\Jobs\PostToDevToJob;
-use App\Jobs\PostToMediumJob;
 use App\Jobs\PostToThreadsJob;
 use App\Jobs\PostToTweetJob;
 use App\Models\Post;
@@ -27,7 +26,6 @@ final readonly class PublishPostAction
         Bus::chain([
             new CreateOgImageJob($post),
             (new PostToTweetJob($post))->delay(now()->addSeconds(20)),
-            // new PostToMediumJob($post), // Disabled as Medium has removed it's API
             new PostToDevToJob($post),
             new PostToThreadsJob($post),
         ])->dispatch();

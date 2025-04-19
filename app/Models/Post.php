@@ -37,7 +37,7 @@ final class Post extends Model implements HasMedia
      */
     protected $fillable = [
         'title', 'slug', 'text', 'is_published', 'published_at',
-        'posted_on_twitter', 'posted_on_medium', 'posted_on_dev', 'posted_on_threads',
+        'posted_on_twitter', 'posted_on_dev', 'posted_on_threads',
     ];
 
     /**
@@ -165,7 +165,6 @@ final class Post extends Model implements HasMedia
             'is_published' => 'boolean',
             'published_at' => 'datetime',
             'posted_on_twitter' => 'boolean',
-            'posted_on_medium' => 'boolean',
             'posted_on_dev' => 'boolean',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',

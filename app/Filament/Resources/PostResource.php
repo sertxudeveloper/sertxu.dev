@@ -77,10 +77,6 @@ final class PostResource extends Resource
                             ->inline(false)
                             ->helperText('If enabled won\'t post.'),
 
-                        Forms\Components\Toggle::make('posted_on_medium')
-                            ->inline(false)
-                            ->helperText('If enabled won\'t post.'),
-
                         Forms\Components\Toggle::make('posted_on_dev')
                             ->inline(false)
                             ->helperText('If enabled won\'t post.'),
