@@ -3,7 +3,7 @@ FROM serversideup/php:8.4-fpm-nginx as base
 
 USER root
 
-RUN install-php-extensions intl bcmath
+RUN install-php-extensions intl bcmath exif
 
 # Copy the application files to the container.
 COPY --chown=www-data:www-data . /var/www/html
