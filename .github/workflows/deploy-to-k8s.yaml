@@ -1,0 +1,56 @@
+name: Deploy to Kubernetes cluster
+
+concurrency: 
+  group: production
+  
+on:
+  push:
+    branches: [ "12.x" ]
+
+env:
+  REGISTRY: ${{ secrets.PRIVATE_DOCKER_REGISTRY_HOST }}
+  IMAGE: ${{ github.repository }}
+  CONTAINER: sertxudev
+  DEPLOYMENT: sertxudev
+
+jobs:
+
+  build:
+    name: Build and Deploy Docker image
+    runs-on: ubuntu-latest
+    environment: production
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build Docker image
+        run: docker build --tag "${REGISTRY}/${IMAGE}:${GITHUB_SHA}" .
+
+      - name: Log into registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.PRIVATE_DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.PRIVATE_DOCKER_REGISTRY_PASSWORD }}
+
+      - name: Push Docker image
+        run: docker push "${REGISTRY}/${IMAGE}:${GITHUB_SHA}"
+
+      - name: Deploy new image
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.KUBERNETES_MASTER_SSH_HOST }}
+          username: ${{ secrets.KUBERNETES_MASTER_SSH_USER }}
+          port: ${{ secrets.KUBERNETES_MASTER_SSH_PORT }}
+          key: ${{ secrets.KUBERNETES_MASTER_SSH_KEY }}
+          script: |
+            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-php-nginx ${{ env.CONTAINER }}-php-nginx="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
+            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-worker ${{ env.CONTAINER }}-worker="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
+            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-scheduler ${{ env.CONTAINER }}-scheduler="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
