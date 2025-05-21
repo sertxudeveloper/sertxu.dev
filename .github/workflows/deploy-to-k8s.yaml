@@ -51,6 +51,6 @@ jobs:
           port: ${{ secrets.KUBERNETES_MASTER_SSH_PORT }}
           key: ${{ secrets.KUBERNETES_MASTER_SSH_KEY }}
           script: |
-            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-php-nginx ${{ env.CONTAINER }}-php-nginx="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
-            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-worker ${{ env.CONTAINER }}-worker="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
-            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-scheduler ${{ env.CONTAINER }}-scheduler="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
+            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-php-nginx ${{ env.CONTAINER }}-php-nginx="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}" -n ${{ env.NAMESPACE }}
+            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-worker ${{ env.CONTAINER }}-worker="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}" -n ${{ env.NAMESPACE }}
+            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-scheduler ${{ env.CONTAINER }}-scheduler="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}" -n ${{ env.NAMESPACE }}
