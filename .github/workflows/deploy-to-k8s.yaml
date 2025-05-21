@@ -5,7 +5,7 @@ concurrency:
   
 on:
   push:
-    branches: [ "12.x" ]
+    branches: [ "main" ]
 
 env:
   REGISTRY: ${{ secrets.PRIVATE_DOCKER_REGISTRY_HOST }}
