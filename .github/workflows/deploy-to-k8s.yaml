@@ -12,6 +12,7 @@ env:
   IMAGE: ${{ github.repository }}
   CONTAINER: sertxudev
   DEPLOYMENT: sertxudev
+  NAMESPACE: sertxudev
 
 jobs:
 
@@ -51,6 +52,6 @@ jobs:
           port: ${{ secrets.KUBERNETES_MASTER_SSH_PORT }}
           key: ${{ secrets.KUBERNETES_MASTER_SSH_KEY }}
           script: |
-            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-php-nginx ${{ env.CONTAINER }}-php-nginx="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
-            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-worker ${{ env.CONTAINER }}-worker="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
-            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-scheduler ${{ env.CONTAINER }}-scheduler="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
+            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-php-nginx -n ${{ env.NAMESPACE }} ${{ env.CONTAINER }}-php-nginx="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
+            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-worker -n ${{ env.NAMESPACE }} ${{ env.CONTAINER }}-worker="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
+            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-scheduler -n ${{ env.NAMESPACE }} ${{ env.CONTAINER }}-scheduler="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
