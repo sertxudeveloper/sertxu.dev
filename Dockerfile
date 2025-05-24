@@ -1,5 +1,5 @@
 # Use the serversideup/php:8.4-cli image as the base image.
-FROM serversideup/php:8.4-cli as vendor
+FROM serversideup/php:8.4-cli AS vendor
 
 USER root
 
