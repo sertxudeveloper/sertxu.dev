@@ -17,7 +17,6 @@ RUN composer install --no-scripts --no-interaction --prefer-dist
 
 ENV SSL_MODE="off" \
     PHP_OPCACHE_ENABLE="1" \
-    AUTORUN_ENABLED="true" \
-    AUTORUN_LARAVEL_MIGRATION_ISOLATION="true"
+    AUTORUN_ENABLED="true"
 
 USER www-data
