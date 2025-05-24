@@ -1,22 +1,52 @@
-# Use the serversideup/php:8.4-fpm-nginx image as the base image.
-FROM serversideup/php:8.4-fpm-nginx as base
+# Use the serversideup/php:8.4-cli image as the base image.
+FROM serversideup/php:8.4-cli as vendor
 
 USER root
 
+# Install PHP dependencies.
 RUN install-php-extensions intl bcmath exif
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+COPY app /app/app
+COPY database /app/database
+
+COPY composer.json /app/composer.json
+COPY composer.lock /app/composer.lock
+
+WORKDIR /app
+
+RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts --classmap-authoritative
+
+##############################################################################
+
+FROM node:23-alpine AS assets
+
+RUN mkdir -p /app/public
+
+COPY package.json vite.config.js package-lock.json /app/
+
+COPY resources/ /app/resources/
+
+WORKDIR /app
+
+RUN npm install && npm run build
+
+##############################################################################
+
+FROM serversideup/php:8.4-fpm-nginx
+
+USER www-data
+
+# Copies the Laravel app, but skips the ignored files and paths
+COPY --chown=www-data:www-data . .
+COPY --chown=www-data:www-data --from=vendor /app/vendor/ /var/www/html/vendor/
+COPY --chown=www-data:www-data --from=assets /app/public/ /var/www/html/public/
 
 # Copy the application files to the container.
 COPY --chown=www-data:www-data . /var/www/html
 
-# Install PHP dependencies using Composer.
-# Use --no-scripts to prevent Composer from running scripts during the install process.
-# This is often safer in Dockerfiles, as it prevents potential issues with missing
-# dependencies or environment configurations.  We'll run the necessary artisan
-# commands (key:generate, migrate) explicitly later.
-RUN composer install --no-scripts --no-interaction --prefer-dist
-
-ENV SSL_MODE="off" \
-    PHP_OPCACHE_ENABLE="1" \
-    AUTORUN_ENABLED="true"
-
-USER www-data
+ENV AUTORUN_ENABLED="true" \
+    # AUTORUN_LARAVEL_MIGRATION="true" \
+    # AUTORUN_LARAVEL_MIGRATION_ISOLATION="true" \
+    PHP_OPCACHE_ENABLE="1"
