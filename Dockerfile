@@ -28,6 +28,8 @@ COPY package.json vite.config.js package-lock.json /app/
 
 COPY resources/ /app/resources/
 
+COPY --chown=www-data:www-data --from=vendor /app/vendor/ /app/vendor/
+
 WORKDIR /app
 
 RUN npm install && npm run build
