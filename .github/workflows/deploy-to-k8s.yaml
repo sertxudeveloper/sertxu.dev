@@ -1,57 +1,52 @@
-name: Deploy to Kubernetes cluster
+# Use the serversideup/php:8.4-cli image as the base image.
+FROM serversideup/php:8.4-cli AS vendor
 
-concurrency: 
-  group: production
-  
-on:
-  push:
-    branches: [ "main" ]
+USER root
 
-env:
-  REGISTRY: ${{ secrets.PRIVATE_DOCKER_REGISTRY_HOST }}
-  IMAGE: ${{ github.repository }}
-  CONTAINER: sertxudev
-  DEPLOYMENT: sertxudev
-  NAMESPACE: sertxudev
+# Install PHP dependencies.
+RUN install-php-extensions intl bcmath exif
 
-jobs:
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
-  build:
-    name: Build and Deploy Docker image
-    runs-on: ubuntu-latest
-    environment: production
-      
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+COPY app /app/app
+COPY database /app/database
 
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+COPY composer.json /app/composer.json
+COPY composer.lock /app/composer.lock
 
-      - name: Build Docker image
-        run: docker build --tag "${REGISTRY}/${IMAGE}:${GITHUB_SHA}" --tag "${REGISTRY}/${IMAGE}:latest" .
+WORKDIR /app
 
-      - name: Log into registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ secrets.PRIVATE_DOCKER_REGISTRY_USERNAME }}
-          password: ${{ secrets.PRIVATE_DOCKER_REGISTRY_PASSWORD }}
+RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts --classmap-authoritative
 
-      - name: Push Docker image
-        run: docker push "${REGISTRY}/${IMAGE}:${GITHUB_SHA}"
+##############################################################################
 
-      - name: Deploy new image
-        uses: appleboy/ssh-action@v1.2.2
-        with:
-          host: ${{ secrets.KUBERNETES_MASTER_SSH_HOST }}
-          username: ${{ secrets.KUBERNETES_MASTER_SSH_USER }}
-          port: ${{ secrets.KUBERNETES_MASTER_SSH_PORT }}
-          key: ${{ secrets.KUBERNETES_MASTER_SSH_KEY }}
-          script: |
-            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-php-nginx -n ${{ env.NAMESPACE }} ${{ env.CONTAINER }}-php-nginx="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
-            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-worker -n ${{ env.NAMESPACE }} ${{ env.CONTAINER }}-worker="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
-            microk8s kubectl set image deployment/${{ env.DEPLOYMENT }}-scheduler -n ${{ env.NAMESPACE }} ${{ env.CONTAINER }}-scheduler="${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ github.sha }}"
+FROM node:23-alpine AS assets
+
+RUN mkdir -p /app/public
+
+COPY package.json vite.config.js package-lock.json /app/
+
+COPY resources/ /app/resources/
+
+WORKDIR /app
+
+RUN npm install && npm run build
+
+##############################################################################
+
+FROM serversideup/php:8.4-fpm-nginx
+
+USER www-data
+
+# Copies the Laravel app, but skips the ignored files and paths
+COPY --chown=www-data:www-data . .
+COPY --chown=www-data:www-data --from=vendor /app/vendor/ /var/www/html/vendor/
+COPY --chown=www-data:www-data --from=assets /app/public/ /var/www/html/public/
+
+# Copy the application files to the container.
+COPY --chown=www-data:www-data . /var/www/html
+
+ENV AUTORUN_ENABLED="true" \
+    # AUTORUN_LARAVEL_MIGRATION="true" \
+    # AUTORUN_LARAVEL_MIGRATION_ISOLATION="true" \
+    PHP_OPCACHE_ENABLE="1"
