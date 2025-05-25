@@ -44,9 +44,9 @@ COPY --chown=www-data:www-data --from=vendor /app/public/css/ /var/www/html/publ
 COPY --chown=www-data:www-data --from=vendor /app/public/js/ /var/www/html/public/js/
 COPY --chown=www-data:www-data --from=assets /app/public/build/ /var/www/html/public/build/
 
-RUN npm install --no-dev
-
 USER www-data
+
+RUN npm install --no-dev
 
 ENV AUTORUN_ENABLED="true" \
     # AUTORUN_LARAVEL_MIGRATION="true" \
