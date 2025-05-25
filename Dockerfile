@@ -16,7 +16,7 @@ COPY composer.lock /app/composer.lock
 
 WORKDIR /app
 
-RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts --classmap-authoritative
+RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --classmap-authoritative
 
 ##############################################################################
 
