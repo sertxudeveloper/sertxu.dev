@@ -22,6 +22,7 @@ return new class extends Migration
             $table->datetime('published_at')->nullable();
             $table->boolean('posted_on_twitter')->default(false);
             $table->boolean('posted_on_dev')->default(false);
+            $table->boolean('posted_on_medium')->default(false);
             $table->datetimes();
             $table->softDeletes();
         });
