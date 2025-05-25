@@ -37,16 +37,16 @@ RUN install-php-extensions intl bcmath exif
 
 RUN apt-get update && apt-get install -y nodejs npm
 
-RUN npm install --no-dev
-
-USER www-data
-
 # Copies the Laravel app, but skips the ignored files and paths
 COPY --chown=www-data:www-data . /var/www/html
 COPY --chown=www-data:www-data --from=vendor /app/vendor/ /var/www/html/vendor/
 COPY --chown=www-data:www-data --from=vendor /app/public/css/ /var/www/html/public/css/
 COPY --chown=www-data:www-data --from=vendor /app/public/js/ /var/www/html/public/js/
 COPY --chown=www-data:www-data --from=assets /app/public/build/ /var/www/html/public/build/
+
+RUN npm install --no-dev
+
+USER www-data
 
 ENV AUTORUN_ENABLED="true" \
     # AUTORUN_LARAVEL_MIGRATION="true" \
