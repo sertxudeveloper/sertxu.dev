@@ -42,7 +42,7 @@ jobs:
           password: ${{ secrets.PRIVATE_DOCKER_REGISTRY_PASSWORD }}
 
       - name: Push Docker image
-        run: docker push "${REGISTRY}/${IMAGE}:${GITHUB_SHA}"
+        run: docker push "${REGISTRY}/${IMAGE}:${GITHUB_SHA}" --all-tags
 
       - name: Deploy new image
         uses: appleboy/ssh-action@v1.2.2
