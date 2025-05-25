@@ -8,13 +8,7 @@ RUN install-php-extensions intl bcmath exif
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-COPY app /app/app
-COPY bootstrap /app/bootstrap
-COPY database /app/database
-COPY artisan /app/artisan
-
-COPY composer.json /app/composer.json
-COPY composer.lock /app/composer.lock
+COPY . /app
 
 WORKDIR /app
 
