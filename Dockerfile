@@ -34,6 +34,9 @@ RUN npm install && npm run build
 
 FROM serversideup/php:8.4-fpm-nginx
 
+USER root
+
+# Install PHP dependencies.
 RUN install-php-extensions intl bcmath exif
 
 USER www-data
