@@ -35,6 +35,8 @@ USER root
 # Install PHP dependencies.
 RUN install-php-extensions intl bcmath exif
 
+RUN apt-get update && apt-get install -y nodejs npm
+
 USER www-data
 
 # Copies the Laravel app, but skips the ignored files and paths
