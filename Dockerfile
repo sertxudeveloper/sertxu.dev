@@ -18,11 +18,7 @@ RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --cl
 
 FROM node:23-alpine AS assets
 
-RUN mkdir -p /app/public
-
-COPY package.json vite.config.js package-lock.json /app/
-
-COPY resources/ /app/resources/
+COPY . /app
 
 COPY --chown=www-data:www-data --from=vendor /app/vendor/ /app/vendor/
 
