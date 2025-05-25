@@ -10,6 +10,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 
 COPY app /app/app
 COPY database /app/database
+COPY artisan /app/artisan
 
 COPY composer.json /app/composer.json
 COPY composer.lock /app/composer.lock
