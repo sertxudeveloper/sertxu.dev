@@ -34,6 +34,8 @@ RUN npm install && npm run build
 
 FROM serversideup/php:8.4-fpm-nginx
 
+RUN install-php-extensions intl bcmath exif
+
 USER www-data
 
 # Copies the Laravel app, but skips the ignored files and paths
