@@ -14,8 +14,6 @@ WORKDIR /var/www/html
 
 USER www-data
 
-ENV NODE_ENV=production
-
 RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --classmap-authoritative
 
 RUN npm install && npm run build
