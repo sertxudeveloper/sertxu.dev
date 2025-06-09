@@ -6,6 +6,7 @@ concurrency:
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 env:
   REGISTRY: ${{ secrets.PRIVATE_DOCKER_REGISTRY_HOST }}
