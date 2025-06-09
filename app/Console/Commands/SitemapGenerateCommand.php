@@ -29,8 +29,13 @@ final class SitemapGenerateCommand extends Command
      */
     public function handle(): void
     {
-        $sitemap = SitemapGenerator::create(config('app.url'))->getSitemap();
+        SitemapGenerator::create(config('app.url'))
+            ->writeToFile(storage_path('sitemap.xml'));
 
-        Storage::disk('r2')->put('sitemap.xml', $sitemap);
+        Storage::disk('r2')->put('sitemap.xml', file_get_contents(storage_path('sitemap.xml')));
+
+        unlink(storage_path('sitemap.xml'));
+
+        $this->info('Sitemap generated and uploaded to R2 successfully.');
     }
 }
