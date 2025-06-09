@@ -63,7 +63,7 @@ final class Post extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('thumbnail')
-            ->useDisk('public')
+            ->useDisk('r2')
             ->singleFile();
     }
 

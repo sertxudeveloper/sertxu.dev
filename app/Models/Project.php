@@ -29,7 +29,7 @@ final class Project extends Model implements HasMedia
     {
         $this
             ->addMediaCollection('thumbnail')
-            ->useDisk('public')
+            ->useDisk('r2')
 //            ->withResponsiveImages()
             ->singleFile();
     }

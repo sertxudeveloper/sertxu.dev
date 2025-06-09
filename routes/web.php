@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', Controllers\HomeController::class)->name('home');
 
@@ -26,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/threads/callback', [Controllers\ThreadsAuthController::class, 'store'])->name('threads.auth-callback');
 });
 
-Route::get('/sitemap.xml', fn () => response(file_get_contents(storage_path('sitemap.xml')), 200, ['Content-Type' => 'application/xml']));
+Route::get('/sitemap.xml', fn () => response(Storage::disk('r2')->get('sitemap.xml'), 200, ['Content-Type' => 'application/xml']));
 
 Route::redirect('/login', '/admin/login')->name('login');
 
