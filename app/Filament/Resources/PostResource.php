@@ -51,7 +51,6 @@ final class PostResource extends Resource
                         Forms\Components\SpatieTagsInput::make('tags'),
 
                         Forms\Components\MarkdownEditor::make('text')
-                            ->fileAttachmentsDisk('public')
                             ->fileAttachmentsDirectory('posts')
                             ->required(),
                     ]),
