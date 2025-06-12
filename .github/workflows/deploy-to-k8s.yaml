@@ -47,6 +47,7 @@ jobs:
             type=ref,event=tag
             type=ref,event=pr
             type=sha,format=long
+            type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push
         id: build-and-push

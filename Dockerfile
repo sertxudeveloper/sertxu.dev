@@ -1,4 +1,4 @@
-FROM sertxudeveloper/laravel-php8.4:main
+FROM sertxudeveloper/laravel-php8.4:latest
 
 COPY --chown=www-data:www-data . /var/www/html
 
