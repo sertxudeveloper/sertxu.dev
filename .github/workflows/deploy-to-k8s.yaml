@@ -46,7 +46,7 @@ jobs:
             type=ref,event=branch
             type=ref,event=tag
             type=ref,event=pr
-            type=sha
+            type=sha,format=long
 
       - name: Build and push
         id: build-and-push
@@ -68,6 +68,6 @@ jobs:
           port: ${{ secrets.KUBERNETES_MASTER_SSH_PORT }}
           key: ${{ secrets.KUBERNETES_MASTER_SSH_KEY }}
           script: |
-            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-php-nginx -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-php-nginx="${{ github.repository }}:${{ github.sha }}"
-            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-worker -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-worker="${{ github.repository }}:${{ github.sha }}"
-            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-scheduler -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-scheduler="${{ github.repository }}:${{ github.sha }}"
+            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-php-nginx -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-php-nginx="${{ github.repository }}:sha-${{ github.sha }}"
+            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-worker -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-worker="${{ github.repository }}:sha-${{ github.sha }}"
+            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-scheduler -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-scheduler="${{ github.repository }}:sha-${{ github.sha }}"
