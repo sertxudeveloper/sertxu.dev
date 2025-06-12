@@ -8,7 +8,8 @@ USER www-data
 
 RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --classmap-authoritative
 
-RUN npm install && npm run build
+RUN npm install && \
+    npm run build
 
 ENV AUTORUN_ENABLED="true" \
     # AUTORUN_LARAVEL_MIGRATION="true" \
