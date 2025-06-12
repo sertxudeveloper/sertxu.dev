@@ -1,4 +1,4 @@
-FROM ghcr.io/sertxudeveloper/laravel-docker-image:main
+FROM sertxudeveloper/laravel-php8.4:main
 
 COPY --chown=www-data:www-data . /var/www/html
 
