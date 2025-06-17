@@ -17,9 +17,11 @@ use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Sitemap\Contracts\Sitemapable;
+use Spatie\Sitemap\Tags\Url;
 use Spatie\Tags\HasTags;
 
-final class Post extends Model implements HasMedia
+final class Post extends Model implements HasMedia, Sitemapable
 {
     use HasFactory, HasTags, InteractsWithMedia, SoftDeletes, Threadable, Tweetable;
 
@@ -152,6 +154,17 @@ final class Post extends Model implements HasMedia
         return new Attribute(
             get: fn () => Str::limit(Str::before($this->text, PHP_EOL)),
         );
+    }
+
+    /**
+     * Get the post as a sitemap tag.
+     */
+    public function toSitemapTag(): Url
+    {
+        return Url::create(route('posts.show', $this))
+            ->setLastModificationDate(Carbon::create($this->updated_at))
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+            ->setPriority(0.1);
     }
 
     /**

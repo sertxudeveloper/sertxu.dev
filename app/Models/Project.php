@@ -8,13 +8,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Sitemap\Contracts\Sitemapable;
+use Spatie\Sitemap\Tags\Url;
 use Spatie\Tags\HasTags;
 
-final class Project extends Model implements HasMedia
+final class Project extends Model implements HasMedia, Sitemapable
 {
     use HasFactory, HasTags, InteractsWithMedia, SoftDeletes;
 
@@ -73,6 +76,17 @@ final class Project extends Model implements HasMedia
         $query
             ->where('is_published', true)
             ->orderBy('id', 'desc');
+    }
+
+    /**
+     * Get the project as a sitemap tag.
+     */
+    public function toSitemapTag(): Url
+    {
+        return Url::create(route('projects.show', $this))
+            ->setLastModificationDate(Carbon::create($this->updated_at))
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
+            ->setPriority(0.1);
     }
 
     protected function casts(): array
