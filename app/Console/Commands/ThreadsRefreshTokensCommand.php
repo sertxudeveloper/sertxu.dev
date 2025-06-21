@@ -25,7 +25,7 @@ final class ThreadsRefreshTokensCommand extends Command
      */
     public function handle(): void
     {
-        $users = User::query()->where('threads_access_token_expires_at', '<=', now()->days(10))->get();
+        $users = User::query()->where('threads_access_token_expires_at', '<=', now()->addDays(10))->get();
         if ($users->isEmpty()) {
             return;
         }
