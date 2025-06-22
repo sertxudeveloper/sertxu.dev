@@ -63,7 +63,7 @@ final readonly class Threads
      */
     public function refreshToken(User $user): void
     {
-        $response = Http::post("{$this->base_url}/refresh_access_token", [
+        $response = Http::get("{$this->base_url}/refresh_access_token", [
             'grant_type' => 'th_refresh_token',
             'access_token' => $user->threads_access_token,
         ]);
