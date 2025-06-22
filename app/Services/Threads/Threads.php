@@ -30,7 +30,7 @@ final readonly class Threads
         $this->app_secret = config('services.threads.app_secret');
         $this->redirect_uri = config('services.threads.redirect_uri');
         $this->scope = 'threads_basic,threads_content_publish';
-        $this->base_url = 'https://graph.threads.net/oauth';
+        $this->base_url = 'https://graph.threads.net';
     }
 
     /**
@@ -81,14 +81,13 @@ final readonly class Threads
     }
 
     /**
-     * Request a long-lived token from Threads.
+     * Request a long-lived token from Threads from a valid short-lived token.
      */
     private function requestLongLivedToken(Request $request): void
     {
-        $response = Http::get("https://graph.threads.net/access_token", [
-            'client_id' => $this->app_id,
-            'client_secret' => $this->app_secret,
+        $response = Http::get("{$this->base_url}/access_token", [
             'grant_type' => 'th_exchange_token',
+            'client_secret' => $this->app_secret,
             'access_token' => $request->user()->threads_access_token,
         ]);
 
@@ -111,7 +110,7 @@ final readonly class Threads
     {
         $authorizationCode = $request->get('code');
 
-        $response = Http::get("{$this->base_url}/access_token", [
+        $response = Http::get("{$this->base_url}/oauth/access_token", [
             'client_id' => config('services.threads.app_id'),
             'client_secret' => config('services.threads.app_secret'),
             'code' => $authorizationCode,
@@ -137,7 +136,7 @@ final readonly class Threads
      */
     public function writePost(User $user, string $content): void
     {
-        $response = Http::post("https://graph.threads.net/v1.0/{$user->threads_user_id}/threads", [
+        $response = Http::post("{$this->base_url}/v1.0/{$user->threads_user_id}/threads", [
             'media_type' => 'TEXT', // TEXT, IMAGE, VIDEO
             'text' => $content,
             'access_token' => $user->threads_access_token,
@@ -149,7 +148,7 @@ final readonly class Threads
 
         $mediaContainer = $response->json('id');
 
-        $response = Http::post("https://graph.threads.net/v1.0/{$user->threads_user_id}/threads_publish", [
+        $response = Http::post("{$this->base_url}/v1.0/{$user->threads_user_id}/threads_publish", [
             'creation_id' => $mediaContainer,
             'access_token' => $user->threads_access_token,
         ]);
