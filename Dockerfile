@@ -12,6 +12,7 @@ RUN set -xe; \
     echo "#!/command/execlineb -P" > /etc/s6-overlay/s6-rc.d/laravel-nightwatch/run; \
     echo "php artisan nightwatch:agent" > /etc/s6-overlay/s6-rc.d/laravel-nightwatch/run; \
     touch /etc/s6-overlay/s6-rc.d/user/contents.d/laravel-nightwatch; \
+    mkdir -p /etc/s6-overlay/s6-rc.d/laravel-nightwatch/dependencies.d; \
     touch /etc/s6-overlay/s6-rc.d/laravel-nightwatch/dependencies.d/base
 
 USER www-data
