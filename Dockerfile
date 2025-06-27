@@ -4,6 +4,8 @@ COPY --chown=www-data:www-data . /var/www/html
 
 WORKDIR /var/www/html
 
+USER root
+
 RUN set -xe; \
     mkdir -p /etc/s6-overlay/s6-rc.d/laravel-nightwatch; \
     echo "longrun" > /etc/s6-overlay/s6-rc.d/laravel-nightwatch/type; \
