@@ -11,6 +11,14 @@ RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --cl
 RUN npm install && \
     npm run build
 
+RUN set -xe; \
+    mkdir -p /etc/s6-overlay/s6-rc.d/laravel-nightwatch; \
+    echo "longrun" > /etc/s6-overlay/s6-rc.d/laravel-nightwatch/type; \
+    echo "#!/command/execlineb -P" > /etc/s6-overlay/s6-rc.d/laravel-nightwatch/run; \
+    echo "php artisan nightwatch:agent" > /etc/s6-overlay/s6-rc.d/laravel-nightwatch/run; \
+    touch /etc/s6-overlay/s6-rc.d/user/contents.d/laravel-nightwatch; \
+    touch /etc/s6-overlay/s6-rc.d/laravel-nightwatch/dependencies.d/base
+
 ENV AUTORUN_ENABLED="true" \
     # AUTORUN_LARAVEL_MIGRATION="true" \
     # AUTORUN_LARAVEL_MIGRATION_ISOLATION="true" \
