@@ -19,6 +19,8 @@ USER www-data
 
 RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --classmap-authoritative
 
+RUN php artisan octane:install --server=frankenphp
+
 RUN npm install && \
     npm run build
 

@@ -21,3 +21,7 @@ yarn-error.log
 /.idea
 /.vscode
 /storage/sitemap.xml
+
+**/caddy
+frankenphp
+frankenphp-worker.php
