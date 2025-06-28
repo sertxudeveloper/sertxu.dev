@@ -66,12 +66,12 @@ final class Project extends Model implements HasMedia, Sitemapable
     /**
      * Scope a query to only include active projects.
      */
-    public function scopeActive(Builder $query): Builder
+    public function scopeWhereActive(Builder $query): Builder
     {
         return $query->where('published_at', '<=', now());
     }
 
-    public function scopePublished(Builder $query): void
+    public function scopeWherePublished(Builder $query): void
     {
         $query
             ->where('is_published', true)

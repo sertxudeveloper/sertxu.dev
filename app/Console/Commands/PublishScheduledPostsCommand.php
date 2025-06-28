@@ -29,8 +29,10 @@ final class PublishScheduledPostsCommand extends Command
      */
     public function handle(PublishPostAction $publishPostAction): void
     {
-        Post::scheduled()->get()
-            ->reject(fn (Post $post) => $post->published_at->isFuture())
+        Post::query()
+            ->whereScheduled()
+            ->whereDate('published_at', '<=', now())
+            ->get()
             ->each(fn (Post $post) => $publishPostAction->execute($post));
     }
 }

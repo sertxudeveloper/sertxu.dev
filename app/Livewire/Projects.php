@@ -46,7 +46,8 @@ final class Projects extends Component
      */
     private function projects(): LengthAwarePaginator
     {
-        return Project::published()
+        return Project::query()
+            ->wherePublished()
             ->when($this->tag, fn ($query) => $query->withAnyTags($this->tag))
             ->latest()
             ->paginate(perPage: 12);

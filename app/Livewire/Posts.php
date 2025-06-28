@@ -47,7 +47,9 @@ final class Posts extends Component
      */
     private function posts(): LengthAwarePaginator
     {
-        return Post::published()
+        return Post::query()
+            ->wherePublished()
+            ->with('media')
             ->when($this->tag, fn (Builder $query) => $query->withAnyTags($this->tag))
             ->when($this->query, fn (Builder $query) => $query->where(function (Builder $query) {
                 $query->where('title', 'like', "%{$this->query}%")

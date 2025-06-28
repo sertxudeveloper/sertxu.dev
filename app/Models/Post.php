@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Models\Concerns\Threadable;
 use App\Models\Concerns\Tweetable;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -90,7 +91,7 @@ final class Post extends Model implements HasMedia, Sitemapable
     /**
      * Scope a query to only include published posts.
      */
-    public function scopePublished(Builder $query): void
+    public function scopeWherePublished(Builder $query): void
     {
         $query
             ->where('is_published', true)
@@ -101,7 +102,7 @@ final class Post extends Model implements HasMedia, Sitemapable
     /**
      * Scope a query to only include scheduled posts.
      */
-    public function scopeScheduled(Builder $query): void
+    public function scopeWhereScheduled(Builder $query): void
     {
         $query
             ->where('is_published', false)

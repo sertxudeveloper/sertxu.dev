@@ -39,7 +39,7 @@ final class SitemapGenerateCommand extends Command
             ->add(Url::create(route('projects.index'))->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
             ->add(Url::create(route('uses'))->setPriority(0.5)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
             ->add(Url::create(route('posts.index'))->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY))
-            ->add(Post::query()->published()->get())
+            ->add(Post::query()->wherePublished()->get())
             ->add(Project::query()->get())
             ->add($this->createUrlPostTags())
             ->add($this->createUrlProjectTags())
@@ -54,7 +54,7 @@ final class SitemapGenerateCommand extends Command
 
         Post::query()
             ->with('tags')
-            ->published()
+            ->wherePublished()
             ->get()
             ->pluck('tags')
             ->flatten()
@@ -74,7 +74,7 @@ final class SitemapGenerateCommand extends Command
 
         Project::query()
             ->with('tags')
-            ->published()
+            ->wherePublished()
             ->get()
             ->pluck('tags')
             ->flatten()
