@@ -7,7 +7,10 @@ namespace App\Livewire;
 use App\Models\Post;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -24,6 +27,22 @@ final class Posts extends Component
     public string $tag = '';
 
     /**
+     * Clear the selected tag.
+     */
+    public function clearSelectedTag(): void
+    {
+        $this->tag = '';
+    }
+
+    /**
+     * Get the pagination view.
+     */
+    public function paginationView(): string
+    {
+        return 'livewire::simple-pages';
+    }
+
+    /**
      * Render the component.
      */
     public function render(): View
@@ -35,11 +54,17 @@ final class Posts extends Component
     }
 
     /**
-     * Clear the selected tag.
+     * Get the post's excerpt.
      */
-    public function clearSelectedTag(): void
+    protected function excerpt(): Attribute
     {
-        $this->tag = '';
+        return Attribute::make(
+            get: fn () => Cache::remember(
+                key: "post_excerpt_{$this->id}",
+                ttl: now()->addWeek(),
+                callback: fn () => Str::limit($this->text, 150)
+            ),
+        );
     }
 
     /**
@@ -57,13 +82,5 @@ final class Posts extends Component
             }))
             ->orderByDesc('published_at')
             ->paginate(perPage: 16);
-    }
-
-    /**
-     * Get the pagination view.
-     */
-    public function paginationView(): string
-    {
-        return 'livewire::simple-pages';
     }
 }
