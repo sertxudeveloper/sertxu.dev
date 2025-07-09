@@ -13,8 +13,9 @@ updates:
       - "dependencies"
     groups:
       dependencies:
-        patterns: 
-          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "composer"
     directory: "/"
@@ -24,8 +25,9 @@ updates:
       - "dependencies"
     groups:
       dependencies:
-        patterns: 
-          - "*"
+        update-types:
+          - "minor"
+          - "patch"
       
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -35,5 +37,6 @@ updates:
       - "dependencies"
     groups:
       dependencies:
-        patterns: 
-          - "*"
+        update-types:
+          - "minor"
+          - "patch"
