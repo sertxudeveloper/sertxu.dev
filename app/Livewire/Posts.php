@@ -77,8 +77,8 @@ final class Posts extends Component
             ->with('media')
             ->when($this->tag, fn (Builder $query) => $query->withAnyTags($this->tag))
             ->when($this->query, fn (Builder $query) => $query->where(function (Builder $query) {
-                $query->where('title', 'like', "%{$this->query}%")
-                    ->orWhere('text', 'like', "%{$this->query}%");
+                $query->whereLike('title', "%{$this->query}%")
+                    ->orWhereLike('text', "%{$this->query}%");
             }))
             ->orderByDesc('published_at')
             ->paginate(perPage: 16);
