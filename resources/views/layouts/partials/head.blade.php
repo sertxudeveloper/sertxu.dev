@@ -170,6 +170,9 @@
 <!-- Styles -->
 @livewireStyles
 @vite('resources/css/app.css')
+
+<link rel="preload" href="{{ asset('doodles.webp') }}" as="image" type="image/webp" />
+
 <style>
     .bg-doodles {
         background-image: url("{{ asset('doodles.webp') }}");
