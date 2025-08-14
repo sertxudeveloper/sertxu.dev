@@ -11,10 +11,10 @@
         "axios": "^1.11.0",
         "laravel-vite-plugin": "^2.0",
         "tailwindcss": "^4.0.6",
-        "vite": "^7.0"
+        "vite": "^7.1"
     },
     "dependencies": {
-        "puppeteer": "^24.15.0",
-        "shiki": "^3.8.1"
+        "puppeteer": "^24.16.1",
+        "shiki": "^3.9.2"
     }
 }
