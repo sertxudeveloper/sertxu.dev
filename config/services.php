@@ -53,4 +53,10 @@ return [
         'app_secret' => env('THREADS_APP_SECRET'),
         'redirect_uri' => env('THREADS_REDIRECT_URI'),
     ],
+
+    'cloudflare' => [
+        'zone_id' => env('CLOUDFLARE_ZONE_ID'),
+        'email' => env('CLOUDFLARE_EMAIL'),
+        'api_key' => env('CLOUDFLARE_API_KEY'),
+    ],
 ];

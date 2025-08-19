@@ -8,6 +8,7 @@ use App\Jobs\CreateOgImageJob;
 use App\Jobs\PostToDevToJob;
 use App\Jobs\PostToThreadsJob;
 use App\Jobs\PostToTweetJob;
+use App\Jobs\PurgeCacheContentJob;
 use App\Models\Post;
 use Illuminate\Support\Facades\Bus;
 
@@ -25,9 +26,10 @@ final readonly class PublishPostAction
 
         Bus::chain([
             new CreateOgImageJob($post),
-            (new PostToTweetJob($post))->delay(now()->addSeconds(20)),
+            new PostToTweetJob($post)->delay(now()->addSeconds(20)),
             new PostToDevToJob($post),
             new PostToThreadsJob($post),
+            new PurgeCacheContentJob([route('home')]),
         ])->dispatch();
     }
 }
