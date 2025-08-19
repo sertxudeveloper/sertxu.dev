@@ -15,11 +15,6 @@ RUN set -xe; \
     mkdir -p /etc/s6-overlay/s6-rc.d/laravel-nightwatch/dependencies.d; \
     touch /etc/s6-overlay/s6-rc.d/laravel-nightwatch/dependencies.d/base
 
-RUN set -xe; \
-    apt-get update; \
-    apt-get install git -y; \
-    rm -rf /var/lib/apt/lists/*
-
 USER www-data
 
 RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --classmap-authoritative
@@ -33,4 +28,3 @@ ENV AUTORUN_ENABLED="true" \
     # AUTORUN_LARAVEL_MIGRATION="true" \
     # AUTORUN_LARAVEL_MIGRATION_ISOLATION="true" \
     PHP_OPCACHE_ENABLE="1"
-
