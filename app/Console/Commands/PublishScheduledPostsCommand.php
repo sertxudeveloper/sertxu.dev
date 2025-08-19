@@ -31,7 +31,7 @@ final class PublishScheduledPostsCommand extends Command
     {
         Post::query()
             ->whereScheduled()
-            ->whereDate('published_at', '<=', now())
+            ->where('published_at', '<=', now())
             ->get()
             ->each(fn (Post $post) => $publishPostAction->execute($post));
     }
