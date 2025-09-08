@@ -6,15 +6,15 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "@alpinejs/intersect": "^3.14.9",
-        "@tailwindcss/vite": "^4.1.12",
+        "@alpinejs/intersect": "^3.15.0",
+        "@tailwindcss/vite": "^4.1.13",
         "axios": "^1.11.0",
         "laravel-vite-plugin": "^2.0",
         "tailwindcss": "^4.0.6",
         "vite": "^7.1"
     },
     "dependencies": {
-        "puppeteer": "^24.18.0",
-        "shiki": "^3.12.1"
+        "puppeteer": "^24.19.0",
+        "shiki": "^3.12.2"
     }
 }
