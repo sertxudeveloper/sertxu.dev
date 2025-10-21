@@ -63,20 +63,27 @@
     @apply whitespace-pre-wrap mb-4;
 }
 
+.markup h1:not(blockquote h1),
+.markup h2:not(blockquote h2),
+.markup h3:not(blockquote h3),
+.markup h4:not(blockquote h4) {
+    @apply mt-8 mb-2;
+}
+
 .markup h1 {
-    @apply text-3xl font-medium mt-8 mb-2;
+    @apply text-3xl font-medium;
 }
 
 .markup h2 {
-    @apply text-2xl font-medium mt-8 mb-2;
+    @apply text-2xl font-medium;
 }
 
 .markup h3 {
-    @apply text-xl font-medium mt-8 mb-2;
+    @apply text-xl font-medium;
 }
 
 .markup h4 {
-    @apply text-lg font-medium mt-8 mb-2;
+    @apply text-lg font-medium;
 }
 
 .markup > pre {
