@@ -18,10 +18,6 @@
             <x-social-button href="https://linkedin.com/in/sertxudev" alt="LinkedIn">
                 <x-icons.linkedin />
             </x-social-button>
-
-            <x-social-button href="mailto:hello@sertxu.dev" alt="Mail address">
-                <x-icons.email />
-            </x-social-button>
         </div>
     </div>
 </section>
