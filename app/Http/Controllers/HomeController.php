@@ -10,6 +10,9 @@ use Illuminate\Contracts\View\View;
 
 final readonly class HomeController
 {
+    /**
+     * Get the home page.
+     */
     public function __invoke(): View
     {
         $posts = Post::query()->wherePublished()->take(4)->get();

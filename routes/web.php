@@ -17,12 +17,12 @@ Route::get('/projects/{project:slug}', [Controllers\ProjectController::class, 's
 Route::view('/blog', 'posts.index')->name('posts.index');
 Route::get('/blog/{post:slug}', [Controllers\PostController::class, 'show'])->name('posts.show');
 Route::get('/blog/{post:slug}/thumbnail', Controllers\PostThumbnailController::class)->name('posts.thumbnail');
+Route::get('/blog/{post:slug}/preview', Controllers\PostPreviewController::class)->name('posts.preview');
 
 Route::view('/uses', 'uses')->name('uses');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/blog/{post:slug}/preview', Controllers\PostPreviewController::class)->name('posts.preview');
 
+Route::middleware('auth')->group(function () {
     Route::get('/threads/auth', [Controllers\ThreadsAuthController::class, 'index'])->name('threads.auth');
     Route::get('/threads/callback', [Controllers\ThreadsAuthController::class, 'store'])->name('threads.auth-callback');
 });

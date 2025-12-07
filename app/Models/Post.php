@@ -66,7 +66,6 @@ final class Post extends Model implements HasMedia, Sitemapable
     {
         $this
             ->addMediaCollection('thumbnail')
-            ->useDisk('r2')
             ->singleFile();
     }
 

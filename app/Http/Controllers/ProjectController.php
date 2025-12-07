@@ -10,10 +10,12 @@ use Illuminate\Contracts\View\View;
 final readonly class ProjectController
 {
     /**
-     * Get the show page.
+     * Get the project show page.
      */
     public function show(Project $project): View
     {
+        abort_unless($project->isPublished(), 404);
+
         return view('projects.show', [
             'project' => $project,
         ]);

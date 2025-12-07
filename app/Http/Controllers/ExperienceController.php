@@ -10,7 +10,7 @@ use Illuminate\Contracts\View\View;
 final readonly class ExperienceController
 {
     /**
-     * Get the index page.
+     * Get the experience index page.
      */
     public function index(): View
     {

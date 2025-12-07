@@ -32,8 +32,6 @@ final class Project extends Model implements HasMedia, Sitemapable
     {
         $this
             ->addMediaCollection('thumbnail')
-            ->useDisk('r2')
-//            ->withResponsiveImages()
             ->singleFile();
     }
 
@@ -89,10 +87,18 @@ final class Project extends Model implements HasMedia, Sitemapable
             ->setPriority(0.1);
     }
 
+    /**
+     * Determine if the project is published.
+     */
+    public function isPublished(): bool
+    {
+        return $this->is_published;
+    }
+
     protected function casts(): array
     {
         return [
-            'published_at' => 'datetime',
+            'is_published' => 'boolean',
             'is_featured' => 'boolean',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',

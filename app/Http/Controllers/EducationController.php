@@ -10,7 +10,7 @@ use Illuminate\Contracts\View\View;
 final readonly class EducationController
 {
     /**
-     * Get the index page.
+     * Get the education index page.
      */
     public function index(): View
     {

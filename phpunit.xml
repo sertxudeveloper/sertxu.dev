@@ -5,19 +5,19 @@
          colors="true"
 >
     <testsuites>
-        <!--<testsuite name="Http">
-            <directory>tests/Http</directory>
-        </testsuite>-->
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
         <!--<testsuite name="Console">
             <directory>tests/Console</directory>
         </testsuite>-->
         <!--<testsuite name="Unit">
             <directory>tests/Unit</directory>
         </testsuite>-->
-        <testsuite name="Arch">
+        <!--<testsuite name="Arch">
             <file>tests/ArchTest.php</file>
             <directory>tests/Arch</directory>
-        </testsuite>
+        </testsuite>-->
     </testsuites>
     <source>
         <include>
@@ -38,5 +38,6 @@
         <env name="QUEUE_CONNECTION" value="database"/>
         <env name="SESSION_DRIVER" value="database"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
+        <env name="FILESYSTEM_DISK" value="public"/>
     </php>
 </phpunit>
