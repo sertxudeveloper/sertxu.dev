@@ -4,11 +4,33 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Components\Grid;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\SpatieTagsInput;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use App\Filament\Resources\ProjectResource\Pages\ListProjects;
+use App\Filament\Resources\ProjectResource\Pages\CreateProject;
+use App\Filament\Resources\ProjectResource\Pages\EditProject;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\RestoreAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Models\Project;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -18,59 +40,59 @@ final class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
 
-    protected static ?string $navigationGroup = 'Content';
+    protected static string | \UnitEnum | null $navigationGroup = 'Content';
 
-    protected static ?string $navigationIcon = 'heroicon-o-code-bracket';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-code-bracket';
 
     protected static ?int $navigationSort = 2;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make('Project')
+        return $schema
+            ->components([
+                Section::make('Project')
                     ->columns()
                     ->schema([
-                        Forms\Components\TextInput::make('title')
+                        TextInput::make('title')
                             ->required()
                             ->columnSpanFull()
                             ->live(onBlur: true)
-                            ->afterStateUpdated(function (Set $set, $state) use ($form): void {
+                            ->afterStateUpdated(function (Set $set, $state) use ($schema): void {
                                 // If operating on an existing record, don't update the slug.
-                                if ($form->getOperation() === 'create') {
+                                if ($schema->getOperation() === 'create') {
                                     $set('slug', Str::slug($state));
                                 }
                             }),
 
-                        Forms\Components\TextInput::make('slug')
+                        TextInput::make('slug')
                             ->required()
                             ->prefix('/projects/')
                             ->readOnlyOn('edit'),
 
-                        Forms\Components\Grid::make()
+                        Grid::make()
                             ->schema([
-                                Forms\Components\Toggle::make('is_published')
+                                Toggle::make('is_published')
                                     ->inline(false),
 
-                                Forms\Components\Toggle::make('is_featured')
+                                Toggle::make('is_featured')
                                     ->inline(false)
                                     ->helperText('Appears always on top of the list.'),
                             ]),
 
-                        Forms\Components\TextInput::make('website')
+                        TextInput::make('website')
                             ->columnSpanFull(),
 
-                        Forms\Components\Textarea::make('excerpt')
+                        Textarea::make('excerpt')
                             ->required()
                             ->columnSpanFull(),
 
-                        Forms\Components\SpatieTagsInput::make('tags')
+                        SpatieTagsInput::make('tags')
                             ->columnSpanFull(),
 
-                        Forms\Components\MarkdownEditor::make('text')
+                        MarkdownEditor::make('text')
                             ->columnSpanFull(),
 
-                        Forms\Components\SpatieMediaLibraryFileUpload::make('thumbnail')
+                        SpatieMediaLibraryFileUpload::make('thumbnail')
                             ->collection('thumbnail'),
                     ]),
             ]);
@@ -79,9 +101,9 @@ final class ProjectResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProjects::route('/'),
-            'create' => Pages\CreateProject::route('/create'),
-            'edit' => Pages\EditProject::route('/{record}/edit'),
+            'index' => ListProjects::route('/'),
+            'create' => CreateProject::route('/create'),
+            'edit' => EditProject::route('/{record}/edit'),
         ];
     }
 
@@ -96,36 +118,36 @@ final class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('title')
                     ->searchable(),
 
-                Tables\Columns\IconColumn::make('is_featured')
+                IconColumn::make('is_featured')
                     ->label('Featured')
                     ->boolean()
                     ->sortable(),
 
-                Tables\Columns\IconColumn::make('is_published')
+                IconColumn::make('is_published')
                     ->label('Published')
                     ->boolean()
                     ->sortable(),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
-            ->actions([
-                Tables\Actions\Action::make('preview')
+            ->recordActions([
+                Action::make('preview')
                     ->icon('heroicon-o-eye')
                     ->url(fn (Project $record) => route('projects.show', $record), shouldOpenInNewTab: true),
 
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ForceDeleteAction::make(),
-                Tables\Actions\RestoreAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
+                ForceDeleteAction::make(),
+                RestoreAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()->outlined(),
-                Tables\Actions\ForceDeleteBulkAction::make()->outlined(),
-                Tables\Actions\RestoreBulkAction::make()->outlined(),
+            ->toolbarActions([
+                DeleteBulkAction::make()->outlined(),
+                ForceDeleteBulkAction::make()->outlined(),
+                RestoreBulkAction::make()->outlined(),
             ]);
     }
 }

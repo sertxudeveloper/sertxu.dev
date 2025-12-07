@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\EducationResource\Widgets;
 
+use Filament\Actions\Action;
 use App\Filament\Resources\EducationResource;
 use App\Models\Education;
 use Filament\Support\Facades\FilamentIcon;
@@ -21,8 +22,8 @@ final class LatestEducation extends BaseWidget
             ->columns([
                 TextColumn::make('title'),
             ])
-            ->actions([
-                Tables\Actions\Action::make('edit')
+            ->recordActions([
+                Action::make('edit')
                     ->icon(FilamentIcon::resolve('actions::edit-action') ?? 'heroicon-m-pencil-square')
                     ->action(fn (Education $record) => redirect()->to(EducationResource::getUrl('edit', ['record' => $record]))),
             ]);

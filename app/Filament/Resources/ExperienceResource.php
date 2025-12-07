@@ -4,10 +4,27 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Schemas\Components\Grid;
+use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\RestoreAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use App\Filament\Resources\ExperienceResource\Pages\ListExperiences;
+use App\Filament\Resources\ExperienceResource\Pages\CreateExperience;
+use App\Filament\Resources\ExperienceResource\Pages\EditExperience;
 use App\Filament\Resources\ExperienceResource\Pages;
 use App\Models\Experience;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -16,24 +33,24 @@ final class ExperienceResource extends Resource
 {
     protected static ?string $model = Experience::class;
 
-    protected static ?string $navigationGroup = 'Content';
+    protected static string | \UnitEnum | null $navigationGroup = 'Content';
 
-    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-briefcase';
 
     protected static ?int $navigationSort = 2;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make('Experience')
+        return $schema
+            ->components([
+                Section::make('Experience')
                     ->schema([
-                        Forms\Components\TextInput::make('title')
+                        TextInput::make('title')
                             ->required()
                             ->columnSpanFull()
                             ->maxLength(255),
 
-                        Forms\Components\MarkdownEditor::make('description')
+                        MarkdownEditor::make('description')
                             ->required()
                             ->toolbarButtons([
                                 'bold',
@@ -47,14 +64,14 @@ final class ExperienceResource extends Resource
                             ->maxLength(255)
                             ->columnSpanFull(),
 
-                        Forms\Components\Grid::make(3)
+                        Grid::make(3)
                             ->schema([
-                                Forms\Components\DatePicker::make('started_at')
+                                DatePicker::make('started_at')
                                     ->required(),
 
-                                Forms\Components\DatePicker::make('ended_at'),
+                                DatePicker::make('ended_at'),
 
-                                Forms\Components\TextInput::make('location')
+                                TextInput::make('location')
                                     ->required()
                                     ->maxLength(50),
                             ]),
@@ -66,34 +83,34 @@ final class ExperienceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('title')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('started_at')
+                TextColumn::make('started_at')
                     ->date('M Y')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('ended_at')
+                TextColumn::make('ended_at')
                     ->date('M Y')
                     ->placeholder('Present')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('location')
+                TextColumn::make('location')
                     ->searchable(),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ForceDeleteAction::make(),
-                Tables\Actions\RestoreAction::make(),
+            ->recordActions([
+                EditAction::make(),
+                DeleteAction::make(),
+                ForceDeleteAction::make(),
+                RestoreAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()->outlined(),
-                Tables\Actions\ForceDeleteBulkAction::make()->outlined(),
-                Tables\Actions\RestoreBulkAction::make()->outlined(),
+            ->toolbarActions([
+                DeleteBulkAction::make()->outlined(),
+                ForceDeleteBulkAction::make()->outlined(),
+                RestoreBulkAction::make()->outlined(),
             ]);
     }
 
@@ -107,9 +124,9 @@ final class ExperienceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListExperiences::route('/'),
-            'create' => Pages\CreateExperience::route('/create'),
-            'edit' => Pages\EditExperience::route('/{record}/edit'),
+            'index' => ListExperiences::route('/'),
+            'create' => CreateExperience::route('/create'),
+            'edit' => EditExperience::route('/{record}/edit'),
         ];
     }
 }

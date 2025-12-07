@@ -4,13 +4,37 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Flex;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Forms\Components\SpatieTagsInput;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Schemas\Components\Actions;
+use Filament\Actions\Action;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Toggle;
+use App\Filament\Resources\PostResource\Pages\ListPosts;
+use App\Filament\Resources\PostResource\Pages\CreatePost;
+use App\Filament\Resources\PostResource\Pages\EditPost;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\RestoreAction;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Actions\BulkAction;
 use App\Actions\PublishPostAction;
 use App\Filament\Resources\PostResource\Pages;
 use App\Jobs\CreateOgImageJob;
 use App\Models\Post;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -22,43 +46,43 @@ final class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static ?string $navigationGroup = 'Content';
+    protected static string | \UnitEnum | null $navigationGroup = 'Content';
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-document-text';
 
     protected static ?int $navigationSort = 0;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Split::make([
-                    Forms\Components\Section::make([
-                        Forms\Components\TextInput::make('title')
+        return $schema
+            ->components([
+                Flex::make([
+                    Section::make([
+                        TextInput::make('title')
                             ->required()
                             ->live(onBlur: true)
-                            ->afterStateUpdated(function (Set $set, $state) use ($form): void {
+                            ->afterStateUpdated(function (Set $set, $state) use ($schema): void {
                                 // If operating on an existing record, don't update the slug.
-                                if ($form->getOperation() === 'create') {
+                                if ($schema->getOperation() === 'create') {
                                     $set('slug', Str::slug($state));
                                 }
                             }),
 
-                        Forms\Components\TextInput::make('slug')
+                        TextInput::make('slug')
                             ->required()
                             ->prefix('/blog/'),
 
-                        Forms\Components\SpatieTagsInput::make('tags'),
+                        SpatieTagsInput::make('tags'),
 
-                        Forms\Components\MarkdownEditor::make('text')
+                        MarkdownEditor::make('text')
                             ->fileAttachmentsDirectory('posts')
                             ->required(),
                     ]),
 
-                    Forms\Components\Section::make([
+                    Section::make([
 
-                        Forms\Components\Actions::make([
-                            Forms\Components\Actions\Action::make('preview')
+                        Actions::make([
+                            Action::make('preview')
                                 ->icon('heroicon-o-eye')
                                 ->outlined()
                                 ->url(fn (Post $record): string => $record->url(), shouldOpenInNewTab: true),
@@ -66,21 +90,21 @@ final class PostResource extends Resource
                             ->hiddenOn('create')
                             ->fullWidth(),
 
-                        Forms\Components\DateTimePicker::make('published_at')
+                        DateTimePicker::make('published_at')
                             ->nullable(),
 
-                        Forms\Components\Toggle::make('is_published')
+                        Toggle::make('is_published')
                             ->inline(false),
 
-                        Forms\Components\Toggle::make('posted_on_twitter')
+                        Toggle::make('posted_on_twitter')
                             ->inline(false)
                             ->helperText('If enabled won\'t post.'),
 
-                        Forms\Components\Toggle::make('posted_on_dev')
+                        Toggle::make('posted_on_dev')
                             ->inline(false)
                             ->helperText('If enabled won\'t post.'),
 
-                        Forms\Components\Toggle::make('posted_on_threads')
+                        Toggle::make('posted_on_threads')
                             ->inline(false)
                             ->helperText('If enabled won\'t post.'),
                     ])->grow(false),
@@ -91,9 +115,9 @@ final class PostResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPosts::route('/'),
-            'create' => Pages\CreatePost::route('/create'),
-            'edit' => Pages\EditPost::route('/{record}/edit'),
+            'index' => ListPosts::route('/'),
+            'create' => CreatePost::route('/create'),
+            'edit' => EditPost::route('/{record}/edit'),
         ];
     }
 
@@ -108,25 +132,25 @@ final class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')->limit(70)->sortable(),
-                Tables\Columns\TextColumn::make('published_at')->dateTime()->placeholder('Unpublished')->sortable(),
-                Tables\Columns\IconColumn::make('is_published')->boolean(),
+                TextColumn::make('title')->limit(70)->sortable(),
+                TextColumn::make('published_at')->dateTime()->placeholder('Unpublished')->sortable(),
+                IconColumn::make('is_published')->boolean(),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
-            ->actions([
-                Tables\Actions\Action::make('preview')
+            ->recordActions([
+                Action::make('preview')
                     ->icon('heroicon-o-eye')
                     ->url(fn (Post $record): string => $record->url(), shouldOpenInNewTab: true),
 
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ForceDeleteAction::make(),
-                Tables\Actions\RestoreAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
+                ForceDeleteAction::make(),
+                RestoreAction::make(),
 
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\Action::make('schedule')
+                ActionGroup::make([
+                    Action::make('schedule')
                         ->action(function (Post $post): void {
                             if ($post->published_at) {
                                 return;
@@ -136,33 +160,33 @@ final class PostResource extends Resource
                         })
                         ->hidden(fn (Post $post): bool => $post->published_at || $post->is_published),
 
-                    Tables\Actions\Action::make('unschedule')
+                    Action::make('unschedule')
                         ->action(function (Post $post): void {
                             $post->update(['published_at' => null]);
                         })
                         ->hidden(fn (Post $post): bool => ! $post->published_at || $post->is_published),
 
-                    Tables\Actions\Action::make('publish now')
+                    Action::make('publish now')
                         ->action(function (Post $post, PublishPostAction $publishPostAction): void {
                             $publishPostAction->execute($post);
                         })
                         ->hidden(fn (Post $post) => $post->is_published),
 
-                    Tables\Actions\Action::make('unpublish')
+                    Action::make('unpublish')
                         ->action(function (Post $post): void {
                             $post->update(['is_published' => false, 'published_at' => null]);
                         })
                         ->hidden(fn (Post $post): bool => ! $post->is_published),
 
-                    Tables\Actions\Action::make('generate thumbnail')
+                    Action::make('generate thumbnail')
                         ->action(fn (Post $post) => CreateOgImageJob::dispatch($post)),
                 ]),
             ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make()->outlined(),
-                Tables\Actions\ForceDeleteBulkAction::make()->outlined(),
-                Tables\Actions\RestoreBulkAction::make()->outlined(),
-                Tables\Actions\BulkAction::make('generate thumbnails')
+            ->toolbarActions([
+                DeleteBulkAction::make()->outlined(),
+                ForceDeleteBulkAction::make()->outlined(),
+                RestoreBulkAction::make()->outlined(),
+                BulkAction::make('generate thumbnails')
                     ->action(fn (Collection $records) => $records->each(fn (Post $post) => CreateOgImageJob::dispatch($post))),
             ])
             ->defaultSort(fn ($query) => $query->orderBy('is_published', 'asc')->orderBy('published_at', 'desc'));

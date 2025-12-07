@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ExperienceResource\Widgets;
 
+use Filament\Actions\Action;
 use App\Filament\Resources\ExperienceResource;
 use App\Models\Experience;
 use Filament\Support\Facades\FilamentIcon;
@@ -21,8 +22,8 @@ final class LatestExperiences extends BaseWidget
             ->columns([
                 TextColumn::make('title'),
             ])
-            ->actions([
-                Tables\Actions\Action::make('edit')
+            ->recordActions([
+                Action::make('edit')
                     ->icon(FilamentIcon::resolve('actions::edit-action') ?? 'heroicon-m-pencil-square')
                     ->action(fn (Experience $record) => redirect()->to(ExperienceResource::getUrl('edit', ['record' => $record]))),
             ]);
