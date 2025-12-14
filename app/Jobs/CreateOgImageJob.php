@@ -35,7 +35,7 @@ final class CreateOgImageJob implements ShouldQueue
      */
     public function handle(): void
     {
-        // Generate the html thumbnail
+        // Generate the post thumbnail
         $html = view('posts.thumbnail', ['post' => $this->post])->render();
 
         $base64Image = Browsershot::html($html)
