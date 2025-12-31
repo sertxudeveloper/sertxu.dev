@@ -19,24 +19,15 @@ USER www-data
 
 RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --classmap-authoritative
 
-RUN php artisan octane:install --server=frankenphp
-
 RUN npm install && \
     npm run build
 
 ENV AUTORUN_ENABLED="true" \
-    # AUTORUN_LARAVEL_MIGRATION="true" \
-    # AUTORUN_LARAVEL_MIGRATION_ISOLATION="true" \
+    AUTORUN_LARAVEL_MIGRATION_ISOLATION="true" \
+    \
     PHP_OPCACHE_ENABLE="1" \
+    NGINX_FASTCGI_BUFFERS="16 16k" \
+    NGINX_FASTCGI_BUFFER_SIZE="32k" \
     \
     NGINX_CLIENT_MAX_BODY_SIZE="200M" \
-    NGINX_FASTCGI_BUFFERS="32 32k" \
-    \
-    PHP_FPM_PM_CONTROL="static" \
-    PHP_FPM_PM_MAX_CHILDREN="50" \
-    PHP_MEMORY_LIMIT="512M" \
-    \
     HEALTHCHECK_PATH="/up"
-
-
-

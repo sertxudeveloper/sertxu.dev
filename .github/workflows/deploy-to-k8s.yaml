@@ -1,8 +1,8 @@
 name: Deploy to Kubernetes cluster
 
-concurrency: 
+concurrency:
   group: production
-  
+
 on:
   push:
     branches: [ "main" ]
@@ -19,7 +19,7 @@ jobs:
     name: Build and Deploy Docker image
     runs-on: ubuntu-latest
     environment: production
-      
+
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -29,7 +29,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+
       # Set up BuildKit Docker container builder to be able to build
       # multi-platform images and export cache
       # https://github.com/docker/setup-buildx-action
@@ -69,6 +69,6 @@ jobs:
           port: ${{ secrets.KUBERNETES_MASTER_SSH_PORT }}
           key: ${{ secrets.KUBERNETES_MASTER_SSH_KEY }}
           script: |
-            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-php-nginx -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-php-nginx="${{ github.repository }}:sha-${{ github.sha }}"
+            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-app -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-app="${{ github.repository }}:sha-${{ github.sha }}"
             microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-worker -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-worker="${{ github.repository }}:sha-${{ github.sha }}"
             microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-scheduler -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-scheduler="${{ github.repository }}:sha-${{ github.sha }}"
