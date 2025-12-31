@@ -44,5 +44,3 @@ Route::view('/419', 'errors.419')->name('419');
 Route::view('/429', 'errors.429')->name('429');
 Route::view('/500', 'errors.500')->name('500');
 Route::view('/503', 'errors.503')->name('503');
-
-Route::get('/dump', fn (Request $request) => response()->json(['headers' => $request->headers->all(), 'ip' => $request->ip(), 'agent' => $request->userAgent()]));
