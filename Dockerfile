@@ -34,6 +34,9 @@ ENV AUTORUN_ENABLED="true" \
     \
     PHP_FPM_PM_CONTROL="static" \
     PHP_FPM_PM_MAX_CHILDREN="50" \
-    PHP_MEMORY_LIMIT="512M"
+    PHP_MEMORY_LIMIT="512M" \
+    \
+    HEALTHCHECK_PATH="/up"
+
 
 
