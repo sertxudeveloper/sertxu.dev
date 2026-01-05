@@ -10,6 +10,8 @@ use App\Jobs\PostToThreadsJob;
 use App\Jobs\PostToTweetJob;
 use App\Jobs\PurgeCacheContentJob;
 use App\Models\Post;
+use App\Models\User;
+use App\Notifications\PostPublishedNotification;
 use Illuminate\Support\Facades\Bus;
 
 final readonly class PublishPostAction
@@ -30,6 +32,8 @@ final readonly class PublishPostAction
             new PostToDevToJob($post),
             new PostToThreadsJob($post),
             new PurgeCacheContentJob([route('home')]),
+            fn () => User::firstWhere('email', 'dev.sertxu@gmail.com')
+                ?->notify(new PostPublishedNotification($post)),
         ])->dispatch();
     }
 }

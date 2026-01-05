@@ -6,7 +6,6 @@ namespace App\Models;
 
 use App\Models\Concerns\Threadable;
 use App\Models\Concerns\Tweetable;
-use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,7 +23,8 @@ use Spatie\Tags\HasTags;
 
 final class Post extends Model implements HasMedia, Sitemapable
 {
-    use HasFactory, HasTags, InteractsWithMedia, SoftDeletes, Threadable, Tweetable;
+    use HasFactory, HasTags, InteractsWithMedia, SoftDeletes;
+    use Threadable, Tweetable;
 
     /**
      * The relationships that should always be loaded.
@@ -140,6 +140,14 @@ final class Post extends Model implements HasMedia, Sitemapable
      * Get the threads URL.
      */
     public function threadsUrl(): string
+    {
+        return route('posts.show', [$this, 'utm_source' => 'threads', 'utm_medium' => 'post']);
+    }
+
+    /**
+     * Get the LinkedIn URL.
+     */
+    public function linkedinUrl(): string
     {
         return route('posts.show', [$this, 'utm_source' => 'threads', 'utm_medium' => 'post']);
     }
