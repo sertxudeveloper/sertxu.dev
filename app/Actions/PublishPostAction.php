@@ -32,8 +32,7 @@ final readonly class PublishPostAction
             new PostToDevToJob($post),
             new PostToThreadsJob($post),
             new PurgeCacheContentJob([route('home')]),
-            fn () => User::firstWhere('email', 'dev.sertxu@gmail.com')
-                ?->notify(new PostPublishedNotification($post)),
+            fn () => User::query()->where('is_admin', true)->get()->each->notify(new PostPublishedNotification($post)),
         ])->dispatch();
     }
 }

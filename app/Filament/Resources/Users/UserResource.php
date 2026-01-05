@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Users;
 
+use Filament\Forms\Components\Checkbox;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Actions\EditAction;
 use Filament\Actions\DeleteBulkAction;
@@ -40,6 +42,7 @@ final class UserResource extends Resource
             ->components([
                 TextInput::make('name')->required(),
                 TextInput::make('email')->email()->required(),
+                Checkbox::make('is_admin'),
 
                 Section::make('Threads')->schema([
                     TextInput::make('threads_user_id'),
@@ -55,6 +58,7 @@ final class UserResource extends Resource
             ->columns([
                 TextColumn::make('name')->sortable(),
                 TextColumn::make('email')->sortable(),
+                IconColumn::make('is_admin')->boolean()->sortable(),
                 TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([
