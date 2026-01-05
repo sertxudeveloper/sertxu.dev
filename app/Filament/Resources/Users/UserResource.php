@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Users;
 
 use Filament\Forms\Components\Checkbox;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
@@ -16,11 +17,8 @@ use Filament\Actions\DeleteBulkAction;
 use App\Filament\Resources\Users\Pages\ListUsers;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
-use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
-use Filament\Forms;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,15 +38,17 @@ final class UserResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('name')->required(),
-                TextInput::make('email')->email()->required(),
-                Checkbox::make('is_admin'),
+                Grid::make(3)->schema([
+                    TextInput::make('name')->required(),
+                    TextInput::make('email')->email()->required(),
+                    Checkbox::make('is_admin'),
+                ]),
 
                 Section::make('Threads')->schema([
                     TextInput::make('threads_user_id'),
                     TextInput::make('threads_access_token')->columnSpan(3),
                     DateTimePicker::make('threads_access_token_expires_at')->columnSpan(2),
-                ])->columns(6),
+                ])->columnStart(0)->columns(6),
             ]);
     }
 
