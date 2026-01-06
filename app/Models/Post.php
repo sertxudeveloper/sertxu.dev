@@ -149,7 +149,7 @@ final class Post extends Model implements HasMedia, Sitemapable
      */
     public function linkedinUrl(): string
     {
-        return route('posts.show', [$this, 'utm_source' => 'threads', 'utm_medium' => 'post']);
+        return route('posts.show', [$this, 'utm_source' => 'linkedin', 'utm_medium' => 'post']);
     }
 
     /**
