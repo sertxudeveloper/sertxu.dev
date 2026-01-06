@@ -17,7 +17,7 @@ RUN set -xe; \
 
 USER www-data
 
-RUN composer install --prefer-dist --no-ansi --no-interaction --no-progress --classmap-authoritative
+RUN composer install --no-dev --prefer-dist --no-ansi --no-interaction --no-progress --classmap-authoritative
 
 RUN npm install && \
     npm run build
@@ -31,3 +31,4 @@ ENV AUTORUN_ENABLED="true" \
     \
     NGINX_CLIENT_MAX_BODY_SIZE="200M" \
     HEALTHCHECK_PATH="/up"
+
