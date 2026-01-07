@@ -1,13 +1,13 @@
 name: Deploy to Kubernetes cluster
 
 concurrency:
-  group: production
+  group: ${{ github.workflow }}-${{ github.ref }}
 
 on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
-
+  
 env:
   K8S_CONTAINER: sertxudev
   K8S_DEPLOYMENT: sertxudev
@@ -72,3 +72,4 @@ jobs:
             microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-app -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-app="${{ github.repository }}:sha-${{ github.sha }}"
             microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-worker -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-worker="${{ github.repository }}:sha-${{ github.sha }}"
             microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-scheduler -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-scheduler="${{ github.repository }}:sha-${{ github.sha }}"
+
