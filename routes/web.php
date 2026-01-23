@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Redirect routes
+ * TODO: Temporary fix until added redirections table with Filament resource.
+ */
+Route::redirect('/blog/setting-up-a-kubernetes-cluster-with-microk8s', '/blog/setting-up-kubernetes-with-microk8s', 301);
+
 Route::get('/', Controllers\HomeController::class)->name('home');
 
 Route::get('/education', [Controllers\EducationController::class, 'index'])->name('education.index');
@@ -44,9 +50,3 @@ Route::view('/419', 'errors.419')->name('419');
 Route::view('/429', 'errors.429')->name('429');
 Route::view('/500', 'errors.500')->name('500');
 Route::view('/503', 'errors.503')->name('503');
-
-/**
- * Redirect routes
- * TODO: Temporary fix until added redirections table with Filament resource.
- */
-Route::redirect('/blog/setting-up-a-kubernetes-cluster-with-microk8s', '/blog/setting-up-kubernetes-with-microk8s', 301);
