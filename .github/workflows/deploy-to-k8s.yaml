@@ -61,7 +61,7 @@ jobs:
           cache-to: type=registry,ref=${{ github.repository }}:buildcache,mode=max
 
       - name: Deploy new image
-        uses: appleboy/ssh-action@v1.2.4
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.KUBERNETES_MASTER_SSH_HOST }}
           username: ${{ secrets.KUBERNETES_MASTER_SSH_USER }}
