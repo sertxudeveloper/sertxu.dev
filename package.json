@@ -7,14 +7,14 @@
     },
     "devDependencies": {
         "@alpinejs/intersect": "^3.15.8",
-        "@tailwindcss/vite": "^4.1.17",
+        "@tailwindcss/vite": "^4.2.1",
         "axios": "^1.13.5",
         "laravel-vite-plugin": "^2.1",
         "tailwindcss": "^4.0.6",
         "vite": "^7.3"
     },
     "dependencies": {
-        "puppeteer": "^24.37.2",
+        "puppeteer": "^24.37.5",
         "shiki": "^3.22.0"
     }
 }
