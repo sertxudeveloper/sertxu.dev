@@ -11,7 +11,7 @@
         "axios": "^1.13.6",
         "laravel-vite-plugin": "^2.1",
         "tailwindcss": "^4.0.6",
-        "vite": "^7.3"
+        "vite": "^8.0"
     },
     "dependencies": {
         "puppeteer": "^24.38.0",
