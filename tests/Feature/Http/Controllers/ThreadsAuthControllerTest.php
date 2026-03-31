@@ -19,6 +19,10 @@ it('redirects to Threads auth page when authenticated', function () {
 it('handles Threads callback without code and redirects home', function () {
     $user = User::factory()->create();
 
+    config()->set('services.threads.app_id', 'app_id');
+    config()->set('services.threads.app_secret', 'secret');
+    config()->set('services.threads.redirect_uri', 'https://example.com/callback');
+
     $this->actingAs($user)
         ->get('/threads/callback')
         ->assertRedirect('/');
