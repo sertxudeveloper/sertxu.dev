@@ -11,6 +11,8 @@ updates:
       interval: "weekly"
     labels:
       - "dependencies"
+    cooldown:
+      default-days: 5
     groups:
       dependencies:
         update-types:
@@ -23,6 +25,8 @@ updates:
       interval: "weekly"
     labels:
       - "dependencies"
+    cooldown:
+      default-days: 5
     groups:
       dependencies:
         update-types:
@@ -35,6 +39,8 @@ updates:
       interval: "weekly"
     labels:
       - "dependencies"
+    cooldown:
+      default-days: 5
     groups:
       dependencies:
         update-types:
