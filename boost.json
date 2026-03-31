@@ -1,0 +1,28 @@
+{
+    "agents": [
+        "claude_code",
+        "codex",
+        "cursor",
+        "gemini",
+        "copilot",
+        "junie",
+        "opencode"
+    ],
+    "guidelines": true,
+    "mcp": true,
+    "nightwatch_mcp": false,
+    "packages": [
+        "filament/filament",
+        "spatie/laravel-medialibrary",
+        "laravel/nightwatch"
+    ],
+    "sail": false,
+    "skills": [
+        "laravel-best-practices",
+        "livewire-development",
+        "pest-testing",
+        "tailwindcss-development",
+        "configure-nightwatch",
+        "medialibrary-development"
+    ]
+}
