@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Projects\Widgets;
 
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Actions\Action;
 use App\Filament\Resources\Projects\ProjectResource;
 use App\Models\Project;
+use Filament\Actions\Action;
 use Filament\Support\Facades\FilamentIcon;
-use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Model;

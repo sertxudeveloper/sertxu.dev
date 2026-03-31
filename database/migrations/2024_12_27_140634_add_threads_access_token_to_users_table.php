@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->after('password', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table): void {
+            $table->after('password', function (Blueprint $table): void {
                 $table->string('threads_user_id')->nullable();
                 $table->string('threads_access_token')->nullable();
                 $table->datetime('threads_access_token_expires_at')->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table): void {
             $table->dropColumn('threads_user_id');
             $table->dropColumn('threads_access_token');
             $table->dropColumn('threads_access_token_expires_at');

@@ -4,45 +4,44 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Projects;
 
-use Filament\Schemas\Schema;
-use Filament\Schemas\Components\Section;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Utilities\Set;
-use Filament\Schemas\Components\Grid;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\SpatieTagsInput;
-use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use App\Filament\Resources\Projects\Pages\ListProjects;
 use App\Filament\Resources\Projects\Pages\CreateProject;
 use App\Filament\Resources\Projects\Pages\EditProject;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Filters\TrashedFilter;
-use Filament\Actions\Action;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ForceDeleteAction;
-use Filament\Actions\RestoreAction;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\ForceDeleteBulkAction;
-use Filament\Actions\RestoreBulkAction;
-use App\Filament\Resources\ProjectResource\Pages;
+use App\Filament\Resources\Projects\Pages\ListProjects;
 use App\Models\Project;
-use Filament\Forms;
+use BackedEnum;
+use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreAction;
+use Filament\Actions\RestoreBulkAction;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\SpatieTagsInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use UnitEnum;
 
 final class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Content';
+    protected static string|UnitEnum|null $navigationGroup = 'Content';
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-code-bracket';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-code-bracket';
 
     protected static ?int $navigationSort = 2;
 
@@ -137,7 +136,7 @@ final class ProjectResource extends Resource
             ->recordActions([
                 Action::make('preview')
                     ->icon('heroicon-o-eye')
-                    ->url(fn (Project $record) => route('projects.show', $record), shouldOpenInNewTab: true),
+                    ->url(fn (Project $record): string => route('projects.show', $record), shouldOpenInNewTab: true),
 
                 EditAction::make(),
                 DeleteAction::make(),

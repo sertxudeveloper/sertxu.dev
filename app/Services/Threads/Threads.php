@@ -81,6 +81,33 @@ final readonly class Threads
     }
 
     /**
+     * Write a post to Threads.
+     */
+    public function writePost(User $user, string $content): void
+    {
+        $response = Http::post("{$this->base_url}/v1.0/{$user->threads_user_id}/threads", [
+            'media_type' => 'TEXT', // TEXT, IMAGE, VIDEO
+            'text' => $content,
+            'access_token' => $user->threads_access_token,
+        ]);
+
+        if ($response->failed()) {
+            abort(403, 'Failed to write post to Threads.');
+        }
+
+        $mediaContainer = $response->json('id');
+
+        $response = Http::post("{$this->base_url}/v1.0/{$user->threads_user_id}/threads_publish", [
+            'creation_id' => $mediaContainer,
+            'access_token' => $user->threads_access_token,
+        ]);
+
+        if ($response->failed()) {
+            abort(403, 'Failed to publish post to Threads.');
+        }
+    }
+
+    /**
      * Request a long-lived token from Threads from a valid short-lived token.
      */
     private function requestLongLivedToken(Request $request): void
@@ -129,32 +156,5 @@ final readonly class Threads
             'threads_access_token' => $response['access_token'],
             'threads_access_token_expires_at' => now()->addHour(),
         ]);
-    }
-
-    /**
-     * Write a post to Threads.
-     */
-    public function writePost(User $user, string $content): void
-    {
-        $response = Http::post("{$this->base_url}/v1.0/{$user->threads_user_id}/threads", [
-            'media_type' => 'TEXT', // TEXT, IMAGE, VIDEO
-            'text' => $content,
-            'access_token' => $user->threads_access_token,
-        ]);
-
-        if ($response->failed()) {
-            abort(403, 'Failed to write post to Threads.');
-        }
-
-        $mediaContainer = $response->json('id');
-
-        $response = Http::post("{$this->base_url}/v1.0/{$user->threads_user_id}/threads_publish", [
-            'creation_id' => $mediaContainer,
-            'access_token' => $user->threads_access_token,
-        ]);
-
-        if ($response->failed()) {
-            abort(403, 'Failed to publish post to Threads.');
-        }
     }
 }

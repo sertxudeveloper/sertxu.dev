@@ -32,7 +32,7 @@ final class ThreadsRefreshTokensCommand extends Command
 
         $this->info("Refreshing Threads access tokens for {$users->count()} users.");
 
-        $users->each(fn ($user) => (new Threads())->refreshToken($user));
+        $users->each(fn (User $user) => new Threads()->refreshToken($user));
 
         $this->info('Tokens refreshed successfully.');
     }

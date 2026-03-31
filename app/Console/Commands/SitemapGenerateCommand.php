@@ -59,7 +59,7 @@ final class SitemapGenerateCommand extends Command
             ->pluck('tags')
             ->flatten()
             ->unique('id')
-            ->map(function (Tag $tag) use (&$urls) {
+            ->map(function (Tag $tag) use (&$urls): void {
                 $urls[] = Url::create(route('posts.index', ['tag' => $tag->slug]))
                     ->setPriority(0.1)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY);
@@ -79,7 +79,7 @@ final class SitemapGenerateCommand extends Command
             ->pluck('tags')
             ->flatten()
             ->unique('id')
-            ->map(function (Tag $tag) use (&$urls) {
+            ->map(function (Tag $tag) use (&$urls): void {
                 $urls[] = Url::create(route('projects.index', ['tag' => $tag->slug]))
                     ->setPriority(0.1)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY);

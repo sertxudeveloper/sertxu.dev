@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Models\Post;
-use App\Models\User;
 
 it('returns 404 for thumbnail of an unpublished post', function () {
     $post = Post::factory()->create(['title' => 'Post A']);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Sentry Laravel SDK configuration file.
  *
@@ -18,7 +20,7 @@ return [
 
     // The release version of your application
     // Example with dynamic git hash: trim(exec('git --git-dir ' . base_path('.git') . ' log --pretty="%h" -n1 HEAD'))
-    'release' => 'sertxy.dev@' . mb_trim(exec('git --git-dir '.base_path('.git').' log --pretty="%h" -n1 HEAD')),
+    'release' => 'sertxy.dev@'.mb_trim(exec('git --git-dir '.base_path('.git').' log --pretty="%h" -n1 HEAD')),
 
     // When left empty or `null` the Laravel environment will be used (usually discovered from `APP_ENV` in your `.env`)
     'environment' => env('SENTRY_ENVIRONMENT'),

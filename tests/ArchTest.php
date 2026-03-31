@@ -67,7 +67,7 @@ arch('avoid inheritance')
         'App\View',
     ]);
 
-//arch('annotations')
+// arch('annotations')
 //    ->expect('App')
 //    ->toHavePropertiesDocumented()
 //    ->toHaveMethodsDocumented();

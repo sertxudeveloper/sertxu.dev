@@ -56,7 +56,7 @@ final class Posts extends Component
     /**
      * Get the post's excerpt.
      */
-    protected function excerpt(): Attribute
+    private function excerpt(): Attribute
     {
         return Attribute::make(
             get: fn () => Cache::remember(
@@ -76,7 +76,7 @@ final class Posts extends Component
             ->wherePublished()
             ->with('media')
             ->when($this->tag, fn (Builder $query) => $query->withAnyTags($this->tag))
-            ->when($this->query, fn (Builder $query) => $query->where(function (Builder $query) {
+            ->when($this->query, fn (Builder $query) => $query->where(function (Builder $query): void {
                 $query->whereLike('title', "%{$this->query}%")
                     ->orWhereLike('text', "%{$this->query}%");
             }))

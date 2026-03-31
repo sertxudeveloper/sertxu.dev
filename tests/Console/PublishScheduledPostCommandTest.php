@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Console\Commands\PublishScheduledPostsCommand;
 use App\Models\Post;
 use Illuminate\Support\Carbon;

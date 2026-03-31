@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Http;
 final readonly class Cloudflare
 {
     private string $base_url;
+
     private string $zone_id;
+
     private string $api_key;
 
     public function __construct()

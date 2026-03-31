@@ -12,7 +12,7 @@ final readonly class ThreadsAuthController
     /**
      * Redirect the user to the Threads authentication page.
      */
-    public function index(Threads $threads)
+    public function index(Threads $threads): \Illuminate\Http\RedirectResponse
     {
         return $threads->authenticate();
     }

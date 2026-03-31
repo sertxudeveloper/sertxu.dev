@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Education\Pages;
 
-use Filament\Actions\CreateAction;
 use App\Filament\Resources\Education\EducationResource;
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 final class ListEducation extends ListRecords

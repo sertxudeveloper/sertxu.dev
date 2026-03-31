@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Http\Controllers;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,7 +26,6 @@ Route::get('/blog/{post:slug}/thumbnail', Controllers\PostThumbnailController::c
 Route::get('/blog/{post:slug}/preview', Controllers\PostPreviewController::class)->name('posts.preview');
 
 Route::view('/uses', 'uses')->name('uses');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/threads/auth', [Controllers\ThreadsAuthController::class, 'index'])->name('threads.auth');
