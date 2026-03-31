@@ -15,16 +15,16 @@ jobs:
         test:
           - name: lint
             command: composer test:lint
-            needs-db: false
+            needs-db: 'false'
           - name: refactor
             command: composer test:refactor
-            needs-db: false
+            needs-db: 'false'
           - name: type-coverage
             command: composer test:type-coverage
-            needs-db: true
+            needs-db: 'true'
           - name: unit
             command: composer test:unit
-            needs-db: true
+            needs-db: 'true'
       fail-fast: false
 
     name: ${{ matrix.test.name }}
