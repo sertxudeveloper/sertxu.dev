@@ -10,6 +10,25 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        test:
+          - name: lint
+            command: composer test:lint
+            needs-db: false
+          - name: refactor
+            command: composer test:refactor
+            needs-db: false
+          - name: type-coverage
+            command: composer test:type-coverage
+            needs-db: true
+          - name: unit
+            command: composer test:unit
+            needs-db: true
+      fail-fast: false
+
+    name: ${{ matrix.test.name }}
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
@@ -27,42 +46,51 @@ jobs:
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
 
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
     - name: Setup Node.js environment
+      if: ${{ matrix.test.needs-db == 'true' }}
       uses: actions/setup-node@v6
       with:
         node-version: '22'
         cache: 'npm'
 
     - name: Copy .env
+      if: ${{ matrix.test.needs-db == 'true' }}
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
     - name: Build assets
+      if: ${{ matrix.test.needs-db == 'true' }}
       run: |
         npm ci
         npm run build
 
     - name: Generate key
+      if: ${{ matrix.test.needs-db == 'true' }}
       run: php artisan key:generate
 
     - name: Directory Permissions
+      if: ${{ matrix.test.needs-db == 'true' }}
       run: chmod -R 777 storage bootstrap/cache
 
     - name: Create Database
+      if: ${{ matrix.test.needs-db == 'true' }}
       run: |
         mkdir -p database
         touch database/database.sqlite
 
     - name: Run Migrations
+      if: ${{ matrix.test.needs-db == 'true' }}
       run: php artisan migrate --force
 
-    - name: Check code style with Pint
-      run: vendor/bin/pint --test
-
-    - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
+    - name: Run ${{ matrix.test.name }}
+      if: ${{ matrix.test.needs-db == 'true' }}
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan test --coverage
+      run: ${{ matrix.test.command }}
+
+    - name: Run ${{ matrix.test.name }}
+      if: ${{ matrix.test.needs-db == 'false' }}
+      run: ${{ matrix.test.command }}
