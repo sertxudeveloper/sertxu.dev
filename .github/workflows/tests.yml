@@ -13,22 +13,33 @@ jobs:
     if: ${{ github.actor != 'dependabot[bot]' }}
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.3'
+        php-version: '8.4'
+        coverage: pcov
 
-    - name: Checkout code
-      uses: actions/checkout@v6
+    - name: Cache Composer dependencies
+      uses: actions/cache@v4
+      with:
+        path: vendor
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v6
+      with:
+        node-version: '22'
+        cache: 'npm'
 
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v6
 
     - name: Build assets
       run: |
@@ -46,8 +57,14 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
 
+    - name: Run Migrations
+      run: php artisan migrate --force
+
+    - name: Check code style with Pint
+      run: vendor/bin/pint --test
+
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan test
+      run: php artisan test --coverage
