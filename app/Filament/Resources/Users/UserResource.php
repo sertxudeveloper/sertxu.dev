@@ -43,6 +43,11 @@ final class UserResource extends Resource
                 Grid::make(3)->schema([
                     TextInput::make('name')->required(),
                     TextInput::make('email')->email()->required(),
+                    TextInput::make('password')
+                        ->password()
+                        ->required(fn (string $operation): bool => $operation === 'create')
+                        ->dehydrateStateUsing(fn (?string $state): ?string => filled($state) ? \Illuminate\Support\Facades\Hash::make($state) : null)
+                        ->dehydrated(fn (?string $state): bool => filled($state)),
                     Checkbox::make('is_admin'),
                 ]),
 

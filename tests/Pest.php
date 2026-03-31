@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
+use Pest\Livewire\InteractsWithLivewire;
 use Tests\TestCase;
 
 /*
@@ -18,6 +19,7 @@ use Tests\TestCase;
 */
 
 pest()->extend(TestCase::class, RefreshDatabase::class)
+    ->use(InteractsWithLivewire::class)
     ->beforeEach(fn () => Storage::fake('public'));
 
 /*
@@ -49,4 +51,11 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+if (! function_exists('livewire')) {
+    function livewire(string $name, array $params = [])
+    {
+        return test()->livewire(...func_get_args());
+    }
 }
