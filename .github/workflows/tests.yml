@@ -80,6 +80,10 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
 
+    - name: Install Chrome for Puppeteer
+      if: ${{ matrix.test.needs-db == 'true' }}
+      run: npx --yes puppeteer browsers install chrome
+
     - name: Run Migrations
       if: ${{ matrix.test.needs-db == 'true' }}
       run: php artisan migrate --force
