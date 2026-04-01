@@ -63,4 +63,18 @@ describe('Project model', function () {
                 ->and($sitemapTag->changeFrequency)->toBe('yearly');
         });
     });
+
+    describe('registerMediaConversions', function () {
+        it('registers thumbnail and poster conversions', function () {
+            $project = Project::factory()->published()->create();
+
+            $project->registerMediaConversions(null);
+
+            $conversions = $project->mediaConversions;
+
+            expect($conversions)->toHaveCount(2)
+                ->and($conversions[0]->getName())->toBe('thumbnail')
+                ->and($conversions[1]->getName())->toBe('poster');
+        });
+    });
 });
