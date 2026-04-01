@@ -7,10 +7,7 @@ namespace App\Livewire;
 use App\Models\Post;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -51,20 +48,6 @@ final class Posts extends Component
             'posts' => $this->posts(),
             'selectedTag' => Tag::findFromString($this->tag) ?? null,
         ]);
-    }
-
-    /**
-     * Get the post's excerpt.
-     */
-    private function excerpt(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => Cache::remember(
-                key: "post_excerpt_{$this->id}",
-                ttl: now()->addWeek(),
-                callback: fn () => Str::limit($this->text, 150)
-            ),
-        );
     }
 
     /**
