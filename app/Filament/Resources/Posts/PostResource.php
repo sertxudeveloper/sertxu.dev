@@ -151,10 +151,6 @@ final class PostResource extends Resource
                 ActionGroup::make([
                     Action::make('schedule')
                         ->action(function (Post $post): void {
-                            if ($post->published_at) {
-                                return;
-                            }
-
                             $post->update(['published_at' => Post::nextFreePublishDate()]);
                         })
                         ->hidden(fn (Post $post): bool => $post->published_at || $post->is_published),
