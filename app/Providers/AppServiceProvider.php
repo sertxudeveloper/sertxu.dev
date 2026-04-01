@@ -24,13 +24,6 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Don't kill the app if the database hasn't been created.
-        try {
-            DB::connection('sqlite')->statement('PRAGMA synchronous = OFF;');
-        } catch (Throwable) {
-            return;
-        }
-
         Model::shouldBeStrict(! app()->isProduction());
     }
 }
