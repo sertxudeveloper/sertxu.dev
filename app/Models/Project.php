@@ -61,14 +61,6 @@ final class Project extends Model implements HasMedia, Sitemapable
             ->orderByDesc('published_at');
     }
 
-    /**
-     * Scope a query to only include active projects.
-     */
-    public function scopeWhereActive(Builder $query): Builder
-    {
-        return $query->where('published_at', '<=', now());
-    }
-
     public function scopeWherePublished(Builder $query): void
     {
         $query
