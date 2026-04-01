@@ -38,4 +38,12 @@ describe('PostPublishedNotification', function () {
         expect($mailMessage->subject)->toContain('Test Post')
             ->and($mailMessage->actionUrl)->toContain($post->slug);
     });
+
+    it('returns empty array for array notification', function () {
+        $post = Post::factory()->published()->create();
+
+        $notification = new PostPublishedNotification($post);
+
+        expect($notification->toArray($post))->toBeEmpty();
+    });
 });
