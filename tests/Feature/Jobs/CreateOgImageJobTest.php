@@ -49,3 +49,12 @@ it('renders thumbnail view for og image generation', function () {
 
     expect($html)->toContain('Test Post');
 });
+
+it('generates og image and attaches to post media', function () {
+    $post = Post::factory()->create();
+
+    $job = new CreateOgImageJob($post);
+    $job->handle();
+
+    expect($post->getFirstMedia('thumbnail'))->not->toBeNull();
+});
