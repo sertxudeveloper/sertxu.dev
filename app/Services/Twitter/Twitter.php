@@ -13,12 +13,8 @@ final readonly class Twitter
     /**
      * Post a tweet with the given text.
      */
-    public function tweet(string $text): ?array
+    public function tweet(string $text): array
     {
-        if (! app()->environment('production')) {
-            return null;
-        }
-
         return (array) $this->twitter->post('tweets', ['text' => $text]);
     }
 }
