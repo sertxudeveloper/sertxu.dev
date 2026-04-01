@@ -169,3 +169,53 @@ it('aborts when token refresh fails', function () {
     expect(fn () => $threads->refreshToken($user))
         ->toThrow(Symfony\Component\HttpKernel\Exception\HttpException::class, 'Failed to refresh Threads access token.');
 });
+
+it('aborts when short-lived token request fails with error message', function () {
+    Http::fake([
+        'https://graph.threads.net/oauth/access_token*' => Http::response([
+            'error' => [
+                'message' => 'Invalid authorization code',
+            ],
+        ], 400),
+    ]);
+
+    $user = User::factory()->create();
+
+    $request = Request::create('/threads/callback', 'GET', [
+        'code' => 'invalid-code',
+        'error_message' => 'The authorization code is invalid or has expired',
+    ]);
+    $request->setUserResolver(fn () => $user);
+
+    $threads = new Threads();
+
+    expect(fn () => $threads->authenticateCallback($request))
+        ->toThrow(Symfony\Component\HttpKernel\Exception\HttpException::class, 'The authorization code is invalid or has expired');
+});
+
+it('aborts when long-lived token request fails with error message', function () {
+    Http::fake([
+        'https://graph.threads.net/oauth/access_token*' => Http::response([
+            'user_id' => 'test-user-id',
+            'access_token' => 'short-lived-token',
+        ], 200),
+        'https://graph.threads.net/access_token*' => Http::response([
+            'error' => [
+                'message' => 'Invalid grant',
+            ],
+        ], 400),
+    ]);
+
+    $user = User::factory()->create();
+
+    $request = Request::create('/threads/callback', 'GET', [
+        'code' => 'valid-code',
+        'error_message' => 'Failed to exchange token',
+    ]);
+    $request->setUserResolver(fn () => $user);
+
+    $threads = new Threads();
+
+    expect(fn () => $threads->authenticateCallback($request))
+        ->toThrow(Symfony\Component\HttpKernel\Exception\HttpException::class, 'Failed to exchange token');
+});
