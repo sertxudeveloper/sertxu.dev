@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Mail\TestMail;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
@@ -20,13 +21,7 @@ final class TestMailCommand extends Command
         $to = $this->option('to');
 
         if ($to) {
-            $recipients = [$to];
-
-            Mail::raw($this->testBody(), function ($message) use ($recipients) {
-                $message->from(config('mail.from.address'), config('mail.from.name'));
-                $message->to($recipients);
-                $message->subject('[Test] Mail Delivery');
-            });
+            Mail::to($to)->send(new TestMail($this->testBody()));
 
             $this->info("Test email sent to: {$to}");
 
@@ -44,11 +39,7 @@ final class TestMailCommand extends Command
         }
 
         foreach ($admins as $admin) {
-            Mail::raw($this->testBody(), function ($message) use ($admin) {
-                $message->from(config('mail.from.address'), config('mail.from.name'));
-                $message->to($admin->email, $admin->name);
-                $message->subject('[Test] Mail Delivery');
-            });
+            Mail::to($admin->email, $admin->name)->send(new TestMail($this->testBody()));
 
             $this->info("Test email sent to: {$admin->email}");
         }

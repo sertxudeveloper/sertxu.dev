@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Console\Commands\TestMailCommand;
+use App\Mail\TestMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 
@@ -13,9 +14,8 @@ it('sends test mail to custom recipient', function () {
         ->assertExitCode(0)
         ->expectsOutput('Test email sent to: test@example.com');
 
-    Mail::assertSent(function ($mail) {
-        return $mail->hasTo('test@example.com')
-            && $mail->subject === '[Test] Mail Delivery';
+    Mail::assertSent(TestMail::class, function (TestMail $mail) {
+        return $mail->hasTo('test@example.com');
     });
 });
 
@@ -28,7 +28,7 @@ it('sends test mail to all admin users', function () {
         ->assertExitCode(0)
         ->expectsOutput("Test email sent to: {$admin->email}");
 
-    Mail::assertSent(function ($mail) use ($admin) {
+    Mail::assertSent(TestMail::class, function (TestMail $mail) use ($admin) {
         return $mail->hasTo($admin->email);
     });
 });
@@ -55,6 +55,15 @@ it('sends test mail to multiple admin users', function () {
         ->expectsOutput('Test email sent to: admin1@example.com')
         ->expectsOutput('Test email sent to: admin2@example.com');
 
-    Mail::assertSent(fn ($mail) => $mail->hasTo('admin1@example.com'));
-    Mail::assertSent(fn ($mail) => $mail->hasTo('admin2@example.com'));
+    Mail::assertSent(TestMail::class, function (TestMail $mail) use ($admin1) {
+        return $mail->hasTo($admin1->email);
+    });
+
+    Mail::assertSent(TestMail::class, function (TestMail $mail) use ($admin2) {
+        return $mail->hasTo($admin2->email);
+    });
+
+    Mail::assertNotSent(TestMail::class, function (TestMail $mail) use ($nonAdmin) {
+        return $mail->hasTo($nonAdmin->email);
+    });
 });
