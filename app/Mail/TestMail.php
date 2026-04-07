@@ -31,9 +31,4 @@ final class TestMail extends Mailable
             text: 'mail.test',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

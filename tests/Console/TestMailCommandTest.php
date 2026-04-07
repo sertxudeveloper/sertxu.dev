@@ -17,6 +17,14 @@ it('sends test mail to custom recipient', function () {
     Mail::assertSent(TestMail::class, function (TestMail $mail) {
         return $mail->hasTo('test@example.com');
     });
+
+    Mail::assertSent(TestMail::class, function (TestMail $mail) {
+        $mail->assertSeeInText('This is a test email from your application.');
+        $mail->assertSeeInText('your mail configuration is working correctly');
+        $mail->assertSeeInText('Sent at:');
+
+        return true;
+    });
 });
 
 it('sends test mail to all admin users', function () {
@@ -30,6 +38,14 @@ it('sends test mail to all admin users', function () {
 
     Mail::assertSent(TestMail::class, function (TestMail $mail) use ($admin) {
         return $mail->hasTo($admin->email);
+    });
+
+    Mail::assertSent(TestMail::class, function (TestMail $mail) {
+        $mail->assertSeeInText('This is a test email from your application.');
+        $mail->assertSeeInText('your mail configuration is working correctly');
+        $mail->assertSeeInText('Sent at:');
+
+        return true;
     });
 });
 
