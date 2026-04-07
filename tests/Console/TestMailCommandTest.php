@@ -1,0 +1,60 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Console\Commands\TestMailCommand;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+
+it('sends test mail to custom recipient', function () {
+    Mail::fake();
+
+    $this->artisan(TestMailCommand::class, ['--to' => 'test@example.com'])
+        ->assertExitCode(0)
+        ->expectsOutput('Test email sent to: test@example.com');
+
+    Mail::assertSent(function ($mail) {
+        return $mail->hasTo('test@example.com')
+            && $mail->subject === '[Test] Mail Delivery';
+    });
+});
+
+it('sends test mail to all admin users', function () {
+    Mail::fake();
+
+    $admin = User::factory()->create(['is_admin' => true]);
+
+    $this->artisan(TestMailCommand::class)
+        ->assertExitCode(0)
+        ->expectsOutput("Test email sent to: {$admin->email}");
+
+    Mail::assertSent(function ($mail) use ($admin) {
+        return $mail->hasTo($admin->email);
+    });
+});
+
+it('warns when no admin users exist', function () {
+    Mail::fake();
+
+    $this->artisan(TestMailCommand::class)
+        ->assertExitCode(0)
+        ->expectsOutput('No admin users found.');
+
+    Mail::assertNothingSent();
+});
+
+it('sends test mail to multiple admin users', function () {
+    Mail::fake();
+
+    $admin1 = User::factory()->create(['is_admin' => true, 'email' => 'admin1@example.com']);
+    $admin2 = User::factory()->create(['is_admin' => true, 'email' => 'admin2@example.com']);
+    $nonAdmin = User::factory()->create(['is_admin' => false, 'email' => 'user@example.com']);
+
+    $this->artisan(TestMailCommand::class)
+        ->assertExitCode(0)
+        ->expectsOutput('Test email sent to: admin1@example.com')
+        ->expectsOutput('Test email sent to: admin2@example.com');
+
+    Mail::assertSent(fn ($mail) => $mail->hasTo('admin1@example.com'));
+    Mail::assertSent(fn ($mail) => $mail->hasTo('admin2@example.com'));
+});
