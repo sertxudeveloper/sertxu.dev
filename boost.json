@@ -13,16 +13,15 @@
     "nightwatch_mcp": false,
     "packages": [
         "filament/filament",
-        "spatie/laravel-medialibrary",
-        "laravel/nightwatch"
+        "spatie/laravel-medialibrary"
     ],
     "sail": false,
     "skills": [
         "laravel-best-practices",
+        "configure-nightwatch",
         "livewire-development",
         "pest-testing",
         "tailwindcss-development",
-        "configure-nightwatch",
         "medialibrary-development"
     ]
 }
