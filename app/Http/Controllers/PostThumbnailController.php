@@ -15,9 +15,9 @@ final readonly class PostThumbnailController
     {
         abort_unless($post->is_published, 404);
 
-        return redirect()->to(
-            path: $post->getFirstMediaUrl('thumbnail', 'thumbnail-jpg'),
-            status: 301,
-        );
+        return response()
+            ->redirectTo($post->getFirstMediaUrl('thumbnail', 'thumbnail-jpg'), 301)
+            ->header('Cache-Control', 'public, max-age=31536000')
+            ->header('Vary', 'Accept');
     }
 }
