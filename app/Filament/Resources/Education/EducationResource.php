@@ -74,8 +74,8 @@ final class EducationResource extends Resource
                                     ->required()
                                     ->maxLength(50),
                             ]),
-                    ])->columns(1),
-            ]);
+                    ]),
+            ])->columns(1);
     }
 
     public static function getPages(): array
