@@ -42,7 +42,7 @@ final class EducationResource extends Resource
     {
         return $schema
             ->components([
-                Section::make('Education Information')
+                Section::make()
                     ->schema([
                         TextInput::make('title')
                             ->required()
@@ -74,7 +74,7 @@ final class EducationResource extends Resource
                                     ->required()
                                     ->maxLength(50),
                             ]),
-                    ]),
+                    ])->columns(1),
             ]);
     }
 
