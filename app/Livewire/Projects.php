@@ -54,6 +54,7 @@ final class Projects extends Component
         return Project::query()
             ->wherePublished()
             ->when($this->tag, fn ($query) => $query->withAnyTags($this->tag))
+            ->orderByDesc('is_featured')
             ->latest()
             ->paginate(perPage: 12);
     }
