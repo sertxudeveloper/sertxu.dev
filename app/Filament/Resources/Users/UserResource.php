@@ -54,7 +54,7 @@ final class UserResource extends Resource
                         ->dehydrated(fn (?string $state): bool => filled($state)),
 
                     Checkbox::make('is_admin'),
-                ])->columns(3);
+                ])->columns(3),
 
                 Section::make('Threads')->schema([
                     TextInput::make('threads_user_id'),
