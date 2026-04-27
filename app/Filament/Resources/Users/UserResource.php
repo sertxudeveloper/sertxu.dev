@@ -61,7 +61,7 @@ final class UserResource extends Resource
 
                     TextInput::make('threads_access_token')
                         ->columnSpan(3),
-                    
+
                     DateTimePicker::make('threads_access_token_expires_at')
                         ->columnSpan(2),
                 ])->columns(6),
