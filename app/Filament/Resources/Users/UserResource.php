@@ -65,7 +65,7 @@ final class UserResource extends Resource
                     DateTimePicker::make('threads_access_token_expires_at')
                         ->columnSpan(2),
                 ])->columns(6),
-            ]);
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
