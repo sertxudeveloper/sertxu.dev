@@ -42,7 +42,7 @@ final class ExperienceResource extends Resource
     {
         return $schema
             ->components([
-                Section::make('Experience')
+                Section::make()
                     ->schema([
                         TextInput::make('title')
                             ->required()
@@ -75,7 +75,7 @@ final class ExperienceResource extends Resource
                                     ->maxLength(50),
                             ]),
                     ]),
-            ]);
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table

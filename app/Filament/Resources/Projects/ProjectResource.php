@@ -49,7 +49,7 @@ final class ProjectResource extends Resource
     {
         return $schema
             ->components([
-                Section::make('Project')
+                Section::make()
                     ->columns()
                     ->schema([
                         TextInput::make('title')
@@ -94,7 +94,7 @@ final class ProjectResource extends Resource
                         SpatieMediaLibraryFileUpload::make('thumbnail')
                             ->collection('thumbnail'),
                     ]),
-            ]);
+            ])->columns(1);
     }
 
     public static function getPages(): array

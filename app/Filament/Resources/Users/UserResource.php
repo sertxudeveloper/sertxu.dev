@@ -15,7 +15,6 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
@@ -40,21 +39,31 @@ final class UserResource extends Resource
     {
         return $schema
             ->components([
-                Grid::make(3)->schema([
-                    TextInput::make('name')->required(),
-                    TextInput::make('email')->email()->required(),
+                Section::make()->schema([
+                    TextInput::make('name')
+                        ->required(),
+
+                    TextInput::make('email')
+                        ->email()
+                        ->required(),
+
                     TextInput::make('password')
                         ->password()
                         ->required(fn (string $operation): bool => $operation === 'create')
                         ->dehydrateStateUsing(fn (?string $state): ?string => filled($state) ? \Illuminate\Support\Facades\Hash::make($state) : null)
                         ->dehydrated(fn (?string $state): bool => filled($state)),
+
                     Checkbox::make('is_admin'),
-                ]),
+                ])->columns(3);
 
                 Section::make('Threads')->schema([
                     TextInput::make('threads_user_id'),
-                    TextInput::make('threads_access_token')->columnSpan(3),
-                    DateTimePicker::make('threads_access_token_expires_at')->columnSpan(2),
+
+                    TextInput::make('threads_access_token')
+                        ->columnSpan(3),
+                    
+                    DateTimePicker::make('threads_access_token_expires_at')
+                        ->columnSpan(2),
                 ])->columnStart(0)->columns(6),
             ]);
     }
