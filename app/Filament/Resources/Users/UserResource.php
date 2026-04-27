@@ -64,7 +64,7 @@ final class UserResource extends Resource
                     
                     DateTimePicker::make('threads_access_token_expires_at')
                         ->columnSpan(2),
-                ])->columnStart(0)->columns(6),
+                ])->columns(6),
             ]);
     }
 
