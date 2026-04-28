@@ -6,7 +6,7 @@
 <meta name="robots" content="index, follow"/>
 
 <meta name="applicable-device" content="pc, mobile"/>
-<link rel="canonical" href="{!! request()->fullUrl() !!}"/>
+<link rel="canonical" href="{{ request()->url() }}"/>
 
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="sertxu.dev" />
