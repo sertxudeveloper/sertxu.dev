@@ -8,8 +8,6 @@
 <meta name="applicable-device" content="pc, mobile"/>
 <link rel="canonical" href="{!! request()->fullUrl() !!}"/>
 
-<meta name="keywords" content="sertxu.dev, sertxudev, sertxudeveloper, Sergio Peris, tutorial, personal, portfolio, social, cv, laravel, website, tailwind, alpinejs, livewire, filament, ubuntu, windows, blog, projects"/>
-
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="sertxu.dev" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -62,16 +60,26 @@
     <script type="application/ld+json">
         {
             "@@context": "https://schema.org",
-            "@type": "BlogPosting",
+            "@@type": "BlogPosting",
             "headline": @json($post->title),
-            "image": @json($post->getFirstMediaUrl('thumbnail')),
+            "image": [@json($post->getFirstMediaUrl('thumbnail'))],
             "datePublished": @json($post->created_at->toIso8601String()),
             "dateModified": @json($post->updated_at->toIso8601String()),
+            "mainEntityOfPage": @json(url()->current()),
+            "wordCount": {{ str_word_count(strip_tags($post->text ?? '')) }},
             "author": [{
                 "@type": "Person",
                 "name": "Sergio Peris",
                 "url": "https://sertxu.dev"
-            }]
+            }],
+            "publisher": {
+                "@type": "Organization",
+                "name": "sertxu.dev",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": @json(asset('icon@192.png'))
+                }
+            }
         }
     </script>
 @elseif(request()->routeIs('projects.show'))
@@ -104,17 +112,26 @@
     <script type="application/ld+json">
         {
             "@@context": "https://schema.org",
-            "@type": "SoftwareApplication",
+            "@@type": "SoftwareApplication",
             "name": @json($project->title),
             "description": @json($project->excerpt),
-            "image": @json($project->getFirstMediaUrl('thumbnail')),
+            "image": [@json($project->getFirstMediaUrl('thumbnail'))],
             "applicationCategory": "https://schema.org/WebApplication",
             "operatingSystem": "All",
             "url": @json(url()->current()),
+            "mainEntityOfPage": @json(url()->current()),
             "author": {
                 "@type": "Person",
                 "name": "Sergio Peris",
                 "url": "https://sertxu.dev"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "sertxu.dev",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": @json(asset('icon@192.png'))
+                }
             }
         }
     </script>
