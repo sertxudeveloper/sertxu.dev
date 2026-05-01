@@ -34,6 +34,7 @@ it('publishes the post to threads and marks as posted', function () {
     $job = new PostToThreadsJob($post);
     $job->handle(app(Threads::class));
 
+    Http::assertSentCount(2);
     expect((bool) $post->refresh()->posted_on_threads)->toBeTrue();
 });
 

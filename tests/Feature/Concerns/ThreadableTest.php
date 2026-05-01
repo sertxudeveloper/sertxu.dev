@@ -15,12 +15,14 @@ it('formats a thread with title, url and tags', function () {
 
     $thread = $post->toThreads();
 
-    expect($thread)->toContain('🔗 Building a Laravel Package')
+    expect($thread['content'])->toContain('🔗 Building a Laravel Package')
         ->toContain(route('posts.show', [$post, 'utm_source' => 'threads', 'utm_medium' => 'post']))
         ->toContain('#Laravel');
+
+    expect($thread['topic_tag'])->toBe('Laravel');
 });
 
-it('formats a thread with multiple tags', function () {
+it('formats a thread with multiple tags - only primary in content', function () {
     $post = Post::factory()->create([
         'title' => 'Testing with Pest',
     ]);
@@ -31,8 +33,10 @@ it('formats a thread with multiple tags', function () {
 
     $thread = $post->toThreads();
 
-    expect($thread)->toContain('#PHP')
-        ->toContain('#Testing');
+    expect($thread['content'])->toContain('#PHP')
+        ->not->toContain('#Testing');
+
+    expect($thread['topic_tag'])->toBe('PHP');
 });
 
 it('formats a thread with tags containing spaces', function () {
@@ -45,7 +49,9 @@ it('formats a thread with tags containing spaces', function () {
 
     $thread = $post->toThreads();
 
-    expect($thread)->toContain('#VueJS');
+    expect($thread['content'])->toContain('#VueJS');
+
+    expect($thread['topic_tag'])->toBe('VueJS');
 });
 
 it('formats a thread without tags', function () {
@@ -55,6 +61,8 @@ it('formats a thread without tags', function () {
 
     $thread = $post->toThreads();
 
-    expect($thread)->toContain('🔗 Hello World')
+    expect($thread['content'])->toContain('🔗 Hello World')
         ->not->toContain('#');
+
+    expect($thread['topic_tag'])->toBeNull();
 });

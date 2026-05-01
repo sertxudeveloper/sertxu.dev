@@ -42,7 +42,9 @@ final class PostToThreadsJob implements ShouldQueue
     {
         $user = User::query()->where('threads_user_id', '9093830107340733')->firstOrFail();
 
-        $threads->writePost($user, $this->post->toThreads());
+        $threadData = $this->post->toThreads();
+
+        $threads->writePost($user, $threadData['content'], $threadData['topic_tag']);
 
         $this->post->updateQuietly(['posted_on_threads' => true]);
     }

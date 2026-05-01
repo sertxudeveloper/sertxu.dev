@@ -83,13 +83,19 @@ final readonly class Threads
     /**
      * Write a post to Threads.
      */
-    public function writePost(User $user, string $content): void
+    public function writePost(User $user, string $content, ?string $topicTag = null): void
     {
-        $response = Http::post("{$this->base_url}/v1.0/{$user->threads_user_id}/threads", [
+        $payload = [
             'media_type' => 'TEXT', // TEXT, IMAGE, VIDEO
             'text' => $content,
             'access_token' => $user->threads_access_token,
-        ]);
+        ];
+
+        if ($topicTag !== null) {
+            $payload['topic_tag'] = $topicTag;
+        }
+
+        $response = Http::post("{$this->base_url}/v1.0/{$user->threads_user_id}/threads", $payload);
 
         if ($response->failed()) {
             abort(403, 'Failed to write post to Threads.');
