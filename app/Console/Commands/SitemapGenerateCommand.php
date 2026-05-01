@@ -9,7 +9,6 @@ use App\Models\Project;
 use Illuminate\Console\Command;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
-use Spatie\Tags\Tag;
 
 final class SitemapGenerateCommand extends Command
 {
@@ -41,50 +40,8 @@ final class SitemapGenerateCommand extends Command
             ->add(Url::create(route('posts.index'))->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY))
             ->add(Post::query()->wherePublished()->get())
             ->add(Project::query()->get())
-            ->add($this->createUrlPostTags())
-            ->add($this->createUrlProjectTags())
             ->writeToDisk('r2', 'sitemap.xml', true);
 
         $this->info('Sitemap generated and uploaded to R2 successfully.');
-    }
-
-    private function createUrlPostTags(): array
-    {
-        $urls = [];
-
-        Post::query()
-            ->with('tags')
-            ->wherePublished()
-            ->get()
-            ->pluck('tags')
-            ->flatten()
-            ->unique('id')
-            ->map(function (Tag $tag) use (&$urls): void {
-                $urls[] = Url::create(route('posts.index', ['tag' => $tag->slug]))
-                    ->setPriority(0.1)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY);
-            });
-
-        return $urls;
-    }
-
-    private function createUrlProjectTags(): array
-    {
-        $urls = [];
-
-        Project::query()
-            ->with('tags')
-            ->wherePublished()
-            ->get()
-            ->pluck('tags')
-            ->flatten()
-            ->unique('id')
-            ->map(function (Tag $tag) use (&$urls): void {
-                $urls[] = Url::create(route('projects.index', ['tag' => $tag->slug]))
-                    ->setPriority(0.1)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY);
-            });
-
-        return $urls;
     }
 }
