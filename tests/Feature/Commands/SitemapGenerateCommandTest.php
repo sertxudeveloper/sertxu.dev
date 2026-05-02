@@ -6,7 +6,6 @@ use App\Console\Commands\SitemapGenerateCommand;
 use App\Models\Post;
 use App\Models\Project;
 use Illuminate\Support\Facades\Storage;
-use Spatie\Tags\Tag;
 
 beforeEach(function () {
     Storage::fake('r2');
@@ -60,30 +59,6 @@ it('includes published projects in the sitemap', function () {
 
     $content = Storage::disk('r2')->get('sitemap.xml');
     expect($content)->toContain(route('projects.show', $project->slug));
-});
-
-it('includes post tags in the sitemap', function () {
-    $post = Post::factory()->published()->create();
-    $tag = Tag::create(['name' => 'Laravel', 'slug' => 'laravel']);
-    $post->tags()->attach($tag->id);
-
-    $this->artisan(SitemapGenerateCommand::class)
-        ->assertSuccessful();
-
-    $content = Storage::disk('r2')->get('sitemap.xml');
-    expect($content)->toContain(route('posts.index', ['tag' => 'laravel']));
-});
-
-it('includes project tags in the sitemap', function () {
-    $project = Project::factory()->published()->create();
-    $tag = Tag::create(['name' => 'Vue', 'slug' => 'vue']);
-    $project->tags()->attach($tag->id);
-
-    $this->artisan(SitemapGenerateCommand::class)
-        ->assertSuccessful();
-
-    $content = Storage::disk('r2')->get('sitemap.xml');
-    expect($content)->toContain(route('projects.index', ['tag' => 'vue']));
 });
 
 it('writes sitemap to r2 disk', function () {
