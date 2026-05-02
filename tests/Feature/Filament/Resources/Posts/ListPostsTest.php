@@ -267,11 +267,13 @@ it('can dispatch thumbnail generation for a single post', function () {
     $post = Post::factory()->create();
 
     livewire(ListPosts::class)
-        ->callTableAction('generate thumbnail', $post);
+        ->assertActionExists(TestAction::make('generate thumbnail')->table($post));
 
-    Queue::assertPushed(CreateOgImageJob::class, function ($job) use ($post) {
-        return $job->post->id === $post->id;
-    });
+    livewire(ListPosts::class)
+        ->callAction(TestAction::make('generate thumbnail')->table($post));
+
+    Queue::assertPushedTimes(CreateOgImageJob::class, 1);
+    Queue::assertPushed(CreateOgImageJob::class, fn ($job) => $job->post->id === $post->id);
 });
 
 it('can bulk generate thumbnails', function () {
@@ -282,9 +284,12 @@ it('can bulk generate thumbnails', function () {
     $posts = Post::factory()->count(3)->create();
 
     livewire(ListPosts::class)
+        ->assertActionExists(TestAction::make('generate thumbnails')->table()->bulk());
+
+    livewire(ListPosts::class)
         ->assertCanSeeTableRecords($posts)
         ->selectTableRecords($posts)
         ->callAction(TestAction::make('generate thumbnails')->table()->bulk());
 
-    Queue::assertPushed(CreateOgImageJob::class, 3);
+    Queue::assertPushedTimes(CreateOgImageJob::class, 3);
 });

@@ -174,7 +174,7 @@ final class PostResource extends Resource
                         ->hidden(fn (Post $post): bool => ! $post->is_published),
 
                     Action::make('generate thumbnail')
-                        ->action(fn (Post $post) => CreateOgImageJob::dispatch($post)),
+                        ->action(fn (Post $post) => CreateOgImageJob::dispatchSync($post)),
                 ]),
             ])
             ->toolbarActions([

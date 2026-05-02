@@ -58,7 +58,7 @@ final class Project extends Model implements HasMedia, Sitemapable
     {
         return $query
             ->orderByDesc('is_featured')
-            ->orderByDesc('published_at');
+            ->orderByDesc('created_at');
     }
 
     /**
