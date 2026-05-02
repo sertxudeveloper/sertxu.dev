@@ -5,9 +5,9 @@ declare(strict_types=1);
 use App\Models\Project;
 
 it('can load project index page', function (): void {
-    Project::factory()->published()->create(['title' => 'Project A']);
-    Project::factory()->published()->create(['title' => 'Project B']);
-    Project::factory()->published()->create(['title' => 'Project C']);
+    Project::factory()->published()->create(['title' => 'Project A', 'is_featured' => false]);
+    Project::factory()->published()->create(['title' => 'Project B', 'is_featured' => false]);
+    Project::factory()->published()->create(['title' => 'Project C', 'is_featured' => false]);
 
     $this->get('/projects')
         ->assertOk()
