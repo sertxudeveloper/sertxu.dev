@@ -19,6 +19,7 @@ final readonly class PostPreviewController
 
         return view('posts.show', [
             'post' => $post,
+            'relatedPosts' => collect(),
         ]);
     }
 }

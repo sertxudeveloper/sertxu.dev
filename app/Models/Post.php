@@ -8,6 +8,7 @@ use App\Models\Concerns\Threadable;
 use App\Models\Concerns\Tweetable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -173,6 +174,31 @@ final class Post extends Model implements HasMedia, Sitemapable
             ->setLastModificationDate(Carbon::create($this->updated_at))
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
             ->setPriority(0.1);
+    }
+
+    /**
+     * Get related posts based on shared tags.
+     *
+     * @return Collection<int, Post>
+     */
+    public function relatedPosts(): Collection
+    {
+        if ($this->tags->isEmpty()) {
+            return self::query()
+                ->wherePublished()
+                ->where('id', '!=', $this->id)
+                ->latest('published_at')
+                ->limit(3)
+                ->get();
+        }
+
+        return self::query()
+            ->wherePublished()
+            ->where('id', '!=', $this->id)
+            ->withAnyTags($this->tags)
+            ->latest('published_at')
+            ->limit(3)
+            ->get();
     }
 
     /**
