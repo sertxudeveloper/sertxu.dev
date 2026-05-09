@@ -18,6 +18,7 @@ final readonly class PostController
 
         return view('posts.show', [
             'post' => $post,
+            'relatedPosts' => $post->relatedPosts(),
         ]);
     }
 }
