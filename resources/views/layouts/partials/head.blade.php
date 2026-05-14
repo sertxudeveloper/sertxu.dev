@@ -1,199 +1,206 @@
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="csrf-token" content="{{ csrf_token() }}"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sergio Peris (sertxu.dev) — Full-Stack Developer & SysAdmin</title>
+<meta name="description" content="Sergio Peris, aka sertxu. Full-stack developer & sysadmin based in Xàtiva, Valencia. IT Manager, building reliable systems." />
+<meta name="theme-color" content="#0a0a0c" />
 
-<meta name="author" content="Sergio Peris"/>
-<meta name="robots" content="index, follow"/>
+<meta property="og:title" content="Sergio Peris (sertxu) — Full-stack Developer & Sysadmin" />
+<meta property="og:description" content="Full-stack developer & sysadmin building reliable systems from Xàtiva, Valencia." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://sertxu.dev" />
 
-<meta name="applicable-device" content="pc, mobile"/>
-<link rel="canonical" href="{{ request()->url() }}"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="sertxu.dev" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-
-<link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#171717"/>
-
-<!-- Favicons -->
-<link rel="icon" sizes="192x192" href="{{ asset('icon@192.png') }}">
-<link rel="icon" sizes="128x128" href="{{ asset('icon@128.png') }}">
-
-<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
-<link rel="shortcut icon"  type="image/x-icon" href="{{ asset('favicon.svg') }}"/>
-<link rel="icon" sizes="any" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-
-<link rel="apple-touch-icon" sizes="76x76"   href="{{ asset('icon@76.png') }}">
-<link rel="apple-touch-icon" sizes="120x120" href="{{ asset('icon@120.png') }}">
-<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('icon@152.png') }}">
-<link rel="apple-touch-icon" sizes="167x167" href="{{ asset('icon@167.png') }}">
-<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icon@180.png') }}">
-
-@if (request()->routeIs('posts.show'))
-    @php
-        $post = request()->route('post');
-    @endphp
-
-    <title>{{ $post->title }} | {{ config('app.name') }}</title>
-    <meta name="description" content="{{ $post->excerpt }}"/>
-    <meta name="image" content="{{ $post->getFirstMediaUrl('thumbnail') }}"/>
-
-    <!-- Open Meta Tags -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="{{ $post->title }} | {{ config('app.name') }}"/>
-    <meta property="og:description" content="{{ $post->excerpt }}"/>
-    <meta property="og:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}"/>
-    <meta property="og:url" content="{{ url()->current() }}"/>
-    <meta property="og:site_name" content="sertxu.dev"/>
-    <meta property="og:locale" content="{{ app()->getLocale() }}" />
-    <meta property="article:author" content="Sergio Peris">
-
-    <!-- Twitter Meta Tags -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="sertxu.dev">
-    <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="{{ $post->title }} | {{ config('app.name') }}">
-    <meta property="twitter:description" content="{{ $post->excerpt }}">
-    <meta property="twitter:image" content="{{ $post->getFirstMediaUrl('thumbnail') }}">
-    <meta property="twitter:creator" content="sertxudev">
-
-    <script type="application/ld+json">
-        {
-            "@@context": "https://schema.org",
-            "@@type": "BlogPosting",
-            "headline": @json($post->title),
-            "image": [@json($post->getFirstMediaUrl('thumbnail'))],
-            "datePublished": @json($post->created_at->toIso8601String()),
-            "dateModified": @json($post->updated_at->toIso8601String()),
-            "mainEntityOfPage": @json(url()->current()),
-            "wordCount": {{ str_word_count(strip_tags($post->text ?? '')) }},
-            "author": [{
-                "@type": "Person",
-                "name": "Sergio Peris",
-                "url": "https://sertxu.dev"
-            }],
-            "publisher": {
-                "@type": "Organization",
-                "name": "sertxu.dev",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": @json(asset('icon@192.png'))
-                }
-            }
-        }
-    </script>
-@elseif(request()->routeIs('projects.show'))
-    @php
-        $project = request()->route('project');
-    @endphp
-
-    <title>{{ $project->title }} | {{ config('app.name') }}</title>
-    <meta name="description" content="{{ $project->excerpt }}"/>
-    <meta name="image" content="{{ $project->getFirstMediaUrl('thumbnail') }}"/>
-
-    <!-- Open Meta Tags -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="{{ $project->title }} | {{ config('app.name') }}"/>
-    <meta property="og:description" content="{{ $project->excerpt }}"/>
-    <meta property="og:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}"/>
-    <meta property="og:url" content="{{ url()->current() }}"/>
-    <meta property="og:locale" content="{{ app()->getLocale() }}" />
-    <meta property="article:author" content="Sergio Peris">
-
-    <!-- Twitter Meta Tags -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="sertxu.dev">
-    <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="{{ $project->title }} | {{ config('app.name') }}">
-    <meta property="twitter:description" content="{{ $project->excerpt }}">
-    <meta property="twitter:image" content="{{ $project->getFirstMediaUrl('thumbnail') }}">
-    <meta property="twitter:creator" content="sertxudev">
-
-    <script type="application/ld+json">
-        {
-            "@@context": "https://schema.org",
-            "@@type": "SoftwareApplication",
-            "name": @json($project->title),
-            "description": @json($project->excerpt),
-            "image": [@json($project->getFirstMediaUrl('thumbnail'))],
-            "applicationCategory": "https://schema.org/WebApplication",
-            "operatingSystem": "All",
-            "url": @json(url()->current()),
-            "mainEntityOfPage": @json(url()->current()),
-            "author": {
-                "@type": "Person",
-                "name": "Sergio Peris",
-                "url": "https://sertxu.dev"
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    brand: { red: '#ff3047', blue: '#0035ff' },
+                    bg: { base: '#0a0a0c', surface: '#141417', elevated: '#1a1a1f' },
+                    border: '#1e1e22',
+                    text: { primary: '#f0f0f2', muted: '#8a8a9a' },
+                },
+                fontFamily: {
+                    heading: ['Archivo', 'sans-serif'],
+                    body: ['DM Sans', 'sans-serif'],
+                    mono: ['DM Mono', 'monospace'],
+                },
             },
-            "publisher": {
-                "@type": "Organization",
-                "name": "sertxu.dev",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": @json(asset('icon@192.png'))
-                }
-            }
-        }
-    </script>
-@else
-    <title>Sergio Peris - {{ config('app.name') }}</title>
-    <meta name="description" content="Hi, I'm Sergio Peris, aka Sertxu, a full-stack developer, open-source maintainer, and content creator."/>
-    <meta name="image" content="{{ asset('social.png') }}"/>
-
-    <!-- Open Meta Tags -->
-    <meta property="og:type" content="profile">
-    <meta property="og:title" content="Sergio Peris' blog and projects. Let's learn new things!"/>
-    <meta property="og:description" content="Hi, I'm Sergio Peris, aka Sertxu, a full-stack developer, open-source maintainer, and content creator."/>
-    <meta property="og:image" content="{{ asset('social.png') }}"/>
-    <meta property="og:url" content="{{ url()->current() }}"/>
-    <meta property="og:site_name" content="sertxu.dev"/>
-    <meta property="og:locale" content="{{ app()->getLocale() }}" />
-    <meta property="profile:first_name" content="Sergio">
-    <meta property="profile:last_name" content="Peris">
-    <meta property="profile:username" content="sertxudev">
-
-    <!-- Twitter Meta Tags -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="sertxu.dev">
-    <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="Sergio Peris' blog and projects. Let's learn new things!">
-    <meta property="twitter:description" content="Hi, I'm Sergio Peris, aka Sertxu, a full-stack developer, open-source maintainer, and content creator.">
-    <meta property="twitter:image" content="{{ asset('social.png') }}">
-    <meta property="twitter:creator" content="@sertxudev">
-
-    <script type="application/ld+json">
-        {
-            "@@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Sergio Peris",
-            "url": "https://sertxu.dev",
-            "image": @json(asset('dp.webp')),
-            "jobTitle": "Full-Stack Developer",
-            "sameAs": [
-                "https://twitter.com/sertxudev",
-                "https://github.com/sertxudev",
-                "https://www.linkedin.com/in/sertxudev",
-                "https://instagram.com/sertxudev"
-            ]
-        }
-    </script>
-@endif
-
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.bunny.net">
-<link rel="preload" href="https://fonts.bunny.net/css?family=arya:400,700|inter:300,400,500,600,700" as="style" type="text/css">
-<link rel="stylesheet" href="https://fonts.bunny.net/css?family=arya:400,700|inter:300,400,500,600,700">
-
-<!-- Styles -->
-@livewireStyles
-@vite('resources/css/app.css')
-
-<link rel="preload" href="{{ asset('doodles.webp') }}" as="image" type="image/webp" />
-
+        },
+    }
+</script>
 <style>
-    .bg-doodles {
-        background-image: url("{{ asset('doodles.webp') }}");
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        background: #0a0a0c;
+        color: #f0f0f2;
+        font-family: 'DM Sans', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+
+    ::selection { background: rgba(255, 48, 71, 0.3); color: #fff; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #0a0a0c; }
+    ::-webkit-scrollbar-thumb { background: #1e1e22; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #ff3047; }
+
+    .grain-overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.025;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 256px 256px;
+    }
+
+    .bg-grid {
+        background-image: radial-gradient(circle at center, #1e1e22 0.75px, transparent 0.75px);
+        background-size: 32px 32px;
+    }
+
+    .glow-top-right {
+        position: absolute;
+        top: -240px;
+        right: -240px;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(255, 48, 71, 0.07) 0%, transparent 65%);
+        pointer-events: none;
+    }
+
+    .glow-bottom-left {
+        position: absolute;
+        bottom: -200px;
+        left: -200px;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(0, 53, 255, 0.05) 0%, transparent 65%);
+        pointer-events: none;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.revealed {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .portfolio-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+    .portfolio-grid .reveal:nth-child(2) { transition-delay: 120ms; }
+    .portfolio-grid .reveal:nth-child(3) { transition-delay: 240ms; }
+    .blog-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+    .blog-grid .reveal:nth-child(2) { transition-delay: 120ms; }
+
+    /* Hero content reveal */
+    #hero-content {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    }
+    #hero-content.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Terminal lines */
+    .terminal-line {
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+    }
+    .terminal-line.visible {
+        opacity: 1;
+    }
+
+    /* Cursor blink */
+    @keyframes cursorBlink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+    .cursor-blink {
+        animation: cursorBlink 1s step-end infinite;
+    }
+
+    /* Project card */
+    .project-card {
+        position: relative;
+        border-left: 2px solid transparent;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-card:hover {
+        transform: translateY(-5px);
+    }
+    .project-card:hover::before {
+        opacity: 1;
+    }
+
+    /* Link underline */
+    .link-underline {
+        position: relative;
+        text-decoration: none;
+    }
+    .link-underline::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 0;
+        height: 1.5px;
+        background: #0035ff;
+        transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .link-underline:hover::after {
+        width: 100%;
+    }
+
+    /* Section accent line */
+    .accent-line {
+        display: inline-block;
+        width: 48px;
+        height: 3px;
+        background: #ff3047;
+        border-radius: 2px;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+        position: absolute;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        opacity: 0.4;
+    }
+    @keyframes scrollPulse {
+        0%, 100% { transform: translateY(0); opacity: 0.4; }
+        50% { transform: translateY(4px); opacity: 1; }
+    }
+    .scroll-indicator span {
+        animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* Nav backdrop */
+    .nav-scrolled {
+        background: rgba(10, 10, 12, 0.85) !important;
+        backdrop-filter: blur(12px) !important;
     }
 </style>
-
-@yield('head')
