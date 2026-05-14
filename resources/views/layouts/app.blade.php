@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-pt-20">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @include('layouts.partials.head')
 </head>
-<body class="font-sans antialiased bg-dark-100">
+<body>
+<div class="grain-overlay"></div>
 
 @include('layouts.partials.navbar')
 

@@ -8,7 +8,7 @@ use App\Models\Post;
 use App\Models\Project;
 use Illuminate\Contracts\View\View;
 
-final readonly class HomeController
+final readonly class RedesignController
 {
     /**
      * Get the home page.
@@ -18,7 +18,7 @@ final readonly class HomeController
         $posts = Post::query()->wherePublished()->take(4)->get();
         $projects = Project::query()->wherePublished()->with('tags')->take(3)->get();
 
-        return view('home.home', [
+        return view('home-redesign.home', [
             'posts' => $posts,
             'projects' => $projects,
         ]);
