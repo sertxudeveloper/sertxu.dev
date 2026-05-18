@@ -1,3 +1,3 @@
-<footer class="py-12 text-center bg-dark-300">
-    <p class="text-neutral-300 text-sm">&copy; {{ date('Y') }} Sergio Peris (sertxu.dev)</p>
+<footer class="py-6 text-center bg-dark-300 border-t border-neutral-900">
+    <span class="text-neutral-500 text-xs">&copy; {{ date('Y') }} Sergio Peris (sertxu.dev)</span>
 </footer>
