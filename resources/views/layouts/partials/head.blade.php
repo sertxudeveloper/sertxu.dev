@@ -119,6 +119,18 @@
         transform: translateY(0);
     }
 
+    #profile-image {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    }
+
+    #profile-image.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     /* Terminal lines */
     .terminal-line {
         opacity: 0;
@@ -135,19 +147,6 @@
     }
     .cursor-blink {
         animation: cursorBlink 1s step-end infinite;
-    }
-
-    /* Project card */
-    .project-card {
-        position: relative;
-        border-left: 2px solid transparent;
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .project-card:hover {
-        transform: translateY(-5px);
-    }
-    .project-card:hover::before {
-        opacity: 1;
     }
 
     /* Link underline */
@@ -203,4 +202,82 @@
         background: rgba(10, 10, 12, 0.85) !important;
         backdrop-filter: blur(12px) !important;
     }
+
+
+    /* Terminal window */
+    /*.terminal-window {
+        background: #1a1a1f;
+        border: 1px solid #2a2a30;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .terminal-header {
+        background: #141417;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid #2a2a30;
+    }
+    .terminal-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+    .terminal-body {
+        padding: 24px;
+        font-family: 'DM Mono', monospace;
+        font-size: 14px;
+    }
+    .terminal-prompt {
+        color: #6bcf7f;
+        font-weight: 500;
+    }
+    .terminal-input {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #2a2a30;
+        color: #f0f0f2;
+        font-family: 'DM Mono', monospace;
+        font-size: 14px;
+        padding: 8px 0;
+        width: 100%;
+        outline: none;
+        transition: border-color 0.2s ease;
+    }
+    .terminal-input:focus {
+        border-bottom-color: #6bcf7f;
+    }
+    .terminal-input::placeholder {
+        color: #3a3a42;
+    }
+    .terminal-divider {
+        border: none;
+        border-top: 1px solid #2a2a30;
+        margin: 24px 0;
+    }
+    .terminal-link {
+        color: #8a8a9a;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+    .terminal-link:hover {
+        color: #6bcf7f;
+    }
+    .terminal-link:hover .terminal-link-arrow {
+        opacity: 1;
+    }
+    .terminal-link-arrow {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        color: #6bcf7f;
+    }
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+    }
+    .terminal-cursor {
+        animation: blink 1s step-end infinite;
+        color: #6bcf7f;
+    }*/
 </style>

@@ -15,7 +15,7 @@ final readonly class HomeController
      */
     public function __invoke(): View
     {
-        $posts = Post::query()->wherePublished()->take(4)->get();
+        $posts = Post::query()->wherePublished()->take(6)->get();
         $projects = Project::query()->wherePublished()->with('tags')->take(3)->get();
 
         return view('home.home', [
