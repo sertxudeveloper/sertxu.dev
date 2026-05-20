@@ -1,12 +1,12 @@
 <!-- About -->
-<section id="about" class="py-28 md:py-36 border-t border-neutral-900">
+<section id="about" x-data class="py-28 md:py-36 border-t border-neutral-900">
     <div class="max-w-5xl mx-auto px-6">
-        <div class="reveal text-center">
+        <div class="text-center transition" x-reveal>
             <h2 class="font-heading text-3xl md:text-4xl font-bold text-neutral-300">About me</h2>
-            <span class="accent-line mt-4"></span>
+            <span class="bg-[#ff3047] inline-block h-0.5 rounded-full w-12 mt-4"></span>
         </div>
 
-        <div class="reveal mt-4 max-w-3xl mx-auto">
+        <div class="mt-4 max-w-3xl mx-auto" x-reveal>
             <p class="text-neutral-300 text-base md:text-lg leading-relaxed">
                 Hi! I'm Sergio Peris, known as Sertxu — a Full-Stack developer and SysAdmin
                 based in Xàtiva, Valencia (Spain). I currently lead IT operations as IT Manager at a company

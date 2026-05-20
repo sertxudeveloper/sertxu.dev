@@ -1,9 +1,9 @@
 <!-- Projects -->
-<section id="projects" class="py-28 md:py-36 border-t border-neutral-900">
+<section id="projects" x-data class="py-28 md:py-36 border-t border-neutral-900">
     <div class="max-w-5xl mx-auto px-6">
-        <div class="reveal text-center">
+        <div x-reveal class="text-center">
             <h2 class="font-heading text-3xl md:text-4xl font-bold text-neutral-300">Projects</h2>
-            <span class="accent-line mt-4"></span>
+            <span class="bg-[#ff3047] inline-block h-0.5 rounded-full w-12 mt-4"></span>
             <p class="text-neutral-400 text-base mt-3">
                 Selected projects I've built and contributed to.
             </p>
@@ -11,7 +11,7 @@
 
         <div class="portfolio-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
             @foreach($projects as $project)
-                <div class="reveal">
+                <div x-reveal>
                     <div class="project-card bg-neutral-900 rounded-xl border border-neutral-800 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
                         <a href="{{ route('projects.show', $project) }}" class="absolute inset-0 z-10"></a>
 

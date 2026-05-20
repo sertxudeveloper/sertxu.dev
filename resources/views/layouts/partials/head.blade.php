@@ -9,12 +9,17 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://sertxu.dev" />
 
+{{--
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+--}}
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
+@fonts
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+
+{{--<script src="https://cdn.tailwindcss.com"></script>--}}
+{{--<script>
     tailwind.config = {
         theme: {
             extend: {
@@ -32,29 +37,29 @@
             },
         },
     }
-</script>
+</script>--}}
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /** { margin: 0; padding: 0; box-sizing: border-box; }*/
 
-    html { scroll-behavior: smooth; }
+    /*html { scroll-behavior: smooth; }*/
 
-    body {
+    /*body {
         background: #0a0a0c;
         color: #f0f0f2;
         font-family: 'DM Sans', sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-    }
+    }*/
 
 
-    ::selection { background: rgba(255, 48, 71, 0.3); color: #fff; }
+    /*::selection { background: rgba(255, 48, 71, 0.3); color: #fff; }*/
 
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: #0a0a0c; }
-    ::-webkit-scrollbar-thumb { background: #1e1e22; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #ff3047; }
+    /*::-webkit-scrollbar { width: 5px; }*/
+    /*::-webkit-scrollbar-track { background: #0a0a0c; }*/
+    /*::-webkit-scrollbar-thumb { background: #1e1e22; border-radius: 3px; }*/
+    /*::-webkit-scrollbar-thumb:hover { background: #ff3047; }*/
 
-    .grain-overlay {
+    /*.grain-overlay {
         position: fixed;
         inset: 0;
         pointer-events: none;
@@ -63,14 +68,14 @@
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         background-repeat: repeat;
         background-size: 256px 256px;
-    }
+    }*/
 
-    .bg-grid {
+    /*.bg-grid {
         background-image: radial-gradient(circle at center, #1e1e22 0.75px, transparent 0.75px);
         background-size: 32px 32px;
-    }
+    }*/
 
-    .glow-top-right {
+    /*.glow-top-right {
         position: absolute;
         top: -240px;
         right: -240px;
@@ -78,9 +83,9 @@
         height: 600px;
         background: radial-gradient(circle, rgba(255, 48, 71, 0.07) 0%, transparent 65%);
         pointer-events: none;
-    }
+    }*/
 
-    .glow-bottom-left {
+    /*.glow-bottom-left {
         position: absolute;
         bottom: -200px;
         left: -200px;
@@ -88,24 +93,14 @@
         height: 500px;
         background: radial-gradient(circle, rgba(0, 53, 255, 0.05) 0%, transparent 65%);
         pointer-events: none;
-    }
+    }*/
 
-    /* Scroll reveal */
-    .reveal {
-        opacity: 0;
-        transform: translateY(28px);
-        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.revealed {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    .portfolio-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+    /*.portfolio-grid .reveal:nth-child(1) { transition-delay: 0ms; }
     .portfolio-grid .reveal:nth-child(2) { transition-delay: 120ms; }
-    .portfolio-grid .reveal:nth-child(3) { transition-delay: 240ms; }
-    .blog-grid .reveal:nth-child(1) { transition-delay: 0ms; }
-    .blog-grid .reveal:nth-child(2) { transition-delay: 120ms; }
+    .portfolio-grid .reveal:nth-child(3) { transition-delay: 240ms; }*/
+
+    /*.blog-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+    .blog-grid .reveal:nth-child(2) { transition-delay: 120ms; }*/
 
     /* Hero content reveal */
     #hero-content {
@@ -150,7 +145,7 @@
     }
 
     /* Link underline */
-    .link-underline {
+    /*.link-underline {
         position: relative;
         text-decoration: none;
     }
@@ -166,16 +161,16 @@
     }
     .link-underline:hover::after {
         width: 100%;
-    }
+    }*/
 
     /* Section accent line */
-    .accent-line {
+    /*.accent-line {
         display: inline-block;
         width: 48px;
         height: 3px;
         background: #ff3047;
         border-radius: 2px;
-    }
+    }*/
 
     /* Scroll indicator */
     .scroll-indicator {
@@ -198,16 +193,15 @@
     }
 
     /* Nav backdrop */
-    .nav-scrolled {
+    /*.nav-scrolled {
         background: rgba(10, 10, 12, 0.85) !important;
         backdrop-filter: blur(12px) !important;
-    }
-
+    }*/
 
 
 
     /* Post content typography */
-    .post-content h2 {
+    /*.post-content h2 {
         font-family: 'Archivo', sans-serif;
         font-size: 1.75rem;
         font-weight: 700;
@@ -232,13 +226,13 @@
         margin-bottom: 1.5rem;
     }
     .post-content a {
-        color: #0035ff;
+        color: #ff3047;
         text-decoration: none;
         border-bottom: 1px solid transparent;
         transition: border-color 0.2s ease;
     }
     .post-content a:hover {
-        border-bottom-color: #0035ff;
+        border-bottom-color: #ff3047;
     }
     .post-content ul, .post-content ol {
         color: #a1a1aa;
@@ -303,7 +297,7 @@
     .post-content strong {
         color: #d4d4d8;
         font-weight: 600;
-    }
+    }*/
 
 
 

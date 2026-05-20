@@ -1,5 +1,7 @@
 <!-- Navigation -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent border-b-transparent transition-all duration-300">
+<nav id="navbar" x-data="{ scrolled: false }" @scroll.window="scrolled = window.scrollY > 50"
+     :class="scrolled ? 'backdrop-blur-md bg-neutral-950/65 border-b !border-b-neutral-900' : ''"
+     class="fixed top-0 left-0 right-0 z-50 bg-transparent border-b-transparent transition-all duration-300">
     <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         <a href="#">
             <img src="{{ asset('favicon.svg') }}" alt="Sertxu Dev" class="h-10">

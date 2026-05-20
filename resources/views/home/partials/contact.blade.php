@@ -1,21 +1,21 @@
 <!-- Contact -->
-<section id="footer" class="py-28 md:py-36 border-t border-neutral-900">
+<section id="footer" x-data class="py-28 md:py-36 border-t border-neutral-900">
     <div class="max-w-5xl mx-auto px-6">
-        <div class="reveal text-center">
+        <div class="text-center" x-reveal>
             <h2 class="font-heading text-3xl md:text-4xl font-bold text-stone-300">Contact</h2>
-            <span class="accent-line mt-4"></span>
+            <span class="bg-[#ff3047] inline-block h-0.5 rounded-full w-12 mt-4"></span>
             <p class="text-stone-400 text-base mt-3">
                 Have a project in mind? Let's talk.
             </p>
         </div>
 
-        <div class="reveal mt-10 max-w-3xl mx-auto">
+        <div class="mt-10 max-w-3xl mx-auto" x-reveal>
             <div class="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden">
                 <div class="bg-neutral-950/50 px-4 py-3 flex items-center gap-2 border-b border-neutral-800">
                     <span class="inline-block size-3 rounded-full bg-[#ff5f57]"></span>
                     <span class="inline-block size-3 rounded-full bg-[#febc2e]"></span>
                     <span class="inline-block size-3 rounded-full bg-[#28c840]"></span>
-                    <span class="text-neutral-500 text-xs font-mono ml-2">sertxu@portfolio:~$ contact</span>
+                    <span class="text-neutral-500 text-xs font-mono ml-2">sertxu@eu-south-2:~$ contact</span>
                 </div>
                 <div class="p-6 text-sm font-mono">
                     <form class="space-y-4" id="contact-form" onsubmit="event.preventDefault()">

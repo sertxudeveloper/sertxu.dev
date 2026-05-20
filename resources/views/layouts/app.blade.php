@@ -3,7 +3,7 @@
 <head>
     @include('layouts.partials.head')
 </head>
-<body>
+<body class="bg-neutral-950 text-neutral-100 antialiased selection:bg-[#ff3047]/50 selection:text-neutral-50">
 <div class="grain-overlay"></div>
 
 @include('layouts.partials.navbar')
@@ -15,6 +15,6 @@
 @endpersist
 
 @livewireScriptConfig
-@vite('resources/js/app.js')
+
 </body>
 </html>

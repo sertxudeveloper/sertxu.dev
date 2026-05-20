@@ -142,11 +142,11 @@
 
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 40) {
-                    navbar.classList.add('nav-scrolled');
-                    navbar.style.borderBottom = '1px solid rgba(30,30,34,0.5)';
+                    navbar.classList.add('backdrop-blur-md', 'bg-neutral-950/85', 'border-b', 'border-neutral-500');
+                    //navbar.style.borderBottom = '1px solid rgba(30,30,34,0.5)';
                 } else {
-                    navbar.classList.remove('nav-scrolled');
-                    navbar.style.borderBottom = 'none';
+                    navbar.classList.remove('backdrop-blur-md', 'bg-neutral-950/85', 'border-b', 'border-neutral-500');
+                    //navbar.style.borderBottom = 'none';
                 }
             });
 
