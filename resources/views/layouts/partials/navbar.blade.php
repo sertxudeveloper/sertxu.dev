@@ -4,14 +4,14 @@
         <a href="#">
             <img src="{{ asset('favicon.svg') }}" alt="Sertxu Dev" class="h-10">
         </a>
+
         <div class="hidden md:flex items-center gap-8">
-            <a href="{{ route('home') }}" class="text-sm text-[#e02a3f] underline underline-offset-[6px] transition-colors">Home</a>
-            <a href="#about" class="text-sm text-neutral-400 hover:text-text-primary transition-colors">About</a>
-            <a href="#projects" class="text-sm text-neutral-400 hover:text-text-primary transition-colors">Projects</a>
-            <a href="#blog" class="text-sm text-neutral-400 hover:text-text-primary transition-colors">Blog</a>
-            {{--<a href="#footer" class="px-5 py-2 bg-brand-red text-white rounded-lg text-sm font-medium hover:bg-[#e02a3f] transition-all hover:shadow-[0_0_20px_rgba(255,48,71,0.25)]">Contact</a>--}}
-            <a href="#footer" class="px-5 py-2 text-[#e02a3f] rounded-lg text-sm font-medium hover:bg-[#e02a3f] hover:text-neutral-200 border border-[#e02a3f] transition-all">Contact</a>
+            <x-navbar.item :href="route('home')" :is-active="request()->routeIs('home')">Home</x-navbar.item>
+            <x-navbar.item :href="route('projects.index')" :is-active="request()->routeIs('projects.*')">Projects</x-navbar.item>
+            <x-navbar.item :href="route('posts.index')" :is-active="request()->routeIs('posts.*')">Blog</x-navbar.item>
+            <a href="{{ route('home', '#contact') }}" class="px-5 py-2 text-[#e02a3f] rounded-lg text-sm font-medium hover:bg-[#e02a3f] hover:text-neutral-200 border border-[#e02a3f] transition-all">Contact</a>
         </div>
+
         <button id="menu-btn" class="md:hidden text-text-primary p-2" aria-label="Toggle menu">
             <svg id="menu-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
                 <line x1="4" y1="6" x2="20" y2="6" />

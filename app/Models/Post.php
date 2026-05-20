@@ -174,7 +174,7 @@ final class Post extends Model implements HasMedia, Sitemapable
                 ->wherePublished()
                 ->where('id', '!=', $this->id)
                 ->latest('published_at')
-                ->limit(3)
+                ->limit(2)
                 ->get();
         }
 
@@ -183,7 +183,7 @@ final class Post extends Model implements HasMedia, Sitemapable
             ->where('id', '!=', $this->id)
             ->withAnyTags($this->tags)
             ->latest('published_at')
-            ->limit(3)
+            ->limit(2)
             ->get();
     }
 
