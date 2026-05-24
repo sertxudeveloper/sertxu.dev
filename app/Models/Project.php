@@ -21,6 +21,13 @@ final class Project extends Model implements HasMedia, Sitemapable
 {
     use HasFactory, HasTags, InteractsWithMedia, SoftDeletes;
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var list<string>
+     */
+    public $with = ['tags'];
+
     protected $fillable = [
         'title', 'slug', 'excerpt', 'website', 'text', 'is_published', 'is_featured',
     ];

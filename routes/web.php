@@ -18,10 +18,10 @@ Route::post('/contact', [Controllers\ContactController::class, 'store'])->name('
 Route::get('/education', [Controllers\EducationController::class, 'index'])->name('education.index');
 Route::get('/experience', [Controllers\ExperienceController::class, 'index'])->name('experience.index');
 
-Route::view('/projects', 'projects.index')->name('projects.index');
+Route::get('/projects', [Controllers\ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{project:slug}', [Controllers\ProjectController::class, 'show'])->name('projects.show');
 
-Route::view('/blog', 'posts.index')->name('posts.index');
+Route::get('/blog', [Controllers\PostController::class, 'index'])->name('posts.index');
 Route::get('/blog/{post:slug}', [Controllers\PostController::class, 'show'])->name('posts.show');
 Route::get('/blog/{post:slug}/thumbnail', Controllers\PostThumbnailController::class)->name('posts.thumbnail');
 Route::get('/blog/{post:slug}/preview', Controllers\PostPreviewController::class)->name('posts.preview');

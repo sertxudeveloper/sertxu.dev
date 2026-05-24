@@ -1,9 +1,9 @@
 <!-- Navigation -->
 <nav id="navbar" x-data="{ scrolled: false }" @scroll.window="scrolled = window.scrollY > 50"
-     :class="scrolled ? 'backdrop-blur-md bg-neutral-950/65 border-b !border-b-neutral-900' : ''"
+     :class="scrolled ? 'backdrop-blur-md bg-neutral-950/65 border-b border-b-neutral-900!' : ''"
      class="fixed top-0 left-0 right-0 z-50 bg-transparent border-b-transparent transition-all duration-300">
     <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#">
+        <a href="{{ route('home') }}">
             <img src="{{ asset('favicon.svg') }}" alt="Sertxu Dev" class="h-10">
         </a>
 
@@ -11,7 +11,7 @@
             <x-navbar.item :href="route('home')" :is-active="request()->routeIs('home')">Home</x-navbar.item>
             <x-navbar.item :href="route('projects.index')" :is-active="request()->routeIs('projects.*')">Projects</x-navbar.item>
             <x-navbar.item :href="route('posts.index')" :is-active="request()->routeIs('posts.*')">Blog</x-navbar.item>
-            <a href="{{ route('home', '#contact') }}" class="px-5 py-2 text-[#e02a3f] rounded-lg text-sm font-medium hover:bg-[#e02a3f] hover:text-neutral-200 border border-[#e02a3f] transition-all">Contact</a>
+            <a href="/#contact" class="px-5 py-2 text-[#e02a3f] rounded-lg text-sm font-medium hover:bg-[#e02a3f] hover:text-neutral-200 border border-[#e02a3f] transition-all">Contact</a>
         </div>
 
         <button id="menu-btn" class="md:hidden text-text-primary p-2" aria-label="Toggle menu">

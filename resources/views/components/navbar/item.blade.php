@@ -5,4 +5,4 @@
     'defaultClass' => 'text-sm text-neutral-400 hover:text-text-primary transition-colors',
 ])
 
-<a href="{{ $href }}" wire:navigate @class([$defaultClass, $activeClass => $isActive])>{{ $slot }}</a>
+<a href="{{ $href }}" @class([$defaultClass, $activeClass => $isActive])>{{ $slot }}</a>

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sergio Peris (sertxu) — Full-stack Developer & Sysadmin</title>
+    <meta name="description" content="Sergio Peris, aka sertxu. Full-stack developer & sysadmin based in Xàtiva, Valencia. IT Manager, building reliable systems." />
+    <meta name="theme-color" content="#0a0a0c" />
+
+    <meta property="og:title" content="Sergio Peris (sertxu) — Full-stack Developer & Sysadmin" />
+    <meta property="og:description" content="Full-stack developer & sysadmin building reliable systems from Xàtiva, Valencia." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sertxu.dev" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+        theme: {
+            extend: {
+            colors: {
+                brand: { red: '#ff3047', blue: '#0035ff' },
+                bg: { base: '#0a0a0c', surface: '#141417', elevated: '#1a1a1f' },
+                border: '#1e1e22',
+                text: { primary: '#f0f0f2', muted: '#8a8a9a' },
+            },
+            fontFamily: {
+                heading: ['Archivo', 'sans-serif'],
+                body: ['DM Sans', 'sans-serif'],
+                mono: ['DM Mono', 'monospace'],
+            },
+            },
+        },
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: #0a0a0c;
+            color: #f0f0f2;
+            font-family: 'DM Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+
+    ::selection { background: rgba(255, 48, 71, 0.3); color: #fff; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #0a0a0c; }
+    ::-webkit-scrollbar-thumb { background: #1e1e22; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #ff3047; }
+
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    .bg-grid {
+      background-image: radial-gradient(circle at center, #1e1e22 0.75px, transparent 0.75px);
+      background-size: 32px 32px;
+    }
+
+    .glow-top-right {
+      position: absolute;
+      top: -240px;
+      right: -240px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 48, 71, 0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .glow-bottom-left {
+      position: absolute;
+      bottom: -200px;
+      left: -200px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 53, 255, 0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .portfolio-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+    .portfolio-grid .reveal:nth-child(2) { transition-delay: 120ms; }
+    .portfolio-grid .reveal:nth-child(3) { transition-delay: 240ms; }
+    .blog-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+    .blog-grid .reveal:nth-child(2) { transition-delay: 120ms; }
+
+    /* Hero content reveal */
+    #hero-content {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    }
+    #hero-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Terminal lines */
+    .terminal-line {
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+    }
+    .terminal-line.visible {
+      opacity: 1;
+    }
+
+    /* Cursor blink */
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor-blink {
+      animation: cursorBlink 1s step-end infinite;
+    }
+
+    /* Project card */
+    .project-card {
+      position: relative;
+      border-left: 2px solid transparent;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    /* .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 0.4s ease-out;
+      box-shadow: 0 0 30px rgba(255, 48, 71, 0.06);
+    } */
+    .project-card:hover {
+      /* border-left-color: #ff3047; */
+      transform: translateY(-5px);
+    }
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Link underline */
+    .link-underline {
+      position: relative;
+      text-decoration: none;
+    }
+    .link-underline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 1.5px;
+      background: #0035ff;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .link-underline:hover::after {
+      width: 100%;
+    }
+
+    /* Section accent line */
+    .accent-line {
+      display: inline-block;
+      width: 48px;
+      height: 3px;
+      background: #ff3047;
+      border-radius: 2px;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.4;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { transform: translateY(0); opacity: 0.4; }
+      50% { transform: translateY(4px); opacity: 1; }
+    }
+    .scroll-indicator span {
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* Nav backdrop */
+    .nav-scrolled {
+      background: rgba(10, 10, 12, 0.85) !important;
+      backdrop-filter: blur(12px) !important;
+    }
+
+    /* Terminal window */
+    .terminal-window {
+      background: #1a1a1f;
+      border: 1px solid #2a2a30;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .terminal-header {
+      background: #141417;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #2a2a30;
+    }
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .terminal-body {
+      padding: 24px;
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+    }
+    .terminal-prompt {
+      color: #6bcf7f;
+      font-weight: 500;
+    }
+    .terminal-input {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #2a2a30;
+      color: #f0f0f2;
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      padding: 8px 0;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .terminal-input:focus {
+      border-bottom-color: #6bcf7f;
+    }
+    .terminal-input::placeholder {
+      color: #3a3a42;
+    }
+    .terminal-divider {
+      border: none;
+      border-top: 1px solid #2a2a30;
+      margin: 24px 0;
+    }
+    .terminal-link {
+      color: #8a8a9a;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .terminal-link:hover {
+      color: #6bcf7f;
+    }
+    .terminal-link:hover .terminal-link-arrow {
+      opacity: 1;
+    }
+    .terminal-link-arrow {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      color: #6bcf7f;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .terminal-cursor {
+      animation: blink 1s step-end infinite;
+      color: #6bcf7f;
+    }
+    </style>
+</head>
+<body>
+  <div class="grain-overlay"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent transition-all duration-300">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#" class="font-heading text-xl font-bold text-text-primary tracking-tight">
+        sert<span class="text-brand-red">x</span>u
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="text-sm text-text-muted hover:text-text-primary transition-colors">About</a>
+        <a href="#portfolio" class="text-sm text-text-muted hover:text-text-primary transition-colors">Portfolio</a>
+        <a href="#blog" class="text-sm text-text-muted hover:text-text-primary transition-colors">Blog</a>
+        <a href="#footer" class="px-5 py-2 bg-brand-red text-white rounded-lg text-sm font-medium hover:bg-[#e02a3f] transition-all hover:shadow-[0_0_20px_rgba(255,48,71,0.25)]">Contact</a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-text-primary p-2" aria-label="Toggle menu">
+        <svg id="menu-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <line x1="4" y1="6" x2="20" y2="6" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="18" x2="20" y2="18" />
+        </svg>
+        <svg id="menu-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="hidden">
+          <line x1="4" y1="4" x2="20" y2="20" />
+          <line x1="20" y1="4" x2="4" y2="20" />
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden border-t border-border/50 bg-bg-base/95 backdrop-blur-lg">
+      <div class="max-w-5xl mx-auto px-6 py-4 flex flex-col gap-3">
+        <a href="#about" class="text-text-muted hover:text-text-primary transition-colors py-2">About</a>
+        <a href="#portfolio" class="text-text-muted hover:text-text-primary transition-colors py-2">Portfolio</a>
+        <a href="#blog" class="text-text-muted hover:text-text-primary transition-colors py-2">Blog</a>
+        <a href="#footer" class="text-brand-red font-medium py-2">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+<section class="relative min-h-screen flex items-center bg-grid overflow-hidden">
+    <div class="glow-top-right"></div>
+    <div class="glow-bottom-left"></div>
+
+    <div class="max-w-5xl mx-auto px-6 w-full pt-0 pb-16">
+      <div class="max-w-2xl">
+        <!-- Terminal -->
+        <div class="font-mono text-sm md:text-base">
+          <div class="text-text-muted/60 flex items-center gap-1.5 mb-2">
+            <span class="text-[#6bcf7f] font-medium">sertxu@eu-south-2</span>
+            <span class="text-text-muted/30">:~$</span>
+            <span id="cmd1"></span>
+            <span id="cursor1" class="text-[#6bcf7f] cursor-blink">▊</span>
+          </div>
+          <div id="line2" class="terminal-line text-text-primary/90 mb-1">
+            <span class="text-text-muted mr-2">▸</span>Sergio Peris <span class="text-text-muted/50">(aka. Sertxu)</span>
+          </div>
+          <div id="line3" class="terminal-line text-text-primary/90 mb-1">
+            <span class="text-text-muted mr-2">▸</span>Full-Stack developer <span class="text-text-muted/50">&</span> SysAdmin
+          </div>
+          <div id="line4" class="terminal-line text-text-primary/90">
+            <span class="text-text-muted mr-2">▸</span>Xàtiva, València <span class="text-text-muted/50">(Spain)</span>
+          </div>
+        </div>
+
+        <!-- Hero Content -->
+        <div id="hero-content">
+          <div class="flex flex-wrap gap-4 mt-12">
+            <a href="#portfolio" class="px-6 py-3 bg-brand-red text-white rounded-lg text-sm font-medium hover:bg-[#e02a3f] transition-all hover:shadow-[0_0_24px_rgba(255,48,71,0.2)]">
+              View my work
+            </a>
+            <a href="#footer" class="px-6 py-3 border border-border text-text-primary rounded-lg text-sm font-medium hover:border-text-muted/40 transition-all">
+              Get in touch
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span class="text-text-muted/40 text-xs font-mono tracking-widest">SCROLL</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-text-muted/40">
+        <path d="M12 5v14M5 12l7 7 7-7" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-28 md:py-36 border-t border-border/30">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="reveal text-center">
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-stone-300">About</h2>
+          <span class="accent-line mt-4"></span>
+      </div>
+
+        <div class="reveal mt-4 max-w-3xl mx-auto">
+            <p class="text-stone-300 text-base md:text-lg leading-relaxed">
+            Hi! I'm Sergio Peris, known as Sertxu — a 26-year-old Full-Stack developer and SysAdmin
+            based in Xàtiva, Valencia. I currently lead IT operations as IT Manager at a company
+            in my hometown, where I focus on reliability, performance, and clean systems.
+            </p>
+            <p class="text-stone-300 text-base md:text-lg leading-relaxed mt-5">
+            I have experience working with a variety of technologies, including Laravel, Node.js, and C#.
+            I'm also an open-source maintainer and content creator. I love sharing my knowledge with others.
+            </p>
+        </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-28 md:py-36 border-t border-border/30">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="reveal text-center">
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-stone-300">Projects</h2>
+          <span class="accent-line mt-4"></span>
+            <p class="text-stone-400 text-base mt-3">
+                Selected projects I've built and contributed to.
+            </p>
+      </div>
+
+        <div class="portfolio-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
+        <!-- Project 1 -->
+        <div class="reveal">
+          <div class="project-card bg-bg-surface rounded-xl border border-border h-full cursor-pointer group">
+            <div class="w-full h-44 rounded-t-lg bg-gradient-to-br from-brand-red/[0.07] to-brand-blue/[0.07] flex items-center justify-center overflow-hidden">
+              <span class="font-heading text-5xl font-bold text-text-muted/20 transition-colors">H</span>
+            </div>
+            <div class="p-4">
+                <h3 class="font-heading text-lg font-bold text-neutral-300 mb-1.5">Project Helios</h3>
+                <p class="text-neutral-400 text-sm leading-relaxed mb-4">Cloud infrastructure monitoring platform with real-time observability and alerting.</p>
+                <div class="flex flex-wrap gap-1.5">
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">Go</span>
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">React</span>
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">Docker</span>
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">Terraform</span>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="reveal">
+          <div class="project-card bg-bg-surface rounded-xl border border-border h-full cursor-pointer group">
+            <div class="w-full h-44 rounded-t-lg bg-gradient-to-br from-brand-red/[0.07] to-brand-blue/[0.07] flex items-center justify-center overflow-hidden">
+              <span class="font-heading text-5xl font-bold text-text-muted/20 transition-colors">H</span>
+            </div>
+            <div class="p-4">
+                <h3 class="font-heading text-lg font-bold text-neutral-300 mb-1.5">Project Helios</h3>
+                <p class="text-neutral-400 text-sm leading-relaxed mb-4">Cloud infrastructure monitoring platform with real-time observability and alerting.</p>
+                <div class="flex flex-wrap gap-1.5">
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">Go</span>
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">React</span>
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">Docker</span>
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">Terraform</span>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="reveal">
+          <div class="project-card bg-bg-surface rounded-xl border border-border h-full cursor-pointer group">
+            <div class="w-full h-44 rounded-t-lg bg-gradient-to-br from-brand-red/[0.07] to-brand-blue/[0.07] flex items-center justify-center overflow-hidden">
+              <span class="font-heading text-5xl font-bold text-text-muted/20 transition-colors">H</span>
+            </div>
+            <div class="p-4">
+                <h3 class="font-heading text-lg font-bold text-neutral-300 mb-1.5">Project Helios</h3>
+                <p class="text-neutral-400 text-sm leading-relaxed mb-4">Cloud infrastructure monitoring platform with real-time observability and alerting.</p>
+                <div class="flex flex-wrap gap-1.5">
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">Go</span>
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">React</span>
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">Docker</span>
+                <span class="px-2.5 py-1 text-xs font-mono bg-brand-blue/[0.3] text-neutral-300 rounded">Terraform</span>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section id="blog" class="py-28 md:py-36 border-t border-border/30">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="reveal text-center">
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-stone-300">Blog</h2>
+          <span class="accent-line mt-4"></span>
+            <p class="text-stone-400 text-base mt-3">
+                Thoughts on development, infrastructure, and the tools I use.
+            </p>
+      </div>
+
+      <div class="blog-grid grid grid-cols-1 md:grid-cols-2 gap-5 mt-10">
+        <div class="reveal">
+          <article class="bg-bg-surface rounded-xl border border-border p-6 h-full group">
+            <div class="flex items-center gap-2.5 text-text-muted/50 text-xs font-mono mb-4">
+              <span class="w-2 h-2 rounded-full bg-brand-red"></span>
+              <time datetime="2026-03-14">March 14, 2026</time>
+            </div>
+            <h3 class="font-heading text-lg font-bold text-text-primary mb-2 group-hover:text-brand-red transition-colors">
+              Building Resilient Infrastructure
+            </h3>
+            <p class="text-text-muted text-sm leading-relaxed mb-4">
+              Lessons from running production systems at scale — monitoring, failover, and incident response.
+            </p>
+            <a href="#" class="link-underline text-sm text-brand-red">
+              Read article &rarr;
+            </a>
+          </article>
+        </div>
+
+        <div class="reveal">
+          <article class="bg-bg-surface rounded-xl border border-border p-6 h-full group">
+            <div class="flex items-center gap-2.5 text-text-muted/50 text-xs font-mono mb-4">
+              <span class="w-2 h-2 rounded-full bg-brand-red"></span>
+              <time datetime="2026-02-28">February 28, 2026</time>
+            </div>
+            <h3 class="font-heading text-lg font-bold text-text-primary mb-2 group-hover:text-brand-red transition-colors">
+              Full-stack Development in 2026
+            </h3>
+            <p class="text-text-muted text-sm leading-relaxed mb-4">
+              The tools, patterns, and practices shaping modern web development this year.
+            </p>
+            <a href="#" class="link-underline text-sm font-medium text-brand-blue">
+              Read article &rarr;
+            </a>
+          </article>
+        </div>
+      </div>
+
+      <div class="reveal mt-8">
+        <a href="#" class="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors font-medium">
+          View all articles
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="footer" class="py-28 md:py-36 border-t border-border/30">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="reveal text-center">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-stone-300">Contact</h2>
+        <span class="accent-line mt-4"></span>
+        <p class="text-stone-400 text-base mt-3">
+          Have a project in mind? Let's talk.
+        </p>
+      </div>
+
+      <div class="reveal mt-10 max-w-3xl mx-auto">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <span class="terminal-dot bg-[#ff5f57]"></span>
+            <span class="terminal-dot bg-[#febc2e]"></span>
+            <span class="terminal-dot bg-[#28c840]"></span>
+            <span class="text-text-muted/40 text-xs font-mono ml-2">sertxu@portfolio:~$ contact</span>
+          </div>
+          <div class="terminal-body">
+            <form class="space-y-4" id="contact-form" onsubmit="event.preventDefault()">
+              <div class="flex items-center gap-2">
+                <span class="terminal-prompt">▶</span>
+                <input type="text" id="contact-name" placeholder="Name" class="terminal-input" />
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="terminal-prompt">▶</span>
+                <input type="email" id="contact-email" placeholder="Email" class="terminal-input" />
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="terminal-prompt pt-2">▶</span>
+                <textarea id="contact-message" rows="3" placeholder="Message" class="terminal-input resize-none"></textarea>
+              </div>
+              <div class="pt-4">
+                <button type="submit" id="contact-submit" class="inline-flex items-center gap-1 text-sm font-mono text-[#6bcf7f] hover:text-[#55b868] transition-colors">
+                  <span class="terminal-prompt">$</span>
+                  <span id="submit-text">send_message</span>
+                  <span class="terminal-cursor">▊</span>
+                </button>
+              </div>
+            </form>
+
+            <hr class="terminal-divider" />
+
+            <div class="space-y-3">
+              <div class="flex items-center gap-2 text-text-muted/50 text-sm font-mono">
+                <span class="terminal-prompt">$</span>
+                <span>whoami --connections</span>
+              </div>
+              <div class="space-y-2 pl-5">
+                <a href="https://github.com/sertxudev" target="_blank" rel="noopener noreferrer" class="terminal-link flex items-center gap-2 text-sm font-mono">
+                  <span class="text-[#6bcf7f]">▸</span>
+                  <span>GitHub</span>
+                  <span class="text-text-muted/30">→</span>
+                  <span>github.com/sertxudev</span>
+                  <span class="terminal-link-arrow ml-auto">↗</span>
+                </a>
+                <a href="https://linkedin.com/in/sertxudev" target="_blank" rel="noopener noreferrer" class="terminal-link flex items-center gap-2 text-sm font-mono">
+                  <span class="text-[#6bcf7f]">▸</span>
+                  <span>LinkedIn</span>
+                  <span class="text-text-muted/30">→</span>
+                  <span>linkedin.com/in/sertxudev</span>
+                  <span class="terminal-link-arrow ml-auto">↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-border/30 py-6">
+    <div class="max-w-5xl mx-auto px-6 flex items-center justify-between">
+      <p class="text-text-muted text-xs">&copy; 2026 Sergio Peris</p>
+      <p class="text-text-muted text-xs">sertxu</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // ─── Typewriter ───
+      const cmd1 = document.getElementById('cmd1');
+      const cursor1 = document.getElementById('cursor1');
+      const line2 = document.getElementById('line2');
+      const line3 = document.getElementById('line3');
+      const line4 = document.getElementById('line4');
+      const heroContent = document.getElementById('hero-content');
+
+      const text = 'whoami';
+      let idx = 0;
+
+      function typeNext() {
+        if (idx < text.length) {
+          cmd1.textContent += text[idx];
+          idx++;
+          setTimeout(typeNext, 70);
+        } else {
+          cursor1.classList.remove('cursor-blink');
+          setTimeout(() => {
+            line2.classList.add('visible');
+            setTimeout(() => {
+              line3.classList.add('visible');
+              setTimeout(() => {
+                line4.classList.add('visible');
+                setTimeout(() => {
+                    cursor1.classList.add('cursor-blink');
+                    heroContent.classList.add('visible');
+                }, 400);
+              }, 400);
+            }, 400);
+          }, 300);
+        }
+      }
+
+      setTimeout(typeNext, 600);
+
+      // ─── Scroll Reveal ───
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // ─── Nav scroll effect ───
+      const navbar = document.getElementById('navbar');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 40) {
+          navbar.classList.add('nav-scrolled');
+          navbar.style.borderBottom = '1px solid rgba(30,30,34,0.5)';
+        } else {
+          navbar.classList.remove('nav-scrolled');
+          navbar.style.borderBottom = 'none';
+        }
+      });
+
+      // ─── Mobile menu ───
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('menu-icon-open');
+      const iconClose = document.getElementById('menu-icon-close');
+
+      menuBtn.addEventListener('click', () => {
+        const isOpen = !mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden');
+        iconOpen.classList.toggle('hidden');
+        iconClose.classList.toggle('hidden');
+      });
+
+      document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          iconOpen.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        });
+      });
+
+      // ─── Contact form ───
+      const contactForm = document.getElementById('contact-form');
+      const submitText = document.getElementById('submit-text');
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', () => {
+          submitText.textContent = 'sent ✓';
+          setTimeout(() => {
+            submitText.textContent = 'send_message';
+            contactForm.reset();
+          }, 2500);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
