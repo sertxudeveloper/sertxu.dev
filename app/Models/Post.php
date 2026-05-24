@@ -40,7 +40,7 @@ final class Post extends Model implements HasMedia, Sitemapable
      * @var list<string>
      */
     protected $fillable = [
-        'title', 'slug', 'text', 'is_published', 'published_at',
+        'title', 'slug', 'excerpt', 'text', 'is_published', 'published_at',
         'posted_on_twitter', 'posted_on_dev', 'posted_on_threads',
     ];
 

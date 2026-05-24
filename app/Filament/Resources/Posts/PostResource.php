@@ -24,12 +24,14 @@ use Filament\Actions\RestoreBulkAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\SpatieTagsInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Flex;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
@@ -72,6 +74,12 @@ final class PostResource extends Resource
                             ->prefix('/blog/'),
 
                         SpatieTagsInput::make('tags'),
+
+                        Textarea::make('excerpt')
+                            ->rows(3)
+                            ->maxLength(500)
+                            ->live(debounce: 200)
+                            ->helperText(fn (Get $get): string => mb_strlen($get('excerpt') ?? '').'/500 characters'),
 
                         MarkdownEditor::make('text')
                             ->fileAttachmentsDirectory('posts')
