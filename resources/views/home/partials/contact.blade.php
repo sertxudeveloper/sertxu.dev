@@ -15,9 +15,13 @@
                     <span class="inline-block size-3 rounded-full bg-[#ff5f57]"></span>
                     <span class="inline-block size-3 rounded-full bg-[#febc2e]"></span>
                     <span class="inline-block size-3 rounded-full bg-[#28c840]"></span>
-                    <span class="text-neutral-500 text-xs font-mono ml-2">sertxu@eu-south-2:~$ contact</span>
                 </div>
                 <div class="p-6 text-sm font-mono">
+                    <div class="pb-4 text-neutral-400">
+                        <span class="text-green-400">sertxu@eu-south-2</span>
+                        <span class="text-neutral-600">:~$</span>
+                        <span>contact</span>
+                    </div>
                     <form class="space-y-4" id="contact-form" onsubmit="event.preventDefault()">
                         <div class="flex items-center gap-2">
                             <span class="text-green-400 font-medium">▶</span>
@@ -32,10 +36,12 @@
                             <textarea id="contact-message" rows="3" placeholder="Message" class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-green-400 placeholder:text-neutral-700 outline-none resize-none"></textarea>
                         </div>
                         <div class="pt-4">
-                            <button type="submit" id="contact-submit" class="inline-flex items-center gap-1 text-sm font-mono text-green-400 hover:text-green-500 transition-colors">
-                                <span class="terminal-prompt">$</span>
-                                <span id="submit-text">send_message</span>
-                                <span class="bg-green-400 cursor-blink w-2 h-5">&nbsp;</span>
+                            <button type="submit" id="contact-submit" class="inline-flex items-center gap-1 text-sm font-mono  hover:text-green-500 transition-colors">
+                                <div class="pb-4 text-neutral-400">
+                                    <span class="text-green-400">sertxu@eu-south-2</span>
+                                    <span class="text-neutral-600">:~$</span>
+                                    <span>send_message</span>
+                                </div>
                             </button>
                         </div>
                     </form>
