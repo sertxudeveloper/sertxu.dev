@@ -3,7 +3,7 @@
     <div class="max-w-5xl mx-auto px-6">
         <div x-reveal class="text-center">
             <h2 class="font-heading text-3xl md:text-4xl font-bold text-neutral-300">Projects</h2>
-            <span class="bg-[#ff3047] inline-block h-0.5 rounded-full w-12 mt-4"></span>
+            <span class="bg-coral inline-block h-0.5 rounded-full w-12 mt-4"></span>
             <p class="text-neutral-400 text-base mt-3">
                 Selected projects I've built and contributed to.
             </p>
@@ -33,7 +33,7 @@
                             <div class="flex flex-wrap gap-1.5 z-10 relative">
                                 @foreach($project->tags as $tag)
                                     <a href="{{ route('projects.index', ['tag' => $tag->slug]) }}"
-                                       class="px-2.5 py-1 text-xs font-mono bg-[#0035FF]/30 text-neutral-300 rounded">
+                                       class="px-2.5 py-1 text-xs font-mono bg-ocean/30 text-neutral-300 rounded">
                                         {{ $tag->name }}
                                     </a>
                                 @endforeach

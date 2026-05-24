@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 Route::redirect('/blog/setting-up-a-kubernetes-cluster-with-microk8s', '/blog/setting-up-kubernetes-with-microk8s', 301);
 
 Route::get('/', Controllers\HomeController::class)->name('home');
+Route::post('/contact', [Controllers\ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/education', [Controllers\EducationController::class, 'index'])->name('education.index');
 Route::get('/experience', [Controllers\ExperienceController::class, 'index'])->name('experience.index');

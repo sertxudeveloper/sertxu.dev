@@ -3,7 +3,7 @@
     <div class="max-w-5xl mx-auto px-6">
         <div class="text-center" x-reveal>
             <h2 class="font-heading text-3xl md:text-4xl font-bold text-neutral-300">Blog</h2>
-            <span class="bg-[#ff3047] inline-block h-0.5 rounded-full w-12 mt-4"></span>
+            <span class="bg-coral inline-block h-0.5 rounded-full w-12 mt-4"></span>
             <p class="text-neutral-400 text-base mt-3">
                 Thoughts on development, infrastructure, and the tools I use.
             </p>
@@ -15,7 +15,7 @@
                     <article class="bg-neutral-900 rounded-xl border border-neutral-800 p-6 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
                         <a href="{{ route('posts.show', $post->slug) }}" class="absolute inset-0 z-10"></a>
                         <div class="flex items-center gap-2.5 text-neutral-400 text-xs font-mono mb-4">
-                            <span class="w-2 h-2 rounded-full bg-[#FF3047]"></span>
+                            <span class="w-2 h-2 rounded-full bg-coral"></span>
                             <time datetime="{{ $post->published_at->toDateString() }}">
                                 {{ $post->published_at->format('M d, Y') }}
                             </time>
@@ -29,7 +29,7 @@
                         <div class="flex flex-wrap gap-1.5 z-10 relative">
                             @foreach($post->tags as $tag)
                                 <a href="{{ route('posts.index', ['tag' => $tag->slug]) }}"
-                                   class="px-2.5 py-1 text-xs font-mono bg-[#0035FF]/30 text-neutral-300 rounded">
+                                   class="px-2.5 py-1 text-xs font-mono bg-ocean/30 text-neutral-300 rounded">
                                     {{ $tag->name }}
                                 </a>
                             @endforeach
