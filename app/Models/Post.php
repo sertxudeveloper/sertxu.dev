@@ -154,18 +154,6 @@ final class Post extends Model implements HasMedia, Sitemapable
     }
 
     /**
-     * Get the excerpt attribute.
-     *
-     * @return Attribute<string>
-     */
-    public function excerpt(): Attribute
-    {
-        return new Attribute(
-            get: fn () => Str::limit(Str::before($this->text, PHP_EOL)),
-        );
-    }
-
-    /**
      * Get the post as a sitemap tag.
      */
     public function toSitemapTag(): Url
