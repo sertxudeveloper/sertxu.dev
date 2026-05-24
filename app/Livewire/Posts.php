@@ -64,6 +64,6 @@ final class Posts extends Component
                     ->orWhereLike('text', "%{$this->query}%");
             }))
             ->orderByDesc('published_at')
-            ->paginate(perPage: 16);
+            ->paginate(perPage: 9);
     }
 }

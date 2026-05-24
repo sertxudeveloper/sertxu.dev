@@ -1,24 +1,36 @@
 <div>
-    <div class="mx-auto w-1/2 mb-4">
-        <input type="text" wire:model.live.debounce="query"
-               class="bg-dark-100 border border-zinc-700 w-full px-4 py-2.5 text-sm rounded-lg text-zinc-300 outline-hidden focus:border-ocean" placeholder="Search posts by title or content...">
+    <div class="blog-grid grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mt-10">
+        @foreach($posts as $post)
+            <div>
+                <article class="bg-neutral-900 rounded-xl border border-neutral-800 p-6 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
+                    <a href="{{ route('posts.show', $post->slug) }}" class="absolute inset-0 z-10"></a>
+                    <div class="flex items-center gap-2.5 text-neutral-400 text-xs font-mono mb-4">
+                        <span class="w-2 h-2 rounded-full bg-coral"></span>
+                        <time datetime="{{ $post->published_at->toDateString() }}">
+                            {{ $post->published_at->format('M d, Y') }}
+                        </time>
+                    </div>
+                    <h3 class="font-heading text-lg font-bold text-neutral-300 mb-2">
+                        {{ $post->title }}
+                    </h3>
+                    <p class="text-neutral-400 text-sm leading-relaxed mb-4">
+                        {{ $post->excerpt }}
+                    </p>
+                    <div class="flex flex-wrap gap-1.5 z-10 relative">
+                        @foreach($post->tags as $tag)
+                            <a href="{{ route('posts.index', ['tag' => $tag->slug]) }}"
+                               class="px-2.5 py-1 text-xs font-mono bg-ocean/30 text-neutral-300 rounded">
+                                {{ $tag->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                </article>
+            </div>
+        @endforeach
     </div>
 
-    @if($selectedTag)
-        <div class="justify-center items-center mb-10 space-x-2 flex">
-            <span class="text-neutral-300 text-sm">Showing posts with tag:</span>
-            <span wire:click="clearSelectedTag" class="text-neutral-100 border border-ocean bg-ocean/20 px-3 py-1 rounded-full text-sm leading-tight flex items-center cursor-pointer">{{ $selectedTag->name }}<x-icons.times class="h-3 pl-2"/></span>
-        </div>
-    @endif
-
-    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        @foreach($posts as $post)
-            <x-post :post="$post" />
-        @endforeach
-    </ul>
-
     @if($posts->hasPages())
-        <div class="mt-6 px-2">
+        <div class="mt-12 px-2 mx-auto">
             {{ $posts->links() }}
         </div>
     @endif
