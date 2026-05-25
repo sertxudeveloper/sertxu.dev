@@ -52,19 +52,21 @@
     transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.portfolio-grid > [x-reveal]:nth-child(1) { transition-delay: 0ms; }
-.portfolio-grid > [x-reveal]:nth-child(2) { transition-delay: 120ms; }
-.portfolio-grid > [x-reveal]:nth-child(3) { transition-delay: 240ms; }
+[x-reveal-children] > * {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-.blog-grid [x-reveal]:nth-child(1) { transition-delay: 0ms; }
-.blog-grid [x-reveal]:nth-child(2) { transition-delay: 120ms; }
-.blog-grid [x-reveal]:nth-child(3) { transition-delay: 240ms; }
-.blog-grid [x-reveal]:nth-child(4) { transition-delay: 360ms; }
-.blog-grid [x-reveal]:nth-child(5) { transition-delay: 480ms; }
-.blog-grid [x-reveal]:nth-child(6) { transition-delay: 720ms; }
-.blog-grid [x-reveal]:nth-child(7) { transition-delay: 840ms; }
-.blog-grid [x-reveal]:nth-child(8) { transition-delay: 960ms; }
-.blog-grid [x-reveal]:nth-child(9) { transition-delay: 1080ms; }
+[x-reveal-children] > *:nth-child(1) { transition-delay: 0ms; }
+[x-reveal-children] > *:nth-child(2) { transition-delay: 120ms; }
+[x-reveal-children] > *:nth-child(3) { transition-delay: 240ms; }
+[x-reveal-children] > *:nth-child(4) { transition-delay: 360ms; }
+[x-reveal-children] > *:nth-child(5) { transition-delay: 480ms; }
+[x-reveal-children] > *:nth-child(6) { transition-delay: 720ms; }
+[x-reveal-children] > *:nth-child(7) { transition-delay: 840ms; }
+[x-reveal-children] > *:nth-child(8) { transition-delay: 960ms; }
+[x-reveal-children] > *:nth-child(9) { transition-delay: 1080ms; }
 
 /* Post content typography */
 .post-content h2 {
