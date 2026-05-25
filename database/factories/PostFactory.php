@@ -16,6 +16,7 @@ final class PostFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'slug' => $this->faker->slug(),
+            'excerpt' => $this->faker->sentences(asText: true),
             'text' => $this->faker->paragraphs(asText: true),
             'is_published' => false,
             'published_at' => null,

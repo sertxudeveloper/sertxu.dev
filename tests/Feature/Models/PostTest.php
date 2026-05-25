@@ -78,25 +78,6 @@ describe('Post model', function () {
         });
     });
 
-    describe('excerpt', function () {
-        it('returns limited first line of text', function () {
-            $post = Post::factory()->create([
-                'text' => 'This is the first line'.PHP_EOL.'This is the second line',
-            ]);
-
-            expect($post->excerpt)->toBe('This is the first line');
-        });
-
-        it('returns limited text when there is no newline', function () {
-            $longText = str_repeat('a', 300);
-            $post = Post::factory()->create([
-                'text' => $longText,
-            ]);
-
-            expect(mb_strlen($post->excerpt))->toBe(103);
-        });
-    });
-
     describe('scopes', function () {
         it('only returns published posts with wherePublished scope', function () {
             $published = Post::factory()->published()->create();
