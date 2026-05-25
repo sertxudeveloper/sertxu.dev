@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table): void {
-            $table->string('excerpt', 500)->nullable()->after('body');
+            $table->string('excerpt', 500)->nullable()->after('text');
         });
     }
 
