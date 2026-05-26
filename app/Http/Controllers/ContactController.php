@@ -4,28 +4,30 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactFormRequest;
 use App\Models\FormSubmission;
 use App\Models\User;
 use App\Notifications\FormSubmissionNotification;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 final readonly class ContactController
 {
     /**
      * Get the contact form data and store it.
      */
-    public function store(Request $request): void
+    public function store(ContactFormRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'message' => ['required', 'string', 'max:1000'],
-        ]);
-
         $submission = new FormSubmission();
-        $submission->fill($validated);
+        $submission->fill($request->validated());
         $submission->save();
 
-        User::query()->where('is_admin', true)->get()->each->notify(new FormSubmissionNotification($submission));
+        User::query()
+            ->where('is_admin', true)->get()->each
+            ->notify(new FormSubmissionNotification($submission));
+
+        return redirect()
+            ->route('home')
+            ->withFragment('contact')
+            ->with('success', 'Thank you for contacting me! ');
     }
 }

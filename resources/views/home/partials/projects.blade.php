@@ -9,33 +9,35 @@
             </p>
         </div>
 
-        <div class="portfolio-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10" x-reveal-children>
+        <div class="portfolio-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10" x-reveal-children>
             @foreach($projects as $project)
-                <div class="project-card bg-neutral-900 rounded-xl border border-neutral-800 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
-                    <a href="{{ route('projects.show', $project) }}" class="absolute inset-0 z-10"></a>
+                <div>
+                    <div class="project-card bg-neutral-900 rounded-xl border border-neutral-800 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
+                        <a href="{{ route('projects.show', $project) }}" class="absolute inset-0 z-10"></a>
 
-                    <div class="w-full h-44 rounded-t-lg overflow-hidden">
-                        @if($project->hasMedia('thumbnail'))
-                            <img src="{{ $project->getFirstMedia('thumbnail')->getUrl('thumbnail') }}" alt="{{ $project->title }}" class="h-full w-auto object-cover object-center">
-                        @endif
-                    </div>
+                        <div class="w-full h-44 rounded-t-lg overflow-hidden">
+                            @if($project->hasMedia('thumbnail'))
+                                <img src="{{ $project->getFirstMedia('thumbnail')->getUrl('thumbnail') }}" alt="{{ $project->title }}" class="h-full w-auto object-cover object-center">
+                            @endif
+                        </div>
 
-                    <div class="p-4">
-                        <h3 class="font-heading text-lg font-bold text-neutral-300 mb-1.5">
-                            {{ $project->title }}
-                        </h3>
+                        <div class="p-4">
+                            <h3 class="font-heading text-lg font-bold text-neutral-300 mb-1.5">
+                                {{ $project->title }}
+                            </h3>
 
-                        <p class="text-neutral-400 text-sm leading-relaxed mb-4">
-                            {{ $project->excerpt }}
-                        </p>
+                            <p class="text-neutral-400 text-sm leading-relaxed mb-4">
+                                {{ $project->excerpt }}
+                            </p>
 
-                        <div class="flex flex-wrap gap-1.5 z-10 relative">
-                            @foreach($project->tags as $tag)
-                                <a href="{{ route('projects.index', ['tag' => $tag->slug]) }}"
-                                   class="px-2.5 py-1 text-xs font-mono bg-ocean/30 text-neutral-300 rounded">
-                                    {{ $tag->name }}
-                                </a>
-                            @endforeach
+                            <div class="flex flex-wrap gap-1.5 z-10 relative">
+                                @foreach($project->tags as $tag)
+                                    <a href="{{ route('projects.index', ['tag' => $tag->slug]) }}"
+                                       class="px-2.5 py-1 text-xs font-mono bg-ocean/30 text-neutral-300 rounded">
+                                        {{ $tag->name }}
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,7 @@
                     @endif
 
                     <span class="text-neutral-500 text-sm font-mono">·</span>
-                    <span class="text-neutral-400 text-sm font-mono">{{ ceil(str($post->text)->wordCount() / 240) }} min read</span>
+                    <span class="text-neutral-400 text-sm font-mono">{{ $post->minutes_to_read }} min read</span>
                 </div>
 
                 <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-200 leading-tight">

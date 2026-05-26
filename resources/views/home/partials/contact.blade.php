@@ -30,25 +30,41 @@
                             <span class="text-neutral-500 text-[10px]">▶</span>
                             <span class="text-neutral-300">What's your name?</span>
                         </label>
-                        <input type="text" id="contact-name" class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-coral placeholder:text-neutral-700 outline-none" />
+                        <input type="text" id="contact-name" name="name" class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-coral placeholder:text-neutral-700 outline-none" />
 
                         <div class="flex items-center gap-2 mt-6 mb-2">
                             <span class="text-neutral-500 text-[10px]">▶</span>
                             <span class="text-neutral-300">What's your email?</span>
                         </div>
-                        <input type="email" id="contact-email" class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-coral placeholder:text-neutral-700 outline-none" />
+                        <input type="email" id="contact-email" name="email" class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-coral placeholder:text-neutral-700 outline-none" />
 
                         <div class="flex items-center gap-2 mt-6 mb-2">
                             <span class="text-neutral-500 text-[10px]">▶</span>
                             <span class="text-neutral-300">What do you want to talk about?</span>
                         </div>
-                        <textarea id="contact-message" rows="3" class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-coral placeholder:text-neutral-700 outline-none resize-none"></textarea>
+                        <textarea id="contact-message" name="message" rows="3" class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-coral placeholder:text-neutral-700 outline-none resize-none"></textarea>
 
                         <div class="text-right mt-4">
                             <button type="submit" class="bg-ocean text-white text-sm transition-all cursor-pointer px-2 py-1 hover:bg-ocean/80">
                                 Send message
                             </button>
                         </div>
+
+                        @error('name')
+                            <div class="text-red-600 text-sm mt-2">{{ $message }}</div>
+                        @enderror
+
+                        @error('email')
+                            <div class="text-red-600 text-sm mt-2">{{ $message }}</div>
+                        @enderror
+
+                        @error('message')
+                            <div class="text-red-600 text-sm mt-2">{{ $message }}</div>
+                        @enderror
+
+                        @session('success')
+                            <div class="text-green-500 text-sm mt-2">{{ session('success') }}</div>
+                        @endsession
                     </form>
                 </div>
             </div>

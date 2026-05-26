@@ -8,6 +8,7 @@ use App\Models\Concerns\Threadable;
 use App\Models\Concerns\Tweetable;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -186,6 +187,11 @@ final class Post extends Model implements HasMedia, Sitemapable
             ->latest('published_at')
             ->limit(2)
             ->get();
+    }
+
+    public function minutesToRead(): Attribute
+    {
+        return Attribute::get(fn (): float => ceil(str($this->text)->wordCount() / 240));
     }
 
     /**
