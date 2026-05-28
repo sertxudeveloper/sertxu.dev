@@ -11,7 +11,7 @@ it('can load project index page', function (): void {
 
     $this->get('/projects')
         ->assertOk()
-        ->assertSeeText('My Projects')
+        ->assertSeeText('Projects')
         ->assertSeeTextInOrder([
             'Project C',
             'Project B',
