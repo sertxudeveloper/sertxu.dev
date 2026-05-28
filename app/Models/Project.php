@@ -29,7 +29,7 @@ final class Project extends Model implements HasMedia, Sitemapable
     public $with = ['tags'];
 
     protected $fillable = [
-        'title', 'slug', 'excerpt', 'website', 'text', 'is_published', 'is_featured',
+        'title', 'slug', 'excerpt', 'website', 'repository', 'text', 'is_published', 'is_featured',
     ];
 
     /**

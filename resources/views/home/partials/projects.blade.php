@@ -17,7 +17,7 @@
 
                         <div class="w-full h-44 rounded-t-lg overflow-hidden">
                             @if($project->hasMedia('thumbnail'))
-                                <img src="{{ $project->getFirstMedia('thumbnail')->getUrl('thumbnail') }}" alt="{{ $project->title }}" class="h-full w-auto object-cover object-center">
+                                <img src="{{ $project->getFirstMedia('thumbnail')->getUrl('thumbnail') }}" alt="{{ $project->title }}" class="h-full w-full object-cover object-center">
                             @endif
                         </div>
 

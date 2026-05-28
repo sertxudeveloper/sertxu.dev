@@ -69,6 +69,10 @@
 [x-reveal-children] > *:nth-child(9) { transition-delay: 1080ms; }
 
 /* Post content typography */
+.post-content h1 {
+    @apply text-4xl text-neutral-200 mt-12 mb-4 font-bold font-heading;
+}
+
 .post-content h2 {
     @apply text-3xl text-neutral-200 mt-12 mb-4 font-bold font-heading;
 }
@@ -118,7 +122,7 @@
 }
 
 .post-content blockquote {
-    @apply border-l-2 border-ocean bg-ocean/7 pl-6 my-4 py-4 italic;
+    @apply border-l-2 border-ocean bg-ocean/7 px-6 my-4 py-4 italic;
 }
 
 .post-content blockquote p:last-child {
@@ -126,19 +130,13 @@
 }
 
 .post-content img {
-    border-radius: 10px;
-    border: 1px solid #2a2a30;
-    margin: 2rem 0;
-    width: 100%;
+    @apply inline-block;
 }
 
 .post-content hr {
-    border: none;
-    border-top: 1px solid #2a2a30;
-    margin: 2.5rem 0;
+    @apply border-none border-t border-gray-200 my-10;
 }
 
 .post-content strong {
-    color: #d4d4d8;
-    font-weight: 600;
+    @apply text-neutral-200 font-semibold;
 }

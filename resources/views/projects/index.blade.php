@@ -9,15 +9,15 @@
                 </p>
             </div>
 
-            <div class="portfolio-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10">
+            <div class="portfolio-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10" x-reveal-children>
                 @foreach($projects as $project)
-                    <div x-reveal>
+                    <div>
                         <div class="project-card bg-neutral-900 rounded-xl border border-neutral-800 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
                             <a href="{{ route('projects.show', $project) }}" class="absolute inset-0 z-10"></a>
 
                             <div class="w-full h-44 rounded-t-lg overflow-hidden">
                                 @if($project->hasMedia('thumbnail'))
-                                    <img src="{{ $project->getFirstMedia('thumbnail')->getUrl('thumbnail') }}" alt="{{ $project->title }}" class="h-full w-auto object-cover object-center">
+                                    <img src="{{ $project->getFirstMedia('thumbnail')->getUrl('thumbnail') }}" alt="{{ $project->title }}" class="h-full w-full object-cover object-center">
                                 @endif
                             </div>
 

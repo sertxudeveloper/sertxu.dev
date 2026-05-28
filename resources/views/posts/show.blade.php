@@ -19,6 +19,18 @@
                     <span class="text-neutral-400 text-sm font-mono">{{ $post->minutes_to_read }} min read</span>
                 </div>
 
+                <div x-data x-reveal>
+                    <!-- Tags -->
+                    <div class="flex flex-wrap gap-2 mb-10">
+                        @foreach($post->tags as $tag)
+                            <a href="{{ route('posts.index', ['tag' => $tag->slug]) }}"
+                               class="px-2.5 py-1 text-xs font-mono bg-ocean/30 text-neutral-300 rounded">
+                                {{ $tag->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+
                 <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-200 leading-tight">
                     {{ $post->title }}
                 </h1>
@@ -39,20 +51,10 @@
         </div>
     </section>
 
-    <!-- Post Footer: Tags & Navigation -->
-    <section class="mb-12" x-data>
+    <!-- Post Footer: Related posts -->
+    <section class="mb-12">
         <div class="max-w-4xl mx-auto px-6">
-            <div x-reveal>
-                <!-- Tags -->
-                <div class="flex flex-wrap gap-2 mb-10">
-                    @foreach($post->tags as $tag)
-                        <a href="{{ route('posts.index', ['tag' => $tag->slug]) }}"
-                           class="px-2.5 py-1 text-xs font-mono bg-ocean/30 text-neutral-300 rounded">
-                            {{ $tag->name }}
-                        </a>
-                    @endforeach
-                </div>
-
+            <div x-data x-reveal>
                 @if($relatedPosts->isNotEmpty())
                     <div class="grid grid-cols-2 gap-4 mb-10">
                         @foreach($relatedPosts as $post)
