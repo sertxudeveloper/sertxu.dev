@@ -1,13 +1,51 @@
-<section class="bg-dark-200 py-24">
-    <div class="max-w-(--breakpoint-xl) mx-auto">
-        <h2 class="text-3xl text-neutral-200 text-center font-medium uppercase font-heading">My latest posts</h2>
-        <div class="border-b-2 border-ocean w-32 mx-auto mt-2 mb-10"></div>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-4 lg:px-0">
-            @foreach($posts as $post)
-                <x-post :post="$post" />
-            @endforeach
-        </ul>
+<!-- Blog -->
+<section id="blog" x-data class="py-28 md:py-36 border-t border-neutral-900">
+    <div class="max-w-5xl mx-auto px-6">
+        <div class="text-center" x-reveal>
+            <h2 class="font-heading text-3xl md:text-4xl font-bold text-neutral-300">Blog</h2>
+            <span class="bg-coral inline-block h-0.5 rounded-full w-12 mt-4"></span>
+            <p class="text-neutral-400 text-base mt-3">
+                Thoughts on development, infrastructure, and the tools I use.
+            </p>
+        </div>
 
-        <x-see-more-button :href="route('posts.index')" class="mt-10"  />
+        <div class="blog-grid grid md:grid-cols-2 grid-cols-1 gap-5 mt-10" x-reveal-children>
+            @foreach($posts as $post)
+                <div>
+                    <article class="bg-neutral-900 rounded-xl border border-neutral-800 p-6 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
+                        <a href="{{ route('posts.show', $post->slug) }}" class="absolute inset-0 z-10"></a>
+                        <div class="flex items-center gap-2.5 text-neutral-400 text-xs font-mono mb-4">
+                            <span class="w-2 h-2 rounded-full bg-coral"></span>
+                            <time datetime="{{ $post->published_at->toDateString() }}">
+                                {{ $post->published_at->format('M d, Y') }}
+                            </time>
+                        </div>
+                        <h3 class="font-heading text-lg font-bold text-neutral-300 mb-2">
+                            {{ $post->title }}
+                        </h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed mb-4">
+                            {{ $post->excerpt }}
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 z-10 relative">
+                            @foreach($post->tags as $tag)
+                                <a href="{{ route('posts.index', ['tag' => $tag->slug]) }}"
+                                   class="px-2.5 py-1 text-xs font-mono bg-ocean/30 text-neutral-300 rounded">
+                                    {{ $tag->name }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </article>
+                </div>
+            @endforeach
+        </div>
+
+        <div class="mt-8 text-center" x-reveal>
+            <a href="{{ route('posts.index') }}" class="inline-flex items-center gap-2 px-6 py-3 border border-[#e02a3f] text-[#e02a3f] rounded-lg text-sm font-medium hover:bg-[#e02a3f] hover:text-white transition-all duration-200">
+                View all articles
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
     </div>
 </section>

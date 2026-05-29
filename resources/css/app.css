@@ -1,167 +1,142 @@
 @import 'tailwindcss';
 
-@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source "../../storage/framework/views/*.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";
 
 @theme {
-  --color-ocean: #0035ff;
-  --color-ocean-dark: #092ebc;
-  --color-coral: #ff3047;
+    --font-heading: 'Archivo', sans-serif;
+    --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  --color-dark-100: #242424;
-  --color-dark-200: #1e1e1e;
-  --color-dark-300: #171717;
 
-  --font-heading:
-    Arya, Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-sans:
-    Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-ocean: #0035FF;
+    --color-coral: #FF3047;
 
-  --height-screen: calc(100vh - 3.75rem);
+    --animate-blink: blink 1s step-end infinite;
 
-  --min-height-screen: calc(100vh - 3.75rem);
-
-  --animate-slide-fade-in: slide-fade-in 1.5s cubic-bezier(0.25, 1, 0.5, 1)
-    forwards;
-
-  @keyframes slide-fade-in {
-    0% {
-      opacity: 0;
-      transform: translateY(32px);
+    @keyframes blink {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
     }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+.grain-overlay {
+    @apply fixed inset-0 pointer-events-none z-999 opacity-[0.025];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
 }
 
-.markup {
-    @apply overflow-hidden mt-4 text-neutral-300;
+.bg-grid {
+    @apply bg-radial-[at_center_center] from-[#1e1e22] from-[0.75px] to-transparent to-[0.75px] bg-size-[32px_32px];
 }
 
-.markup > p {
-    @apply whitespace-pre-wrap mb-4;
+.glow-top-right {
+    @apply absolute -top-50 -right-50 w-125 h-125 bg-radial-[circle] from-[#ff304715] from-0% to-transparent to-65% pointer-events-none;
 }
 
-.markup h1:not(blockquote h1),
-.markup h2:not(blockquote h2),
-.markup h3:not(blockquote h3),
-.markup h4:not(blockquote h4) {
-    @apply mt-8 mb-2;
+.glow-bottom-left {
+    @apply absolute -bottom-50 -left-50 w-125 h-125 bg-radial-[circle] from-[#0035ff15] from-0% to-transparent to-65% pointer-events-none;
 }
 
-.markup h1 {
-    @apply text-3xl font-medium;
+[x-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.markup h2 {
-    @apply text-2xl font-medium;
+[x-reveal-children] > * {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.markup h3 {
-    @apply text-xl font-medium;
+[x-reveal-children] > *:nth-child(1) { transition-delay: 0ms; }
+[x-reveal-children] > *:nth-child(2) { transition-delay: 120ms; }
+[x-reveal-children] > *:nth-child(3) { transition-delay: 240ms; }
+[x-reveal-children] > *:nth-child(4) { transition-delay: 360ms; }
+[x-reveal-children] > *:nth-child(5) { transition-delay: 480ms; }
+[x-reveal-children] > *:nth-child(6) { transition-delay: 720ms; }
+[x-reveal-children] > *:nth-child(7) { transition-delay: 840ms; }
+[x-reveal-children] > *:nth-child(8) { transition-delay: 960ms; }
+[x-reveal-children] > *:nth-child(9) { transition-delay: 1080ms; }
+
+/* Post content typography */
+.post-content h1 {
+    @apply text-4xl text-neutral-200 mt-12 mb-4 font-bold font-heading;
 }
 
-.markup h4 {
-    @apply text-lg font-medium;
+.post-content h2 {
+    @apply text-3xl text-neutral-200 mt-12 mb-4 font-bold font-heading;
 }
 
-.markup > pre {
-    @apply p-6 my-4 overflow-x-auto;
+.post-content h3 {
+    @apply text-2xl text-neutral-200 mt-10 mb-3 font-semibold font-heading;
 }
 
-.markup > pre > code {
-    @apply text-sm;
+.post-content p {
+    @apply text-neutral-400 mb-6;
 }
 
-.markup *:not(pre) > code {
-    @apply px-2 py-0.5 rounded-md text-sm text-neutral-100 bg-coral/50;
-}
-
-.markup p a {
-    @apply text-coral hover:underline outline-hidden focus:underline;
-}
-
-.markup ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0;
-    margin-inline-end: 0;
-    padding-inline-start: 40px;
-    unicode-bidi: isolate;
-}
-
-.markup ol {
-    display: block;
-    list-style-type: decimal;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0;
-    margin-inline-end: 0;
-    padding-inline-start: 40px;
-    unicode-bidi: isolate;
-}
-
-.markup blockquote {
-    @apply border-l-4 border-ocean bg-ocean/15 p-4 my-4;
-}
-
-.markup b, .markup strong {
+.post-content p a {
     @apply text-coral;
 }
 
-.markup p img {
+.post-content p a:hover {
+    @apply underline underline-offset-4;
+}
+
+.post-content ul, .post-content ol {
+    @apply text-neutral-400 leading-tight mb-6 pl-6;
+}
+
+.post-content ul {
+    @apply list-disc;
+}
+
+.post-content ol {
+    @apply list-decimal;
+}
+
+.post-content li {
+    @apply mb-2;
+}
+
+.post-content code {
+    @apply font-mono text-coral border border-neutral-800 rounded-md text-sm bg-neutral-700/20 px-2 py-0.5;
+}
+
+.post-content pre {
+    @apply rounded-lg overflow-x-auto px-6 py-5 mb-6;
+}
+
+.post-content pre code {
+    @apply border-none bg-transparent p-0;
+}
+
+.post-content blockquote {
+    @apply border-l-2 border-ocean bg-ocean/7 px-6 my-4 py-4 italic;
+}
+
+.post-content blockquote p:last-child {
+    @apply mb-0;
+}
+
+.post-content img {
     @apply inline-block;
 }
 
-.markup.images-centered p img {
-    @apply block mx-auto;
+.post-content hr {
+    @apply border-none border-t border-gray-200 my-10;
 }
 
-.shiki .highlight {
-    background-color: #bb800926;
-}
-
-.shiki .add {
-    background-color: #2ea04326;
-}
-
-.shiki .del {
-    background-color: #f8514926;
-}
-
-.shiki.focus .line:not(.focus) {
-    transition: all 250ms;
-    filter: blur(2px);
-}
-
-.shiki.focus:hover .line {
-    transition: all 250ms;
-    filter: blur(0);
-}
-
-.shiki .highlight {
-    @apply inline-block w-full;
+.post-content strong {
+    @apply text-neutral-200 font-semibold;
 }

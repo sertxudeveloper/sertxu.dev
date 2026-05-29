@@ -81,6 +81,9 @@ final class ProjectResource extends Resource
                         TextInput::make('website')
                             ->columnSpanFull(),
 
+                        TextInput::make('repository')
+                            ->columnSpanFull(),
+
                         Textarea::make('excerpt')
                             ->required()
                             ->columnSpanFull(),

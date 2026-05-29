@@ -58,4 +58,8 @@ return [
         'zone_id' => env('CLOUDFLARE_ZONE_ID'),
         'api_key' => env('CLOUDFLARE_API_KEY'),
     ],
+
+    'gemini' => [
+        'api_key' => env('GEMINI_API_KEY'),
+    ],
 ];

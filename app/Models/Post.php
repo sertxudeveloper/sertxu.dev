@@ -6,7 +6,9 @@ namespace App\Models;
 
 use App\Models\Concerns\Threadable;
 use App\Models\Concerns\Tweetable;
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -45,7 +47,7 @@ final class Post extends Model implements HasMedia, Sitemapable
     /**
      * Get the next free publish date.
      */
-    public static function nextFreePublishDate(): Carbon
+    public static function nextFreePublishDate(): CarbonInterface
     {
         // Set the publishing date to 8:00 AM UTC tomorrow (Spain: 9 AM winter time / 10 AM summer time)
         $publishDate = now()->hour(8)->addDay();
@@ -174,7 +176,7 @@ final class Post extends Model implements HasMedia, Sitemapable
                 ->wherePublished()
                 ->where('id', '!=', $this->id)
                 ->latest('published_at')
-                ->limit(3)
+                ->limit(2)
                 ->get();
         }
 
@@ -183,8 +185,13 @@ final class Post extends Model implements HasMedia, Sitemapable
             ->where('id', '!=', $this->id)
             ->withAnyTags($this->tags)
             ->latest('published_at')
-            ->limit(3)
+            ->limit(2)
             ->get();
+    }
+
+    public function minutesToRead(): Attribute
+    {
+        return Attribute::get(fn (): float => ceil(str($this->text)->wordCount() / 240));
     }
 
     /**

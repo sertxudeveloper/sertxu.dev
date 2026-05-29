@@ -15,7 +15,9 @@ final class PostPublishedNotification extends Notification implements ShouldQueu
 {
     use Queueable;
 
-    public function __construct(public readonly Post $post) {}
+    public function __construct(
+        public readonly Post $post,
+    ) {}
 
     public function via($notifiable): array
     {
@@ -39,10 +41,5 @@ final class PostPublishedNotification extends Notification implements ShouldQueu
             ->line('')
             ->salutation('Until next time!');
 
-    }
-
-    public function toArray($notifiable): array
-    {
-        return [];
     }
 }

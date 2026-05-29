@@ -8,7 +8,7 @@
 
 <li class="m-2 bg-dark-100 rounded-b-md hover:scale-105 transform transition hover:z-10">
     <a href="{{ route('posts.show', [$post->slug]) }}" wire:navigate>
-        <div class="h-[171px] flex items-center overflow-hidden rounded-t-md">
+        <div class="h-[170px] flex items-center overflow-hidden rounded-t-md">
             @if($media) <img src="{{ $media->getUrl('thumbnail') }}" alt="{{ $post->title }}">@endif
         </div>
         <div class="p-5 text-neutral-300">

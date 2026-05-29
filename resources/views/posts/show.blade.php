@@ -1,38 +1,92 @@
 <x-app-layout>
-    <div class="fixed bg-dark-200 bg-doodles h-full w-full -z-10"></div>
-    <div class="bg-dark-100 max-w-(--breakpoint-lg) mx-auto px-4 lg:px-12 py-12 lg:mt-48 lg:mb-12">
-        <h1 class="text-4xl font-medium text-neutral-200 leading-snug">{{ $post->title }}</h1>
-        <div class="flex flex-col md:flex-row md:items-center mb-4 mt-3 md:space-x-3 space-y-2 md:space-y-0">
-            @if($post->is_published)
-                <span class="text-sm text-neutral-300">Published at {{ $post->published_at->format('d M Y') }}</span>
-            @else
-                <span class="text-sm text-neutral-300">Unpublished</span>
-            @endif
-            <span class="text-neutral-300 hidden md:block">&middot;</span>
-            <ul class="space-x-1">
-                @foreach($post->tags as $tag)
-                    <li class="inline-block">
-                        <a href="{{ route('posts.index', ['tag' => $tag->slug]) }}" class="text-neutral-100 border border-ocean bg-ocean/20 px-2.5 py-0.5 rounded-full text-xs leading-tight hover:underline">{{ $tag->name }}</a>
-                    </li>
-                @endforeach
-            </ul>
+    <div class="grain-overlay"></div>
+
+    <!-- Post Header -->
+    <section class="relative pt-32 pb-12 bg-grid overflow-hidden">
+        <div class="glow-top-right"></div>
+        <div class="glow-bottom-left"></div>
+
+        <div class="max-w-4xl mx-auto px-6 py-6">
+            <div x-data x-reveal>
+                <div class="flex items-center gap-3 mb-6">
+                    @if($post->is_published)
+                        <time datetime="{{ $post->published_at }}" class="text-neutral-400 text-sm font-mono">{{ $post->published_at->format('d M Y') }}</time>
+                    @else
+                        <span class="text-sm text-neutral-300">Unpublished</span>
+                    @endif
+
+                    <span class="text-neutral-500 text-sm font-mono">·</span>
+                    <span class="text-neutral-400 text-sm font-mono">{{ $post->minutes_to_read }} min read</span>
+                </div>
+
+                <div x-data x-reveal>
+                    <!-- Tags -->
+                    <div class="flex flex-wrap gap-2 mb-10">
+                        @foreach($post->tags as $tag)
+                            <a href="{{ route('posts.index', ['tag' => $tag->slug]) }}"
+                               class="px-2.5 py-1 text-xs font-mono bg-ocean/30 text-neutral-300 rounded">
+                                {{ $tag->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+
+                <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-200 leading-tight">
+                    {{ $post->title }}
+                </h1>
+
+                <p class="text-neutral-400 text-lg mt-4 leading-relaxed">
+                    {{ $post->excerpt }}
+                </p>
+            </div>
         </div>
+    </section>
 
-        <section class="markup images-centered border-neutral-700 border-t pt-8">
-            @markdown($post->text ?? '')
-        </section>
-    </div>
+    <!-- Post Content -->
+    <section class="pt-12 pb-6 border-t border-neutral-900">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="post-content" x-data x-reveal>
+                @markdown($post->text ?? '')
+            </div>
+        </div>
+    </section>
 
-    @if($relatedPosts->isNotEmpty())
-        <section class="max-w-(--breakpoint-lg) mx-auto px-4 lg:px-0 py-12 lg:mb-48">
-            <h3 class="text-3xl text-neutral-200 text-center font-medium uppercase font-heading">Related Posts</h3>
-            <div class="border-b-2 border-ocean w-32 mx-auto mt-2 mb-10"></div>
-
-            <ul class="grid grid-cols-1 lg:grid-cols-3">
-                @foreach($relatedPosts as $post)
-                    <x-post :post="$post" />
-                @endforeach
-            </ul>
-        </section>
-    @endif
+    <!-- Post Footer: Related posts -->
+    <section class="mb-12">
+        <div class="max-w-4xl mx-auto px-6">
+            <div x-data x-reveal>
+                @if($relatedPosts->isNotEmpty())
+                    <div class="grid grid-cols-2 gap-4 mb-10">
+                        @foreach($relatedPosts as $post)
+                            <div x-reveal>
+                                <article class="bg-neutral-900 rounded-xl border border-neutral-800 p-6 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
+                                    <a href="{{ route('posts.show', $post->slug) }}" class="absolute inset-0 z-10"></a>
+                                    <div class="flex items-center gap-2.5 text-neutral-400 text-xs font-mono mb-4">
+                                        <span class="w-2 h-2 rounded-full bg-coral"></span>
+                                        <time datetime="{{ $post->published_at->toDateString() }}">
+                                            {{ $post->published_at->format('M d, Y') }}
+                                        </time>
+                                    </div>
+                                    <h3 class="font-heading text-lg font-bold text-neutral-300 mb-2">
+                                        {{ $post->title }}
+                                    </h3>
+                                    <p class="text-neutral-400 text-sm leading-relaxed mb-4">
+                                        {{ $post->excerpt }}
+                                    </p>
+                                    <div class="flex flex-wrap gap-1.5 z-10 relative">
+                                        @foreach($post->tags as $tag)
+                                            <a href="{{ route('posts.index', ['tag' => $tag->slug]) }}"
+                                               class="px-2.5 py-1 text-xs font-mono bg-ocean/30 text-neutral-300 rounded">
+                                                {{ $tag->name }}
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </article>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
+    </section>
 </x-app-layout>
