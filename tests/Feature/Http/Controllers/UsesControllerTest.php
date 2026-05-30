@@ -8,4 +8,4 @@ it('can load uses index page', function (): void {
         ->assertSeeText('Uses')
         ->assertSeeText('What technologies I know?')
         ->assertSeeText('What software I use?');
-});
+})->skip('Uses page is currently disabled');

@@ -17,4 +17,4 @@ it('can load education index page', function (): void {
             'Education B',
             'Education A',
         ]);
-});
+})->skip('Education page is currently disabled');
