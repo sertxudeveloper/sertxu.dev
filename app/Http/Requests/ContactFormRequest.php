@@ -22,7 +22,7 @@ final class ContactFormRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'message' => ['required', 'string', 'max:1000'],
-            'cf-turnstile-response' => ['required', 'string', new TurnstileRule],
+            'cf-turnstile-response' => ['exclude', 'required', 'string', new TurnstileRule],
         ];
     }
 
