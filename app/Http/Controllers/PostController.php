@@ -20,9 +20,10 @@ final readonly class PostController
             ->wherePublished()
             ->with('media')
             ->when($request->has('tag'), fn (Builder $query) => $query->withAnyTags($request->input('tag')))
-            ->when($request->has('query'), fn (Builder $query) => $query->where(function (Builder $query) use ($request): void {
-                $query->whereLike('title', "%{$request->input('query')}%")
-                    ->orWhereLike('text', "%{$request->input('query')}%");
+            ->when($request->has('search'), fn (Builder $query) => $query->where(function (Builder $query) use ($request): void {
+                $query->whereLike('title', "%{$request->input('search')}%")
+                    ->orWhereLike('excerpt', "%{$request->input('search')}%")
+                    ->orWhereLike('text', "%{$request->input('search')}%");
             }))
             ->orderByDesc('published_at')
             ->paginate(perPage: 9);
