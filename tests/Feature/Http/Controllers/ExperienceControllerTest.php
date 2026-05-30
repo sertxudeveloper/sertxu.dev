@@ -17,4 +17,4 @@ it('can load experience index page', function (): void {
             'Experience B',
             'Experience A',
         ]);
-});
+})->skip('Experience page is currently disabled');

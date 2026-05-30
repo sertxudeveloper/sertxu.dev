@@ -33,10 +33,10 @@ final class SitemapGenerateCommand extends Command
     {
         Sitemap::create()
             ->add(Url::create(route('home'))->setPriority(1)->setChangeFrequency(Url::CHANGE_FREQUENCY_ALWAYS))
-            ->add(Url::create(route('education.index'))->setPriority(0.5)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
-            ->add(Url::create(route('experience.index'))->setPriority(0.5)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
+//            ->add(Url::create(route('education.index'))->setPriority(0.5)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
+//            ->add(Url::create(route('experience.index'))->setPriority(0.5)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
             ->add(Url::create(route('projects.index'))->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
-            ->add(Url::create(route('uses'))->setPriority(0.5)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
+//            ->add(Url::create(route('uses'))->setPriority(0.5)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
             ->add(Url::create(route('posts.index'))->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY))
             ->add(Post::query()->wherePublished()->get())
             ->add(Project::query()->get())

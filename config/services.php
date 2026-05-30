@@ -54,15 +54,6 @@ return [
         'redirect_uri' => env('THREADS_REDIRECT_URI'),
     ],
 
-    'cloudflare' => [
-        'zone_id' => env('CLOUDFLARE_ZONE_ID'),
-        'api_key' => env('CLOUDFLARE_API_KEY'),
-    ],
-
-    'gemini' => [
-        'api_key' => env('GEMINI_API_KEY'),
-    ],
-
     'turnstile' => [
         'site_key' => env('TURNSTILE_SITE_KEY'),
         'secret' => env('TURNSTILE_SECRET_KEY'),
