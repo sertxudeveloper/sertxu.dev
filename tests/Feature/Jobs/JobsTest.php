@@ -7,9 +7,9 @@ use App\Jobs\PostToThreadsJob;
 use App\Jobs\PostToTweetJob;
 use App\Jobs\PurgeCacheContentJob;
 use App\Models\Post;
-use App\Services\Cloudflare\Cloudflare;
 use App\Services\DevTo\DevTo;
 use Illuminate\Support\Facades\Http;
+use JTSmith\Cloudflare\Services\Cloudflare\CachePurgeService;
 
 describe('PostToTweetJob', function () {
     it('skips execution when post already posted on twitter', function () {
@@ -75,7 +75,7 @@ describe('PurgeCacheContentJob', function () {
         $urls = ['https://example.com', 'https://example.com/blog'];
 
         $job = new PurgeCacheContentJob($urls);
-        $job->handle(app(Cloudflare::class));
+        $job->handle(app(CachePurgeService::class));
 
         Http::assertSent(function ($request) use ($urls) {
             return $request->hasHeader('Authorization')
