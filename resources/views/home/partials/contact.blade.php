@@ -64,6 +64,10 @@
                             <div class="text-red-600 text-sm mt-2">{{ $message }}</div>
                         @enderror
 
+                        @error('cf-turnstile-response')
+                            <div class="text-red-600 text-sm mt-2">{{ $message }}</div>
+                        @enderror
+
                         @session('success')
                             <div class="text-green-500 text-sm mt-2">{{ session('success') }}</div>
                         @endsession
