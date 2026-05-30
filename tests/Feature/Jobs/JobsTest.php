@@ -69,7 +69,7 @@ describe('PostToThreadsJob', function () {
 describe('PurgeCacheContentJob', function () {
     it('purges the specified URLs from Cloudflare cache', function () {
         Http::fake([
-            'api.cloudflare.com/*' => Http::response(['success' => true], 200),
+            'api.cloudflare.com/*' => Http::response(['success' => true, 'id' => 'fake-id'], 200),
         ]);
 
         $urls = ['https://example.com', 'https://example.com/blog'];
