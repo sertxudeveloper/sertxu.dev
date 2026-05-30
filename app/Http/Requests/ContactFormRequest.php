@@ -30,4 +30,11 @@ final class ContactFormRequest extends FormRequest
     {
         return true;
     }
+
+    public function attributes(): array
+    {
+        return [
+            'cf-turnstile-response' => 'Verify you are human',
+        ];
+    }
 }
