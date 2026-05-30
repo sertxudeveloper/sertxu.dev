@@ -24,8 +24,6 @@
                     </div>
 
                     <form id="contact-form" method="post" action="{{ route('contact.store') }}">
-                        @csrf
-
                         <label for="contact-name" class="flex items-center gap-2 mb-2">
                             <span class="text-neutral-500 text-[10px]">▶</span>
                             <span class="text-neutral-300">What's your name?</span>
