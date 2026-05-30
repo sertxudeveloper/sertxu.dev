@@ -33,10 +33,6 @@ final class SetCacheControlHeader
             return false;
         }
 
-        if (app()->isLocal()) {
-            return false;
-        }
-
-        return true;
+        return ! app()->isLocal();
     }
 }

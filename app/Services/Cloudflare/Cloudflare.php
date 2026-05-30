@@ -18,8 +18,8 @@ final readonly class Cloudflare
     public function __construct()
     {
         $this->base_url = 'https://api.cloudflare.com';
-        $this->zone_id = config('services.cloudflare.zone_id');
-        $this->api_key = config('services.cloudflare.api_key');
+        $this->zone_id = config('cfcache.api.zone_id');
+        $this->api_key = config('cfcache.api.token');
     }
 
     public function purgeCache(array $urls): Response

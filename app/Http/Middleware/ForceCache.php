@@ -35,11 +35,7 @@ final class ForceCache
             return false;
         }
 
-        if ($request->user()) {
-            return false;
-        }
-
-        return true;
+        return ! $request->user();
     }
 
     private function generateEtag(Request $request): string

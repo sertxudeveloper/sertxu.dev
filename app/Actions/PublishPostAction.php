@@ -31,7 +31,7 @@ final readonly class PublishPostAction
             new PostToTweetJob($post)->delay(now()->addSeconds(20)),
             new PostToDevToJob($post),
             new PostToThreadsJob($post),
-            new PurgeCacheContentJob([route('home')]),
+            new PurgeCacheContentJob([route('home'), route('posts.index')]),
             fn () => User::query()->where('is_admin', true)->get()->each->notify(new PostPublishedNotification($post)),
         ])->dispatch();
     }
