@@ -37,7 +37,7 @@
         </div>
 
         <div id="profile-image" class="opacity-0 transition-all duration-500 translate-y-6">
-            <img src="/sergio@320.jpg" alt="Sergio Peris" class="size-80 object-cover mt-12 mx-auto md:mx-0 shadow-lg rounded-md">
+            <img src="/sergio@320.webp" alt="Sergio Peris" class="size-80 object-cover mt-12 mx-auto md:mx-0 shadow-lg rounded-md">
         </div>
     </div>
 
