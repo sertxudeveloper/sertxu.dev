@@ -4,6 +4,9 @@
 <meta name="description" content="Sergio Peris, aka sertxu. Full-stack developer & sysadmin based in Xàtiva, Valencia. IT Manager, building reliable systems." />
 <meta name="theme-color" content="#0a0a0c" />
 
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
 <meta property="og:title" content="Sergio Peris (sertxu) — Full-stack Developer & Sysadmin" />
 <meta property="og:description" content="Full-stack developer & sysadmin building reliable systems from Xàtiva, Valencia." />
 <meta property="og:type" content="website" />
