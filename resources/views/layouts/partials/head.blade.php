@@ -11,3 +11,5 @@
 
 @fonts
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
