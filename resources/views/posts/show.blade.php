@@ -56,7 +56,7 @@
         <div class="max-w-4xl mx-auto px-6">
             <div x-data x-reveal>
                 @if($relatedPosts->isNotEmpty())
-                    <div class="grid grid-cols-2 gap-4 mb-10">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                         @foreach($relatedPosts as $post)
                             <div x-reveal>
                                 <article class="bg-neutral-900 rounded-xl border border-neutral-800 p-6 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
