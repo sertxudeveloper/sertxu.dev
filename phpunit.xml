@@ -39,5 +39,7 @@
         <env name="SESSION_DRIVER" value="database"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
         <env name="FILESYSTEM_DISK" value="public"/>
+        <env name="CFCACHE_API_TOKEN" value="fake-value"/>
+        <env name="CFCACHE_ZONE_ID" value="fake-value"/>
     </php>
 </phpunit>
