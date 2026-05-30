@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Route;
 use Sentry\Laravel\Integration;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -26,8 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->group('static', [
-            \App\Http\Middleware\SetCacheControlHeader::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            App\Http\Middleware\SetCacheControlHeader::class,
+            Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
