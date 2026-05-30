@@ -44,7 +44,9 @@
                         </div>
                         <textarea id="contact-message" name="message" rows="3" class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-coral placeholder:text-neutral-700 outline-none resize-none"></textarea>
 
-                        <div class="text-right mt-4">
+                        <div class="flex justify-between items-start mt-4">
+                            <div class="cf-turnstile" data-sitekey="{{ config()->string('services.turnstile.site_key') }}"></div>
+
                             <button type="submit" class="bg-ocean text-white text-sm transition-all cursor-pointer px-2 py-1 hover:bg-ocean/80">
                                 Send message
                             </button>
