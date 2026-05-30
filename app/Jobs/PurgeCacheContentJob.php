@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
-use App\Services\Cloudflare\Cloudflare;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use JetBrains\PhpStorm\NoReturn;
+use JTSmith\Cloudflare\Services\Cloudflare\CachePurgeService;
 
 final class PurgeCacheContentJob implements ShouldQueue
 {
@@ -22,7 +22,7 @@ final class PurgeCacheContentJob implements ShouldQueue
      * Handle the job.
      */
     #[NoReturn]
-    public function handle(Cloudflare $cloudflare): void
+    public function handle(CachePurgeService $cloudflare): void
     {
         $cloudflare->purgeCache($this->urls);
     }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7255ee006cd26c6f4d3374ca8da4839",
+    "content-hash": "6344b2d26f9aa3bf037b4966c9484d35",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -4645,6 +4645,65 @@
                 "source": "https://github.com/nette/utils/tree/v4.1.4"
             },
             "time": "2026-05-11T20:49:54+00:00"
+        },
+        {
+            "name": "nexxai/laravel-cfcache",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nexxai/laravel-cfcache.git",
+                "reference": "2bd60d62079ca1197a04218b0ca59a044cfc0935"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nexxai/laravel-cfcache/zipball/2bd60d62079ca1197a04218b0ca59a044cfc0935",
+                "reference": "2bd60d62079ca1197a04218b0ca59a044cfc0935",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^12.0|^13.0",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "laravel/pint": "~1.25.0",
+                "mockery/mockery": "^1.4.4",
+                "orchestra/testbench": "^10.0|^11.0",
+                "pestphp/pest": "^4.1",
+                "pestphp/pest-plugin-laravel": "^4.0",
+                "phpunit/phpunit": "^11.0|^12.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JTSmith\\Cloudflare\\PageCacheServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JTSmith\\Cloudflare\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A handful of Cloudflare cache helpers for Laravel",
+            "keywords": [
+                "Cf",
+                "cache",
+                "cdn",
+                "cloudflare",
+                "laravel",
+                "waf"
+            ],
+            "support": {
+                "issues": "https://github.com/nexxai/laravel-cfcache/issues",
+                "source": "https://github.com/nexxai/laravel-cfcache/tree/v1.1.0"
+            },
+            "time": "2026-03-23T19:32:46+00:00"
         },
         {
             "name": "nicmart/tree",
@@ -11748,65 +11807,6 @@
                 }
             ],
             "time": "2025-08-01T08:46:24+00:00"
-        },
-        {
-            "name": "nexxai/laravel-cfcache",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nexxai/laravel-cfcache.git",
-                "reference": "2bd60d62079ca1197a04218b0ca59a044cfc0935"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nexxai/laravel-cfcache/zipball/2bd60d62079ca1197a04218b0ca59a044cfc0935",
-                "reference": "2bd60d62079ca1197a04218b0ca59a044cfc0935",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/console": "^12.0|^13.0",
-                "illuminate/support": "^12.0|^13.0",
-                "php": "^8.3"
-            },
-            "require-dev": {
-                "laravel/pint": "~1.25.0",
-                "mockery/mockery": "^1.4.4",
-                "orchestra/testbench": "^10.0|^11.0",
-                "pestphp/pest": "^4.1",
-                "pestphp/pest-plugin-laravel": "^4.0",
-                "phpunit/phpunit": "^11.0|^12.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "JTSmith\\Cloudflare\\PageCacheServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "JTSmith\\Cloudflare\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A handful of Cloudflare cache helpers for Laravel",
-            "keywords": [
-                "Cf",
-                "cache",
-                "cdn",
-                "cloudflare",
-                "laravel",
-                "waf"
-            ],
-            "support": {
-                "issues": "https://github.com/nexxai/laravel-cfcache/issues",
-                "source": "https://github.com/nexxai/laravel-cfcache/tree/v1.1.0"
-            },
-            "time": "2026-03-23T19:32:46+00:00"
         },
         {
             "name": "nunomaduro/collision",
