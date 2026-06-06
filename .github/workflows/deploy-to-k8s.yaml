@@ -65,7 +65,24 @@ jobs:
           username: ${{ secrets.KUBERNETES_MASTER_SSH_USER }}
           port: ${{ secrets.KUBERNETES_MASTER_SSH_PORT }}
           key: ${{ secrets.KUBERNETES_MASTER_SSH_KEY }}
+          command_timeout: 30m
           script: |
-            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-app -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-app="${{ github.repository }}:sha-${{ github.sha }}"
-            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-worker -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-worker="${{ github.repository }}:sha-${{ github.sha }}"
-            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-scheduler -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-scheduler="${{ github.repository }}:sha-${{ github.sha }}"
+            set -e
+
+            IMAGE="${{ github.repository }}:sha-${{ github.sha }}"
+
+            echo "🚀 Updating deployments to image: $IMAGE"
+
+            # Update all deployments
+            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-app -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-app="$IMAGE"
+            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-worker -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-worker="$IMAGE"
+            microk8s kubectl set image deployment/${{ env.K8S_DEPLOYMENT }}-scheduler -n ${{ env.K8S_NAMESPACE }} ${{ env.K8S_CONTAINER }}-scheduler="$IMAGE"
+
+            echo "⏳ Waiting for rollouts to complete..."
+
+            # Wait for each rollout and verify success
+            microk8s kubectl rollout status deployment/${{ env.K8S_DEPLOYMENT }}-app -n ${{ env.K8S_NAMESPACE }} --timeout=15m
+            microk8s kubectl rollout status deployment/${{ env.K8S_DEPLOYMENT }}-worker -n ${{ env.K8S_NAMESPACE }} --timeout=15m
+            microk8s kubectl rollout status deployment/${{ env.K8S_DEPLOYMENT }}-scheduler -n ${{ env.K8S_NAMESPACE }} --timeout=15m
+
+            echo "✅ All deployments successfully rolled out"
