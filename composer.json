@@ -22,7 +22,6 @@
         "livewire/livewire": "^3.6.4",
         "nexxai/laravel-cfcache": "^1.0",
         "sentry/sentry-laravel": "^4.15",
-        "sertxudeveloper/laravel-pagination": "^2.0",
         "spatie/browsershot": "^5.0",
         "spatie/crawler": "^8.4",
         "spatie/laravel-markdown": "^2.5",
