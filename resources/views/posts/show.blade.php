@@ -35,9 +35,7 @@
                     {{ $post->title }}
                 </h1>
 
-                <p class="text-neutral-400 text-lg mt-4 leading-relaxed">
-                    {{ $post->excerpt }}
-                </p>
+                <p class="text-neutral-400 text-lg mt-4 leading-relaxed whitespace-pre-wrap">{{ $post->excerpt }}</p>
             </div>
         </div>
     </section>

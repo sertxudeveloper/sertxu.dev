@@ -32,9 +32,7 @@
                     {{ $project->title }}
                 </h1>
 
-                <p class="text-neutral-400 text-lg mt-4 leading-relaxed">
-                    {{ $project->excerpt }}
-                </p>
+                <p class="text-neutral-400 text-lg mt-4 leading-relaxed whitespace-pre-wrap">{{ $project->excerpt }}</p>
 
                 <div class="flex flex-wrap gap-4 mt-12">
                     @if($project->website)
