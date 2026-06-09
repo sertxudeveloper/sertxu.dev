@@ -22,7 +22,18 @@
                 </form>
             </div>
 
-            <div class="blog-grid grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mt-10" x-reveal-children>
+            <p class="text-center text-neutral-500 text-sm mt-10" x-reveal>
+                {{ $posts->total() }} {{ Str::plural('post', $posts->total()) }}
+                @if(request()->filled('search'))
+                    found for &quot;{{ request('search') }}&quot;
+                @elseif(request()->filled('tag'))
+                    tagged &quot;{{ request('tag') }}&quot;
+                @else
+                    so far
+                @endif
+            </p>
+
+            <div class="blog-grid grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mt-6" x-reveal-children>
                 @if($posts->isEmpty())
                     <div class="col-span-full text-center py-16">
                         <h3 class="font-heading text-xl font-bold text-neutral-300 mb-2">No posts found</h3>
