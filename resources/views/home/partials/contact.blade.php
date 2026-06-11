@@ -42,6 +42,12 @@
                         </div>
                         <textarea id="contact-message" name="message" rows="3" class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-coral placeholder:text-neutral-700 outline-none resize-none"></textarea>
 
+                        <div class="flex items-center gap-2 mt-6 mb-2">
+                            <span class="text-neutral-500 text-[10px]">▶</span>
+                            <span class="text-neutral-300">Is the information correct? [y/n]</span>
+                        </div>
+                        <input type="text" id="contact-correct" name="correct" class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-coral placeholder:text-neutral-700 outline-none" />
+
                         <div class="flex justify-between items-start mt-4">
                             <div class="cf-turnstile" data-sitekey="{{ config()->string('services.turnstile.site_key') }}"></div>
 
@@ -59,6 +65,10 @@
                         @enderror
 
                         @error('message')
+                            <div class="text-red-600 text-sm mt-2">{{ $message }}</div>
+                        @enderror
+
+                        @error('correct')
                             <div class="text-red-600 text-sm mt-2">{{ $message }}</div>
                         @enderror
 

@@ -3,10 +3,16 @@
 declare(strict_types=1);
 
 use App\Actions\PublishPostAction;
+use App\Jobs\CreateOgImageJob;
+use App\Jobs\PostToDevToJob;
+use App\Jobs\PostToThreadsJob;
+use App\Jobs\PostToTweetJob;
+use App\Jobs\PurgeCacheContentJob;
 use App\Models\Post;
+use Illuminate\Queue\CallQueuedClosure;
 use Illuminate\Support\Facades\Bus;
 
-it('publishes a post and sets published_at', function () {
+it('publishes a post and dispatches the job chain', function () {
     Bus::fake();
 
     $post = Post::factory()->create(['is_published' => false]);
@@ -16,6 +22,15 @@ it('publishes a post and sets published_at', function () {
 
     expect($post->refresh()->is_published)->toBeTrue()
         ->and($post->refresh()->published_at)->not->toBeNull();
+
+    Bus::assertChained([
+        new CreateOgImageJob($post),
+        PostToTweetJob::class,
+        new PostToDevToJob($post),
+        new PostToThreadsJob($post),
+        new PurgeCacheContentJob([route('home'), route('posts.index')]),
+        CallQueuedClosure::class,
+    ]);
 });
 
 it('preserves existing published_at date when publishing', function () {

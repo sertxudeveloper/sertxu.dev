@@ -6,6 +6,7 @@ use App\Jobs\PostToThreadsJob;
 use App\Models\Post;
 use App\Models\User;
 use App\Services\Threads\Threads;
+use Illuminate\Queue\Middleware\Skip;
 use Illuminate\Support\Facades\Http;
 
 beforeEach(function () {
@@ -38,22 +39,14 @@ it('publishes the post to threads and marks as posted', function () {
     expect((bool) $post->refresh()->posted_on_threads)->toBeTrue();
 });
 
-it('skips execution when post already posted on threads', function () {
+it('has skip middleware to prevent reposting', function () {
     $post = Post::factory()->published()->create(['posted_on_threads' => true]);
 
     $job = new PostToThreadsJob($post);
     $middleware = $job->middleware();
 
-    expect($middleware)->toHaveCount(1);
-});
-
-it('does not skip when post has not been posted on threads', function () {
-    $post = Post::factory()->published()->create(['posted_on_threads' => false]);
-
-    $job = new PostToThreadsJob($post);
-    $middleware = $job->middleware();
-
-    expect($middleware)->toHaveCount(1);
+    expect($middleware)->toHaveCount(1)
+        ->and($middleware[0])->toBeInstanceOf(Skip::class);
 });
 
 it('holds the post instance', function () {

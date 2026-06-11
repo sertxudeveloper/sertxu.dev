@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Jobs\PostToDevToJob;
 use App\Models\Post;
 use App\Services\DevTo\DevTo;
+use Illuminate\Queue\Middleware\Skip;
 use Illuminate\Support\Facades\Http;
 
 it('publishes the post to dev.to and marks as posted', function () {
@@ -29,22 +30,14 @@ it('publishes the post to dev.to and marks as posted', function () {
     });
 });
 
-it('skips execution when post already posted on dev.to', function () {
+it('has skip middleware to prevent reposting', function () {
     $post = Post::factory()->published()->create(['posted_on_dev' => true]);
 
     $job = new PostToDevToJob($post);
     $middleware = $job->middleware();
 
-    expect($middleware)->toHaveCount(1);
-});
-
-it('does not skip when post has not been posted on dev.to', function () {
-    $post = Post::factory()->published()->create(['posted_on_dev' => false]);
-
-    $job = new PostToDevToJob($post);
-    $middleware = $job->middleware();
-
-    expect($middleware)->toHaveCount(1);
+    expect($middleware)->toHaveCount(1)
+        ->and($middleware[0])->toBeInstanceOf(Skip::class);
 });
 
 it('holds the post instance', function () {

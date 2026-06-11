@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Console\Commands\PublishScheduledPostsCommand;
+use App\Jobs\CreateOgImageJob;
 use App\Models\Post;
 use Illuminate\Support\Facades\Bus;
 
@@ -20,10 +21,11 @@ it('publishes scheduled posts that are due', function () {
         ->assertSuccessful();
 
     expect($post->refresh()->is_published)->toBeTrue();
+    Bus::assertDispatched(CreateOgImageJob::class);
 });
 
 it('does not publish posts scheduled for the future', function () {
-    $post = Post::factory()->create([
+    Post::factory()->create([
         'is_published' => false,
         'published_at' => now()->addHour(),
     ]);
@@ -31,11 +33,11 @@ it('does not publish posts scheduled for the future', function () {
     $this->artisan(PublishScheduledPostsCommand::class)
         ->assertSuccessful();
 
-    expect($post->refresh()->is_published)->toBeFalse();
+    Bus::assertNothingDispatched();
 });
 
 it('does not publish posts without a published_at date', function () {
-    $post = Post::factory()->create([
+    Post::factory()->create([
         'is_published' => false,
         'published_at' => null,
     ]);
@@ -43,11 +45,11 @@ it('does not publish posts without a published_at date', function () {
     $this->artisan(PublishScheduledPostsCommand::class)
         ->assertSuccessful();
 
-    expect($post->refresh()->is_published)->toBeFalse();
+    Bus::assertNothingDispatched();
 });
 
 it('does not publish already published posts', function () {
-    $post = Post::factory()->create([
+    Post::factory()->create([
         'is_published' => true,
         'published_at' => now()->subDay(),
     ]);
@@ -55,7 +57,7 @@ it('does not publish already published posts', function () {
     $this->artisan(PublishScheduledPostsCommand::class)
         ->assertSuccessful();
 
-    expect($post->refresh()->is_published)->toBeTrue();
+    Bus::assertNothingDispatched();
 });
 
 it('publishes multiple scheduled posts', function () {
@@ -79,4 +81,6 @@ it('publishes multiple scheduled posts', function () {
 
     expect($post1->refresh()->is_published)->toBeTrue()
         ->and($post2->refresh()->is_published)->toBeTrue();
+
+    Bus::assertDispatched(CreateOgImageJob::class, 2);
 });
