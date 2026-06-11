@@ -34,13 +34,16 @@ describe('Project model', function () {
         });
 
         it('orders by featured first then created_at with defaultOrder scope', function () {
-            $featured = Project::factory()->published()->create([
-                'is_featured' => true,
-                'title' => 'Featured Project',
-            ]);
             $regular = Project::factory()->published()->create([
                 'is_featured' => false,
                 'title' => 'Regular Project',
+                'created_at' => now()->subHour(),
+            ]);
+
+            $featured = Project::factory()->published()->create([
+                'is_featured' => true,
+                'title' => 'Featured Project',
+                'created_at' => now(),
             ]);
 
             $projects = Project::defaultOrder()->get();
