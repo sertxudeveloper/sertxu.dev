@@ -2,7 +2,7 @@
     <div class="glow-top-right"></div>
     <div class="glow-bottom-left"></div>
 
-    <div class="max-w-5xl mx-auto px-6 w-full pt-0 pb-16 flex flex-col md:flex-row items-center justify-between gap-12">
+    <div class="max-w-5xl mx-auto px-6 w-full py-16 flex flex-col md:flex-row items-center justify-between gap-12">
         <div class="max-w-2xl">
             <!-- Terminal -->
             <div class="font-mono text-sm md:text-base">
@@ -37,7 +37,7 @@
         </div>
 
         <div id="profile-image" class="opacity-0 transition-all duration-500 translate-y-6">
-            <img src="/sergio.webp" alt="Sergio Peris" class="size-80 object-cover mt-12 mx-auto md:mx-0 shadow-lg rounded-md">
+            <img src="/sergio.webp" alt="Sergio Peris" class="size-64 md:size-80 object-cover mx-auto md:mx-0 shadow-lg rounded-md">
         </div>
     </div>
 
