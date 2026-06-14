@@ -1,4 +1,25 @@
-<x-app-layout>
+@php
+    $title = 'Blog - sertxu.dev';
+    $description = 'Thoughts on development, infrastructure, and the tools I use.';
+
+    if (request()->filled('tag')) {
+        $title = 'Posts tagged "' . request()->get('tag') . '" - sertxu.dev';
+        $description = 'Blog posts tagged with "' . request()->get('tag') . '" on sertxu.dev.';
+    } elseif (request()->filled('search')) {
+        $title = 'Search results for "' . request()->get('search') . '" - sertxu.dev';
+        $description = 'Search results for "' . request()->get('search') . '" on sertxu.dev.';
+    }
+@endphp
+
+<x-app-layout
+    :title="$title"
+    :description="$description"
+    :canonical="route('posts.index')"
+    :breadcrumbs="[
+        ['name' => 'Home', 'url' => route('home')],
+        ['name' => 'Blog', 'url' => route('posts.index')]
+    ]"
+>
     <section id="blog" x-data class="py-28 md:py-36 border-t border-neutral-900">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center" x-reveal>

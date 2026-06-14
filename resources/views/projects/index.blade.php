@@ -1,4 +1,22 @@
-<x-app-layout>
+@php
+    $title = 'Projects - sertxu.dev';
+    $description = 'Selected projects I\'ve built and contributed to.';
+
+    if (request()->filled('tag')) {
+        $title = 'Projects tagged "' . request()->get('tag') . '" - sertxu.dev';
+        $description = 'Projects tagged with "' . request()->get('tag') . '" on sertxu.dev.';
+    }
+@endphp
+
+<x-app-layout
+    :title="$title"
+    :description="$description"
+    :canonical="route('projects.index')"
+    :breadcrumbs="[
+        ['name' => 'Home', 'url' => route('home')],
+        ['name' => 'Projects', 'url' => route('projects.index')]
+    ]"
+>
     <section id="projects" x-data class="py-28 md:py-36 border-t border-neutral-900">
         <div class="max-w-7xl mx-auto px-6">
             <div x-reveal class="text-center">

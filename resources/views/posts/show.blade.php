@@ -1,4 +1,28 @@
-<x-app-layout>
+@php
+    $title = $post->title . ' - sertxu.dev';
+    $ogImage = $post->getFirstMediaUrl('thumbnail', 'thumbnail') ?: null;
+    $postUrl = route('posts.show', $post);
+@endphp
+
+<x-app-layout
+    :title="$title"
+    :description="$post->excerpt"
+    :canonical="$postUrl"
+    :ogImage="$ogImage"
+    :breadcrumbs="[
+        ['name' => 'Home', 'url' => route('home')],
+        ['name' => 'Blog', 'url' => route('posts.index')],
+        ['name' => $post->title, 'url' => $postUrl],
+    ]"
+    :schemaArticle="[
+        'headline' => $post->title,
+        'description' => $post->excerpt,
+        'image' => $ogImage,
+        'datePublished' => $post->published_at?->toIso8601String(),
+        'dateModified' => $post->updated_at->toIso8601String(),
+        'url' => $postUrl,
+    ]"
+>
     <div class="grain-overlay"></div>
 
     <!-- Post Header -->

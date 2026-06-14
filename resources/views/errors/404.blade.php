@@ -1,5 +1,14 @@
 @extends('errors.minimal')
 
+@php
+    $title = '404 Not Found - sertxu.dev';
+    $description = 'The page you are looking for does not exist.';
+@endphp
+
+@push('meta')
+    <meta name="robots" content="noindex" />
+@endpush
+
 @section('content')
     <section class="relative min-h-[calc(100vh-80px)] flex items-center justify-center px-6 overflow-hidden">
         <div class="glow-top-right"></div>
