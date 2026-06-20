@@ -142,9 +142,5 @@
 }
 
 .post-content .line.highlight {
-    @apply w-full inline-block relative;
-}
-
-.post-content .line.highlight::before {
-    @apply w-full block absolute h-full bg-[#ffff004d];
+    @apply w-full inline-block relative before:content-[''] before:w-full before:block before:absolute before:h-full before:bg-[#ffff004d];
 }
