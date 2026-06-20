@@ -130,7 +130,7 @@
 }
 
 .post-content img {
-    @apply inline-block;
+    @apply block mx-auto;
 }
 
 .post-content hr {
