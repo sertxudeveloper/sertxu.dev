@@ -33,3 +33,11 @@ it('returns 404 for an unpublished project', function () {
     $this->get("/projects/$project->slug")
         ->assertNotFound();
 });
+
+it('skips tag filter if query empty', function (): void {
+    Project::factory()->published()->count(3)->create();
+
+    $this->get('/projects?tag=')
+        ->assertOk()
+        ->assertSeeText('Selected projects I\'ve built and contributed to.');
+});
