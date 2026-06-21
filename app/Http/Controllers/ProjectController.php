@@ -17,7 +17,7 @@ final readonly class ProjectController
     {
         $projects = Project::query()
             ->wherePublished()
-            ->when($request->has('tag'), fn ($query) => $query->withAnyTags($request->input('tag')))
+            ->when($request->input('tag'), fn ($query) => $query->withAnyTags($request->input('tag')))
             ->defaultOrder()
             ->paginate(perPage: 6);
 
