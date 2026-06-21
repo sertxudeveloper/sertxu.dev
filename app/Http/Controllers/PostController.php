@@ -19,8 +19,8 @@ final readonly class PostController
         $posts = Post::query()
             ->wherePublished()
             ->with('media')
-            ->when($request->has('tag'), fn (Builder $query) => $query->withAnyTags($request->input('tag')))
-            ->when($request->has('search'), fn (Builder $query) => $query->where(function (Builder $query) use ($request): void {
+            ->when($request->input('tag'), fn (Builder $query) => $query->withAnyTags($request->input('tag')))
+            ->when($request->input('search'), fn (Builder $query) => $query->where(function (Builder $query) use ($request): void {
                 $query->whereLike('title', "%{$request->input('search')}%")
                     ->orWhereLike('excerpt', "%{$request->input('search')}%")
                     ->orWhereLike('text', "%{$request->input('search')}%");
