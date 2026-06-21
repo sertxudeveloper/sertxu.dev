@@ -35,7 +35,7 @@ it('returns 404 for an unpublished project', function () {
 });
 
 it('skips tag filter if query empty', function (): void {
-    Post::factory()->published()->count(3)->create();
+    Project::factory()->published()->count(3)->create();
 
     $this->get('/projects?tag=')
         ->assertOk()
