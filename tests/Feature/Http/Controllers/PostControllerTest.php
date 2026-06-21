@@ -41,7 +41,7 @@ it('skips tag filter if query empty', function (): void {
 
     $this->get('/blog?tag=')
         ->assertOk()
-        ->assertSeeText('3 posts found for');
+        ->assertSeeText('3 posts so far');
 });
 
 it('shows filtered results count when searching', function (): void {
