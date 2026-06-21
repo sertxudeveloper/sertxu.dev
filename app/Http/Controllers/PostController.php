@@ -26,7 +26,8 @@ final readonly class PostController
                     ->orWhereLike('text', "%{$request->input('search')}%");
             }))
             ->orderByDesc('published_at')
-            ->paginate(perPage: 9);
+            ->paginate(perPage: 12)
+            ->onEachSide(2);
 
         return view('posts.index', [
             'posts' => $posts,

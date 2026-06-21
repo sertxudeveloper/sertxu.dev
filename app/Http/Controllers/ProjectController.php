@@ -19,7 +19,8 @@ final readonly class ProjectController
             ->wherePublished()
             ->when($request->input('tag'), fn ($query) => $query->withAnyTags($request->input('tag')))
             ->defaultOrder()
-            ->paginate(perPage: 6);
+            ->paginate(perPage: 6)
+            ->onEachSide(2);
 
         return view('projects.index', [
             'projects' => $projects,
