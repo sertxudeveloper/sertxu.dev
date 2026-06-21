@@ -36,6 +36,14 @@ it('shows total post count on index page', function (): void {
         ->assertSeeText('5 posts so far');
 });
 
+it('skips tag filter if query empty', function (): void {
+    Post::factory()->published()->count(3)->create();
+
+    $this->get('/blog?tag=')
+        ->assertOk()
+        ->assertSeeText('3 posts found for');
+});
+
 it('shows filtered results count when searching', function (): void {
     Post::factory()->published()->create(['title' => 'Laravel Tips']);
     Post::factory()->published()->count(3)->create();
