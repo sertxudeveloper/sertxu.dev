@@ -67,6 +67,9 @@
 [x-reveal-children] > *:nth-child(7) { transition-delay: 840ms; }
 [x-reveal-children] > *:nth-child(8) { transition-delay: 960ms; }
 [x-reveal-children] > *:nth-child(9) { transition-delay: 1080ms; }
+[x-reveal-children] > *:nth-child(10) { transition-delay: 1200ms; }
+[x-reveal-children] > *:nth-child(11) { transition-delay: 1320ms; }
+[x-reveal-children] > *:nth-child(12) { transition-delay: 1440ms; }
 
 /* Post content typography */
 .post-content h1 {
