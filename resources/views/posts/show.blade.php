@@ -49,7 +49,7 @@
 
                 <p class="text-neutral-400 text-lg mt-4 leading-relaxed whitespace-pre-wrap">{{ $post->excerpt }}</p>
 
-                <div x-data x-reveal>
+                <div class="mt-6" x-data x-reveal>
                     <!-- Tags -->
                     <div class="flex flex-wrap gap-2 mb-10">
                         @foreach($post->tags as $tag)
