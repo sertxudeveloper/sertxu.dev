@@ -43,6 +43,12 @@
                     <span class="text-neutral-400 text-sm font-mono">{{ $post->minutes_to_read }} min read</span>
                 </div>
 
+                <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-200 leading-tight">
+                    {{ $post->title }}
+                </h1>
+
+                <p class="text-neutral-400 text-lg mt-4 leading-relaxed whitespace-pre-wrap">{{ $post->excerpt }}</p>
+
                 <div x-data x-reveal>
                     <!-- Tags -->
                     <div class="flex flex-wrap gap-2 mb-10">
@@ -54,12 +60,6 @@
                         @endforeach
                     </div>
                 </div>
-
-                <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-200 leading-tight">
-                    {{ $post->title }}
-                </h1>
-
-                <p class="text-neutral-400 text-lg mt-4 leading-relaxed whitespace-pre-wrap">{{ $post->excerpt }}</p>
             </div>
         </div>
     </section>
