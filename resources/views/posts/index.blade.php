@@ -33,7 +33,7 @@
             <div>
                 <form action="{{ route('posts.index') }}" method="GET" class="mt-10 flex items-center gap-4 max-w-md mx-auto" x-reveal>
                     <input type="text" id="search" name="search" placeholder="Search posts..."
-                           class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-coral placeholder:text-neutral-700 outline-none"
+                           class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-ocean placeholder:text-neutral-700 outline-none"
                            value="{{ request('search') }}"
                     />
 
