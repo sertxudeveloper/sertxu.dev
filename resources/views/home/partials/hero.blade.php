@@ -19,7 +19,7 @@
                     <span class="text-neutral-500 text-[10px]">▶</span>Full-Stack developer <span class="text-neutral-500">&</span> SysAdmin
                 </div>
                 <div id="line4" class="opacity-0 transition-all duration-500 flex items-center gap-2 text-neutral-300">
-                    <span class="text-neutral-500 text-[10px]">▶</span>Xàtiva, València <span class="text-neutral-500">(Spain)</span>🇪🇦
+                    <span class="text-neutral-500 text-[10px]">▶</span>Xàtiva, València <span class="text-neutral-500">(Spain)</span>
                 </div>
             </div>
 
