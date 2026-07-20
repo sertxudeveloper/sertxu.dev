@@ -27,7 +27,7 @@
                 </p>
             </div>
 
-            <div class="portfolio-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10" x-reveal-children>
+            <div class="portfolio-grid grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mt-10" x-reveal-children>
                 @foreach($projects as $project)
                     <div>
                         <div class="project-card bg-neutral-900 rounded-xl border border-neutral-800 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
