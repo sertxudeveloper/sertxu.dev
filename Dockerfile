@@ -22,6 +22,8 @@ RUN composer install --no-dev --prefer-dist --no-ansi --no-interaction --no-prog
 RUN npm install && \
     npm run build
 
+RUN php artisan cloudflare:purge --all --force
+
 ENV AUTORUN_ENABLED="true" \
     AUTORUN_LARAVEL_MIGRATION_ISOLATION="true" \
     \
