@@ -15,6 +15,9 @@ RUN set -xe; \
     mkdir -p /etc/s6-overlay/s6-rc.d/laravel-nightwatch/dependencies.d; \
     touch /etc/s6-overlay/s6-rc.d/laravel-nightwatch/dependencies.d/base
 
+# If you have your own one-shot scripts, copy them to the entrypoint.d directory
+COPY --chmod=755 ./entrypoint.d/90-cloudflare-cache-cleanup.sh /etc/entrypoint.d/
+
 USER www-data
 
 RUN composer install --no-dev --prefer-dist --no-ansi --no-interaction --no-progress --classmap-authoritative
