@@ -22,7 +22,7 @@
 >
     <section id="blog" x-data class="py-28 md:py-36 border-t border-neutral-900">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center" x-reveal>
+            <div class="text-center">
                 <h2 class="font-heading text-3xl md:text-4xl font-bold text-neutral-300">Blog</h2>
                 <span class="bg-coral inline-block h-0.5 rounded-full w-12 mt-4"></span>
                 <p class="text-neutral-400 text-base mt-3">
@@ -31,7 +31,7 @@
             </div>
 
             <div>
-                <form action="{{ route('posts.index') }}" method="GET" class="mt-10 flex items-center gap-4 max-w-md mx-auto" x-reveal>
+                <form action="{{ route('posts.index') }}" method="GET" class="mt-10 flex items-center gap-4 max-w-md mx-auto">
                     <input type="text" id="search" name="search" placeholder="Search posts..."
                            class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-ocean placeholder:text-neutral-700 outline-none"
                            value="{{ request('search') }}"
@@ -43,7 +43,7 @@
                 </form>
             </div>
 
-            <p class="text-center text-neutral-500 text-sm mt-10" x-reveal>
+            <p class="text-center text-neutral-500 text-sm mt-10">
                 {{ $posts->total() }} {{ Str::plural('post', $posts->total()) }}
                 @if(request()->filled('search'))
                     found for &quot;{{ request('search') }}&quot;
@@ -54,7 +54,7 @@
                 @endif
             </p>
 
-            <div class="blog-grid grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mt-6" x-reveal-children>
+            <div class="blog-grid grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mt-6">
                 @if($posts->isEmpty())
                     <div class="col-span-full text-center py-16">
                         <h3 class="font-heading text-xl font-bold text-neutral-300 mb-2">No posts found</h3>
@@ -92,7 +92,7 @@
             </div>
 
             @if($posts->hasPages())
-                <div class="mt-12 px-2 mx-auto" x-reveal>
+                <div class="mt-12 px-2 mx-auto">
                     {{ $posts->links() }}
                 </div>
             @endif
