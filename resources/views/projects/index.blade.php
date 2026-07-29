@@ -19,7 +19,7 @@
 >
     <section id="projects" x-data class="py-28 md:py-36 border-t border-neutral-900">
         <div class="max-w-7xl mx-auto px-6">
-            <div x-reveal class="text-center">
+            <div class="text-center">
                 <h2 class="font-heading text-3xl md:text-4xl font-bold text-neutral-300">Projects</h2>
                 <span class="bg-coral inline-block h-0.5 rounded-full w-12 mt-4"></span>
                 <p class="text-neutral-400 text-base mt-3">
@@ -27,7 +27,7 @@
                 </p>
             </div>
 
-            <div class="portfolio-grid grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mt-10" x-reveal-children>
+            <div class="portfolio-grid grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mt-10">
                 @foreach($projects as $project)
                     <div>
                         <div class="project-card bg-neutral-900 rounded-xl border border-neutral-800 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
