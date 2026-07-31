@@ -26,16 +26,21 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class ExperienceResource extends Resource
 {
+    #[Override]
     protected static ?string $model = Experience::class;
 
+    #[Override]
     protected static string|UnitEnum|null $navigationGroup = 'Content';
 
+    #[Override]
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-briefcase';
 
+    #[Override]
     protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema

@@ -6,9 +6,11 @@ namespace Database\Factories;
 
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 final class ProjectFactory extends Factory
 {
+    #[Override]
     protected $model = Project::class;
 
     public function definition(): array

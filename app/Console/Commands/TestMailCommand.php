@@ -9,11 +9,14 @@ use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Override;
 
 final class TestMailCommand extends Command
 {
+    #[Override]
     protected $signature = 'mail:test {--to=}';
 
+    #[Override]
     protected $description = 'Send a test email to admin users';
 
     public function handle(): int

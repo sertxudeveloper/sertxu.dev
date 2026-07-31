@@ -10,6 +10,7 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Override;
 
 final class User extends Authenticatable implements FilamentUser
 {
@@ -20,6 +21,7 @@ final class User extends Authenticatable implements FilamentUser
      *
      * @var array<int, string>
      */
+    #[Override]
     protected $fillable = [
         'name',
         'email',
@@ -35,6 +37,7 @@ final class User extends Authenticatable implements FilamentUser
      *
      * @var array<int, string>
      */
+    #[Override]
     protected $hidden = [
         'password',
         'remember_token',

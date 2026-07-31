@@ -1,10 +1,9 @@
 {
-    "name": "laravel/laravel",
+    "name": "sertxudeveloper/sertxu.dev",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "My personal website",
     "keywords": [
-        "laravel",
-        "framework"
+        "laravel"
     ],
     "license": "MIT",
     "require": {

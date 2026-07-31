@@ -6,9 +6,11 @@ namespace Database\Factories;
 
 use App\Models\FormSubmission;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 final class FormSubmissionFactory extends Factory
 {
+    #[Override]
     protected $model = FormSubmission::class;
 
     public function definition(): array

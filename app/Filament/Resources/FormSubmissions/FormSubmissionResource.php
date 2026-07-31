@@ -22,16 +22,21 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Override;
 use UnitEnum;
 
 final class FormSubmissionResource extends Resource
 {
+    #[Override]
     protected static ?string $model = FormSubmission::class;
 
+    #[Override]
     protected static string|UnitEnum|null $navigationGroup = 'Forms';
 
+    #[Override]
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-inbox';
 
+    #[Override]
     protected static ?int $navigationSort = 0;
 
     public static function infolist(Schema $schema): Schema

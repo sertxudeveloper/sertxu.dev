@@ -7,6 +7,7 @@ namespace App\Console\Commands;
 use App\Actions\PublishPostAction;
 use App\Models\Post;
 use Illuminate\Console\Command;
+use Override;
 
 final class PublishScheduledPostsCommand extends Command
 {
@@ -15,6 +16,7 @@ final class PublishScheduledPostsCommand extends Command
      *
      * @var string
      */
+    #[Override]
     protected $signature = 'blog:publish-scheduled-posts';
 
     /**
@@ -22,6 +24,7 @@ final class PublishScheduledPostsCommand extends Command
      *
      * @var string
      */
+    #[Override]
     protected $description = 'Publish scheduled posts';
 
     /**

@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Override;
 
 final class Education extends Model
 {
     use HasFactory, SoftDeletes;
 
+    #[Override]
     protected $fillable = [
         'title', 'started_at', 'ended_at', 'description', 'location',
     ];

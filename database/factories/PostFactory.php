@@ -6,9 +6,11 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 final class PostFactory extends Factory
 {
+    #[Override]
     protected $model = Post::class;
 
     public function definition(): array

@@ -7,17 +7,20 @@ namespace App\Console\Commands;
 use App\Models\User;
 use App\Services\Threads\Threads;
 use Illuminate\Console\Command;
+use Override;
 
 final class ThreadsRefreshTokensCommand extends Command
 {
     /**
      * The console command signature.
      */
+    #[Override]
     protected $signature = 'threads:refresh-tokens';
 
     /**
      * The console command description.
      */
+    #[Override]
     protected $description = 'Refresh Threads access tokens that are about to expire.';
 
     /**

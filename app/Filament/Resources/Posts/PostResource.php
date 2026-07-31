@@ -41,16 +41,21 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Override;
 use UnitEnum;
 
 final class PostResource extends Resource
 {
+    #[Override]
     protected static ?string $model = Post::class;
 
+    #[Override]
     protected static string|UnitEnum|null $navigationGroup = 'Content';
 
+    #[Override]
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-text';
 
+    #[Override]
     protected static ?int $navigationSort = 0;
 
     public static function form(Schema $schema): Schema

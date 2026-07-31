@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Override;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -26,8 +27,10 @@ final class Project extends Model implements HasMedia, Sitemapable
      *
      * @var list<string>
      */
+    #[Override]
     public $with = ['tags'];
 
+    #[Override]
     protected $fillable = [
         'title', 'slug', 'excerpt', 'website', 'repository', 'text', 'is_published', 'is_featured',
     ];

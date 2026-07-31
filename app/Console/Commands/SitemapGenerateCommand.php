@@ -7,6 +7,7 @@ namespace App\Console\Commands;
 use App\Models\Post;
 use App\Models\Project;
 use Illuminate\Console\Command;
+use Override;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
@@ -17,6 +18,7 @@ final class SitemapGenerateCommand extends Command
      *
      * @var string
      */
+    #[Override]
     protected $signature = 'sitemap:generate';
 
     /**
@@ -24,6 +26,7 @@ final class SitemapGenerateCommand extends Command
      *
      * @var string
      */
+    #[Override]
     protected $description = 'Generate the sitemap';
 
     /**

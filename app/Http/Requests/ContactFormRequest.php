@@ -6,6 +6,7 @@ namespace App\Http\Requests;
 
 use App\Rules\TurnstileRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Override;
 
 final class ContactFormRequest extends FormRequest
 {
@@ -14,6 +15,7 @@ final class ContactFormRequest extends FormRequest
      *
      * @var string
      */
+    #[Override]
     protected $redirect = '/#contact';
 
     public function rules(): array

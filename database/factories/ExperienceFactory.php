@@ -7,9 +7,11 @@ namespace Database\Factories;
 use App\Models\Experience;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
+use Override;
 
 final class ExperienceFactory extends Factory
 {
+    #[Override]
     protected $model = Experience::class;
 
     public function definition(): array

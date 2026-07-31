@@ -33,16 +33,21 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use Override;
 use UnitEnum;
 
 final class ProjectResource extends Resource
 {
+    #[Override]
     protected static ?string $model = Project::class;
 
+    #[Override]
     protected static string|UnitEnum|null $navigationGroup = 'Content';
 
+    #[Override]
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-code-bracket';
 
+    #[Override]
     protected static ?int $navigationSort = 2;
 
     public static function form(Schema $schema): Schema

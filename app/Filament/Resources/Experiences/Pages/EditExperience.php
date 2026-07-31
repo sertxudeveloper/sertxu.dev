@@ -7,9 +7,11 @@ namespace App\Filament\Resources\Experiences\Pages;
 use App\Filament\Resources\Experiences\ExperienceResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 final class EditExperience extends EditRecord
 {
+    #[Override]
     protected static string $resource = ExperienceResource::class;
 
     protected function getHeaderActions(): array

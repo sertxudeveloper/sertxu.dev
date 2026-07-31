@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Override;
 
 final class Experience extends Model
 {
     use HasFactory, SoftDeletes;
 
+    #[Override]
     public $fillable = [
         'title', 'description', 'started_at', 'ended_at', 'location',
     ];
