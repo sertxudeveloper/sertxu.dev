@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use App\Models\User;
 use Filament\Panel;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 it('allows admin users to access the panel', function () {
     $user = User::factory()->admin()->create();

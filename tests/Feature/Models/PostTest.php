@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Models\Post;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 
 it('returns tomorrow at 8am UTC for a weekday with no existing posts', function () {
