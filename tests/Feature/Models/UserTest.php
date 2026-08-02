@@ -6,20 +6,14 @@ use App\Models\User;
 use Filament\Panel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(RefreshDatabase::class);
+it('allows admin users to access the panel', function () {
+    $user = User::factory()->admin()->create();
 
-describe('User model', function () {
-    describe('canAccessPanel', function () {
-        it('allows admin users to access the panel', function () {
-            $user = User::factory()->admin()->create();
+    expect($user->canAccessPanel(Panel::make()))->toBeTrue();
+});
 
-            expect($user->canAccessPanel(Panel::make()))->toBeTrue();
-        });
+it('denies non-admin users from accessing the panel', function () {
+    $user = User::factory()->create();
 
-        it('denies non-admin users from accessing the panel', function () {
-            $user = User::factory()->create();
-
-            expect($user->canAccessPanel(Panel::make()))->toBeFalse();
-        });
-    });
+    expect($user->canAccessPanel(Panel::make()))->toBeFalse();
 });

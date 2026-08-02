@@ -47,6 +47,7 @@ it('shows featured projects before regular ones on the home page', function (): 
         'is_featured' => false,
         'created_at' => now()->subDay(),
     ]);
+
     Project::factory()->published()->create([
         'title' => 'Featured Home Project',
         'is_featured' => true,
