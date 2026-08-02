@@ -21,3 +21,17 @@ it('can show post thumbnail of a published post', function (): void {
     $this->get("/blog/$post->slug/thumbnail")
         ->assertRedirect();
 });
+
+it('redirects with a permanent status code and caching headers', function (): void {
+    $post = Post::factory()->published()->create(['title' => 'Post A']);
+    $post
+        ->addMediaFromBase64('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==')
+        ->setFileName('sample.png')
+        ->toMediaCollection('thumbnail');
+
+    $this->get("/blog/$post->slug/thumbnail")
+        ->assertStatus(301)
+        ->assertHeaderContains('Cache-Control', 'public')
+        ->assertHeaderContains('Cache-Control', 'max-age=31536000')
+        ->assertHeader('Vary', 'Accept');
+});

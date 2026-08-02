@@ -145,4 +145,93 @@ describe('Post model', function () {
                 ->and($url)->toContain('utm_medium=post');
         });
     });
+
+    describe('toSitemapTag', function () {
+        it('generates a sitemap URL with yearly frequency', function () {
+            $post = Post::factory()->published()->create();
+
+            $sitemapTag = $post->toSitemapTag();
+
+            expect($sitemapTag->url)->toContain($post->slug)
+                ->and($sitemapTag->priority)->toBe(0.1)
+                ->and($sitemapTag->changeFrequency)->toBe('yearly');
+        });
+    });
+
+    describe('relatedPosts', function () {
+        it('returns the latest posts excluding itself when there are no tags', function () {
+            $post = Post::factory()->published()->create(['published_at' => now()->subDays(4)]);
+            $secondNewest = Post::factory()->published()->create(['published_at' => now()->subDays(2)]);
+            $newest = Post::factory()->published()->create(['published_at' => now()]);
+            Post::factory()->published()->create(['published_at' => now()->subDays(3)]);
+
+            $related = $post->relatedPosts();
+
+            expect($related->pluck('id')->toArray())->toBe([$newest->id, $secondNewest->id]);
+        });
+
+        it('returns only posts sharing at least one tag', function () {
+            $tag = Spatie\Tags\Tag::create(['name' => 'Laravel']);
+
+            $post = Post::factory()->published()->create(['published_at' => now()->subDay()]);
+            $post->attachTag($tag);
+
+            $sharing = Post::factory()->published()->create(['published_at' => now()]);
+            $sharing->attachTag($tag);
+
+            $other = Post::factory()->published()->create(['published_at' => now()]);
+
+            $related = $post->relatedPosts();
+
+            expect($related->pluck('id'))->toContain($sharing->id)
+                ->and($related->pluck('id'))->not->toContain($other->id);
+        });
+    });
+
+    describe('minutesToRead', function () {
+        it('calculates one minute per 240 words', function () {
+            $post = Post::factory()->create(['text' => implode(' ', array_fill(0, 240, 'word'))]);
+
+            expect($post->minutes_to_read)->toBe(1.0);
+        });
+
+        it('rounds partial minutes up', function () {
+            $post = Post::factory()->create(['text' => implode(' ', array_fill(0, 241, 'word'))]);
+
+            expect($post->minutes_to_read)->toBe(2.0);
+        });
+
+        it('returns zero for an empty post', function () {
+            $post = Post::factory()->create(['text' => '']);
+
+            expect($post->minutes_to_read)->toBe(0.0);
+        });
+    });
+
+    describe('registerMediaCollections', function () {
+        it('registers a single-file thumbnail collection', function () {
+            $post = Post::factory()->create();
+
+            $post->registerMediaCollections();
+
+            $collection = $post->getRegisteredMediaCollections()->first();
+
+            expect($collection->name)->toBe('thumbnail')
+                ->and($collection->singleFile)->toBeTrue();
+        });
+    });
+
+    describe('registerMediaConversions', function () {
+        it('registers thumbnail conversions', function () {
+            $post = Post::factory()->create();
+
+            $post->registerMediaConversions(null);
+
+            $conversions = $post->mediaConversions;
+
+            expect($conversions)->toHaveCount(2)
+                ->and($conversions[0]->getName())->toBe('thumbnail')
+                ->and($conversions[1]->getName())->toBe('thumbnail-jpg');
+        });
+    });
 });
