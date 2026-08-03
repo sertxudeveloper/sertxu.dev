@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Project;
+use Spatie\Tags\Tag;
 
 it('can load project index page', function (): void {
     Project::factory()->published()->create(['title' => 'Project A', 'is_featured' => false, 'created_at' => '2024-01-01 00:00:00']);
@@ -40,4 +41,20 @@ it('skips tag filter if query empty', function (): void {
     $this->get('/projects?tag=')
         ->assertOk()
         ->assertSeeText('Selected projects I\'ve built and contributed to.');
+});
+
+it('filters projects by tag', function (): void {
+    $laravel = Tag::create(['name' => 'Laravel']);
+    $vue = Tag::create(['name' => 'Vue']);
+
+    $laravelProject = Project::factory()->published()->create(['title' => 'Laravel Project']);
+    $laravelProject->attachTag($laravel);
+
+    $vueProject = Project::factory()->published()->create(['title' => 'Vue Project']);
+    $vueProject->attachTag($vue);
+
+    $this->get('/projects?tag=laravel')
+        ->assertOk()
+        ->assertSeeText('Laravel Project')
+        ->assertDontSeeText('Vue Project');
 });

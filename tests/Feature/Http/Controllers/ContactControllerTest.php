@@ -148,3 +148,58 @@ it('fails when turnstile verification fails', function () {
 
     expect($fakeWasCalled)->toBeTrue();
 });
+
+it('redirects without notifying when no admin users exist', function () {
+    Notification::fake();
+
+    Http::fake([
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([
+            'success' => true,
+            'error-codes' => [],
+        ], 200),
+    ]);
+
+    $this->post(route('contact.store'), [
+        'name' => 'John Doe',
+        'email' => 'john@example.com',
+        'message' => 'Hello',
+        'correct' => 'y',
+        'cf-turnstile-response' => 'valid-token',
+    ])->assertRedirect(route('home').'#contact');
+
+    Notification::assertNothingSent();
+});
+
+it('validates name max length', function () {
+    Http::fake([
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([
+            'success' => true,
+            'error-codes' => [],
+        ], 200),
+    ]);
+
+    $this->post(route('contact.store'), [
+        'name' => str_repeat('a', 256),
+        'email' => 'john@example.com',
+        'message' => 'Hello',
+        'correct' => 'y',
+        'cf-turnstile-response' => 'valid-token',
+    ])->assertSessionHasErrors(['name']);
+});
+
+it('validates email max length', function () {
+    Http::fake([
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([
+            'success' => true,
+            'error-codes' => [],
+        ], 200),
+    ]);
+
+    $this->post(route('contact.store'), [
+        'name' => 'John',
+        'email' => str_repeat('a', 244).'@example.com',
+        'message' => 'Hello',
+        'correct' => 'y',
+        'cf-turnstile-response' => 'valid-token',
+    ])->assertSessionHasErrors(['email']);
+});

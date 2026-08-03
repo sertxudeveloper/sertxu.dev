@@ -100,3 +100,53 @@ it('fails with unknown error code and returns generic message', function () {
 
     expect($failMessage)->toBe('An unexpected error occurred.');
 });
+
+it('maps each error code to the expected message', function (string $code, string $message) {
+    Http::fake([
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([
+            'success' => false,
+            'error-codes' => [$code],
+        ], 200),
+    ]);
+
+    $rule = new TurnstileRule();
+    $failMessage = null;
+    $fail = function (string $message) use (&$failMessage) {
+        $failMessage = $message;
+    };
+
+    $rule->validate('cf-turnstile-response', 'token', $fail);
+
+    expect($failMessage)->toBe($message);
+})->with([
+    'missing-input-secret' => ['missing-input-secret', 'The secret parameter was not passed.'],
+    'invalid-input-secret' => ['invalid-input-secret', 'The secret parameter was invalid or did not exist.'],
+    'missing-input-response' => ['missing-input-response', 'The response parameter was not passed.'],
+    'invalid-input-response' => ['invalid-input-response', 'The response parameter is invalid or has expired.'],
+    'bad-request' => ['bad-request', 'The request was rejected because it was malformed.'],
+    'timeout-or-duplicate' => ['timeout-or-duplicate', 'The response parameter has already been validated before.'],
+    'internal-error' => ['internal-error', 'An internal error happened while validating the response.'],
+    'unknown-error' => ['unknown-error', 'An unexpected error occurred.'],
+]);
+
+it('calls fail once for each error code', function () {
+    Http::fake([
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([
+            'success' => false,
+            'error-codes' => ['invalid-input-response', 'timeout-or-duplicate'],
+        ], 200),
+    ]);
+
+    $rule = new TurnstileRule();
+    $failMessages = [];
+    $fail = function (string $message) use (&$failMessages) {
+        $failMessages[] = $message;
+    };
+
+    $rule->validate('cf-turnstile-response', 'token', $fail);
+
+    expect($failMessages)->toBe([
+        'The response parameter is invalid or has expired.',
+        'The response parameter has already been validated before.',
+    ]);
+});
