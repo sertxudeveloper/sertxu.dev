@@ -46,31 +46,6 @@
     @apply absolute -bottom-50 -left-50 w-125 h-125 bg-radial-[circle] from-[#0035ff15] from-0% to-transparent to-65% pointer-events-none;
 }
 
-[x-reveal] {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-[x-reveal-children] > * {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-[x-reveal-children] > *:nth-child(1) { transition-delay: 0ms; }
-[x-reveal-children] > *:nth-child(2) { transition-delay: 120ms; }
-[x-reveal-children] > *:nth-child(3) { transition-delay: 240ms; }
-[x-reveal-children] > *:nth-child(4) { transition-delay: 360ms; }
-[x-reveal-children] > *:nth-child(5) { transition-delay: 480ms; }
-[x-reveal-children] > *:nth-child(6) { transition-delay: 720ms; }
-[x-reveal-children] > *:nth-child(7) { transition-delay: 840ms; }
-[x-reveal-children] > *:nth-child(8) { transition-delay: 960ms; }
-[x-reveal-children] > *:nth-child(9) { transition-delay: 1080ms; }
-[x-reveal-children] > *:nth-child(10) { transition-delay: 1200ms; }
-[x-reveal-children] > *:nth-child(11) { transition-delay: 1320ms; }
-[x-reveal-children] > *:nth-child(12) { transition-delay: 1440ms; }
-
 /* Post content typography */
 .post-content h1 {
     @apply text-4xl text-neutral-200 mt-12 mb-4 font-bold font-heading;

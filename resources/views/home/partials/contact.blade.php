@@ -1,7 +1,7 @@
 <!-- Contact -->
-<section id="contact" x-data class="py-28 md:py-36 border-t border-neutral-900">
+<section id="contact" class="py-28 md:py-36 border-t border-neutral-900">
     <div class="max-w-5xl mx-auto px-6">
-        <div class="text-center" x-reveal>
+        <div class="text-center">
             <h2 class="font-heading text-3xl md:text-4xl font-bold text-stone-300">Contact</h2>
             <span class="bg-coral inline-block h-0.5 rounded-full w-12 mt-4"></span>
             <p class="text-stone-400 text-base mt-3">
@@ -9,7 +9,7 @@
             </p>
         </div>
 
-        <div class="mt-10 max-w-3xl mx-auto" x-reveal>
+        <div class="mt-10 max-w-3xl mx-auto">
             <div class="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden">
                 <div class="bg-neutral-950/50 px-4 py-3 flex items-center gap-2 border-b border-neutral-800">
                     <span class="inline-block size-3 rounded-full bg-red-400"></span>
@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <div class="mt-10 max-w-3xl mx-auto" x-reveal>
+        <div class="mt-10 max-w-3xl mx-auto">
             <div class="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden">
                 <div class="bg-neutral-950/50 px-4 py-3 flex items-center gap-2 border-b border-neutral-800">
                     <span class="inline-block size-3 rounded-full bg-red-400"></span>
