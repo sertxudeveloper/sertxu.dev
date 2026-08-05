@@ -31,7 +31,7 @@
         <div class="glow-bottom-left"></div>
 
         <div class="max-w-4xl mx-auto px-6 py-6">
-            <div x-data x-reveal>
+            <div>
                 <div class="flex items-center gap-3 mb-6">
                     @if($post->is_published)
                         <time datetime="{{ $post->published_at }}" class="text-neutral-400 text-sm font-mono">{{ $post->published_at->format('d M Y') }}</time>
@@ -49,7 +49,7 @@
 
                 <p class="text-neutral-400 text-lg mt-4 leading-relaxed whitespace-pre-wrap">{{ $post->excerpt }}</p>
 
-                <div class="mt-6" x-data x-reveal>
+                <div class="mt-6">
                     <!-- Tags -->
                     <div class="flex flex-wrap gap-2 mb-10">
                         @foreach($post->tags as $tag)
@@ -67,7 +67,7 @@
     <!-- Post Content -->
     <section class="pt-12 pb-6 border-t border-neutral-900">
         <div class="max-w-4xl mx-auto px-6">
-            <div class="post-content" x-data x-reveal>
+            <div class="post-content">
                 @markdown($post->text ?? '')
             </div>
         </div>
@@ -76,11 +76,11 @@
     <!-- Post Footer: Related posts -->
     <section class="mb-12">
         <div class="max-w-4xl mx-auto px-6">
-            <div x-data x-reveal>
+            <div>
                 @if($relatedPosts->isNotEmpty())
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                         @foreach($relatedPosts as $post)
-                            <div x-reveal>
+                            <div>
                                 <article class="bg-neutral-900 rounded-xl border border-neutral-800 p-6 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
                                     <a href="{{ route('posts.show', $post->slug) }}" class="absolute inset-0 z-10"></a>
                                     <div class="flex items-center gap-2.5 text-neutral-400 text-xs font-mono mb-4">

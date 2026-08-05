@@ -31,7 +31,7 @@
         <div class="glow-bottom-left"></div>
 
         <div class="max-w-4xl mx-auto px-6 py-6">
-            <div x-data x-reveal>
+            <div>
                 <div class="flex items-center gap-3 mb-6">
                     @if($project->is_published)
                         <time datetime="{{ $project->created_at }}" class="text-neutral-400 text-sm font-mono">{{ $project->created_at->format('d M Y') }}</time>
@@ -40,7 +40,7 @@
                     @endif
                 </div>
 
-                <div x-data x-reveal>
+                <div>
                     <!-- Tags -->
                     <div class="flex flex-wrap gap-2 mb-10">
                         @foreach($project->tags as $tag)
@@ -84,7 +84,7 @@
     <!-- Project Screenshot -->
     <section class="py-8">
         <div class="max-w-4xl mx-auto px-6">
-            <div x-data x-reveal class="border border-neutral-800 rounded-lg overflow-hidden">
+            <div class="border border-neutral-800 rounded-lg overflow-hidden">
                 @if($project->hasMedia('thumbnail'))
                     <img src="{{ $project->getFirstMedia('thumbnail')->getUrl('poster') }}" alt="{{ $project->title }}" class="h-full w-full object-cover object-center">
                 @endif
@@ -95,7 +95,7 @@
     <!-- Project Content -->
     <section class="pt-12 pb-6">
         <div class="max-w-4xl mx-auto px-6">
-            <div x-data x-reveal class="post-content">
+            <div class="post-content">
                 @markdown($project->text ?? '')
             </div>
         </div>

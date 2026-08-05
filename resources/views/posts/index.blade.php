@@ -20,7 +20,7 @@
         ['name' => 'Blog', 'url' => route('posts.index')]
     ]"
 >
-    <section id="blog" x-data class="py-28 md:py-36 border-t border-neutral-900">
+    <section id="blog" class="py-28 md:py-36 border-t border-neutral-900">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center">
                 <h2 class="font-heading text-3xl md:text-4xl font-bold text-neutral-300">Blog</h2>

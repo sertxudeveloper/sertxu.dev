@@ -1,7 +1,7 @@
 <!-- Blog -->
-<section id="blog" x-data class="py-28 md:py-36 border-t border-neutral-900">
+<section id="blog" class="py-28 md:py-36 border-t border-neutral-900">
     <div class="max-w-5xl mx-auto px-6">
-        <div class="text-center" x-reveal>
+        <div class="text-center">
             <h2 class="font-heading text-3xl md:text-4xl font-bold text-neutral-300">Blog</h2>
             <span class="bg-coral inline-block h-0.5 rounded-full w-12 mt-4"></span>
             <p class="text-neutral-400 text-base mt-3">
@@ -9,7 +9,7 @@
             </p>
         </div>
 
-        <div class="blog-grid grid md:grid-cols-2 grid-cols-1 gap-5 mt-10" x-reveal-children>
+        <div class="blog-grid grid md:grid-cols-2 grid-cols-1 gap-5 mt-10">
             @foreach($posts as $post)
                 <div>
                     <article class="bg-neutral-900 rounded-xl border border-neutral-800 p-6 h-full cursor-pointer relative transition-all duration-300 hover:-translate-y-1.5">
@@ -39,7 +39,7 @@
             @endforeach
         </div>
 
-        <div class="mt-8 text-center" x-reveal>
+        <div class="mt-8 text-center">
             <a href="{{ route('posts.index') }}" class="inline-flex items-center gap-2 px-6 py-3 border border-[#e02a3f] text-[#e02a3f] rounded-lg text-sm font-medium hover:bg-[#e02a3f] hover:text-white transition-all duration-200">
                 View all articles
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
