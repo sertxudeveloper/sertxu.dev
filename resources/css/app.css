@@ -122,3 +122,14 @@
 .post-content .line.highlight {
     @apply w-full inline-block relative before:content-[''] before:w-full before:block before:absolute before:h-full before:bg-[#ffff0033];
 }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .hero-reveal {
+        opacity: 1 !important;
+    }
+
+    .animate-blink {
+        animation: none;
+    }
+}

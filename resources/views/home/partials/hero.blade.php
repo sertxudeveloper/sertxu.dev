@@ -12,19 +12,19 @@
                     <span id="cmd1"></span>
                     <span id="cursor1" class="bg-neutral-400 animate-blink w-2 h-5">&nbsp;</span>
                 </div>
-                <div id="line2" class="opacity-0 transition-all duration-500 flex items-center gap-2 text-neutral-300 mb-1">
+                <div id="line2" class="hero-reveal opacity-0 transition-opacity duration-500 flex items-center gap-2 text-neutral-300 mb-1">
                     <span class="text-neutral-500 text-[10px]">▶</span>Sergio Peris <span class="text-neutral-500">(aka. Sertxu)</span>
                 </div>
-                <div id="line3" class="opacity-0 transition-all duration-500 flex items-center gap-2 text-neutral-300 mb-1">
+                <div id="line3" class="hero-reveal opacity-0 transition-opacity duration-500 flex items-center gap-2 text-neutral-300 mb-1">
                     <span class="text-neutral-500 text-[10px]">▶</span>Full-Stack developer <span class="text-neutral-500">&</span> SysAdmin
                 </div>
-                <div id="line4" class="opacity-0 transition-all duration-500 flex items-center gap-2 text-neutral-300">
+                <div id="line4" class="hero-reveal opacity-0 transition-opacity duration-500 flex items-center gap-2 text-neutral-300">
                     <span class="text-neutral-500 text-[10px]">▶</span>Xàtiva, València <span class="text-neutral-500">(Spain)</span>
                 </div>
             </div>
 
             <!-- Hero Content -->
-            <div id="hero-content" class="opacity-0 transition-all duration-500 translate-y-6">
+            <div id="hero-content">
                 <div class="flex flex-wrap gap-4 mt-12">
                     <a href="#projects" class="px-6 py-3 bg-coral text-white rounded-lg text-sm font-medium hover:bg-coral transition-all hover:shadow-[0_0_10px_#FF3047]">
                         View my work
@@ -36,8 +36,8 @@
             </div>
         </div>
 
-        <div id="profile-image" class="opacity-0 transition-all duration-500 translate-y-6">
-            <img src="/sergio.webp" alt="Sergio Peris" class="size-64 md:size-80 object-cover mx-auto md:mx-0 shadow-lg rounded-md">
+        <div id="profile-image">
+            <img src="/sergio.webp" alt="Sergio Peris" width="480" height="480" fetchpriority="high" class="size-64 md:size-80 object-cover mx-auto md:mx-0 shadow-lg rounded-md">
         </div>
     </div>
 
@@ -57,8 +57,13 @@
         const line2 = document.getElementById('line2');
         const line3 = document.getElementById('line3');
         const line4 = document.getElementById('line4');
-        const heroContent = document.getElementById('hero-content');
-        const profileImage = document.getElementById('profile-image');
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            cmd1.textContent = 'whoami';
+            [line2, line3, line4].forEach((line) => line.classList.remove('opacity-0'));
+
+            return;
+        }
 
         const text = 'whoami';
         let idx = 0;
@@ -77,12 +82,6 @@
                         line3.classList.remove('opacity-0');
                         setTimeout(() => {
                             line4.classList.remove('opacity-0');
-                            setTimeout(() => {
-                                heroContent.classList.remove('opacity-0', 'translate-y-6');
-                                setTimeout(() => {
-                                    profileImage.classList.remove('opacity-0', 'translate-y-6');
-                                }, 200)
-                            }, 400);
                         }, 400);
                     }, 400);
                 }, 300);
