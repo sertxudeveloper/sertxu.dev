@@ -13,7 +13,7 @@ export default defineConfig({
             refresh: true,
             fonts: [
                 bunny('Archivo', {
-                    weights: [400, 500, 600, 700, 800, 900],
+                    weights: [600, 700],
                 }),
                 bunny('DM Sans', {
                     weights: [400, 500, 700],
