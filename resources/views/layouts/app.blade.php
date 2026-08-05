@@ -16,5 +16,9 @@
 
 @livewireScriptConfig
 
+<!-- Cloudflare Web Analytics -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d1168f3f69cc414782cd4e9abe2321e0"}'></script>
+<!-- End Cloudflare Web Analytics -->
+
 </body>
 </html>
