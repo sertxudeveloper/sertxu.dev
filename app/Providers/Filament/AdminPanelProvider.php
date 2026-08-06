@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
-use App\Filament\Resources\Education\Widgets\LatestEducation;
-use App\Filament\Resources\Experiences\Widgets\LatestExperiences;
 use App\Filament\Resources\Posts\Widgets\LatestPosts;
 use App\Filament\Resources\Projects\Widgets\LatestProjects;
 use Filament\Http\Middleware\Authenticate;
@@ -48,8 +46,6 @@ final class AdminPanelProvider extends PanelProvider
                 FilamentInfoWidget::class,
                 LatestPosts::class,
                 LatestProjects::class,
-                LatestExperiences::class,
-                LatestEducation::class,
             ])
             ->middleware([
                 EncryptCookies::class,
