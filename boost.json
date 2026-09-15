@@ -18,12 +18,14 @@
     ],
     "sail": false,
     "skills": [
+        "infer-conventions",
         "laravel-best-practices",
+        "testing-best-practices",
         "configure-nightwatch",
         "octane-development",
         "livewire-development",
-        "pest-testing",
         "tailwindcss-development",
+        "filament-development",
         "medialibrary-development"
     ]
 }
