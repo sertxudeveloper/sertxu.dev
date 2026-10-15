@@ -34,5 +34,3 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/sitemap.xml', fn () => response(Storage::disk('r2')->get('sitemap.xml'), 200, ['Content-Type' => 'application/xml']));
-
-Route::redirect('/login', '/admin/login')->name('login');
