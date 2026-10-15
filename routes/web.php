@@ -26,7 +26,7 @@ Route::get('/blog/{post:slug}', [Controllers\PostController::class, 'show'])->na
 Route::get('/blog/{post:slug}/thumbnail', Controllers\PostThumbnailController::class)->name('posts.thumbnail');
 Route::get('/blog/{post:slug}/preview', Controllers\PostPreviewController::class)->name('posts.preview');
 
-// Route::view('/uses', 'uses')->name('uses');
+Route::view('/uses', 'uses')->name('uses');
 
 Route::middleware('auth')->group(function () {
     Route::get('/threads/auth', [Controllers\ThreadsAuthController::class, 'index'])->name('threads.auth');

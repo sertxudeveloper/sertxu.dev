@@ -1,11 +1,22 @@
-<x-app-layout>
-    <section class="bg-dark-200 py-24 px-4 min-h-[calc(100vh-180px)] relative">
-        <div class="top-0 left-0 absolute h-full w-full z-0 pointer-events-none bg-doodles"></div>
+<x-app-layout
+        title="Uses - sertxu.dev"
+        description="Know more about my preferred technologies and software."
+        :canonical="route('uses')"
+        :breadcrumbs="[
+        ['name' => 'Home', 'url' => route('home')],
+        ['name' => 'Uses', 'url' => route('uses')]
+    ]"
+>
+    <section id="blog" class="py-28 md:py-36 border-t border-neutral-900">
+        <div class="text-center">
+            <h1 class="font-heading text-3xl md:text-4xl font-bold text-neutral-300">What tools do I use?</h1>
+            <span class="bg-coral inline-block h-0.5 rounded-full w-12 mt-4"></span>
+        </div>
 
-        <div class="max-w-(--breakpoint-md) mx-auto">
-            <h2 class="text-3xl text-neutral-200 text-center font-medium uppercase font-heading">Uses</h2>
-            <div class="border-b-2 border-ocean w-32 mx-auto mt-2 mb-10"></div>
-            <section class="markup -mt-6!">@markdown(File::get(resource_path('markdown/uses.md')))</section>
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="post-content">
+                @markdown(File::get(resource_path('markdown/uses.md')))
+            </div>
         </div>
     </section>
 </x-app-layout>

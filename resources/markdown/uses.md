@@ -1,31 +1,24 @@
-# What technologies I know?
+## Core stack
 
-I mainly develop web applications with the TALL stack, witch consists of Tailwind, Alpine.js, Laravel and Livewire. This website is built with the TALL stack!
+I build, test, and deploy production-ready Laravel applications with a strong focus on reliability, automation, and maintainability.
 
-I also have experience with other technologies like GIT, Vue.js, Node.js, SQLite, MySQL, MariaDB, Docker, NGINX, Apache, among others.
+- **Backend:** Laravel, Queues, Task Scheduling, and real-time WebSockets using Socketi
+- **Frontend:** Livewire, Filament (admin panels), Tailwind CSS
+- **Database & Storage:** PostgreSQL (CloudNativePG + Barman for backups), S3-compatible storage (Cloudflare R2, Garage, or AWS S3)
+- **Infrastructure:** Docker, Kubernetes, Traefik, Nginx
+- **Security & TLS:** Certbot (Let's Encrypt ACME) with Cloudflare DNS-01 challenges
+- **Observability:** Sentry, Grafana, Prometheus (with Blackbox and Node Exporter for uptime and host-level metrics)
+- **Testing:** Pest & PHPUnit
+- **CI/CD:** GitHub Actions (both SaaS and self-hosted runners)
 
-I've also developed mobile applications with Ionic and desktop applications with Electron, C# and .NET.
+## Development workflow
 
-<br>
+For local development, I use Laravel Herd. For day-to-day coding, I rely on PhpStorm (with the Laravel Idea plugin) and Visual Studio Code. I use Git from the command line, host my repositories on GitHub, and use Figma for wireframes, mockups, logos, and design work.
 
-# What software I use?
+## Deployment pipeline
 
-For developing web applications, I use PHPStorm as I own a license with the Laravel Idea plugin, which makes my life easier.
+My workflow is fully automated. When all tests pass, the application is Dockerized, pushed to a container registry (Docker Hub or self-hosted), and deployed to my Kubernetes clusters using a zero-downtime rollover strategy.
 
-I also use a lot Visual Studio Code, as it is a great editor for web development and many other tasks.
+## Less frequent work
 
-For developing some desktop applications I use Visual Studio, as it has support for C# and .NET without any additional configuration.
-
-For designing, I use Figma, as it is a great tool for creating wireframes and mockups.
-I even use it for creating some logos and prints.
-
-As a version control system, I use GIT CLI, and I host my repositories on GitHub.
-
-My daily computer is running Windows, for my servers I use Ubuntu Server with VIM as my main editor, and for my containers, I use Alpine Linux.
-
-I also use Docker for containerizing my applications and services.
-
-For catching any errors, I use Sentry, as it is a great tool for tracking errors and exceptions.
-
-For testing my web applications, I use PHPUnit and Pest.
-
+When a project calls for it, I also work with Electron, Ionic, C#, .NET, MariaDB, Microsoft SQL Server, Apache, Plesk, cPanel, and WordPress.
