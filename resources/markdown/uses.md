@@ -40,5 +40,3 @@ For local development, I use Laravel Herd, PhpStorm (with Laravel Idea), VS Code
 ## Also experienced with
 
 When a project calls for it, I work with Electron, Ionic, C#, .NET, MariaDB, Microsoft SQL Server, Apache, Plesk, cPanel, and WordPress.
-
-I also train custom scikit-learn models and serve them for inference with FastAPI and Uvicorn.
