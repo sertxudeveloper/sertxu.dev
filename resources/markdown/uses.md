@@ -1,12 +1,15 @@
 ## Core stack
 
-I build Laravel applications that are easy to maintain and stay online without worrying about Friday releases.
+I build Laravel applications that are easy to maintain and stay online without having to worry about Friday releases.
+I own the whole path from code to production: tests, pipelines, infrastructure, and monitoring.
 
 ### Application
 
 - **Backend:** Laravel, with queues, scheduled tasks, and real-time updates via WebSockets (Socketi)
 
 - **Frontend:** Livewire, Filament admin panels, Tailwind CSS, Lucide Icons, and Alpine.js
+
+- **ML Services:** Custom scikit-learn models served for inference with FastAPI
 
 ### Data you can trust
 
@@ -34,7 +37,7 @@ I build Laravel applications that are easy to maintain and stay online without w
 
 For local development, I use Laravel Herd, PhpStorm (with Laravel Idea), VS Code, Git and GitHub, and Figma for wireframes, mockups, and logos.
 
-## Less frequent work
+## Also experienced with
 
 When a project calls for it, I work with Electron, Ionic, C#, .NET, MariaDB, Microsoft SQL Server, Apache, Plesk, cPanel, and WordPress.
 
