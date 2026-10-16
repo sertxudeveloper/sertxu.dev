@@ -6,95 +6,30 @@ on:
   workflow_call:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  tests:
-    runs-on: ubuntu-latest
+  setup:
+    uses: ./.github/workflows/setup.yml
 
-    strategy:
-      matrix:
-        test:
-          - name: lint
-            command: composer test:lint
-            needs-db: 'false'
-          - name: refactor
-            command: composer test:refactor
-            needs-db: 'false'
-          - name: type-coverage
-            command: composer test:type-coverage
-            needs-db: 'true'
-          - name: unit
-            command: composer test:unit
-            needs-db: 'true'
-      fail-fast: false
+  test-lint:
+    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
+    needs: setup
+    uses: ./.github/workflows/test-lint.yml
 
-    name: ${{ matrix.test.name }}
+  test-refactor:
+    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
+    needs: setup
+    uses: ./.github/workflows/test-refactor.yml
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v7.0.1
+  test-type-coverage:
+    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
+    needs: setup
+    uses: ./.github/workflows/test-type-coverage.yml
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.5'
-        coverage: xdebug
-
-    - name: Cache Composer dependencies
-      uses: actions/cache@v6.1.0
-      with:
-        path: vendor
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: ${{ runner.os }}-composer-
-
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
-    - name: Setup Node.js environment
-      if: ${{ matrix.test.needs-db == 'true' }}
-      uses: actions/setup-node@v7.0.0
-      with:
-        node-version: '24'
-        cache: 'npm'
-
-    - name: Copy .env
-      if: ${{ matrix.test.needs-db == 'true' }}
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-
-    - name: Build assets
-      if: ${{ matrix.test.needs-db == 'true' }}
-      run: |
-        npm ci
-        npm run build
-
-    - name: Generate key
-      if: ${{ matrix.test.needs-db == 'true' }}
-      run: php artisan key:generate
-
-    - name: Directory Permissions
-      if: ${{ matrix.test.needs-db == 'true' }}
-      run: chmod -R 777 storage bootstrap/cache
-
-    - name: Create Database
-      if: ${{ matrix.test.needs-db == 'true' }}
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
-
-    - name: Install Chrome for Puppeteer
-      if: ${{ matrix.test.needs-db == 'true' }}
-      run: npx --yes puppeteer browsers install chrome
-
-    - name: Run Migrations
-      if: ${{ matrix.test.needs-db == 'true' }}
-      run: php artisan migrate --force
-
-    - name: Run ${{ matrix.test.name }}
-      if: ${{ matrix.test.needs-db == 'true' }}
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: ${{ matrix.test.command }}
-
-    - name: Run ${{ matrix.test.name }}
-      if: ${{ matrix.test.needs-db == 'false' }}
-      run: ${{ matrix.test.command }}
+  test-unit:
+    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
+    needs: setup
+    uses: ./.github/workflows/test-unit.yml

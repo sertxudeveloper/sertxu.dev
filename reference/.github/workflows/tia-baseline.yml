@@ -1,0 +1,124 @@
+name: TIA Baseline
+on:
+  schedule:
+    - cron: "30 7 * * 1-5"
+      timezone: "Europe/Madrid"
+
+  workflow_dispatch:
+
+jobs:
+  baseline:
+    runs-on: self-hosted
+    timeout-minutes: 20
+
+    services:
+      gotenberg:
+        image: gotenberg/gotenberg:8
+        ports:
+          - 3000:3000
+        options: >-
+          --health-cmd "curl -f http://localhost:3000/health || exit 1"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+          --health-start-period 15s
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          tools: composer:v2
+          coverage: xdebug
+        env:
+          runner: self-hosted
+
+      - name: Setup Node
+        uses: actions/setup-node@v7.1.0
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: sudo apt install -y poppler-utils postgresql-client
+
+      - name: Activate Flux UI
+        run: composer config http-basic.composer.fluxui.dev "${{ secrets.FLUX_USERNAME }}" "${{ secrets.FLUX_LICENSE_KEY }}"
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --optimize-autoloader --prefer-dist
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Create database
+        run: |
+          dropdb --if-exists -h localhost -U postgres landlord_test
+          createdb -h localhost -U postgres landlord_test
+        env:
+          PGPASSWORD: postgres
+
+      - name: Copy Environment File
+        run: cp .env.example .env
+
+      - name: Generate Application Key
+        run: php artisan key:generate
+
+      - name: Run Tests
+        run: composer test:tia-baseline
+        env:
+          LARAVEL_PDF_DRIVER: gotenberg
+          GOTENBERG_URL: http://localhost:3000
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DB_CONNECTION: landlord
+          DB_TENANT_CONNECTION: tenant
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: landlord_test
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
+          DB_CACHE_CONNECTION: landlord
+          DB_QUEUE_CONNECTION: landlord
+          SESSION_CONNECTION: landlord
+          PULSE_DB_CONNECTION: landlord
+
+      - name: Resolve TIA baseline path
+        id: baseline
+        run: echo "path=$(./vendor/bin/pest --baseline)" >> "$GITHUB_OUTPUT"
+
+      - name: Verify TIA baseline artifacts
+        run: |
+          BASELINE="${{ steps.baseline.outputs.path }}"
+          test -f "$BASELINE/graph.json" || { echo "::error::missing graph.json in $BASELINE"; exit 1; }
+          test -f "$BASELINE/coverage.bin.gz" || { echo "::error::missing coverage.bin.gz in $BASELINE"; exit 1; }
+
+      - name: Upload TIA baseline
+        uses: actions/upload-artifact@v7
+        with:
+          name: pest-tia-baseline
+          path: ${{ steps.baseline.outputs.path }}
+          include-hidden-files: true
+          overwrite: true
+          retention-days: 30

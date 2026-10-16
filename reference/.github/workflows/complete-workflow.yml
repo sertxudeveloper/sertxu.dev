@@ -1,0 +1,72 @@
+name: complete-workflow
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+    branches:
+      - develop
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup:
+    uses: ./.github/workflows/setup.yml
+    secrets: inherit
+
+  test-lint:
+    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
+    needs: setup
+    uses: ./.github/workflows/test-lint.yml
+
+  test-refactor:
+    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
+    needs: setup
+    uses: ./.github/workflows/test-refactor.yml
+
+  test-types:
+    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
+    needs: setup
+    uses: ./.github/workflows/test-types.yml
+
+  test-type-coverage:
+    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
+    needs: setup
+    uses: ./.github/workflows/test-type-coverage.yml
+
+  test-unit:
+    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
+    needs: setup
+    uses: ./.github/workflows/test-unit.yml
+
+  test-translations:
+    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
+    needs: setup
+    uses: ./.github/workflows/test-translations.yml
+
+  deploy:
+    needs:
+      - setup
+      - test-lint
+      - test-refactor
+      - test-types
+      - test-type-coverage
+      - test-unit
+      - test-translations
+    if: |
+      always() &&
+      github.ref == 'refs/heads/main' &&
+      needs.setup.result == 'success' &&
+      (needs.test-lint.result == 'success' || needs.test-lint.result == 'skipped') &&
+      (needs.test-refactor.result == 'success' || needs.test-refactor.result == 'skipped') &&
+      (needs.test-types.result == 'success' || needs.test-types.result == 'skipped') &&
+      (needs.test-type-coverage.result == 'success' || needs.test-type-coverage.result == 'skipped') &&
+      (needs.test-unit.result == 'success' || needs.test-unit.result == 'skipped')
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit

@@ -5,6 +5,10 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 env:
   K8S_CONTAINER: sertxudev
   K8S_DEPLOYMENT: sertxudev
@@ -14,12 +18,12 @@ jobs:
   tests:
     uses: ./.github/workflows/tests.yml
 
-  build-and-deploy:
+  build:
+    name: Build Docker image
     needs: tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     environment: production
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
 
     steps:
       - name: Checkout
@@ -58,6 +62,14 @@ jobs:
           cache-from: type=registry,ref=${{ github.repository }}:buildcache
           cache-to: type=registry,ref=${{ github.repository }}:buildcache,mode=max
 
+  deploy:
+    name: Deploy to K8s
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: production
+
+    steps:
       - name: Deploy new image
         uses: appleboy/ssh-action@v1.2.5
         with:

@@ -1,0 +1,34 @@
+on:
+  workflow_call:
+
+jobs:
+  test-type-coverage:
+    runs-on: self-hosted
+    timeout-minutes: 10
+    name: Test type coverage
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          tools: composer:v2
+          coverage: xdebug
+        env:
+          runner: self-hosted
+
+      - name: Restore PHP vendor
+        uses: actions/cache@v6
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-vendor-${{ hashFiles('**/composer.lock') }}
+          fail-on-cache-miss: true
+
+      - name: Run Tests
+        run: composer test:type-coverage

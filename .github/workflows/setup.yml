@@ -1,0 +1,73 @@
+name: Setup
+
+on:
+  workflow_call:
+
+jobs:
+  setup:
+    name: Install dependencies and build assets
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          tools: composer:v2
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Composer packages
+        uses: actions/cache@v6
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Cache PHP vendor
+        id: php-vendor-cache
+        uses: actions/cache@v6
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-vendor-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-php-vendor-
+
+      - name: Install PHP dependencies
+        if: steps.php-vendor-cache.outputs.cache-hit != 'true'
+        run: composer install --no-interaction --optimize-autoloader --prefer-dist --no-progress
+
+      - name: Cache Node modules
+        id: node-modules-cache
+        uses: actions/cache@v6
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-modules-
+
+      - name: Install Node dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Cache build assets
+        uses: actions/cache@v6
+        with:
+          path: public/build
+          key: ${{ runner.os }}-assets-${{ github.sha }}

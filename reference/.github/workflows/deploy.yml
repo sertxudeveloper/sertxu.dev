@@ -1,0 +1,107 @@
+on:
+  workflow_call:
+
+jobs:
+  build:
+    name: Build Docker image
+    runs-on: self-hosted
+    timeout-minutes: 30
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v4.6.0
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY }}
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+
+      # Set up BuildKit Docker container builder to be able to build
+      # multi-platform images and export cache
+      # https://github.com/docker/setup-buildx-action
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{ secrets.DOCKER_REGISTRY }}/${{ github.repository }}
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
+            type=ref,event=pr
+            type=sha,format=long
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Calculate app version
+        id: app_version
+        run: |
+          echo "date=$(git log --pretty="format:%cd" --date="format:%Y.%m.%d %H:%M" -n1 HEAD)" >> $GITHUB_OUTPUT
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Build and push
+        id: build-and-push
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+            context: .
+            file: Dockerfile
+            platforms: linux/amd64
+            push: true
+            tags: ${{ steps.meta.outputs.tags }}
+            labels: ${{ steps.meta.outputs.labels }}
+            build-args: |
+              APP_VERSION="${{ steps.app_version.outputs.date }} - ${{ steps.app_version.outputs.sha_short }}"
+            secrets: |
+              flux_username=${{ secrets.FLUX_USERNAME }}
+              flux_license_key=${{ secrets.FLUX_LICENSE_KEY }}
+              release=${{ github.sha }}
+            cache-from: type=registry,ref=${{ secrets.DOCKER_REGISTRY }}/${{ github.repository }}:buildcache
+            cache-to: type=registry,ref=${{ secrets.DOCKER_REGISTRY }}/${{ github.repository }}:buildcache,mode=max
+
+  deploy:
+    name: Deploy to K8s
+    needs: build
+    runs-on: self-hosted
+    timeout-minutes: 20
+    environment: production
+    steps:
+      - name: Deploy new image
+        uses: appleboy/ssh-action@v1.2.5
+        with:
+          host: ${{ secrets.KUBERNETES_MASTER_SSH_HOST }}
+          username: ${{ secrets.KUBERNETES_MASTER_SSH_USER }}
+          port: ${{ secrets.KUBERNETES_MASTER_SSH_PORT }}
+          key: ${{ secrets.KUBERNETES_MASTER_SSH_KEY }}
+          command_timeout: 30m
+          script: |
+            set -e
+            export KUBECONFIG=~/.kube/config
+
+            IMAGE="${{ secrets.DOCKER_REGISTRY }}/${{ github.repository }}:sha-${{ github.sha }}"
+            NAMESPACE="intranet"
+
+            echo "🚀 Updating deployments to image: $IMAGE"
+
+            # Update all deployments
+            kubectl set image deployment/intranet-app -n $NAMESPACE intranet-app="$IMAGE"
+            kubectl set image deployment/intranet-worker -n $NAMESPACE intranet-worker="$IMAGE"
+            kubectl set image deployment/intranet-scheduler -n $NAMESPACE intranet-scheduler="$IMAGE"
+            kubectl set image deployment/intranet-reverb -n $NAMESPACE intranet-reverb="$IMAGE"
+            kubectl set image deployment/intranet-pulse -n $NAMESPACE intranet-pulse="$IMAGE"
+
+            echo "⏳ Waiting for rollouts to complete..."
+
+            # Wait for each rollout and verify success
+            kubectl rollout status deployment/intranet-app -n $NAMESPACE --timeout=15m
+            kubectl rollout status deployment/intranet-worker -n $NAMESPACE --timeout=15m
+            kubectl rollout status deployment/intranet-scheduler -n $NAMESPACE --timeout=15m
+            kubectl rollout status deployment/intranet-reverb -n $NAMESPACE --timeout=15m
+            kubectl rollout status deployment/intranet-pulse -n $NAMESPACE --timeout=15m
+
+            echo "✅ All deployments successfully rolled out"

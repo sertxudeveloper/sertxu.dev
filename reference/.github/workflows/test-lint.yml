@@ -1,0 +1,33 @@
+on:
+  workflow_call:
+
+jobs:
+  test-lint:
+    runs-on: self-hosted
+    timeout-minutes: 5
+    name: Test lint
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2
+          coverage: none
+        env:
+          runner: self-hosted
+
+      - name: Restore PHP vendor
+        uses: actions/cache@v6
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-vendor-${{ hashFiles('**/composer.lock') }}
+          fail-on-cache-miss: true
+
+      - name: Run Tests
+        run: composer test:lint
