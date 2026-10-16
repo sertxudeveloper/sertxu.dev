@@ -57,7 +57,7 @@ jobs:
           restore-keys: ${{ runner.os }}-puppeteer-
 
       - name: Install Chrome for Puppeteer
-        run: npx --yes puppeteer browsers install chrome
+        run: npx --yes puppeteer browsers install chrome-headless-shell
 
       - name: Copy .env
         run: cp .env.example .env
