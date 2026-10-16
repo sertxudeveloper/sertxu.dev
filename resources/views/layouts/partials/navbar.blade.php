@@ -16,6 +16,7 @@
             <x-navbar.item :href="route('home')" :is-active="request()->routeIs('home')">Home</x-navbar.item>
             <x-navbar.item :href="route('projects.index')" :is-active="request()->routeIs('projects.*')">Projects</x-navbar.item>
             <x-navbar.item :href="route('posts.index')" :is-active="request()->routeIs('posts.*')">Blog</x-navbar.item>
+            <x-navbar.item :href="route('uses')" :is-active="request()->routeIs('uses')">Uses</x-navbar.item>
             <a href="{{ route('home') }}#contact" class="px-5 py-2 text-[#e02a3f] rounded-lg text-sm font-medium hover:bg-[#e02a3f] hover:text-neutral-200 border border-[#e02a3f] transition-all">Contact</a>
         </div>
 

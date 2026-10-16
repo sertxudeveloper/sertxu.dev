@@ -1,31 +1,41 @@
-# What technologies I know?
+## Core stack
 
-I mainly develop web applications with the TALL stack, witch consists of Tailwind, Alpine.js, Laravel and Livewire. This website is built with the TALL stack!
+I build Laravel applications that are easy to maintain and stay online without worrying about Friday releases.
 
-I also have experience with other technologies like GIT, Vue.js, Node.js, SQLite, MySQL, MariaDB, Docker, NGINX, Apache, among others.
+### Application
 
-I've also developed mobile applications with Ionic and desktop applications with Electron, C# and .NET.
+- **Backend:** Laravel, with queues, scheduled tasks, and real-time updates via WebSockets (Socketi)
 
-<br>
+- **Frontend:** Livewire, Filament admin panels, Tailwind CSS, Lucide Icons, and Alpine.js
 
-# What software I use?
+### Data you can trust
 
-For developing web applications, I use PHPStorm as I own a license with the Laravel Idea plugin, which makes my life easier.
+- **Database:** PostgreSQL on CloudNativePG, with Barman for backup and point-in-time recovery
 
-I also use a lot Visual Studio Code, as it is a great editor for web development and many other tasks.
+- **Storage:** S3-compatible via Cloudflare R2 or self-hosted Garage
 
-For developing some desktop applications I use Visual Studio, as it has support for C# and .NET without any additional configuration.
+### Infrastructure that doesn't wake you at 3 AM
 
-For designing, I use Figma, as it is a great tool for creating wireframes and mockups.
-I even use it for creating some logos and prints.
+- **Platform:** Docker, Kubernetes, Traefik, and Nginx, with zero-downtime rollouts
 
-As a version control system, I use GIT CLI, and I host my repositories on GitHub.
+- **Hosting:** Bare-metal Proxmox with Ubuntu Server.
 
-My daily computer is running Windows, for my servers I use Ubuntu Server with VIM as my main editor, and for my containers, I use Alpine Linux.
+- **Security:** Automated TLS via Let's Encrypt, Certbot, and Cloudflare DNS-01 challenge
 
-I also use Docker for containerizing my applications and services.
+- **Monitoring:** Sentry for errors and traces, Prometheus and Grafana for metrics and dashboards, connected with Blackbox, Node Exporter, and kube-state-metrics for uptime, host health, and K8s health
 
-For catching any errors, I use Sentry, as it is a great tool for tracking errors and exceptions.
+### Quality and delivery
 
-For testing my web applications, I use PHPUnit and Pest.
+- **Testing:** Pest and PHPUnit, integrated into CI
 
+- **CI/CD:** GitHub Actions (SaaS and self-hosted runners). When all tests pass, the app is containerized, pushed to a registry (Docker Hub or self-hosted), and rolled out to Kubernetes with zero downtime.
+
+## My daily tools
+
+For local development, I use Laravel Herd, PhpStorm (with Laravel Idea), VS Code, Git and GitHub, and Figma for wireframes, mockups, and logos.
+
+## Less frequent work
+
+When a project calls for it, I work with Electron, Ionic, C#, .NET, MariaDB, Microsoft SQL Server, Apache, Plesk, cPanel, and WordPress.
+
+I also train custom scikit-learn models and serve them for inference with FastAPI and Uvicorn.
