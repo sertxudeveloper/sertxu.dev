@@ -54,6 +54,7 @@
             <x-navbar.item :href="route('home')" :is-active="request()->routeIs('home')" class="py-2">Home</x-navbar.item>
             <x-navbar.item :href="route('projects.index')" :is-active="request()->routeIs('projects.*')" class="py-2">Projects</x-navbar.item>
             <x-navbar.item :href="route('posts.index')" :is-active="request()->routeIs('posts.*')" class="py-2">Blog</x-navbar.item>
+            <x-navbar.item :href="route('uses')" :is-active="request()->routeIs('uses')" class="py-2">Uses</x-navbar.item>
             <x-navbar.item :href="route('home') . '#contact'" class="py-2">Contact</x-navbar.item>
         </div>
     </div>
