@@ -1,6 +1,6 @@
 ## Core stack
 
-I build Laravel applications that are easy to maintain, and stay online without having to worry about making releases on Friday.
+I build Laravel applications that are easy to maintain and stay online without worrying about Friday releases.
 
 ### Application
 
@@ -22,7 +22,7 @@ I build Laravel applications that are easy to maintain, and stay online without 
 
 - **Security:** Automated TLS via Let's Encrypt, Certbot, and Cloudflare DNS-01 challenge
 
-- **Monitoring:** Sentry for errors and traces, Prometheus and Grafana for metrics and dashboards, connected with Blackbox, Node Exporter, and kube-state-metrics for uptime, host health and K8s health
+- **Monitoring:** Sentry for errors and traces, Prometheus and Grafana for metrics and dashboards, connected with Blackbox, Node Exporter, and kube-state-metrics for uptime, host health, and K8s health
 
 ### Quality and delivery
 
