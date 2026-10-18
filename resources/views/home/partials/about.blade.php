@@ -8,13 +8,14 @@
 
         <div class="mt-4 max-w-3xl mx-auto">
             <p class="text-neutral-300 text-base md:text-lg leading-relaxed">
-                Hi! I'm Sergio Peris, known as Sertxu — a Full-Stack Developer and SysAdmin
+                Hi! I'm Sergio Peris, known as Sertxu, a Full-Stack Developer and SysAdmin
                 based in Xàtiva, Valencia (Spain). I currently lead IT operations as IT Manager at a local company,
                 where I focus on reliability, performance, and building clean, maintainable systems.
             </p>
             <p class="text-neutral-300 text-base md:text-lg leading-relaxed mt-5">
-                I work with a range of technologies, including Laravel, Node.js, and C#, among others.
-                Beyond my day-to-day work, I'm an open-source maintainer and content creator
+                My day-to-day is built around Laravel and the PHP ecosystem, from clean,
+                maintainable applications to the infrastructure that keeps them running.
+                Beyond that, I'm an open-source maintainer and content creator
                 who enjoys turning complex ideas into knowledge worth sharing.
             </p>
         </div>
