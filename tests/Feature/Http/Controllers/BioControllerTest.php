@@ -9,3 +9,8 @@ it('can load bio index page', function (): void {
         ->assertSeeText('My website')
         ->assertSeeText('TikTok');
 });
+
+it('can goto the requested url', function (): void {
+    $this->get('/goto?url=https://google.com')
+        ->assertRedirect('https://google.com');
+});

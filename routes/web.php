@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -28,6 +29,8 @@ Route::get('/blog/{post:slug}/preview', Controllers\PostPreviewController::class
 
 Route::view('/uses', 'uses')->name('uses');
 Route::view('/bio', 'bio')->name('bio');
+
+Route::get('/goto', fn (Request $request) => response()->redirectTo($request->input('url')))->name('goto');
 
 Route::middleware('auth')->group(function () {
     Route::get('/threads/auth', [Controllers\ThreadsAuthController::class, 'index'])->name('threads.auth');
