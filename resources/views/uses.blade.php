@@ -7,7 +7,7 @@
         ['name' => 'Uses', 'url' => route('uses')]
     ]"
 >
-    <section id="blog" class="py-28 md:py-36 border-t border-neutral-900">
+    <section class="py-28 md:py-36 border-t border-neutral-900">
         <div class="text-center">
             <h1 class="font-heading text-3xl md:text-4xl font-bold text-neutral-300">What tools do I use?</h1>
             <span class="bg-coral inline-block h-0.5 rounded-full w-12 mt-4"></span>
