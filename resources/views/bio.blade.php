@@ -46,6 +46,10 @@
             <a href="https://linkedin.com/in/sertxudev" target="_blank" class="px-6 py-3 bg-ocean text-white rounded-lg font-medium flex items-center justify-center space-x-2">
                 <x-icons.linkedin class="size-4"/> <span>LinkedIn</span>
             </a>
+
+            <a href="https://threads.com/@sertxudev" target="_blank" class="px-6 py-3 bg-ocean text-white rounded-lg font-medium flex items-center justify-center space-x-2">
+                <x-icons.threads class="size-4"/> <span>Threads</span>
+            </a>
         </div>
     </section>
 </x-app-layout>
