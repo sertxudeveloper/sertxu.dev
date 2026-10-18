@@ -11,7 +11,7 @@
     <!-- Styles -->
     @vite('resources/css/app.css')
 </head>
-<body class="font-sans antialiased bg-dark-300 relative" style="width: 640px; height: 360px;">
+<body class="font-sans antialiased bg-neutral-950 relative" style="width: 640px; height: 360px;">
 
 <svg class="absolute left-0 top-0" width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M623.693 331.788C623.443 332.244 622.777 332.241 622.531 331.783L616.718 320.95C616.487 320.519 616.805 320 617.301 320L629.045 320C629.543 320 629.861 320.524 629.625 320.955L623.693 331.788Z" fill="#FF3047"/>
