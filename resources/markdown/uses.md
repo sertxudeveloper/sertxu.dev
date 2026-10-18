@@ -1,11 +1,11 @@
 ## Core stack
 
-I build Laravel applications that are easy to maintain and stay online without having to worry about Friday releases.
+I build Laravel applications that are easy to maintain and stay online without worrying about Friday releases.
 I own the whole path from code to production: tests, pipelines, infrastructure, and monitoring.
 
 ### Application
 
-- **Backend:** Laravel, with queues, scheduled tasks, and real-time updates via WebSockets (Socketi)
+- **Backend:** Laravel, with queues, scheduled tasks, and real-time updates via WebSockets (Soketi)
 
 - **Frontend:** Livewire, Filament admin panels, Tailwind CSS, Lucide Icons, and Alpine.js
 
