@@ -18,7 +18,7 @@
             <span class="bg-coral inline-block h-0.5 rounded-full w-12 mt-4"></span>
         </div>
 
-        <div class="grid grid-cols-1 gap-4 w-sm mx-auto mt-8">
+        <div class="grid grid-cols-1 gap-4 max-w-md px-6 mx-auto mt-8">
             <a href="https://sertxu.dev" target="_blank" class="px-6 py-3 bg-ocean text-white rounded-lg font-medium flex items-center justify-center space-x-2">
                 <x-icons.globe class="size-4"/> <span>My website</span>
             </a>
