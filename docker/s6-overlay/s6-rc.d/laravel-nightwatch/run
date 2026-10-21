@@ -1,0 +1,3 @@
+#!/command/with-contenv sh
+cd /var/www/html
+exec php artisan nightwatch:agent

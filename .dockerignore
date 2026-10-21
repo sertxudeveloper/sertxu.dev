@@ -1,0 +1,41 @@
+# Installed inside the image
+node_modules
+vendor
+
+# Secrets and local environment
+.env
+.env.*
+
+# Local build artifacts
+public/build
+public/hot
+public/storage
+bootstrap/cache/*.php
+database/*.sqlite
+database/*.sqlite-*
+storage/logs/*.log
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+!storage/**/.gitignore
+
+# Tooling, agent config and docs
+.git
+.github
+.idea
+.vscode
+.devcontainer
+.ai
+.agents
+.claude
+.codex
+.cursor
+.gemini
+.junie
+.opencode
+tests
+README.md
+PLAN.md
+AGENTS.md
+CLAUDE.md
+GEMINI.md
