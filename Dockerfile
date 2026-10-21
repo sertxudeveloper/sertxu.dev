@@ -13,7 +13,7 @@ ENV PUPPETEER_CACHE_DIR=/browser
 RUN npm install --global "puppeteer@${PUPPETEER_VERSION}" && \
     test -d /browser/chrome
 
-FROM serversideup/php:8.5-fpm-nginx
+FROM serversideup/php:8.5.12-fpm-nginx
 
 USER root
 
