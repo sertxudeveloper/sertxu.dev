@@ -31,6 +31,10 @@
                 <x-icons.github class="size-4"/> <span>GitHub (org)</span>
             </a>
 
+            <a href="{{ route('goto', ['url' => 'https://dev-null.sh/@sertxudev']) }}" target="_blank" rel="noopener noreferer" class="px-6 py-3 bg-ocean text-white rounded-lg font-medium flex items-center justify-center space-x-2">
+                <x-icons.dev-null class="size-4"/> <span>/dev/null</span>
+            </a>
+
             <a href="{{ route('goto', ['url' => 'https://instagram.com/sertxudev']) }}" target="_blank" rel="noopener noreferer" class="px-6 py-3 bg-ocean text-white rounded-lg font-medium flex items-center justify-center space-x-2">
                 <x-icons.instagram class="size-4"/> <span>Instagram</span>
             </a>
