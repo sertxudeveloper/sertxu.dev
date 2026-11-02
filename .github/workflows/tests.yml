@@ -1,35 +1,64 @@
-name: Tests
+name: complete-workflow
 
 on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '.ai/**'
+      - '.agents/**'
+      - '.claude/**'
+      - '.cursor/**'
+      - '.junie/**'
+      - '.run/**'
+      - '.github/skills/**'
   pull_request:
-    branches: [ "main" ]
-  workflow_call:
+    branches:
+      - develop
+      - main
+    paths-ignore:
+      - '**.md'
+      - '.ai/**'
+      - '.agents/**'
+      - '.claude/**'
+      - '.cursor/**'
+      - '.junie/**'
+      - '.run/**'
+      - '.github/skills/**'
   workflow_dispatch:
 
 concurrency:
-  group: Tests-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  setup:
-    uses: ./.github/workflows/setup.yml
+  test-static:
+    # Tests always run on main so a deploy can never ship an untested commit.
+    if: "github.ref == 'refs/heads/main' || !startsWith(github.event.head_commit.message, '[skip tests]')"
+    uses: ./.github/workflows/test-static.yml
+    secrets: inherit
 
-  test-lint:
-    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
-    needs: setup
-    uses: ./.github/workflows/test-lint.yml
-
-  test-refactor:
-    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
-    needs: setup
-    uses: ./.github/workflows/test-refactor.yml
-
-  test-type-coverage:
-    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
-    needs: setup
-    uses: ./.github/workflows/test-type-coverage.yml
+  test-analyse:
+    if: "github.ref == 'refs/heads/main' || !startsWith(github.event.head_commit.message, '[skip tests]')"
+    uses: ./.github/workflows/test-analyse.yml
+    secrets: inherit
 
   test-unit:
-    if: "!startsWith(github.event.head_commit.message, '[skip tests]')"
-    needs: setup
+    if: "github.ref == 'refs/heads/main' || !startsWith(github.event.head_commit.message, '[skip tests]')"
     uses: ./.github/workflows/test-unit.yml
+    secrets: inherit
+
+  deploy:
+    needs:
+      - test-static
+      - test-analyse
+      - test-unit
+    if: |
+      always() &&
+      github.ref == 'refs/heads/main' &&
+      needs.test-static.result == 'success' &&
+      needs.test-analyse.result == 'success' &&
+      needs.test-unit.result == 'success'
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
