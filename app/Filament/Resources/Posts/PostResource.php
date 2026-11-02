@@ -67,7 +67,7 @@ final class PostResource extends Resource
                         TextInput::make('title')
                             ->required()
                             ->live(onBlur: true)
-                            ->afterStateUpdated(function (Set $set, $state) use ($schema): void {
+                            ->afterStateUpdated(function (Set $set, string $state) use ($schema): void {
                                 // If operating on an existing record, don't update the slug.
                                 if ($schema->getOperation() === 'create') {
                                     $set('slug', Str::slug($state));

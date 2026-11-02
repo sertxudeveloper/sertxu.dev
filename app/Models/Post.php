@@ -7,6 +7,8 @@ namespace App\Models;
 use App\Models\Concerns\Threadable;
 use App\Models\Concerns\Tweetable;
 use Carbon\CarbonInterface;
+use Database\Factories\PostFactory;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,8 +25,27 @@ use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
 use Spatie\Tags\HasTags;
 
+/**
+ * @property int $id
+ * @property string $title
+ * @property string $slug
+ * @property ?string $text
+ * @property bool $is_published
+ * @property ?Carbon $published_at
+ * @property bool $posted_on_twitter
+ * @property bool $posted_on_dev
+ * @property bool $posted_on_medium
+ * @property ?Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @property ?Carbon $deleted_at
+ * @property bool $posted_on_threads
+ * @property ?string $excerpt
+ * @property-read float $minutes_to_read
+ */
+#[UseFactory(PostFactory::class)]
 final class Post extends Model implements HasMedia, Sitemapable
 {
+    /** @use HasFactory<PostFactory> */
     use HasFactory, HasTags, InteractsWithMedia, SoftDeletes;
     use Threadable, Tweetable;
 
@@ -37,7 +58,7 @@ final class Post extends Model implements HasMedia, Sitemapable
     public $with = ['tags'];
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var list<string>
      */

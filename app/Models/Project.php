@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Database\Factories\ProjectFactory;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,8 +20,24 @@ use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
 use Spatie\Tags\HasTags;
 
+/**
+ * @property int $id
+ * @property string $title
+ * @property string $slug
+ * @property ?string $excerpt
+ * @property ?string $text
+ * @property ?string $website
+ * @property ?bool $is_published
+ * @property bool $is_featured
+ * @property ?Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @property ?Carbon $deleted_at
+ * @property ?string $repository
+ */
+#[UseFactory(ProjectFactory::class)]
 final class Project extends Model implements HasMedia, Sitemapable
 {
+    /** @use HasFactory<ProjectFactory> */
     use HasFactory, HasTags, InteractsWithMedia, SoftDeletes;
 
     /**
@@ -30,6 +48,11 @@ final class Project extends Model implements HasMedia, Sitemapable
     #[Override]
     public $with = ['tags'];
 
+    /**
+     * The attributes that are mass-assignable.
+     *
+     * @var array<int, string>
+     */
     #[Override]
     protected $fillable = [
         'title', 'slug', 'excerpt', 'website', 'repository', 'text', 'is_published', 'is_featured',
@@ -98,6 +121,11 @@ final class Project extends Model implements HasMedia, Sitemapable
         return $this->is_published;
     }
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
