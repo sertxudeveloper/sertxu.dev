@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
-use Pest\Livewire\InteractsWithLivewire;
 use Tests\TestCase;
 
 /*
