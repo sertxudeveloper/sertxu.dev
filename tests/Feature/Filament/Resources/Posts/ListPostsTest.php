@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Queue;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
 use function Pest\Laravel\assertSoftDeleted;
+use function Pest\Livewire\livewire;
 
 beforeEach(function () {
     $this->admin = User::factory()->admin()->create();

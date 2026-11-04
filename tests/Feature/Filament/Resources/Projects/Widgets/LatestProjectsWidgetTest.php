@@ -7,7 +7,7 @@ use App\Filament\Resources\Projects\Widgets\LatestProjects;
 use App\Models\Project;
 use App\Models\User;
 
-uses(Illuminate\Foundation\Testing\RefreshDatabase::class);
+use function Pest\Livewire\livewire;
 
 beforeEach(function () {
     $this->admin = User::factory()->admin()->create();

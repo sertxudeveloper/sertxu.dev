@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\User;
 
 use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Livewire\livewire;
 
 beforeEach(function () {
     $this->admin = User::factory()->admin()->create();
