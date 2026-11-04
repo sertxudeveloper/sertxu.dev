@@ -24,6 +24,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
 use Spatie\Tags\HasTags;
+use Spatie\Tags\Tag;
 
 /**
  * @property int $id
@@ -35,18 +36,20 @@ use Spatie\Tags\HasTags;
  * @property bool $posted_on_twitter
  * @property bool $posted_on_dev
  * @property bool $posted_on_medium
- * @property ?Carbon $created_at
- * @property ?Carbon $updated_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  * @property ?Carbon $deleted_at
  * @property bool $posted_on_threads
  * @property ?string $excerpt
  * @property-read float $minutes_to_read
+ * @property-read Collection<int, Tag> $tags
  */
 #[UseFactory(PostFactory::class)]
 final class Post extends Model implements HasMedia, Sitemapable
 {
     /** @use HasFactory<PostFactory> */
     use HasFactory, HasTags, InteractsWithMedia, SoftDeletes;
+
     use Threadable, Tweetable;
 
     /**
@@ -100,31 +103,47 @@ final class Post extends Model implements HasMedia, Sitemapable
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumbnail')
+            ->performOnCollections('thumbnail')
             ->fit(Fit::Crop, 640, 360)
             ->optimize()
-            ->format('webp')
-            ->performOnCollections('thumbnail');
+            ->format('webp');
 
         $this->addMediaConversion('thumbnail-jpg')
+            ->performOnCollections('thumbnail')
             ->fit(Fit::Crop, 640, 360)
             ->optimize()
-            ->format('jpg')
-            ->performOnCollections('thumbnail');
+            ->format('jpg');
     }
 
     /**
      * Scope a query to only include published posts.
+     *
+     * @param  Builder<Post>  $query
+     * @return Builder<Post>
      */
-    public function scopeWherePublished(Builder $query): void
+    public function scopeWherePublished(Builder $query): Builder
     {
-        $query
-            ->where('is_published', true)
-            ->orderBy('published_at', 'desc')
-            ->orderBy('id', 'desc');
+        return $query
+            ->where('is_published', true);
+    }
+
+    /**
+     * Scope a query to order posts by default.
+     *
+     * @param  Builder<Post>  $query
+     * @return Builder<Post>
+     */
+    public function scopeDefaultOrder(Builder $query): Builder
+    {
+        return $query
+            ->latest('published_at')
+            ->latest('id');
     }
 
     /**
      * Scope a query to only include scheduled posts.
+     *
+     * @param  Builder<Post>  $query
      */
     public function scopeWhereScheduled(Builder $query): void
     {
@@ -183,7 +202,7 @@ final class Post extends Model implements HasMedia, Sitemapable
     public function toSitemapTag(): Url
     {
         return Url::create(route('posts.show', $this))
-            ->setLastModificationDate(Carbon::create($this->updated_at))
+            ->setLastModificationDate($this->updated_at)
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
             ->setPriority(0.1);
     }
@@ -213,6 +232,9 @@ final class Post extends Model implements HasMedia, Sitemapable
             ->get();
     }
 
+    /**
+     * @return Attribute<float, never>
+     */
     public function minutesToRead(): Attribute
     {
         return Attribute::get(fn (): float => ceil(str($this->text)->wordCount() / 240));

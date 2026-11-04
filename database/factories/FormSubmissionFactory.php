@@ -8,6 +8,9 @@ use App\Models\FormSubmission;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Override;
 
+/**
+ * @extends Factory<FormSubmission>
+ */
 final class FormSubmissionFactory extends Factory
 {
     #[Override]

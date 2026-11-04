@@ -58,3 +58,31 @@ it('filters projects by tag', function (): void {
         ->assertSeeText('Laravel Project')
         ->assertDontSeeText('Vue Project');
 });
+
+it('filters projects by a list of tags', function (): void {
+    $laravel = Tag::create(['name' => 'Laravel']);
+    $vue = Tag::create(['name' => 'Vue']);
+
+    $laravelProject = Project::factory()->published()->create(['title' => 'Laravel Project']);
+    $laravelProject->attachTag($laravel);
+
+    $vueProject = Project::factory()->published()->create(['title' => 'Vue Project']);
+    $vueProject->attachTag($vue);
+
+    $this->get('/projects?'.http_build_query(['tag' => ['laravel', 'vue']]))
+        ->assertOk()
+        ->assertSeeText('Laravel Project')
+        ->assertSeeText('Vue Project');
+});
+
+it('ignores a non-list tag filter', function (): void {
+    $laravel = Tag::create(['name' => 'Laravel']);
+    $laravelProject = Project::factory()->published()->create(['title' => 'Laravel Project']);
+    $laravelProject->attachTag($laravel);
+    Project::factory()->published()->create(['title' => 'Docker Project']);
+
+    $this->get('/projects?'.http_build_query(['tag' => ['filter' => 'Laravel']]))
+        ->assertOk()
+        ->assertSeeText('Laravel Project')
+        ->assertSeeText('Docker Project');
+});

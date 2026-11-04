@@ -8,6 +8,9 @@ use JsonSerializable;
 
 final readonly class TurnstileResponse implements JsonSerializable
 {
+    /**
+     * @param  list<string>  $errorCodes
+     */
     public function __construct(
         private bool $success,
         private array $errorCodes,
@@ -18,11 +21,17 @@ final readonly class TurnstileResponse implements JsonSerializable
         return $this->success;
     }
 
+    /**
+     * @return list<string>
+     */
     public function getErrorCodes(): array
     {
         return $this->errorCodes;
     }
 
+    /**
+     * @return array{success: bool, 'error-codes': list<string>}
+     */
     public function jsonSerialize(): array
     {
         return [

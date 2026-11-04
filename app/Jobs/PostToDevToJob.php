@@ -12,7 +12,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\Skip;
 use Illuminate\Queue\SerializesModels;
-use JetBrains\PhpStorm\NoReturn;
 
 final class PostToDevToJob implements ShouldQueue
 {
@@ -25,6 +24,8 @@ final class PostToDevToJob implements ShouldQueue
 
     /**
      * Get the middleware the job should pass through.
+     *
+     * @return list<Skip>
      */
     public function middleware(): array
     {
@@ -36,16 +37,29 @@ final class PostToDevToJob implements ShouldQueue
     /**
      * Handle the job.
      */
-    #[NoReturn]
     public function handle(DevTo $devTo): void
     {
+        if ($this->post->text === null) {
+            return;
+        }
+
+        $tags = [];
+
+        foreach ($this->post->tags as $tag) {
+            $name = $tag->getAttribute('name');
+
+            if (is_string($name)) {
+                $tags[] = $name;
+            }
+        }
+
         $devTo->writePost(
             title: $this->post->title,
             markdown: $this->post->text,
             imageUrl: route('posts.thumbnail', $this->post),
             canonicalUrl: $this->post->url(),
-            description: $this->post->excerpt,
-            tags: $this->post->tags->pluck('name')->toArray(),
+            description: $this->post->excerpt ?? '',
+            tags: $tags,
         );
 
         $this->post->updateQuietly(['posted_on_dev' => true]);

@@ -13,8 +13,12 @@ trait Tweetable
     public function toTweet(): string
     {
         $tags = $this->tags
-            ->map(fn (Tag $tag) => $tag->name)
-            ->map(fn (string $tagName) => '#'.str_replace(' ', '', $tagName))
+            ->map(function (Tag $tag): string {
+                $name = $tag->getAttribute('name');
+
+                return is_string($name) ? '#'.str_replace(' ', '', $name) : '';
+            })
+            ->filter(fn (string $tagName): bool => $tagName !== '')
             ->implode(' ');
 
         return '🔗 '.$this->title

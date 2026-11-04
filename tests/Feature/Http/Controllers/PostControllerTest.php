@@ -6,9 +6,9 @@ use App\Models\Post;
 use Spatie\Tags\Tag;
 
 it('can load blog index page', function (): void {
-    Post::factory()->published()->create(['title' => 'Post A']);
-    Post::factory()->published()->create(['title' => 'Post B']);
-    Post::factory()->published()->create(['title' => 'Post C']);
+    Post::factory()->published()->create(['title' => 'Post A', 'published_at' => now()->subDays(3)]);
+    Post::factory()->published()->create(['title' => 'Post B', 'published_at' => now()->subDays(2)]);
+    Post::factory()->published()->create(['title' => 'Post C', 'published_at' => now()->subDays(1)]);
 
     $this->get('/blog')
         ->assertOk()

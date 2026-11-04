@@ -12,6 +12,8 @@ final readonly class Twitter
 
     /**
      * Post a tweet with the given text.
+     *
+     * @return array<array-key, mixed>
      */
     public function tweet(string $text): array
     {

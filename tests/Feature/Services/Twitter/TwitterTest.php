@@ -36,3 +36,36 @@ it('returns array response from api', function () {
         ->and($result)->toHaveKey('data')
         ->and($result['data'])->toHaveKey('id', '456');
 });
+
+it('allows null optional OAuth tokens in configuration', function () {
+    config([
+        'services.twitter.consumer_key' => 'consumer-key',
+        'services.twitter.consumer_secret' => 'consumer-secret',
+        'services.twitter.access_token' => null,
+        'services.twitter.access_token_secret' => null,
+    ]);
+
+    expect(app(Twitter::class))->toBeInstanceOf(Twitter::class);
+});
+
+it('rejects non-string required Twitter configuration', function () {
+    config([
+        'services.twitter.consumer_key' => ['invalid'],
+        'services.twitter.consumer_secret' => 'consumer-secret',
+        'services.twitter.access_token' => null,
+        'services.twitter.access_token_secret' => null,
+    ]);
+
+    expect(fn () => app(Twitter::class))->toThrow(InvalidArgumentException::class);
+});
+
+it('rejects non-string optional Twitter tokens', function () {
+    config([
+        'services.twitter.consumer_key' => 'consumer-key',
+        'services.twitter.consumer_secret' => 'consumer-secret',
+        'services.twitter.access_token' => ['invalid'],
+        'services.twitter.access_token_secret' => null,
+    ]);
+
+    expect(fn () => app(Twitter::class))->toThrow(InvalidArgumentException::class);
+});

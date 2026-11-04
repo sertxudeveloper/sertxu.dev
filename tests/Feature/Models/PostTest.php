@@ -95,9 +95,14 @@ it('orders published posts by published_at descending', function () {
     $postB = Post::factory()->published()->create(['published_at' => now()->subDay()]);
     $postC = Post::factory()->published()->create(['published_at' => now()]);
 
-    $posts = Post::wherePublished()->get();
+    $posts = Post::wherePublished()->defaultOrder()->get();
 
-    expect($posts->pluck('id')->toArray())->toBe([$postC->id, $postB->id, $postA->id]);
+    expect($posts->pluck('id')->toArray())
+        ->toBe([
+            $postC->id,
+            $postB->id,
+            $postA->id,
+        ]);
 });
 
 it('includes utm parameters for twitter', function () {
@@ -202,5 +207,11 @@ it('registers thumbnail conversions', function () {
 
     expect($conversions)->toHaveCount(2)
         ->and($conversions[0]->getName())->toBe('thumbnail')
-        ->and($conversions[1]->getName())->toBe('thumbnail-jpg');
+        ->and($conversions[0]->getPerformOnCollections())->toBe(['thumbnail'])
+        ->and($conversions[0]->getResultExtension())->toBe('webp')
+        ->and($conversions[0]->getManipulations()->getManipulationArgument('fit'))->toBe([Spatie\Image\Enums\Fit::Crop, 640, 360])
+        ->and($conversions[1]->getName())->toBe('thumbnail-jpg')
+        ->and($conversions[1]->getPerformOnCollections())->toBe(['thumbnail'])
+        ->and($conversions[1]->getResultExtension())->toBe('jpg')
+        ->and($conversions[1]->getManipulations()->getManipulationArgument('fit'))->toBe([Spatie\Image\Enums\Fit::Crop, 640, 360]);
 });

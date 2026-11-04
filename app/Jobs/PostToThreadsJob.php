@@ -13,7 +13,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\Skip;
 use Illuminate\Queue\SerializesModels;
-use JetBrains\PhpStorm\NoReturn;
 
 final class PostToThreadsJob implements ShouldQueue
 {
@@ -26,6 +25,8 @@ final class PostToThreadsJob implements ShouldQueue
 
     /**
      * Get the middleware the job should pass through.
+     *
+     * @return list<Skip>
      */
     public function middleware(): array
     {
@@ -37,7 +38,6 @@ final class PostToThreadsJob implements ShouldQueue
     /**
      * Handle the job.
      */
-    #[NoReturn]
     public function handle(Threads $threads): void
     {
         $user = User::query()->where('threads_user_id', '9093830107340733')->firstOrFail();

@@ -39,6 +39,33 @@ it('returns failure when Cloudflare rejects the token', function () {
         ->and($response->getErrorCodes())->toContain('invalid-input-response');
 });
 
+it('treats malformed response fields as a failed verification', function () {
+    Http::fake([
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([
+            'success' => 'true',
+            'error-codes' => ['invalid-input-response', 123],
+        ], 200),
+    ]);
+
+    $response = new TurnstileClient()->siteVerify('token');
+
+    expect($response->isSuccess())->toBeFalse()
+        ->and($response->getErrorCodes())->toBe(['invalid-input-response']);
+});
+
+it('treats a missing success field as a failed verification', function () {
+    Http::fake([
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([
+            'error-codes' => [],
+        ], 200),
+    ]);
+
+    $response = new TurnstileClient()->siteVerify('token');
+
+    expect($response->isSuccess())->toBeFalse()
+        ->and($response->getErrorCodes())->toBe([]);
+});
+
 it('sends the secret key and response token', function () {
     Http::fake([
         'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([

@@ -2,9 +2,9 @@
     $title = 'Projects - sertxu.dev';
     $description = 'Selected projects I\'ve built and contributed to.';
 
-    if (request()->filled('tag')) {
-        $title = 'Projects tagged "' . request()->get('tag') . '" - sertxu.dev';
-        $description = 'Projects tagged with "' . request()->get('tag') . '" on sertxu.dev.';
+    if (filled($tag)) {
+        $title = 'Projects tagged "' . $tag . '" - sertxu.dev';
+        $description = 'Projects tagged with "' . $tag . '" on sertxu.dev.';
     }
 @endphp
 

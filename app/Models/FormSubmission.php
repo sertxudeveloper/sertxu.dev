@@ -30,7 +30,7 @@ final class FormSubmission extends Model
     /**
      * The attributes that are mass-assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     #[Override]
     protected $fillable = [

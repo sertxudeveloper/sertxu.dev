@@ -64,7 +64,7 @@ final class ProjectResource extends Resource
                             ->afterStateUpdated(function (Set $set, $state) use ($schema): void {
                                 // If operating on an existing record, don't update the slug.
                                 if ($schema->getOperation() === 'create') {
-                                    $set('slug', Str::slug($state));
+                                    $set('slug', Str::slug(is_string($state) ? $state : ''));
                                 }
                             }),
 

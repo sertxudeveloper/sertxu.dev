@@ -4,17 +4,25 @@ declare(strict_types=1);
 
 namespace App\Models\Concerns;
 
+use Spatie\Tags\Tag;
+
 trait Threadable
 {
     abstract public function threadsUrl(): string;
 
+    /**
+     * @return array{content: string, topic_tag: string|null}
+     */
     public function toThreads(): array
     {
         $primaryTag = null;
         $primaryTagForContent = '';
 
-        if ($this->tags->isNotEmpty()) {
-            $firstName = $this->tags->first()->name;
+        $firstTag = $this->tags->first();
+
+        if ($firstTag instanceof Tag) {
+            $name = $firstTag->getAttribute('name');
+            $firstName = is_string($name) ? $name : '';
             $primaryTag = str_replace([' ', '.', '&', '@', '!', '?', ',', ';', ':'], '', $firstName);
             if ($primaryTag === '') {
                 $primaryTag = null;

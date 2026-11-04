@@ -51,7 +51,7 @@ final class Project extends Model implements HasMedia, Sitemapable
     /**
      * The attributes that are mass-assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     #[Override]
     protected $fillable = [
@@ -73,29 +73,37 @@ final class Project extends Model implements HasMedia, Sitemapable
      */
     public function registerMediaConversions(?Media $media = null): void
     {
-        $this->addMediaConversion('thumbnail')
+        $thumbnail = $this->addMediaConversion('thumbnail');
+        $thumbnail->performOnCollections('thumbnail');
+        $thumbnail
             ->fit(Fit::Crop, 720, 405)
-            ->format('webp')
-            ->performOnCollections('thumbnail');
+            ->format('webp');
 
-        $this->addMediaConversion('poster')
+        $poster = $this->addMediaConversion('poster');
+        $poster->performOnCollections('thumbnail');
+        $poster
             ->fit(Fit::Crop, 1920, 1080)
-            ->format('webp')
-            ->performOnCollections('thumbnail');
+            ->format('webp');
     }
 
     /**
      * Scope a query to order projects by default.
+     *
+     * @param  Builder<Project>  $query
+     * @return Builder<Project>
      */
     public function scopeDefaultOrder(Builder $query): Builder
     {
         return $query
-            ->orderByDesc('is_featured')
-            ->orderByDesc('created_at');
+            ->latest('is_featured')
+            ->latest('created_at')
+            ->latest('id');
     }
 
     /**
      * Scope a query to get only the published projects.
+     *
+     * @param  Builder<Project>  $query
      */
     public function scopeWherePublished(Builder $query): void
     {
@@ -107,8 +115,13 @@ final class Project extends Model implements HasMedia, Sitemapable
      */
     public function toSitemapTag(): Url
     {
-        return Url::create(route('projects.show', $this))
-            ->setLastModificationDate(Carbon::create($this->updated_at))
+        $url = Url::create(route('projects.show', $this));
+
+        if ($this->updated_at !== null) {
+            $url->setLastModificationDate($this->updated_at);
+        }
+
+        return $url
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY)
             ->setPriority(0.1);
     }
@@ -118,7 +131,7 @@ final class Project extends Model implements HasMedia, Sitemapable
      */
     public function isPublished(): bool
     {
-        return $this->is_published;
+        return $this->is_published ?? false;
     }
 
     /**

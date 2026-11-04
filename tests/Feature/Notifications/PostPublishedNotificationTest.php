@@ -38,4 +38,13 @@ describe('PostPublishedNotification', function () {
         expect($mailMessage->subject)->toContain('Test Post')
             ->and($mailMessage->actionUrl)->toContain($post->slug);
     });
+
+    it('renders mail when the post text is missing', function () {
+        $user = User::factory()->create();
+        $post = Post::factory()->published()->create(['text' => null]);
+
+        $mailMessage = (new PostPublishedNotification($post))->toMail($user);
+
+        expect($mailMessage)->toBeInstanceOf(Illuminate\Notifications\Messages\MailMessage::class);
+    });
 });

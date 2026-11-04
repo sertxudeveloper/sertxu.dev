@@ -17,7 +17,15 @@ final class AppLayout extends Component
         public readonly ?string $description = null,
         public readonly ?string $canonical = null,
         public readonly ?string $ogImage = null,
+
+        /**
+         * @var array{name: string, url: string}|null
+         */
         public readonly ?array $breadcrumbs = null,
+
+        /**
+         * @var array{headline: string, description: string, image: string, datePublished: string, dateModified: string, url: string}|null
+         */
         public readonly ?array $schemaArticle = null,
     ) {}
 

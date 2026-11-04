@@ -127,6 +127,18 @@ it('can create a project with all fields', function () {
     ]);
 });
 
+it('clears the generated slug when the title is cleared during creation', function () {
+    $this->actingAs($this->admin);
+
+    livewire(CreateProject::class)
+        ->fillForm(['title' => 'Generated Title'])
+        ->fillForm(['title' => null])
+        ->assertSchemaStateSet([
+            'title' => null,
+            'slug' => '',
+        ]);
+});
+
 it('validates the form data', function (array $data, array $errors) {
     $this->actingAs($this->admin);
 

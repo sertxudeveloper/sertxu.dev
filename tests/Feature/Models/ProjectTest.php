@@ -20,6 +20,12 @@ describe('Project model', function () {
 
             expect($project->isPublished())->toBeFalse();
         });
+
+        it('returns false when the publication flag is null', function () {
+            $project = Project::factory()->make(['is_published' => null]);
+
+            expect($project->isPublished())->toBeFalse();
+        });
     });
 
     describe('scopes', function () {
@@ -65,6 +71,12 @@ describe('Project model', function () {
                 ->and($sitemapTag->priority)->toBe(0.1)
                 ->and($sitemapTag->changeFrequency)->toBe('yearly');
         });
+
+        it('omits the last modification date when the timestamp is unavailable', function () {
+            $project = Project::factory()->make(['updated_at' => null]);
+
+            expect($project->toSitemapTag()->lastModificationDate)->toBeNull();
+        });
     });
 
     describe('registerMediaConversions', function () {
@@ -77,7 +89,13 @@ describe('Project model', function () {
 
             expect($conversions)->toHaveCount(2)
                 ->and($conversions[0]->getName())->toBe('thumbnail')
-                ->and($conversions[1]->getName())->toBe('poster');
+                ->and($conversions[0]->getPerformOnCollections())->toBe(['thumbnail'])
+                ->and($conversions[0]->getResultExtension())->toBe('webp')
+                ->and($conversions[0]->getManipulations()->getManipulationArgument('fit'))->toBe([Spatie\Image\Enums\Fit::Crop, 720, 405])
+                ->and($conversions[1]->getName())->toBe('poster')
+                ->and($conversions[1]->getPerformOnCollections())->toBe(['thumbnail'])
+                ->and($conversions[1]->getResultExtension())->toBe('webp')
+                ->and($conversions[1]->getManipulations()->getManipulationArgument('fit'))->toBe([Spatie\Image\Enums\Fit::Crop, 1920, 1080]);
         });
     });
 });

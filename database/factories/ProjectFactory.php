@@ -8,6 +8,9 @@ use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Override;
 
+/**
+ * @extends Factory<Project>
+ */
 final class ProjectFactory extends Factory
 {
     #[Override]

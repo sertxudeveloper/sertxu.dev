@@ -12,7 +12,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\Skip;
 use Illuminate\Queue\SerializesModels;
-use JetBrains\PhpStorm\NoReturn;
 
 final class PostToTweetJob implements ShouldQueue
 {
@@ -25,6 +24,8 @@ final class PostToTweetJob implements ShouldQueue
 
     /**
      * Get the middleware the job should pass through.
+     *
+     * @return list<Skip>
      */
     public function middleware(): array
     {
@@ -36,7 +37,6 @@ final class PostToTweetJob implements ShouldQueue
     /**
      * Handle the job.
      */
-    #[NoReturn]
     public function handle(Twitter $twitter): void
     {
         $twitter->tweet($this->post->toTweet());
