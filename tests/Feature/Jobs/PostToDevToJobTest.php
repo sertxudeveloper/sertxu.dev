@@ -30,6 +30,32 @@ it('publishes the post to dev.to and marks as posted', function () {
     });
 });
 
+it('published the post to dev.to with tags', function () {
+    Http::fake([
+        'dev.to/*' => Http::response(['id' => 123, 'url' => 'https://dev.to/test'], 201),
+    ]);
+
+    $tag1 = Tag::factory()->create(['name' => 'Tag 1'])
+    $tag2 = Tag::factory()->create(['name' => 'Tag 2'])
+
+    $post = Post::factory()->published()->create([
+        'posted_on_dev' => false,
+        'title' => 'Test Post',
+        'text' => 'Test content',
+    ]);
+
+    $job = new PostToDevToJob($post);
+    $job->handle(app(DevTo::class));
+
+    expect($post->refresh()->posted_on_dev)->toBeTrue();
+
+    Http::assertSent(function ($request) {
+        return $request->hasHeader('api-key')
+            && $request['article']['title'] === 'Test Post'
+            && $request['article']['tags'] === ['Tag 1', 'Tag 2'];
+    });
+});
+
 it('does not publish or mark a post as sent when markdown is missing', function () {
     Http::fake([
         'https://dev.to/api/articles' => Http::response(['id' => 123], 201),

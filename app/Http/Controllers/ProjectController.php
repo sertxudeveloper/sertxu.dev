@@ -15,37 +15,15 @@ final readonly class ProjectController
      */
     public function index(Request $request): View
     {
-        $tagInput = $request->input('tag');
-        $tags = null;
-        $tagLabel = null;
-
-        if (is_string($tagInput)) {
-            $tags = $tagInput;
-            $tagLabel = $tagInput;
-        } elseif (is_array($tagInput) && array_is_list($tagInput)) {
-            $tagList = [];
-
-            foreach ($tagInput as $tag) {
-                if (! is_string($tag)) {
-                    $tagList = null;
-                    break;
-                }
-
-                $tagList[] = $tag;
-            }
-
-            if ($tagList !== null) {
-                $tags = $tagList;
-                $tagLabel = implode(', ', $tagList);
-            }
-        }
+        $tag = $request->input('tag') ?: null;
+        $tag = is_string($tag) ? $tag : null;
 
         $query = Project::query()
             ->wherePublished()
             ->defaultOrder();
 
-        if ($tags) {
-            $query->withAnyTags($tags);
+        if ($tag) {
+            $query->withAnyTags($tag);
         }
 
         $projects = $query
@@ -54,7 +32,7 @@ final readonly class ProjectController
 
         return view('projects.index', [
             'projects' => $projects,
-            'tag' => $tagLabel,
+            'tag' => $tag,
         ]);
     }
 
