@@ -12,6 +12,7 @@ final readonly class DevTo
 {
     /**
      * @param  list<string>  $tags
+     *
      * @throws ConnectionException
      */
     public function writePost(string $title, string $markdown, string $imageUrl, string $canonicalUrl, string $description, array $tags): Response
