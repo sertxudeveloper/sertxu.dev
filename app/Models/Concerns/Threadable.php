@@ -16,25 +16,30 @@ trait Threadable
     public function toThreads(): array
     {
         $primaryTag = null;
-        $primaryTagForContent = '';
+        $content = '';
 
         $firstTag = $this->tags->first();
 
         if ($firstTag instanceof Tag) {
             $name = $firstTag->getAttribute('name');
-            $firstName = is_string($name) ? $name : '';
-            $primaryTag = str_replace([' ', '.', '&', '@', '!', '?', ',', ';', ':'], '', $firstName);
-            if ($primaryTag === '') {
-                $primaryTag = null;
-            } else {
-                $primaryTagForContent = '#'.$primaryTag;
+            $name = is_string($name) ? $name : '';
+            $name = str_replace([' '], '', $name);
+
+            if ($name) {
+                $primaryTag = $name;
+
+                $content = '🔗 '.$this->title
+                    .PHP_EOL."\n"
+                    .PHP_EOL.$this->threadsUrl()
+                    .PHP_EOL."#$primaryTag";
             }
         }
 
-        $content = '🔗 '.$this->title
-            .PHP_EOL."\n"
-            .PHP_EOL.$this->threadsUrl()
-            .($primaryTagForContent ? PHP_EOL.$primaryTagForContent : '');
+        if (!$content) {
+            $content = '🔗 '.$this->title
+                .PHP_EOL."\n"
+                .PHP_EOL.$this->threadsUrl();
+        }
 
         return [
             'content' => $content,

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 /*
@@ -17,8 +16,7 @@ use Tests\TestCase;
 |
 */
 
-pest()->extend(TestCase::class, RefreshDatabase::class)
-    ->beforeEach(fn () => Storage::fake('public'));
+pest()->extend(TestCase::class, RefreshDatabase::class);
 
 /*
 |--------------------------------------------------------------------------

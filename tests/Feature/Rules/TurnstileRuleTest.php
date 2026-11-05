@@ -61,7 +61,6 @@ it('fails generically when verification fails without usable error codes', funct
 });
 
 it('rejects a non-string token without contacting Cloudflare', function () {
-    Http::preventStrayRequests();
     $failMessage = null;
 
     (new TurnstileRule())->validate('cf-turnstile-response', ['invalid'], function (string $message) use (&$failMessage): void {

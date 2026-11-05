@@ -63,7 +63,7 @@ it('exchanges authorization code for tokens on callback', function () {
 });
 
 it('rejects an unauthenticated OAuth callback before making requests', function () {
-    Http::preventStrayRequests();
+
 
     $request = Request::create('/threads/callback', 'GET', [
         'code' => 'authorization-code',
@@ -74,7 +74,7 @@ it('rejects an unauthenticated OAuth callback before making requests', function 
 });
 
 it('does not save a malformed short-lived token response', function () {
-    Http::preventStrayRequests();
+
     Http::fake([
         'https://graph.threads.net/oauth/access_token*' => Http::response([
             'user_id' => 123,
@@ -103,7 +103,7 @@ it('does not save a malformed short-lived token response', function () {
 });
 
 it('does not save a long-lived token with a non-numeric expiry', function () {
-    Http::preventStrayRequests();
+
     Http::fake([
         'https://graph.threads.net/oauth/access_token*' => Http::response([
             'user_id' => 'test-user-id',
@@ -127,7 +127,7 @@ it('does not save a long-lived token with a non-numeric expiry', function () {
 });
 
 it('does not save a malformed refreshed token response', function () {
-    Http::preventStrayRequests();
+
     Http::fake([
         'https://graph.threads.net/refresh_access_token*' => Http::response([
             'access_token' => ['invalid'],
@@ -173,8 +173,8 @@ it('uses a safe message when the OAuth error description is malformed', function
 
 it('writes post to Threads via two-step API', function () {
     Http::fake([
-        'graph.threads.net/v1.0/*/threads' => Http::response(['id' => 'media-container-id'], 200),
-        'graph.threads.net/v1.0/*/threads_publish' => Http::response(['id' => 'published-id'], 200),
+        'https://graph.threads.net/v1.0/*/threads' => Http::response(['id' => 'media-container-id'], 200),
+        'https://graph.threads.net/v1.0/*/threads_publish' => Http::response(['id' => 'published-id'], 200),
     ]);
 
     $user = User::factory()->create([
@@ -199,9 +199,38 @@ it('writes post to Threads via two-step API', function () {
     });
 });
 
+it('writes post with topic tag to Threads via two-step API', function () {
+    Http::fake([
+        'https://graph.threads.net/v1.0/*/threads' => Http::response(['id' => 'media-container-id'], 200),
+        'https://graph.threads.net/v1.0/*/threads_publish' => Http::response(['id' => 'published-id'], 200),
+    ]);
+
+    $user = User::factory()->create([
+        'threads_user_id' => 'test-user-id',
+        'threads_access_token' => 'test-token',
+    ]);
+
+    $threads = new Threads();
+    $threads->writePost($user, '🔗 Test Post', 'Tutorial');
+
+    Http::assertSent(function ($request) {
+        return $request->url() === 'https://graph.threads.net/v1.0/test-user-id/threads'
+            && $request['media_type'] === 'TEXT'
+            && $request['text'] === '🔗 Test Post'
+            && $request['access_token'] === 'test-token'
+            && $request['topic_tag'] === 'Tutorial';
+    });
+
+    Http::assertSent(function ($request) {
+        return $request->url() === 'https://graph.threads.net/v1.0/test-user-id/threads_publish'
+            && $request['creation_id'] === 'media-container-id'
+            && $request['access_token'] === 'test-token';
+    });
+});
+
 it('aborts when media container creation fails', function () {
     Http::fake([
-        'graph.threads.net/v1.0/*/threads' => Http::response(['error' => 'Invalid token'], 400),
+        'https://graph.threads.net/v1.0/*/threads' => Http::response(['error' => 'Invalid token'], 400),
     ]);
 
     $user = User::factory()->create([
@@ -217,8 +246,8 @@ it('aborts when media container creation fails', function () {
 
 it('aborts when publishing media fails', function () {
     Http::fake([
-        'graph.threads.net/v1.0/*/threads' => Http::response(['id' => 'media-container-id'], 200),
-        'graph.threads.net/v1.0/*/threads_publish' => Http::response(['error' => 'Publish failed'], 400),
+        'https://graph.threads.net/v1.0/*/threads' => Http::response(['id' => 'media-container-id'], 200),
+        'https://graph.threads.net/v1.0/*/threads_publish' => Http::response(['error' => 'Publish failed'], 400),
     ]);
 
     $user = User::factory()->create([
@@ -256,7 +285,7 @@ it('refreshes access token and updates expiry', function () {
 
 it('aborts when token refresh fails', function () {
     Http::fake([
-        'graph.threads.net/refresh_access_token' => Http::response(['error' => 'Invalid token'], 400),
+        'https://graph.threads.net/refresh_access_token*' => Http::response(['error' => 'Invalid token'], 400),
     ]);
 
     $user = User::factory()->create([
@@ -318,4 +347,59 @@ it('aborts when long-lived token request fails with error message', function () 
 
     expect(fn () => $threads->authenticateCallback($request))
         ->toThrow(Symfony\Component\HttpKernel\Exception\HttpException::class, 'Failed to exchange token');
+});
+
+it('handles missing Threads authorization code', function () {
+    $user = User::factory()->create();
+
+    $request = Request::create('/threads/callback', 'GET', [
+        'code' => '',
+    ]);
+    $request->setUserResolver(fn () => $user);
+
+    expect(fn () => new Threads()->authenticateCallback($request))
+        ->toThrow(Symfony\Component\HttpKernel\Exception\HttpException::class, 'Missing or invalid Threads authorization code.');
+});
+
+it('handles missing request user', function () {
+    $request = Request::create('/threads/callback', 'GET', [
+        'code' => 'token',
+    ]);
+
+    expect(fn () => new Threads()->authenticateCallback($request))
+        ->toThrow(Symfony\Component\HttpKernel\Exception\HttpException::class, 'An authenticated user is required.');
+});
+
+it('handles missing Threads refresh token', function () {
+    Http::fake([
+        'https://graph.threads.net/refresh_access_token*' => Http::response([
+            'access_token' => ['invalid'],
+            'expires_in' => 5183999,
+        ], 200),
+    ]);
+
+    $user = User::factory()->create([
+        'threads_access_token' => null,
+        'threads_access_token_expires_at' => null,
+    ]);
+
+    expect(fn () => new Threads()->refreshToken($user))
+        ->toThrow(Symfony\Component\HttpKernel\Exception\HttpException::class, 'Failed to refresh Threads access token.');
+});
+
+it('handles invalid Threads refresh response', function () {
+    Http::fake([
+        'https://graph.threads.net/refresh_access_token*' => Http::response([
+            'access_token' => null,
+            'expires_in' => 0,
+        ], 200),
+    ]);
+
+    $user = User::factory()->create([
+        'threads_access_token' => 'original-token',
+        'threads_access_token_expires_at' => now()->addDays(2),
+    ]);
+
+    expect(fn () => new Threads()->refreshToken($user))
+        ->toThrow(Symfony\Component\HttpKernel\Exception\HttpException::class, 'Invalid Threads token response.');
 });

@@ -24,7 +24,7 @@ final class TurnstileClient
 
     private function sendTurnstileVerificationRequest(string $response): Response
     {
-        return Http::retry(self::RETRY_ATTEMPTS, self::RETRY_DELAY)
+        return Http::retry(self::RETRY_ATTEMPTS, self::RETRY_DELAY, throw: false)
             ->asForm()
             ->acceptJson()
             ->post(self::TURNSTILE_VERIFY_ENDPOINT, [

@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Services\DevTo\DevTo;
 use Illuminate\Queue\Middleware\Skip;
 use Illuminate\Support\Facades\Http;
+use Spatie\Tags\Tag;
 
 it('publishes the post to dev.to and marks as posted', function () {
     Http::fake([
@@ -35,13 +36,11 @@ it('published the post to dev.to with tags', function () {
         'dev.to/*' => Http::response(['id' => 123, 'url' => 'https://dev.to/test'], 201),
     ]);
 
-    $tag1 = Tag::factory()->create(['name' => 'Tag 1'])
-    $tag2 = Tag::factory()->create(['name' => 'Tag 2'])
-
     $post = Post::factory()->published()->create([
         'posted_on_dev' => false,
         'title' => 'Test Post',
         'text' => 'Test content',
+        'tags' => ['Tag 1', 'Tag 2'],
     ]);
 
     $job = new PostToDevToJob($post);

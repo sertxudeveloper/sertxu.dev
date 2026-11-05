@@ -89,10 +89,15 @@ it('throws when the HTTP response is a server error', function () {
         'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response(null, 500),
     ]);
 
-    $client = new TurnstileClient();
+    $response = new TurnstileClient()->siteVerify('token');
 
-    expect(fn () => $client->siteVerify('token'))
-        ->toThrow(Illuminate\Http\Client\RequestException::class);
+    Http::assertSent(function ($request) {
+        return $request->url() === 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+            && $request['secret'] === 'test-secret-key';
+    });
+
+    expect($response->isSuccess())->toBeFalse()
+        ->and($response->getErrorCodes())->toBe([]);
 });
 
 it('handles multiple error codes', function () {

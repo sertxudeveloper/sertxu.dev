@@ -65,7 +65,7 @@ final readonly class Threads
             $authorizationCode = $request->input('code');
 
             if (! is_string($authorizationCode) || $authorizationCode === '') {
-                abort(403, 'Invalid Threads authorization code.');
+                abort(403, 'Missing or invalid Threads authorization code.');
             }
 
             $user = $request->user();
