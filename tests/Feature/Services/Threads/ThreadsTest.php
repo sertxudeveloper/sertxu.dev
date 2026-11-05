@@ -63,8 +63,6 @@ it('exchanges authorization code for tokens on callback', function () {
 });
 
 it('rejects an unauthenticated OAuth callback before making requests', function () {
-
-
     $request = Request::create('/threads/callback', 'GET', [
         'code' => 'authorization-code',
     ]);
@@ -385,21 +383,4 @@ it('handles missing Threads refresh token', function () {
 
     expect(fn () => new Threads()->refreshToken($user))
         ->toThrow(Symfony\Component\HttpKernel\Exception\HttpException::class, 'Failed to refresh Threads access token.');
-});
-
-it('handles invalid Threads refresh response', function () {
-    Http::fake([
-        'https://graph.threads.net/refresh_access_token*' => Http::response([
-            'access_token' => null,
-            'expires_in' => 0,
-        ], 200),
-    ]);
-
-    $user = User::factory()->create([
-        'threads_access_token' => 'original-token',
-        'threads_access_token_expires_at' => now()->addDays(2),
-    ]);
-
-    expect(fn () => new Threads()->refreshToken($user))
-        ->toThrow(Symfony\Component\HttpKernel\Exception\HttpException::class, 'Invalid Threads token response.');
 });

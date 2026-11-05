@@ -57,22 +57,16 @@ final readonly class Threads
      */
     public function authenticateCallback(Request $request): void
     {
-        if ($request->has('error')) {
-            abort(403, $this->safeErrorMessage($request->input('error_description'), 'Threads authentication failed.'));
-        }
+        abort_if($request->has('error'), 403, $this->safeErrorMessage($request->input('error_description'), 'Threads authentication failed.'));
 
         if ($request->has('code')) {
             $authorizationCode = $request->input('code');
 
-            if (! is_string($authorizationCode) || $authorizationCode === '') {
-                abort(403, 'Missing or invalid Threads authorization code.');
-            }
+            abort_if(! is_string($authorizationCode) || $authorizationCode === '', 403, 'Missing or invalid Threads authorization code.');
 
             $user = $request->user();
 
-            if (! ($user instanceof User)) {
-                abort(403, 'An authenticated user is required.');
-            }
+            abort_if(! ($user instanceof User), 403, 'An authenticated user is required.');
 
             $this->requestShortLivedToken($request, $authorizationCode, $user);
             $this->requestLongLivedToken($request, $user);
@@ -86,26 +80,21 @@ final readonly class Threads
     {
         $accessToken = $user->threads_access_token;
 
-        if (! is_string($accessToken) || $accessToken === '') {
-            abort(403, 'Failed to refresh Threads access token.');
-        }
+        abort_if(! is_string($accessToken) || $accessToken === '', 403, 'Failed to refresh Threads access token.');
 
         $response = Http::get("{$this->base_url}/refresh_access_token", [
             'grant_type' => 'th_refresh_token',
             'access_token' => $accessToken,
         ]);
 
-        if ($response->failed()) {
-            abort(403, 'Failed to refresh Threads access token.');
-        }
+        abort_if($response->failed(), 403, 'Failed to refresh Threads access token.');
 
         $response = $response->json();
         $refreshedAccessToken = is_array($response) ? ($response['access_token'] ?? null) : null;
         $expiresIn = is_array($response) ? ($response['expires_in'] ?? null) : null;
 
-        if (! is_string($refreshedAccessToken) || $refreshedAccessToken === '' || (! is_int($expiresIn) && ! is_float($expiresIn))) {
-            abort(403, 'Invalid Threads token response.');
-        }
+        abort_if(! is_string($refreshedAccessToken) || $refreshedAccessToken === '', 403, 'Invalid Threads token response.');
+        abort_if(! is_int($expiresIn) && ! is_float($expiresIn), 403, 'Invalid Threads token response.');
 
         $user->update([
             'threads_access_token' => $refreshedAccessToken,
@@ -130,9 +119,7 @@ final readonly class Threads
 
         $response = Http::post("{$this->base_url}/v1.0/{$user->threads_user_id}/threads", $payload);
 
-        if ($response->failed()) {
-            abort(403, 'Failed to write post to Threads.');
-        }
+        abort_if($response->failed(), 403, 'Failed to write post to Threads.');
 
         $mediaContainer = $response->json('id');
 
@@ -141,9 +128,7 @@ final readonly class Threads
             'access_token' => $user->threads_access_token,
         ]);
 
-        if ($response->failed()) {
-            abort(403, 'Failed to publish post to Threads.');
-        }
+        abort_if($response->failed(), 403, 'Failed to publish post to Threads.');
     }
 
     /**
@@ -153,9 +138,7 @@ final readonly class Threads
     {
         $accessToken = $user->threads_access_token;
 
-        if (! is_string($accessToken) || $accessToken === '') {
-            abort(403, 'Invalid Threads token response.');
-        }
+        abort_if(! is_string($accessToken) || $accessToken === '', 'Invalid user\'s Threads access token.');
 
         $response = Http::get("{$this->base_url}/access_token", [
             'grant_type' => 'th_exchange_token',
