@@ -7,7 +7,6 @@ use App\Models\Post;
 use App\Services\DevTo\DevTo;
 use Illuminate\Queue\Middleware\Skip;
 use Illuminate\Support\Facades\Http;
-use Spatie\Tags\Tag;
 
 it('publishes the post to dev.to and marks as posted', function () {
     Http::fake([

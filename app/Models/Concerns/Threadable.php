@@ -35,7 +35,7 @@ trait Threadable
             }
         }
 
-        if (!$content) {
+        if (! $content) {
             $content = '🔗 '.$this->title
                 .PHP_EOL."\n"
                 .PHP_EOL.$this->threadsUrl();

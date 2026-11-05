@@ -138,7 +138,7 @@ final readonly class Threads
     {
         $accessToken = $user->threads_access_token;
 
-        abort_if(! is_string($accessToken) || $accessToken === '', 'Invalid user\'s Threads access token.');
+        abort_if(! is_string($accessToken) || $accessToken === '', 403, 'Invalid user\'s Threads access token.');
 
         $response = Http::get("{$this->base_url}/access_token", [
             'grant_type' => 'th_exchange_token',
@@ -146,17 +146,14 @@ final readonly class Threads
             'access_token' => $accessToken,
         ]);
 
-        if ($response->failed()) {
-            abort(403, $this->safeErrorMessage($request->input('error_message'), 'Failed to authenticate with Threads.'));
-        }
+        abort_if($response->failed(), 403, $this->safeErrorMessage($request->input('error_message'), 'Failed to authenticate with Threads.'));
 
         $response = $response->json();
         $longLivedAccessToken = is_array($response) ? ($response['access_token'] ?? null) : null;
         $expiresIn = is_array($response) ? ($response['expires_in'] ?? null) : null;
 
-        if (! is_string($longLivedAccessToken) || $longLivedAccessToken === '' || (! is_int($expiresIn) && ! is_float($expiresIn))) {
-            abort(403, 'Invalid Threads token response.');
-        }
+        abort_if(! is_string($longLivedAccessToken) || $longLivedAccessToken === '', 403, 'Invalid Threads token response.');
+        abort_if(! is_int($expiresIn) && ! is_float($expiresIn), 403, 'Invalid Threads token response.');
 
         $user->update([
             'threads_access_token' => $longLivedAccessToken,
@@ -177,17 +174,14 @@ final readonly class Threads
             'redirect_uri' => $this->redirect_uri,
         ]);
 
-        if ($response->failed()) {
-            abort(403, $this->safeErrorMessage($request->input('error_message'), 'Failed to authenticate with Threads.'));
-        }
+        abort_if($response->failed(), 403, $this->safeErrorMessage($request->input('error_message'), 'Failed to authenticate with Threads.'));
 
         $response = $response->json();
         $threadsUserId = is_array($response) ? ($response['user_id'] ?? null) : null;
         $accessToken = is_array($response) ? ($response['access_token'] ?? null) : null;
 
-        if (! is_string($threadsUserId) || $threadsUserId === '' || ! is_string($accessToken) || $accessToken === '') {
-            abort(403, 'Invalid Threads token response.');
-        }
+        abort_if(! is_string($threadsUserId) || $threadsUserId === '', 403, 'Invalid Threads token response.');
+        abort_if(! is_string($accessToken) || $accessToken === '', 403, 'Invalid Threads token response.');
 
         $user->update([
             'threads_user_id' => $threadsUserId,
