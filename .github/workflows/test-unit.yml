@@ -1,18 +1,31 @@
-name: Unit
-
 on:
   workflow_call:
 
 jobs:
   test-unit:
-    name: Test unit
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    name: Test unit
+
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+          --health-start-period 15s
+
     steps:
       - name: Checkout
         uses: actions/checkout@v7.0.1
-        with:
-          fetch-depth: 0
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -26,52 +39,48 @@ jobs:
         uses: actions/setup-node@v7.1.0
         with:
           node-version: '24'
-          cache: 'npm'
 
-      - name: Restore PHP vendor
-        uses: actions/cache@v6
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-vendor-${{ hashFiles('**/composer.lock') }}
-          fail-on-cache-miss: true
+      - name: Install dependencies
+        run: sudo apt install -y postgresql-client
 
-      - name: Restore Node modules
-        uses: actions/cache@v6
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-          fail-on-cache-miss: true
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --optimize-autoloader --prefer-dist
 
-      - name: Restore build assets
-        uses: actions/cache@v6
-        with:
-          path: public/build
-          key: ${{ runner.os }}-assets-${{ github.sha }}
-          fail-on-cache-miss: true
+      - name: Install Node dependencies
+        run: npm ci --no-audit --no-fund
 
-      - name: Cache Chrome for Puppeteer
-        uses: actions/cache@v6
-        with:
-          path: ~/.cache/puppeteer
-          key: ${{ runner.os }}-puppeteer-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-puppeteer-
+      - name: Build assets
+        run: npm run build
 
-      - name: Install Chrome for Puppeteer
-        run: npx --yes puppeteer browsers install chrome-headless-shell
+      - name: Create database
+        run: |
+          dropdb --if-exists -h localhost -U postgres test_database
+          createdb -h localhost -U postgres -T template0 test_database
+        env:
+          PGPASSWORD: postgres
 
-      - name: Copy .env
+      - name: Copy Environment File
         run: cp .env.example .env
 
-      - name: Generate key
+      - name: Generate Application Key
         run: php artisan key:generate
 
-      - name: Run unit tests
+      - name: Run Tests
         run: composer test:unit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: test_database
+          DB_USERNAME: postgres
+          DB_PASSWORD: postgres
 
       - name: Upload test logs
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: test-logs
-          path: storage/logs/laravel.log
+          path: |
+            storage/logs/laravel.log
           retention-days: 1

@@ -12,7 +12,6 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
-use Illuminate\Database\Eloquent\Model;
 
 final class LatestPosts extends BaseWidget
 {
@@ -21,7 +20,7 @@ final class LatestPosts extends BaseWidget
         return $table
             ->query(Post::query()->orderByDesc('id')->take(4))
             ->columns([
-                TextColumn::make('title')->limit(30)->tooltip(fn (Model $post) => $post->title),
+                TextColumn::make('title')->limit(30)->tooltip(fn (Post $post) => $post->title),
                 IconColumn::make('is_published')->boolean(),
             ])
             ->recordActions([

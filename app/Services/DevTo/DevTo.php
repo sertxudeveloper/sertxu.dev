@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace App\Services\DevTo;
 
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 final readonly class DevTo
 {
+    /**
+     * @param  list<string>  $tags
+     *
+     * @throws ConnectionException
+     */
     public function writePost(string $title, string $markdown, string $imageUrl, string $canonicalUrl, string $description, array $tags): Response
     {
         return Http::asJson()

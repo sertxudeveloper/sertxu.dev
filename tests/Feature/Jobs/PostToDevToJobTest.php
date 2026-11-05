@@ -30,6 +30,63 @@ it('publishes the post to dev.to and marks as posted', function () {
     });
 });
 
+it('published the post to dev.to with tags', function () {
+    Http::fake([
+        'dev.to/*' => Http::response(['id' => 123, 'url' => 'https://dev.to/test'], 201),
+    ]);
+
+    $post = Post::factory()->published()->create([
+        'posted_on_dev' => false,
+        'title' => 'Test Post',
+        'text' => 'Test content',
+        'tags' => ['Tag 1', 'Tag 2'],
+    ]);
+
+    $job = new PostToDevToJob($post);
+    $job->handle(app(DevTo::class));
+
+    expect($post->refresh()->posted_on_dev)->toBeTrue();
+
+    Http::assertSent(function ($request) {
+        return $request->hasHeader('api-key')
+            && $request['article']['title'] === 'Test Post'
+            && $request['article']['tags'] === ['Tag 1', 'Tag 2'];
+    });
+});
+
+it('does not publish or mark a post as sent when markdown is missing', function () {
+    Http::fake([
+        'https://dev.to/api/articles' => Http::response(['id' => 123], 201),
+    ]);
+
+    $post = Post::factory()->published()->create([
+        'posted_on_dev' => false,
+        'text' => null,
+    ]);
+
+    (new PostToDevToJob($post))->handle(app(DevTo::class));
+
+    Http::assertNothingSent();
+    expect($post->refresh()->posted_on_dev)->toBeFalse();
+});
+
+it('uses an empty description when the excerpt is missing', function () {
+    Http::fake([
+        'https://dev.to/api/articles' => Http::response(['id' => 123], 201),
+    ]);
+
+    $post = Post::factory()->published()->create([
+        'posted_on_dev' => false,
+        'text' => 'Test content',
+        'excerpt' => null,
+    ]);
+
+    (new PostToDevToJob($post))->handle(app(DevTo::class));
+
+    Http::assertSent(fn ($request): bool => $request['article']['description'] === '');
+    expect($post->refresh()->posted_on_dev)->toBeTrue();
+});
+
 it('has skip middleware to prevent reposting', function () {
     $post = Post::factory()->published()->create(['posted_on_dev' => true]);
 

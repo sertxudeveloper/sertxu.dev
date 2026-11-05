@@ -39,6 +39,33 @@ it('returns failure when Cloudflare rejects the token', function () {
         ->and($response->getErrorCodes())->toContain('invalid-input-response');
 });
 
+it('treats malformed response fields as a failed verification', function () {
+    Http::fake([
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([
+            'success' => 'true',
+            'error-codes' => ['invalid-input-response', 123],
+        ], 200),
+    ]);
+
+    $response = new TurnstileClient()->siteVerify('token');
+
+    expect($response->isSuccess())->toBeFalse()
+        ->and($response->getErrorCodes())->toBe(['invalid-input-response']);
+});
+
+it('treats a missing success field as a failed verification', function () {
+    Http::fake([
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([
+            'error-codes' => [],
+        ], 200),
+    ]);
+
+    $response = new TurnstileClient()->siteVerify('token');
+
+    expect($response->isSuccess())->toBeFalse()
+        ->and($response->getErrorCodes())->toBe([]);
+});
+
 it('sends the secret key and response token', function () {
     Http::fake([
         'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([
@@ -62,10 +89,15 @@ it('throws when the HTTP response is a server error', function () {
         'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response(null, 500),
     ]);
 
-    $client = new TurnstileClient();
+    $response = new TurnstileClient()->siteVerify('token');
 
-    expect(fn () => $client->siteVerify('token'))
-        ->toThrow(Illuminate\Http\Client\RequestException::class);
+    Http::assertSent(function ($request) {
+        return $request->url() === 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+            && $request['secret'] === 'test-secret-key';
+    });
+
+    expect($response->isSuccess())->toBeFalse()
+        ->and($response->getErrorCodes())->toBe([]);
 });
 
 it('handles multiple error codes', function () {

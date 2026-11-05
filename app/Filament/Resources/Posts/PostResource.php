@@ -38,6 +38,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -67,10 +68,10 @@ final class PostResource extends Resource
                         TextInput::make('title')
                             ->required()
                             ->live(onBlur: true)
-                            ->afterStateUpdated(function (Set $set, $state) use ($schema): void {
+                            ->afterStateUpdated(function (Set $set, mixed $state) use ($schema): void {
                                 // If operating on an existing record, don't update the slug.
                                 if ($schema->getOperation() === 'create') {
-                                    $set('slug', Str::slug($state));
+                                    $set('slug', Str::slug(is_string($state) ? $state : ''));
                                 }
                             }),
 
@@ -84,7 +85,12 @@ final class PostResource extends Resource
                             ->rows(3)
                             ->maxLength(500)
                             ->live(debounce: 200)
-                            ->helperText(fn (Get $get): string => mb_strlen($get('excerpt') ?? '').'/500 characters'),
+                            ->helperText(function (Get $get): string {
+                                /** @var string $string */
+                                $string = $get('excerpt') ?: '';
+
+                                return mb_strlen($string).'/500 characters';
+                            }),
 
                         MarkdownEditor::make('text')
                             ->fileAttachmentsDirectory('posts')
@@ -195,13 +201,19 @@ final class PostResource extends Resource
                 ForceDeleteBulkAction::make()->outlined(),
                 RestoreBulkAction::make()->outlined(),
                 BulkAction::make('generate thumbnails')
-                    ->action(fn (Collection $records) => $records->each(fn (Post $post) => CreateOgImageJob::dispatch($post))),
+                    ->action(function (Collection $records): void {
+                        foreach ($records as $record) {
+                            /** @var Post $record */
+                            CreateOgImageJob::dispatch($record);
+                        }
+                    }),
             ])
-            ->defaultSort(fn ($query) => $query->orderBy('is_published', 'asc')->orderBy('published_at', 'desc'));
+            ->defaultSort(fn (Builder $query) => $query->orderBy('is_published', 'asc')->orderBy('published_at', 'desc'));
     }
 
     public static function getGlobalSearchResultTitle(Model $record): string
     {
+        /** @var Post $record */
         return $record->title;
     }
 

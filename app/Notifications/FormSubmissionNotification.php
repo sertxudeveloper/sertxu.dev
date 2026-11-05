@@ -19,6 +19,9 @@ final class FormSubmissionNotification extends Notification implements ShouldQue
         private readonly FormSubmission $submission,
     ) {}
 
+    /**
+     * @return list<string>
+     */
     public function via(User $notifiable): array
     {
         return ['mail'];

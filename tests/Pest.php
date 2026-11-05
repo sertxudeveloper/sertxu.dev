@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Storage;
-use Pest\Livewire\InteractsWithLivewire;
 use Tests\TestCase;
 
 /*
@@ -18,9 +16,7 @@ use Tests\TestCase;
 |
 */
 
-pest()->extend(TestCase::class, RefreshDatabase::class)
-    ->use(InteractsWithLivewire::class)
-    ->beforeEach(fn () => Storage::fake('public'));
+pest()->extend(TestCase::class, RefreshDatabase::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +29,7 @@ pest()->extend(TestCase::class, RefreshDatabase::class)
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
+expect()->extend('toBeOne', fn () => $this->toBe(1));
 
 /*
 |--------------------------------------------------------------------------
@@ -48,14 +42,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function something(): void
 {
     // ..
-}
-
-if (! function_exists('livewire')) {
-    function livewire(string $name, array $params = [])
-    {
-        return test()->livewire(...func_get_args());
-    }
 }

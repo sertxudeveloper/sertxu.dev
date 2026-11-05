@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Rules\TurnstileRule;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Override;
 
@@ -18,6 +19,9 @@ final class ContactFormRequest extends FormRequest
     #[Override]
     protected $redirect = '/#contact';
 
+    /**
+     * @return array<string, list<string|ValidationRule>>
+     */
     public function rules(): array
     {
         return [

@@ -16,7 +16,7 @@ beforeEach(function () {
 
 it('refreshes tokens for users with expiring tokens', function () {
     Http::fake([
-        'graph.threads.net/*' => Http::response([
+        'https://graph.threads.net/*' => Http::response([
             'access_token' => 'new-token',
             'expires_in' => 5183999,
         ], 200),
@@ -58,7 +58,7 @@ it('does nothing when no users have threads tokens', function () {
 
 it('refreshes tokens for multiple users with expiring tokens', function () {
     Http::fake([
-        'graph.threads.net/*' => Http::response([
+        'https://graph.threads.net/*' => Http::response([
             'access_token' => 'new-token',
             'expires_in' => 5183999,
         ], 200),
@@ -90,7 +90,7 @@ it('refreshes tokens for multiple users with expiring tokens', function () {
 
 it('includes users whose tokens expire exactly at the threshold', function () {
     Http::fake([
-        'graph.threads.net/*' => Http::response([
+        'https://graph.threads.net/*' => Http::response([
             'access_token' => 'new-token',
             'expires_in' => 5183999,
         ], 200),

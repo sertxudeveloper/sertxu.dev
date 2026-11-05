@@ -19,7 +19,7 @@ beforeEach(function () {
 
 it('publishes the post to threads and marks as posted', function () {
     Http::fake([
-        'graph.threads.net/*' => Http::response(['id' => '123'], 200),
+        'https://graph.threads.net/*' => Http::response(['id' => '123'], 200),
     ]);
 
     User::factory()->create([

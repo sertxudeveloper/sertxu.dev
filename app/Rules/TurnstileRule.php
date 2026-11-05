@@ -20,6 +20,12 @@ final readonly class TurnstileRule implements ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        if (! is_string($value)) {
+            $fail('The response parameter must be a string.');
+
+            return;
+        }
+
         $response = $this->turnstileClient->siteVerify($value);
 
         if (! $response->isSuccess()) {
@@ -29,7 +35,15 @@ final readonly class TurnstileRule implements ValidationRule
 
     private function handleErrorCodes(TurnstileResponse $response, Closure $fail): void
     {
-        foreach ($response->getErrorCodes() as $errorCode) {
+        $errorCodes = $response->getErrorCodes();
+
+        if ($errorCodes === []) {
+            $fail('An unexpected error occurred.');
+
+            return;
+        }
+
+        foreach ($errorCodes as $errorCode) {
             $fail($this->mapErrorCodeToMessage($errorCode));
         }
     }

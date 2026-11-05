@@ -12,7 +12,6 @@ it('has the correct model assigned', function () {
 it('belongs to the Forms navigation group', function () {
     $reflection = new ReflectionClass(FormSubmissionResource::class);
     $property = $reflection->getProperty('navigationGroup');
-    $property->setAccessible(true);
 
     expect($property->getValue())->toBe('Forms');
 });

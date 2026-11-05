@@ -9,19 +9,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use JetBrains\PhpStorm\NoReturn;
 use JTSmith\Cloudflare\Services\Cloudflare\CachePurgeService;
 
 final class PurgeCacheContentJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * @param  list<string>  $urls
+     */
     public function __construct(private readonly array $urls) {}
 
     /**
      * Handle the job.
      */
-    #[NoReturn]
     public function handle(CachePurgeService $cloudflare): void
     {
         $cloudflare->purgeCache($this->urls);

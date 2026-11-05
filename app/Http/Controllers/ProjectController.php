@@ -15,15 +15,24 @@ final readonly class ProjectController
      */
     public function index(Request $request): View
     {
-        $projects = Project::query()
+        $tag = $request->input('tag') ?: null;
+        $tag = is_string($tag) ? $tag : null;
+
+        $query = Project::query()
             ->wherePublished()
-            ->when($request->input('tag'), fn ($query) => $query->withAnyTags($request->input('tag')))
-            ->defaultOrder()
+            ->defaultOrder();
+
+        if ($tag) {
+            $query->withAnyTags($tag);
+        }
+
+        $projects = $query
             ->paginate(perPage: 6)
             ->onEachSide(2);
 
         return view('projects.index', [
             'projects' => $projects,
+            'tag' => $tag,
         ]);
     }
 

@@ -12,30 +12,46 @@ use Illuminate\Http\Request;
 final readonly class PostController
 {
     /**
-     * Get the post index page.
+     * Get the post's index page.
      */
     public function index(Request $request): View
     {
-        $posts = Post::query()
+        $tag = $request->input('tag') ?: null;
+        $tag = is_string($tag) ? $tag : null;
+
+        $search = $request->input('search');
+        $search = is_string($search) ? $search : null;
+
+        $query = Post::query()
             ->wherePublished()
-            ->with('media')
-            ->when($request->input('tag'), fn (Builder $query) => $query->withAnyTags($request->input('tag')))
-            ->when($request->input('search'), fn (Builder $query) => $query->where(function (Builder $query) use ($request): void {
-                $query->whereLike('title', "%{$request->input('search')}%")
-                    ->orWhereLike('excerpt', "%{$request->input('search')}%")
-                    ->orWhereLike('text', "%{$request->input('search')}%");
-            }))
+            ->with('media');
+
+        if ($tag) {
+            $query->withAnyTags($tag);
+        }
+
+        if ($search) {
+            $query->where(function (Builder $query) use ($search): void {
+                $query->whereLike('title', "%{$search}%")
+                    ->orWhereLike('excerpt', "%{$search}%")
+                    ->orWhereLike('text', "%{$search}%");
+            });
+        }
+
+        $posts = $query
             ->orderByDesc('published_at')
             ->paginate(perPage: 12)
             ->onEachSide(2);
 
         return view('posts.index', [
             'posts' => $posts,
+            'search' => $search,
+            'tag' => $tag,
         ]);
     }
 
     /**
-     * Get the post show page.
+     * Get the post's show page.
      */
     public function show(Post $post): View
     {

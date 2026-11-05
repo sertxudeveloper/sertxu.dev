@@ -44,6 +44,32 @@ it('fails when Cloudflare rejects the token', function () {
     expect($failMessage)->toBe('The response parameter is invalid or has expired.');
 });
 
+it('fails generically when verification fails without usable error codes', function () {
+    Http::fake([
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([
+            'success' => false,
+        ], 200),
+    ]);
+
+    $failMessages = [];
+    $rule = new TurnstileRule();
+    $rule->validate('cf-turnstile-response', 'token', function (string $message) use (&$failMessages): void {
+        $failMessages[] = $message;
+    });
+
+    expect($failMessages)->toBe(['An unexpected error occurred.']);
+});
+
+it('rejects a non-string token without contacting Cloudflare', function () {
+    $failMessage = null;
+
+    (new TurnstileRule())->validate('cf-turnstile-response', ['invalid'], function (string $message) use (&$failMessage): void {
+        $failMessage = $message;
+    });
+
+    expect($failMessage)->toBe('The response parameter must be a string.');
+});
+
 it('fails with missing-input-response error code', function () {
     Http::fake([
         'https://challenges.cloudflare.com/turnstile/v0/siteverify' => Http::response([

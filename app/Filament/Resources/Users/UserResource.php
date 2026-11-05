@@ -113,6 +113,10 @@ final class UserResource extends Resource
 
     public static function getGlobalSearchResultTitle(Model $record): string
     {
+        if (! ($record instanceof User)) {
+            return '';
+        }
+
         return $record->email;
     }
 

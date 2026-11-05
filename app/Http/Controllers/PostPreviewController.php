@@ -15,7 +15,7 @@ final readonly class PostPreviewController
      */
     public function __invoke(Request $request, Post $post): View
     {
-        abort_unless($request->user(), 404);
+        abort_unless($request->user() !== null, 404);
 
         return view('posts.show', [
             'post' => $post,

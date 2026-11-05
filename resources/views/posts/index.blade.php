@@ -2,12 +2,12 @@
     $title = 'Blog - sertxu.dev';
     $description = 'Thoughts on development, infrastructure, and the tools I use.';
 
-    if (request()->filled('tag')) {
-        $title = 'Posts tagged "' . request()->get('tag') . '" - sertxu.dev';
-        $description = 'Blog posts tagged with "' . request()->get('tag') . '" on sertxu.dev.';
-    } elseif (request()->filled('search')) {
-        $title = 'Search results for "' . request()->get('search') . '" - sertxu.dev';
-        $description = 'Search results for "' . request()->get('search') . '" on sertxu.dev.';
+    if (filled($tag)) {
+        $title = 'Posts tagged "' . $tag . '" - sertxu.dev';
+        $description = 'Blog posts tagged with "' . $tag . '" on sertxu.dev.';
+    } elseif (filled($search)) {
+        $title = 'Search results for "' . $search . '" - sertxu.dev';
+        $description = 'Search results for "' . $search . '" on sertxu.dev.';
     }
 @endphp
 
@@ -34,7 +34,7 @@
                 <form action="{{ route('posts.index') }}" method="GET" class="mt-10 flex items-center gap-4 max-w-md mx-auto">
                     <input type="text" id="search" name="search" placeholder="Search posts..."
                            class="bg-transparent border-0 border-b border-neutral-800 text-sm py-2 w-full transition-all duration-200 focus:border-b-ocean placeholder:text-neutral-700 outline-none"
-                           value="{{ request('search') }}"
+                            value="{{ $search }}"
                     />
 
                     <button type="submit" class="bg-ocean text-white text-sm transition-all cursor-pointer px-3 py-2 hover:bg-ocean/80">
@@ -45,10 +45,10 @@
 
             <p class="text-center text-neutral-500 text-sm mt-10">
                 {{ $posts->total() }} {{ Str::plural('post', $posts->total()) }}
-                @if(request()->filled('search'))
-                    found for &quot;{{ request('search') }}&quot;
-                @elseif(request()->filled('tag'))
-                    tagged &quot;{{ request('tag') }}&quot;
+                @if(filled($search))
+                    found for &quot;{{ $search }}&quot;
+                @elseif(filled($tag))
+                    tagged &quot;{{ $tag }}&quot;
                 @else
                     so far
                 @endif

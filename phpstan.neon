@@ -1,10 +1,9 @@
 includes:
     - vendor/larastan/larastan/extension.neon
     - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+    - vendor/nesbot/carbon/extension.neon
 
 parameters:
-    checkMissingIterableValueType: true
-
     level: max
 
     paths:
@@ -13,3 +12,9 @@ parameters:
         - bootstrap
         - database/factories
         - routes
+
+    databaseMigrationsPath:
+        - database/migrations
+
+    configDirectories:
+        - config

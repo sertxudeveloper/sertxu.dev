@@ -8,6 +8,9 @@ use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Override;
 
+/**
+ * @extends Factory<Project>
+ */
 final class ProjectFactory extends Factory
 {
     #[Override]
@@ -17,7 +20,7 @@ final class ProjectFactory extends Factory
     {
         return [
             'title' => $this->faker->word(),
-            'slug' => $this->faker->slug(),
+            'slug' => $this->faker->slug(nbWords: 4, variableNbWords: false),
             'excerpt' => $this->faker->sentence(),
             'text' => $this->faker->paragraphs(asText: true),
             'website' => $this->faker->word(),

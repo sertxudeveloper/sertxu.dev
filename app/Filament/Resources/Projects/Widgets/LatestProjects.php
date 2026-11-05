@@ -21,7 +21,7 @@ final class LatestProjects extends BaseWidget
         return $table
             ->query(Project::query()->orderByDesc('id')->take(4))
             ->columns([
-                TextColumn::make('title')->limit(30)->tooltip(fn (Model $post) => $post->title),
+                TextColumn::make('title')->limit(30)->tooltip(fn (Model $record): string => $record instanceof Project ? $record->title : ''),
                 IconColumn::make('is_published')->boolean(),
             ])
             ->recordActions([

@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Http\RedirectResponse;
 
 final readonly class PostThumbnailController
 {
     /**
      * Serve the post thumbnail.
      */
-    public function __invoke(Post $post)
+    public function __invoke(Post $post): RedirectResponse
     {
         abort_unless($post->is_published, 404);
 

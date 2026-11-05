@@ -8,6 +8,9 @@ use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Override;
 
+/**
+ * @extends Factory<Post>
+ */
 final class PostFactory extends Factory
 {
     #[Override]

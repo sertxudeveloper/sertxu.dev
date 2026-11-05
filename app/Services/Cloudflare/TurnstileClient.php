@@ -24,7 +24,7 @@ final class TurnstileClient
 
     private function sendTurnstileVerificationRequest(string $response): Response
     {
-        return Http::retry(self::RETRY_ATTEMPTS, self::RETRY_DELAY)
+        return Http::retry(self::RETRY_ATTEMPTS, self::RETRY_DELAY, throw: false)
             ->asForm()
             ->acceptJson()
             ->post(self::TURNSTILE_VERIFY_ENDPOINT, [
@@ -39,9 +39,27 @@ final class TurnstileClient
             return new TurnstileResponse(success: false, errorCodes: []);
         }
 
+        $payload = $response->json();
+        $success = is_array($payload) ? ($payload['success'] ?? null) : null;
+        $rawErrorCodes = is_array($payload) ? ($payload['error-codes'] ?? null) : null;
+        $errorCodes = [];
+        $hasValidErrorCodes = is_array($rawErrorCodes) && array_is_list($rawErrorCodes);
+
+        if ($hasValidErrorCodes) {
+            foreach ($rawErrorCodes as $errorCode) {
+                if (! is_string($errorCode)) {
+                    $hasValidErrorCodes = false;
+
+                    continue;
+                }
+
+                $errorCodes[] = $errorCode;
+            }
+        }
+
         return new TurnstileResponse(
-            success: $response->json('success'),
-            errorCodes: $response->json('error-codes')
+            success: $success === true && $hasValidErrorCodes && $errorCodes === [],
+            errorCodes: $errorCodes,
         );
     }
 }

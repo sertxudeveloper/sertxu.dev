@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Services\Threads\Threads;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 final readonly class ThreadsAuthController
@@ -12,7 +13,7 @@ final readonly class ThreadsAuthController
     /**
      * Redirect the user to the Threads authentication page.
      */
-    public function index(Threads $threads): \Illuminate\Http\RedirectResponse
+    public function index(Threads $threads): RedirectResponse
     {
         return $threads->authenticate();
     }
@@ -20,7 +21,7 @@ final readonly class ThreadsAuthController
     /**
      * Authenticate the user with Threads.
      */
-    public function store(Request $request, Threads $threads)
+    public function store(Request $request, Threads $threads): RedirectResponse
     {
         $threads->authenticateCallback($request);
 
