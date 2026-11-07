@@ -4,26 +4,26 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e54dbb7e7767c3746db94c9d974a0035",
+    "content-hash": "a13eb6a46325768b010a23109024c938",
     "packages": [
         {
             "name": "abraham/twitteroauth",
-            "version": "8.4.0",
+            "version": "9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/abraham/twitteroauth.git",
-                "reference": "146b097468e411f662b9ede04a5d92e9b5b718f2"
+                "reference": "730b30cd15eab4aac558cbb75658ebeb74f59327"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abraham/twitteroauth/zipball/146b097468e411f662b9ede04a5d92e9b5b718f2",
-                "reference": "146b097468e411f662b9ede04a5d92e9b5b718f2",
+                "url": "https://api.github.com/repos/abraham/twitteroauth/zipball/730b30cd15eab4aac558cbb75658ebeb74f59327",
+                "reference": "730b30cd15eab4aac558cbb75658ebeb74f59327",
                 "shasum": ""
             },
             "require": {
                 "composer/ca-bundle": "^1",
                 "ext-curl": "*",
-                "php": "^8.2"
+                "php": "^8.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9",
@@ -63,7 +63,7 @@
                 "issues": "https://github.com/abraham/twitteroauth/issues",
                 "source": "https://github.com/abraham/twitteroauth"
             },
-            "time": "2026-11-01T02:53:15+00:00"
+            "time": "2026-11-01T03:07:49+00:00"
         },
         {
             "name": "anourvalar/eloquent-serialize",
@@ -801,7 +801,7 @@
         },
         {
             "name": "composer/class-map-generator",
-             "version": "1.9.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/class-map-generator.git",
