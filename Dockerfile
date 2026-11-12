@@ -4,7 +4,7 @@
 # fetch is only re-run when Puppeteer itself changes and not on every lockfile
 # update. CI resolves the version from package-lock.json and passes it in as a
 # build argument, which keeps this stage cached.
-FROM node:24-bookworm-slim AS browser
+FROM node:25-bookworm-slim AS browser
 
 ARG PUPPETEER_VERSION=25.14.0
 
