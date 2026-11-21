@@ -1,6 +1,7 @@
+name: Build, smoke, and promote image
+
 on:
   workflow_call:
-
 
 jobs:
   build:
@@ -31,32 +32,30 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4.4.1
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v6.2.0
-        with:
-          images: ${{ github.repository }}
-          tags: |
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=tag
-            type=ref,event=pr
-            type=sha,format=long
-            type=raw,value=latest,enable={{is_default_branch}}
+      - name: Calculate app version
+        id: app_version
+        run: |
+          echo "date=$(git log --pretty="format:%cd" --date="format:%Y.%m.%d %H:%M" -n1 HEAD)" >> $GITHUB_OUTPUT
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Build and push
+      - name: Build and push candidate image
         id: build-and-push
         uses: docker/build-push-action@v7.4.0
         with:
-            context: .
-            file: Dockerfile
-            platforms: linux/amd64
-            push: true
-            pull: true
-            tags: ${{ steps.meta.outputs.tags }}
-            labels: ${{ steps.meta.outputs.labels }}
-            cache-from: type=registry,ref=${{ github.repository }}:buildcache
-            cache-to: type=registry,ref=${{ github.repository }}:buildcache,mode=max
+          context: .
+          file: Dockerfile
+          platforms: linux/amd64
+          push: true
+          pull: true
+          # Candidate tag is for smoke testing only; Flux ignores ci-* tags.
+          tags: ${{ github.repository }}:ci-${{ github.sha }}
+          secrets: |
+            RELEASE_SHA="${{ github.sha }}"
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          cache-from: type=registry,ref=${{ github.repository }}:buildcache
+          cache-to: type=registry,ref=${{ github.repository }}:buildcache,mode=max
 
   smoke:
     name: Smoke test image
@@ -98,7 +97,7 @@ jobs:
 
       - name: Smoke test the built image
         env:
-          # Test the exact manifest that is about to be deployed, not a tag.
+          # Test the exact manifest that is about to be promoted, not a tag.
           IMAGE: "${{ github.repository }}@${{ needs.build.outputs.digest }}"
           # Minimum acceptable PHP version. Bump when the security floor moves.
           SMOKE_MIN_PHP: 8.5.12
@@ -111,42 +110,31 @@ jobs:
           SMOKE_DB_PASSWORD: postgres
         run: bash docker/smoke-test.sh
 
-  deploy:
-    name: Deploy to K8s
+  promote:
+    name: Promote verified image
     needs:
       - build
       - smoke
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
     environment: production
     steps:
-      - name: Deploy new image
-        uses: appleboy/ssh-action@v1.2.5
+      - name: Login to Docker Hub
+        uses: docker/login-action@v4.8.0
         with:
-          host: ${{ secrets.KUBERNETES_MASTER_SSH_HOST }}
-          username: ${{ secrets.KUBERNETES_MASTER_SSH_USER }}
-          port: ${{ secrets.KUBERNETES_MASTER_SSH_PORT }}
-          key: ${{ secrets.KUBERNETES_MASTER_SSH_KEY }}
-          command_timeout: 30m
-          script: |
-            set -e
-            export KUBECONFIG=~/.kube/config
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-            IMAGE="${{ github.repository }}@${{ needs.build.outputs.digest }}"
-            NAMESPACE="sertxudev"
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4.4.1
 
-            echo "🚀 Updating deployments to image: $IMAGE"
+      - name: Promote smoke-tested digest to Flux-watched tags
+        run: |
+          set -euo pipefail
+          IMAGE="${{ github.repository }}@${{ needs.build.outputs.digest }}"
 
-            # Update all deployments
-            microk8s kubectl set image deployment/sertxudev-app -n $NAMESPACE sertxudev-app="$IMAGE"
-            microk8s kubectl set image deployment/sertxudev-worker -n $NAMESPACE sertxudev-worker="$IMAGE"
-            microk8s kubectl set image deployment/sertxudev-scheduler -n $NAMESPACE sertxudev-scheduler="$IMAGE"
-
-            echo "⏳ Waiting for rollouts to complete..."
-
-            # Wait for each rollout and verify success
-            microk8s kubectl rollout status deployment/sertxudev-app -n $NAMESPACE --timeout=15m
-            microk8s kubectl rollout status deployment/sertxudev-worker -n $NAMESPACE --timeout=15m
-            microk8s kubectl rollout status deployment/sertxudev-scheduler -n $NAMESPACE --timeout=15m
-
-            echo "✅ All deployments successfully rolled out"
+          echo "Promoting verified image: $IMAGE"
+          docker buildx imagetools create \
+            --tag "${{ github.repository }}:main-${{ github.run_number }}" \
+            --tag "${{ github.repository }}:sha-${{ github.sha }}" \
+            "$IMAGE"

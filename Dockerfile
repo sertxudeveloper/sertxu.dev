@@ -111,6 +111,10 @@ RUN APP_KEY="base64:$(head -c 32 /dev/urandom | base64 -w0)" \
 RUN npm run build && \
     PUPPETEER_SKIP_DOWNLOAD=true npm prune --omit=dev --no-audit --no-fund
 
+# Add release version SHA
+RUN --mount=type=secret,id=RELEASE_SHA,env=RELEASE_SHA \
+    sed -i "s/sertxu.dev@release-sha/sertxu.dev@$RELEASE_SHA/" config/sentry.php
+
 ENV AUTORUN_ENABLED="true" \
     AUTORUN_LARAVEL_MIGRATION_ISOLATION="true" \
     AUTORUN_LARAVEL_MIGRATION_TIMEOUT="60" \

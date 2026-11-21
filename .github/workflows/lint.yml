@@ -1,0 +1,49 @@
+name: linter
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '24'
+
+      - name: Install Node Dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Run Pint
+        run: composer run lint
+
+      - name: Run Rector
+        run: composer run refactor
+
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v7.2.1
+        with:
+          commit_message: fix code style
+          commit_options: '--no-verify'
+          file_pattern: |
+            **/*
+            !.github/workflows/*
