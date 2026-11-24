@@ -6,14 +6,14 @@
 # build argument, which keeps this stage cached.
 FROM node:26-bookworm-slim AS browser
 
-ARG PUPPETEER_VERSION=25.14.0
+ARG PUPPETEER_VERSION="latest"
 
 ENV PUPPETEER_CACHE_DIR=/browser
 
 RUN npm install --global "puppeteer@${PUPPETEER_VERSION}" && \
     test -d /browser/chrome
 
-FROM serversideup/php:8.5-fpm-nginx
+FROM serversideup/php:8.5-fpm-nginx-v5.2.2
 
 USER root
 
